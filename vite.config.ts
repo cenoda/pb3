@@ -65,4 +65,8 @@ export default defineConfig({
       allow: [repoRoot],
     },
   },
+  build: {
+    // three + R3F land in one client chunk (~1.2MB) for Phase 0; not a regression signal.
+    chunkSizeWarningLimit: 1500,
+  },
 });

@@ -4,12 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
-    "test": "vitest run --config vitest.config.ts",
-    "test:e2e": "playwright test",
-    "test:e2e:headed": "playwright test --headed",
+    "dev": "node scripts/run-clean-env.mjs vite",
+    "build": "node scripts/run-clean-env.mjs tsc -b && node scripts/run-clean-env.mjs vite build",
+    "preview": "node scripts/run-clean-env.mjs vite preview",
+    "test": "node scripts/run-clean-env.mjs vitest run --config vitest.config.ts",
+    "test:e2e": "node scripts/run-clean-env.mjs playwright test",
+    "test:e2e:headed": "node scripts/run-clean-env.mjs playwright test --headed",
     "test:all": "pnpm test && pnpm test:e2e"
   },
   "dependencies": {
