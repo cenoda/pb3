@@ -4,7 +4,9 @@ Per-phase working areas (specs, TODO, fix log). Cross-cutting project docs stay 
 
 | Phase | Path | Status |
 |-------|------|--------|
-| Phase 0 — Vertical slice | [`phase-0/`](./phase-0/) | Specs + fixtures ready; `implementation_plan.md` written; implementation not started |
+| Phase 0 — Vertical slice | [`phase-0/`](./phase-0/) | Complete; `vertical-slice-v0` tagged and pushed |
+| Phase 1 — Performance prediction engine | [`phase-1/`](./phase-1/) | Complete; `perf1` stub engine verified and closed out |
+| Phase 2 — Basic estimate service | Not created yet | M0 planning next; implementation not started |
 
 Fixture data remains at repo root: `parts/`, `benchmarks/` (not moved into phase folders).
 
