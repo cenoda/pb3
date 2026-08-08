@@ -1,0 +1,8 @@
+{
+  "contractVersion": "vs0",
+  "id": "case.mid-tower-atx-01",
+  "category": "case",
+  "displayName": "Mid-tower ATX Case 01 (fixture)",
+  "modelGlbPath": "parts/case/case.mid-tower-atx-01/model.glb",
+  "notes": "Phase-0 placeholder mesh; not a measured chassis."
+}

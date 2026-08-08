@@ -1,0 +1,8 @@
+{
+  "contractVersion": "vs0",
+  "id": "gpu.rtx4070",
+  "category": "gpu",
+  "displayName": "GeForce RTX 4070 (fixture)",
+  "modelGlbPath": "parts/gpu/gpu.rtx4070/model.glb",
+  "notes": "Shorter dual-slot-ish placeholder so GPU swaps are obvious vs rtx4080."
+}

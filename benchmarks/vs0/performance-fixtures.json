@@ -1,0 +1,151 @@
+{
+  "contractVersion": "vs0",
+  "dataVersion": "perf-fixture-2026-08-08",
+  "description": "Phase-0 performance stubs for wiring only. All confidence values are 'stub'. Do not treat fpsMin/fpsMax as laboratory measurements.",
+  "rows": [
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolutionId": "1080p",
+      "fpsMin": 80,
+      "fpsMax": 95,
+      "confidence": "stub",
+      "dataVersion": "perf-fixture-2026-08-08",
+      "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolutionId": "1440p",
+      "fpsMin": 52,
+      "fpsMax": 64,
+      "confidence": "stub",
+      "dataVersion": "perf-fixture-2026-08-08",
+      "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolutionId": "4k",
+      "fpsMin": 28,
+      "fpsMax": 36,
+      "confidence": "stub",
+      "dataVersion": "perf-fixture-2026-08-08",
+      "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolutionId": "1080p",
+      "fpsMin": 125,
+      "fpsMax": 145,
+      "confidence": "stub",
+      "dataVersion": "perf-fixture-2026-08-08",
+      "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolutionId": "1440p",
+      "fpsMin": 90,
+      "fpsMax": 108,
+      "confidence": "stub",
+      "dataVersion": "perf-fixture-2026-08-08",
+      "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolutionId": "4k",
+      "fpsMin": 50,
+      "fpsMax": 62,
+      "confidence": "stub",
+      "dataVersion": "perf-fixture-2026-08-08",
+      "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolutionId": "1080p",
+      "fpsMin": 100,
+      "fpsMax": 118,
+      "confidence": "stub",
+      "dataVersion": "perf-fixture-2026-08-08",
+      "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolutionId": "1440p",
+      "fpsMin": 58,
+      "fpsMax": 70,
+      "confidence": "stub",
+      "dataVersion": "perf-fixture-2026-08-08",
+      "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolutionId": "4k",
+      "fpsMin": 30,
+      "fpsMax": 38,
+      "confidence": "stub",
+      "dataVersion": "perf-fixture-2026-08-08",
+      "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolutionId": "1080p",
+      "fpsMin": 155,
+      "fpsMax": 180,
+      "confidence": "stub",
+      "dataVersion": "perf-fixture-2026-08-08",
+      "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolutionId": "1440p",
+      "fpsMin": 115,
+      "fpsMax": 138,
+      "confidence": "stub",
+      "dataVersion": "perf-fixture-2026-08-08",
+      "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolutionId": "4k",
+      "fpsMin": 65,
+      "fpsMax": 82,
+      "confidence": "stub",
+      "dataVersion": "perf-fixture-2026-08-08",
+      "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
+    }
+  ]
+}

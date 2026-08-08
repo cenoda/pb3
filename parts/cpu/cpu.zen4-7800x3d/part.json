@@ -1,0 +1,8 @@
+{
+  "contractVersion": "vs0",
+  "id": "cpu.zen4-7800x3d",
+  "category": "cpu",
+  "displayName": "Ryzen 7 7800X3D (fixture)",
+  "modelGlbPath": "parts/cpu/cpu.zen4-7800x3d/model.glb",
+  "notes": "Phase-0 placeholder mesh."
+}

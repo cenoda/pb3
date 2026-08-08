@@ -1,0 +1,8 @@
+{
+  "contractVersion": "vs0",
+  "id": "cpu.zen4-7600",
+  "category": "cpu",
+  "displayName": "Ryzen 5 7600 (fixture)",
+  "modelGlbPath": "parts/cpu/cpu.zen4-7600/model.glb",
+  "notes": "Phase-0 placeholder mesh."
+}

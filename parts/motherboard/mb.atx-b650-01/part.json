@@ -1,0 +1,8 @@
+{
+  "contractVersion": "vs0",
+  "id": "mb.atx-b650-01",
+  "category": "motherboard",
+  "displayName": "ATX B650 Board 01 (fixture)",
+  "modelGlbPath": "parts/motherboard/mb.atx-b650-01/model.glb",
+  "notes": "Phase-0 placeholder mesh."
+}

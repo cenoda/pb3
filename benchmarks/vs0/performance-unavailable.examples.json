@@ -1,0 +1,94 @@
+{
+  "contractVersion": "vs0",
+  "dataVersion": "perf-fixture-2026-08-08",
+  "description": "Test-only unavailable PerformanceEstimate examples. Queries here are intentionally absent from performance-fixtures.json. Keep separate from the 12-row happy-path table.",
+  "examples": [
+    {
+      "note": "GPU id not present in part catalog / fixture table",
+      "query": {
+        "contractVersion": "vs0",
+        "cpuId": "cpu.zen4-7600",
+        "gpuId": "gpu.not-in-catalog",
+        "gameId": "game.cyberpunk-2077",
+        "presetId": "preset.raster-ultra",
+        "resolutionId": "1440p"
+      },
+      "estimate": {
+        "contractVersion": "vs0",
+        "query": {
+          "contractVersion": "vs0",
+          "cpuId": "cpu.zen4-7600",
+          "gpuId": "gpu.not-in-catalog",
+          "gameId": "game.cyberpunk-2077",
+          "presetId": "preset.raster-ultra",
+          "resolutionId": "1440p"
+        },
+        "status": "unavailable",
+        "fpsMin": null,
+        "fpsMax": null,
+        "confidence": "none",
+        "dataVersion": "perf-fixture-2026-08-08",
+        "basis": "no fixture row for this combination",
+        "reason": "missing_fixture_row"
+      }
+    },
+    {
+      "note": "CPU id not present in fixture table",
+      "query": {
+        "contractVersion": "vs0",
+        "cpuId": "cpu.not-in-catalog",
+        "gpuId": "gpu.rtx4070",
+        "gameId": "game.cyberpunk-2077",
+        "presetId": "preset.raster-ultra",
+        "resolutionId": "1080p"
+      },
+      "estimate": {
+        "contractVersion": "vs0",
+        "query": {
+          "contractVersion": "vs0",
+          "cpuId": "cpu.not-in-catalog",
+          "gpuId": "gpu.rtx4070",
+          "gameId": "game.cyberpunk-2077",
+          "presetId": "preset.raster-ultra",
+          "resolutionId": "1080p"
+        },
+        "status": "unavailable",
+        "fpsMin": null,
+        "fpsMax": null,
+        "confidence": "none",
+        "dataVersion": "perf-fixture-2026-08-08",
+        "basis": "no fixture row for this combination",
+        "reason": "missing_fixture_row"
+      }
+    },
+    {
+      "note": "Unsupported game id (phase-0 only ships one game constant)",
+      "query": {
+        "contractVersion": "vs0",
+        "cpuId": "cpu.zen4-7600",
+        "gpuId": "gpu.rtx4070",
+        "gameId": "game.not-supported",
+        "presetId": "preset.raster-ultra",
+        "resolutionId": "4k"
+      },
+      "estimate": {
+        "contractVersion": "vs0",
+        "query": {
+          "contractVersion": "vs0",
+          "cpuId": "cpu.zen4-7600",
+          "gpuId": "gpu.rtx4070",
+          "gameId": "game.not-supported",
+          "presetId": "preset.raster-ultra",
+          "resolutionId": "4k"
+        },
+        "status": "unavailable",
+        "fpsMin": null,
+        "fpsMax": null,
+        "confidence": "none",
+        "dataVersion": "perf-fixture-2026-08-08",
+        "basis": "no fixture row for this combination",
+        "reason": "missing_fixture_row"
+      }
+    }
+  ]
+}

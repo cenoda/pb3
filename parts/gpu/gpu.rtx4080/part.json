@@ -1,0 +1,8 @@
+{
+  "contractVersion": "vs0",
+  "id": "gpu.rtx4080",
+  "category": "gpu",
+  "displayName": "GeForce RTX 4080 (fixture)",
+  "modelGlbPath": "parts/gpu/gpu.rtx4080/model.glb",
+  "notes": "Longer triple-slot-ish placeholder; clearly larger than rtx4070."
+}
