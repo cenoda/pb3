@@ -1,8 +1,8 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { loadPartCatalog } from "./catalog/loadPartCatalog";
-import { loadPerformanceFixtures } from "./catalog/loadPerformanceFixtures";
-import type { PerformanceFixtureFile } from "./contract/vs0";
+import { loadPerf1Fixtures, type Perf1Fixtures } from "./catalog/loadPerf1Fixtures";
 import { useBuildStore } from "./state/buildStore";
+import { usePerfPanelStore } from "./state/perfPanelState";
 import {
   buildStateFromSearchParams,
   replaceUrlWithBuildState,
@@ -23,7 +23,7 @@ type BootState =
   | {
       status: "ready";
       catalog: PartCatalog;
-      fixtures: PerformanceFixtureFile;
+      perf1Fixtures: Perf1Fixtures;
     };
 
 export default function App() {
@@ -39,9 +39,9 @@ export default function App() {
 
     async function bootApp() {
       try {
-        const [catalog, fixtures] = await Promise.all([
+        const [catalog, perf1Fixtures] = await Promise.all([
           loadPartCatalog(),
-          loadPerformanceFixtures(),
+          loadPerf1Fixtures(),
         ]);
 
         if (cancelled) return;
@@ -55,8 +55,9 @@ export default function App() {
         );
 
         init(decoded);
+        usePerfPanelStore.getState().resetCorrection();
         replaceUrlWithBuildState(decoded);
-        setBoot({ status: "ready", catalog, fixtures });
+        setBoot({ status: "ready", catalog, perf1Fixtures });
       } catch (error) {
         if (cancelled) return;
         const message =
@@ -129,7 +130,10 @@ export default function App() {
             onChange={setGpu}
           />
           <BuildSummary buildState={buildState} catalog={boot.catalog} />
-          <PerformancePanel buildState={buildState} fixtures={boot.fixtures} />
+          <PerformancePanel
+            buildState={buildState}
+            perf1Fixtures={boot.perf1Fixtures}
+          />
         </section>
         <section style={styles.viewport} data-testid="viewport-section">
           <h2 style={{ marginTop: 0, fontSize: "1rem" }}>3D viewport</h2>

@@ -1,34 +1,264 @@
 import { RESOLUTIONS } from "../contract/vs0";
-import type { PerformanceFixtureFile } from "../contract/vs0";
 import type { BuildState } from "../contract/vs0";
-import { estimatePerformance } from "../perf/estimatePerformance";
-import { queriesForBuild } from "../perf/queriesForBuild";
+import type {
+  BaselineEstimateResult,
+  CorrectionInput,
+  Perf1ResolutionId,
+  WorkloadId,
+  WorkloadMetric,
+} from "../contract/perf1";
+import type { Perf1Fixtures } from "../catalog/loadPerf1Fixtures";
+import { applyCorrection } from "../perf/applyCorrection";
+import { baselineQueriesForBuild } from "../perf/baselineQuery";
+import { estimateBaseline } from "../perf/estimateBaseline";
+import { estimateWorkload } from "../perf/estimateWorkload";
+import { usePerfPanelStore } from "../state/perfPanelState";
 
 interface PerformancePanelProps {
   buildState: BuildState;
-  fixtures: PerformanceFixtureFile;
+  perf1Fixtures: Perf1Fixtures;
 }
 
-export function PerformancePanel({ buildState, fixtures }: PerformancePanelProps) {
-  const estimates = queriesForBuild(buildState).map((query) =>
-    estimatePerformance(query, fixtures),
+const WORKLOAD_IDS: WorkloadId[] = ["cinebench.r23", "cinebench.2024"];
+const WORKLOAD_METRICS: WorkloadMetric[] = [
+  "metric.single-core",
+  "metric.multi-core",
+];
+
+function isUnavailable(
+  result: BaselineEstimateResult,
+): result is { status: "unavailable"; reason: string } {
+  return "status" in result && result.status === "unavailable";
+}
+
+function isPerformanceEstimate(
+  result: BaselineEstimateResult,
+): result is Exclude<BaselineEstimateResult, { status: "unavailable" }> {
+  return !isUnavailable(result);
+}
+
+export function PerformancePanel({
+  buildState,
+  perf1Fixtures,
+}: PerformancePanelProps) {
+  const dimensions = usePerfPanelStore((s) => s.dimensions);
+  const correction = usePerfPanelStore((s) => s.correction);
+  const setUpscaleId = usePerfPanelStore((s) => s.setUpscaleId);
+  const setFrameGenId = usePerfPanelStore((s) => s.setFrameGenId);
+  const setRamTierId = usePerfPanelStore((s) => s.setRamTierId);
+  const setCorrection = usePerfPanelStore((s) => s.setCorrection);
+  const resetCorrection = usePerfPanelStore((s) => s.resetCorrection);
+
+  const queries = baselineQueriesForBuild(buildState, dimensions);
+  const labelById = new Map(RESOLUTIONS.map((r) => [r.id, r.label]));
+
+  const rows = queries.map((query) => {
+    const baseline = estimateBaseline(query, perf1Fixtures.baseline);
+    const correctionResult =
+      isPerformanceEstimate(baseline) ?
+        applyCorrection(query, baseline, correction)
+      : null;
+
+    return { query, baseline, correctionResult };
+  });
+
+  const cinebenchRows = WORKLOAD_IDS.flatMap((workloadId) =>
+    WORKLOAD_METRICS.map((metric) => ({
+      workloadId,
+      metric,
+      result: estimateWorkload(
+        {
+          cpuId: buildState.cpuId as "cpu.zen4-7600" | "cpu.zen4-7800x3d",
+          workloadId,
+          metric,
+        },
+        perf1Fixtures.cinebench,
+      ),
+    })),
   );
 
-  const labelById = new Map(RESOLUTIONS.map((r) => [r.id, r.label]));
+  function updateCorrection(patch: Partial<CorrectionInput>) {
+    setCorrection({ ...correction, ...patch });
+  }
 
   return (
     <section data-testid="performance-panel">
-      <h2 style={{ marginTop: 0, fontSize: "1rem" }}>Performance (stub ranges)</h2>
+      <h2 style={{ marginTop: 0, fontSize: "1rem" }}>
+        Performance (perf1 engine)
+      </h2>
+
+      <div
+        style={{
+          display: "grid",
+          gap: "0.5rem",
+          marginBottom: "1rem",
+          fontSize: "0.9rem",
+        }}
+      >
+        <label>
+          Upscaling{" "}
+          <select
+            data-testid="upscale-select"
+            value={dimensions.upscaleId}
+            onChange={(e) =>
+              setUpscaleId(e.target.value as typeof dimensions.upscaleId)
+            }
+          >
+            <option value="upscale.off">Native (off)</option>
+            <option value="upscale.dlss-quality">DLSS Quality</option>
+          </select>
+        </label>
+        <label>
+          Frame generation{" "}
+          <select
+            data-testid="framegen-select"
+            value={dimensions.frameGenId}
+            onChange={(e) =>
+              setFrameGenId(e.target.value as typeof dimensions.frameGenId)
+            }
+          >
+            <option value="framegen.off">Off</option>
+            <option value="framegen.on">On</option>
+          </select>
+        </label>
+        <label>
+          RAM profile{" "}
+          <select
+            data-testid="ram-select"
+            value={dimensions.ramTierId}
+            onChange={(e) =>
+              setRamTierId(e.target.value as typeof dimensions.ramTierId)
+            }
+          >
+            <option value="ram.16gb-ddr5">16 GB DDR5</option>
+            <option value="ram.32gb-ddr5">32 GB DDR5</option>
+          </select>
+        </label>
+      </div>
+
+      <details style={{ marginBottom: "1rem", fontSize: "0.9rem" }}>
+        <summary>Environment correction (optional)</summary>
+        <div
+          data-testid="correction-controls"
+          style={{
+            display: "grid",
+            gap: "0.5rem",
+            marginTop: "0.5rem",
+          }}
+        >
+          <label>
+            CPU power{" "}
+            <select
+              data-testid="cpu-power-select"
+              value={correction.cpuPowerId ?? ""}
+              onChange={(e) =>
+                updateCorrection({
+                  cpuPowerId:
+                    e.target.value ?
+                      (e.target.value as CorrectionInput["cpuPowerId"])
+                    : undefined,
+                })
+              }
+            >
+              <option value="">(default)</option>
+              <option value="cpu-power.default">Default</option>
+              <option value="cpu-power.reduced">Reduced</option>
+            </select>
+          </label>
+          <label>
+            GPU power{" "}
+            <select
+              data-testid="gpu-power-select"
+              value={correction.gpuPowerId ?? ""}
+              onChange={(e) =>
+                updateCorrection({
+                  gpuPowerId:
+                    e.target.value ?
+                      (e.target.value as CorrectionInput["gpuPowerId"])
+                    : undefined,
+                })
+              }
+            >
+              <option value="">(default)</option>
+              <option value="gpu-power.default">Default</option>
+              <option value="gpu-power.reduced">Reduced</option>
+            </select>
+          </label>
+          <label>
+            Cooling bucket{" "}
+            <select
+              data-testid="cooling-select"
+              value={correction.coolingBucketId ?? ""}
+              onChange={(e) =>
+                updateCorrection({
+                  coolingBucketId:
+                    e.target.value ?
+                      (e.target.value as CorrectionInput["coolingBucketId"])
+                    : undefined,
+                })
+              }
+            >
+              <option value="">(none)</option>
+              <option value="cooling.sufficient">Sufficient</option>
+              <option value="cooling.marginal">Marginal</option>
+              <option value="cooling.insufficient">Insufficient</option>
+            </select>
+          </label>
+          <label>
+            Load profile{" "}
+            <select
+              data-testid="load-profile-select"
+              value={correction.loadProfileId ?? ""}
+              onChange={(e) =>
+                updateCorrection({
+                  loadProfileId:
+                    e.target.value ?
+                      (e.target.value as CorrectionInput["loadProfileId"])
+                    : undefined,
+                })
+              }
+            >
+              <option value="">(none)</option>
+              <option value="load.transient">Transient</option>
+              <option value="load.sustained">Sustained</option>
+            </select>
+          </label>
+          <label>
+            Evidence source id{" "}
+            <input
+              data-testid="evidence-source-input"
+              type="text"
+              value={correction.evidenceSourceId ?? ""}
+              onChange={(e) =>
+                updateCorrection({
+                  evidenceSourceId: e.target.value || undefined,
+                })
+              }
+              placeholder="optional — required for sustained+cooling stub"
+            />
+          </label>
+          <button type="button" onClick={resetCorrection}>
+            Clear correction
+          </button>
+        </div>
+      </details>
+
       <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-        {estimates.map((estimate) => {
-          const label = labelById.get(estimate.query.resolutionId) ?? estimate.query.resolutionId;
-          const resId = estimate.query.resolutionId;
+        {rows.map(({ query, baseline, correctionResult }) => {
+          const resId = query.resolution as Perf1ResolutionId;
+          const label = labelById.get(resId) ?? resId;
+          const unavailable = isUnavailable(baseline);
+
+          const displayEstimate =
+            correctionResult?.status === "ok" ? correctionResult : (
+              isPerformanceEstimate(baseline) ? baseline : null
+            );
 
           return (
             <li
               key={resId}
               data-testid={`perf-row-${resId}`}
-              data-status={estimate.status}
+              data-status={unavailable ? "unavailable" : "ok"}
               style={{
                 border: "1px solid #ddd",
                 borderRadius: "4px",
@@ -37,28 +267,86 @@ export function PerformancePanel({ buildState, fixtures }: PerformancePanelProps
               }}
             >
               <div style={{ fontWeight: 600 }}>{label}</div>
-              {estimate.status === "ok" ? (
-                <>
-                  <div data-testid={`perf-range-${resId}`}>
-                    {estimate.fpsMin}–{estimate.fpsMax} FPS
-                  </div>
-                  <div style={{ fontSize: "0.85rem", color: "#555" }}>
-                    confidence: {estimate.confidence} · {estimate.dataVersion} · {estimate.basis}
-                  </div>
-                </>
-              ) : (
+              {unavailable ? (
                 <div
                   data-testid={`perf-unavailable-${resId}`}
                   style={{ fontSize: "0.9rem", color: "#666" }}
                 >
-                  {estimate.basis}
-                  {estimate.reason ? ` (${estimate.reason})` : ""}
+                  {baseline.reason}
                 </div>
-              )}
+              ) : displayEstimate ? (
+                <>
+                  <div data-testid={`perf-range-${resId}`}>
+                    {displayEstimate.fpsMin}–{displayEstimate.fpsMax} FPS
+                  </div>
+                  <div
+                    data-testid={`perf-limiting-${resId}`}
+                    style={{ fontSize: "0.85rem", color: "#444" }}
+                  >
+                    {displayEstimate.limitingFactor.category}:{" "}
+                    {displayEstimate.limitingFactor.explanation}
+                  </div>
+                  <div style={{ fontSize: "0.85rem", color: "#555" }}>
+                    confidence: {displayEstimate.confidence} ·{" "}
+                    {displayEstimate.dataVersion} · {displayEstimate.basis}
+                  </div>
+                  {correctionResult?.status === "ok" ? (
+                    <div
+                      data-testid={`perf-correction-reason-${resId}`}
+                      style={{ fontSize: "0.85rem", color: "#1d4ed8" }}
+                    >
+                      Correction: {correctionResult.reason}
+                    </div>
+                  ) : null}
+                  {correctionResult?.status === "withheld" ? (
+                    <div
+                      data-testid={`perf-withheld-${resId}`}
+                      style={{ fontSize: "0.85rem", color: "#b45309" }}
+                    >
+                      {correctionResult.reason}
+                    </div>
+                  ) : null}
+                </>
+              ) : null}
             </li>
           );
         })}
       </ul>
+
+      <section data-testid="cinebench-panel" style={{ marginTop: "1.25rem" }}>
+        <h3 style={{ marginTop: 0, fontSize: "0.95rem" }}>Cinebench (CPU)</h3>
+        <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+          {cinebenchRows.map(({ workloadId, metric, result }) => {
+            const key = `${workloadId}-${metric}`;
+            return (
+              <li
+                key={key}
+                data-testid={`cinebench-row-${key}`}
+                data-status={"status" in result ? result.status : "ok"}
+                style={{
+                  border: "1px solid #eee",
+                  borderRadius: "4px",
+                  padding: "0.5rem 0.75rem",
+                  marginBottom: "0.35rem",
+                  fontSize: "0.85rem",
+                }}
+              >
+                <strong>
+                  {workloadId} · {metric}
+                </strong>
+                {"score" in result ?
+                  <div data-testid={`cinebench-score-${key}`}>
+                    {result.score} pts (confidence: {result.confidence})
+                  </div>
+                : <div data-testid={`cinebench-unavailable-${key}`}>
+                    {result.reason}
+                  </div>
+                }
+              </li>
+            );
+          })}
+        </ul>
+      </section>
     </section>
   );
 }
