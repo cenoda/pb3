@@ -32,6 +32,11 @@
 - [x] Fixture HTTP → repo-root SSOT; `/parts` + `/benchmarks`; Vite serve + dist copy
 - Note: still not implementation start
 
+### License ([`ADR-004`](../../decisions/ADR-004-license-code-apache-2.0.md))
+
+- [x] Code + data (`parts/`, `benchmarks/`) → **Apache License 2.0** (root `LICENSE`)
+- [ ] 3D assets (`model.glb`) — still open; resolve before real hardware models ship
+
 ### Implementation (only after explicit “start implementation”)
 
 - [ ] Scaffold app that loads fixtures from `/parts` and `/benchmarks` (or agreed paths)
@@ -44,7 +49,7 @@
 
 ### Parallel
 
-- [ ] Open-source license discussion (code / data / assets) — can stay parallel; finish **code** license before third-party deps
+- [x] Open-source license — code + data: **Apache-2.0** (see License section above); 3D assets still open
 
 ## Explicit non-goals (do not add here)
 

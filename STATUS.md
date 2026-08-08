@@ -68,9 +68,15 @@
 - **fixture:** 디스크 SSOT = 루트 `parts/`, `benchmarks/` · HTTP = `/parts`, `/benchmarks` · Vite dev 서빙 + build 시 `dist/` 복사
 - **문서:** [`docs/decisions/ADR-003-stage3-tooling-and-fixtures.md`](docs/decisions/ADR-003-stage3-tooling-and-fixtures.md)
 
+## 라이선스 (ADR-004)
+
+- **코드 + 데이터(`parts/`, `benchmarks/`):** Apache License 2.0 (루트 `LICENSE` 파일)
+- **3D 에셋 (`model.glb`):** 아직 미정 — 실제 하드웨어 모델 쓰기 전에 별도 결정 필요 (제조사 트레이드마크/디자인권 이슈)
+- **문서:** [`docs/decisions/ADR-004-license-code-apache-2.0.md`](docs/decisions/ADR-004-license-code-apache-2.0.md)
+
 ## 아직 정하지 않음
 
-- 오픈소스 라이선스 (코드 / 데이터 / 3D 에셋 분리 논의; **의존성 설치 전** 코드 라이선스 권장)
+- 3D 에셋 라이선스 (실제 하드웨어 모델 사용 전 결정)
 - 배포 호스트 세부 (의도적 미룸; 이후 GCP/Azure)
 - GCP vs Azure 구체 상품
 - 실측 벤치마크 원시 스키마 (제품 1단계)
@@ -79,5 +85,4 @@
 
 ## 다음 작업
 
-1. (권장) 코드 라이선스 방향 합의
-2. **명시적 구현 시작** → 스캐폴드 (ADR-001–003) → 로컬 종료 시나리오 → 태그 `vertical-slice-v0`
+1. **명시적 구현 시작** → 스캐폴드 (ADR-001–003) → 로컬 종료 시나리오 → 태그 `vertical-slice-v0`

@@ -53,7 +53,7 @@ Detail: [`ADR-003-stage3-tooling-and-fixtures.md`](./ADR-003-stage3-tooling-and-
 
 | Decision | Notes |
 |----------|--------|
-| **Open-source license** (code / data / 3D assets may differ) | Can discuss anytime; **finish code license before adding third-party dependencies** to avoid painful incompatibility rework |
+| **Open-source license** (code / data / 3D assets may differ) | **Code + data locked: Apache-2.0** ([`ADR-004`](./ADR-004-license-code-apache-2.0.md)). **3D assets still open** — resolve before real hardware models ship. |
 
 ## Recommended sequence (short)
 
@@ -62,11 +62,11 @@ runtime shape = static SPA (ADR-001, scoped)  ✓
   deploy host deferred: local only for now; later GCP or Azure
   language + React + R3F + Vite (ADR-002)  ✓
   pnpm + Zod + Zustand + Vitest + fixture /parts|/benchmarks (ADR-003)  ✓
+  license: code + data = Apache-2.0 (ADR-004)  ✓ (3D assets still open)
   → implement scaffold (only after owner “start implementation”)
-  → prefer license discussion before first third-party install
 ```
 
-License: parallel, but before `npm install` / equivalent.
+License: code + data settled ahead of first third-party install.
 
 ### Deploy implications (accepted constraint)
 
@@ -82,6 +82,7 @@ License: parallel, but before `npm install` / equivalent.
 | [`ADR-001-runtime-static-spa.md`](./ADR-001-runtime-static-spa.md) | Static SPA runtime (scoped 0–3; revisit on server compute) |
 | [`ADR-002-stack-core-ts-react-r3f-vite.md`](./ADR-002-stack-core-ts-react-r3f-vite.md) | TS + React + R3F + Vite |
 | [`ADR-003-stage3-tooling-and-fixtures.md`](./ADR-003-stage3-tooling-and-fixtures.md) | pnpm, Zod, Zustand, Vitest, fixture HTTP |
+| [`ADR-004-license-code-apache-2.0.md`](./ADR-004-license-code-apache-2.0.md) | License: code + data = Apache-2.0; 3D assets open |
 
 When further items lock, add `ADR-NNN-title.md` and update:
 

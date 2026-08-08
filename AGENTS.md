@@ -10,7 +10,8 @@ This file is the **repository-level agent brief**. Aria (Grok Build), Lira (Clau
 |------|--------|
 | Repository contents | **Docs + fixtures only** — no app source, no `package.json`, no build/test/lint toolchain |
 | Implementation | **Not started** |
-| Stack / runtime / license | **Undecided** |
+| Stack / runtime / tooling | **Locked** (ADR-001–003) |
+| License | Code + data: **Apache-2.0** (ADR-004); 3D assets still open |
 | Tag `vertical-slice-v0` | **Not created** |
 | Discarded history | Experimental scaffold `1d54c10` (Vite/React/R3F SPA + ADR-001) was **fully discarded**. Do not revive it unless the owner re-approves a stack and implementation start |
 
@@ -123,7 +124,7 @@ Canonical detail: [`docs/decisions/TECH-DECISION-ORDER.md`](docs/decisions/TECH-
 2. **Stack core — locked:** **TypeScript + React + R3F + Vite** ([`ADR-002`](docs/decisions/ADR-002-stack-core-ts-react-r3f-vite.md)). Discarded scaffold `1d54c10` is not baseline.
 3. **Stage 3 — locked:** **pnpm**, **Zod**, **Zustand**, **Vitest**; fixtures SSOT at repo-root `parts/` + `benchmarks/`, HTTP `/parts` + `/benchmarks`, Vite dev serve + build copy ([`ADR-003`](docs/decisions/ADR-003-stage3-tooling-and-fixtures.md)).
 4. IDE/DX — owner plans **WebStorm + Cursor**
-5. **License** still open (parallel); finish code license before third-party deps when possible.
+5. **License — locked (ADR-004):** code + data = **Apache License 2.0** (root `LICENSE`). 3D asset (`model.glb`) license still open — resolve before real hardware models ship.
 
 **Implementation** still requires explicit owner start — ADR locks alone do not authorize `pnpm install` or app scaffold.
 
