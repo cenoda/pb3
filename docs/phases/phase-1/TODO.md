@@ -15,11 +15,11 @@
 
 ### Deliverable 3 — fixture stub data
 
-- [ ] Baseline performance fixture table (96 rows; all rows `confidence: "stub"` until real benches exist)
-- [ ] Cinebench workload fixture table (8 rows; §2.5 — separate from FPS baseline matrix)
-- [ ] Environment-correction fixture examples (allowed correction inputs only)
-- [ ] Unavailable / withheld-correction examples (tests only, separate from happy-path table)
-- [ ] Data-only fixture integrity check
+- [x] Baseline performance fixture table (96 rows; all rows `confidence: "stub"` until real benches exist)
+- [x] Cinebench workload fixture table (8 rows; §2.5 — separate from FPS baseline matrix)
+- [x] Environment-correction fixture examples (allowed correction inputs only)
+- [x] Unavailable / withheld-correction examples (tests only, separate from happy-path table)
+- [x] Data-only fixture integrity check
 
 ### Deliverable 4 — implementation plan
 

@@ -1,0 +1,1927 @@
+{
+  "contractVersion": "perf1",
+  "dataVersion": "perf1",
+  "description": "Phase-1 baseline performance stubs for wiring only. All confidence values are 'stub'. Do not treat fpsMin/fpsMax as laboratory measurements.",
+  "rows": [
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 74,
+      "fpsMax": 87,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 80,
+      "fpsMax": 95,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 137,
+      "fpsMax": 161,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 148,
+      "fpsMax": 176,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 90,
+      "fpsMax": 107,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 98,
+      "fpsMax": 116,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 167,
+      "fpsMax": 198,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 181,
+      "fpsMax": 215,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 48,
+      "fpsMax": 59,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: 1440p ultra remains primarily GPU-limited on RTX 4070-class fixture GPU."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 52,
+      "fpsMax": 64,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: 1440p ultra remains primarily GPU-limited on RTX 4070-class fixture GPU."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 89,
+      "fpsMax": 109,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 96,
+      "fpsMax": 118,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 58,
+      "fpsMax": 72,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: 1440p ultra remains primarily GPU-limited on RTX 4070-class fixture GPU."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 63,
+      "fpsMax": 78,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: 1440p ultra remains primarily GPU-limited on RTX 4070-class fixture GPU."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 107,
+      "fpsMax": 133,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 117,
+      "fpsMax": 144,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 26,
+      "fpsMax": 33,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "RAM-bound",
+        "explanation": "Stub ordinal: 16 GB DDR5 baseline profile is asserted RAM-bound at native 4K ultra in this fixture row."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 28,
+      "fpsMax": 36,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: 4K raster ultra is GPU-limited for this fixture GPU tier."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 48,
+      "fpsMax": 61,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "RAM-bound",
+        "explanation": "Stub ordinal: 16 GB DDR5 baseline profile is asserted RAM-bound at native 4K ultra in this fixture row."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 52,
+      "fpsMax": 67,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 31,
+      "fpsMax": 40,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "VRAM pressure",
+        "explanation": "Stub ordinal: 16 GB system RAM with 4K DLSS Quality still shows fixture VRAM pressure in this combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 34,
+      "fpsMax": 44,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: 4K raster ultra is GPU-limited for this fixture GPU tier."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 57,
+      "fpsMax": 74,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "VRAM pressure",
+        "explanation": "Stub ordinal: 16 GB system RAM with 4K DLSS Quality still shows fixture VRAM pressure in this combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 63,
+      "fpsMax": 81,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 115,
+      "fpsMax": 133,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 125,
+      "fpsMax": 145,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 213,
+      "fpsMax": 246,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 231,
+      "fpsMax": 268,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 141,
+      "fpsMax": 163,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 153,
+      "fpsMax": 177,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 261,
+      "fpsMax": 302,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 283,
+      "fpsMax": 327,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 83,
+      "fpsMax": 99,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 90,
+      "fpsMax": 108,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 154,
+      "fpsMax": 183,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 167,
+      "fpsMax": 200,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 101,
+      "fpsMax": 121,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 110,
+      "fpsMax": 132,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 187,
+      "fpsMax": 224,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 204,
+      "fpsMax": 244,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 46,
+      "fpsMax": 57,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "RAM-bound",
+        "explanation": "Stub ordinal: 16 GB DDR5 baseline profile is asserted RAM-bound at native 4K ultra in this fixture row."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 50,
+      "fpsMax": 62,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 85,
+      "fpsMax": 105,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "RAM-bound",
+        "explanation": "Stub ordinal: 16 GB DDR5 baseline profile is asserted RAM-bound at native 4K ultra in this fixture row."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 93,
+      "fpsMax": 115,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 56,
+      "fpsMax": 70,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "VRAM pressure",
+        "explanation": "Stub ordinal: 16 GB system RAM with 4K DLSS Quality still shows fixture VRAM pressure in this combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 61,
+      "fpsMax": 76,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 104,
+      "fpsMax": 130,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "VRAM pressure",
+        "explanation": "Stub ordinal: 16 GB system RAM with 4K DLSS Quality still shows fixture VRAM pressure in this combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7600",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 113,
+      "fpsMax": 141,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 92,
+      "fpsMax": 109,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 100,
+      "fpsMax": 118,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 170,
+      "fpsMax": 202,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 185,
+      "fpsMax": 218,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 112,
+      "fpsMax": 132,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 122,
+      "fpsMax": 144,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 207,
+      "fpsMax": 244,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 226,
+      "fpsMax": 266,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 53,
+      "fpsMax": 64,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: 1440p ultra remains primarily GPU-limited on RTX 4070-class fixture GPU."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 58,
+      "fpsMax": 70,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: 1440p ultra remains primarily GPU-limited on RTX 4070-class fixture GPU."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 98,
+      "fpsMax": 118,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 107,
+      "fpsMax": 130,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 65,
+      "fpsMax": 78,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: 1440p ultra remains primarily GPU-limited on RTX 4070-class fixture GPU."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 71,
+      "fpsMax": 85,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: 1440p ultra remains primarily GPU-limited on RTX 4070-class fixture GPU."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 120,
+      "fpsMax": 144,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 131,
+      "fpsMax": 157,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 28,
+      "fpsMax": 35,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "RAM-bound",
+        "explanation": "Stub ordinal: 16 GB DDR5 baseline profile is asserted RAM-bound at native 4K ultra in this fixture row."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 30,
+      "fpsMax": 38,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: 4K raster ultra is GPU-limited for this fixture GPU tier."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 52,
+      "fpsMax": 65,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "RAM-bound",
+        "explanation": "Stub ordinal: 16 GB DDR5 baseline profile is asserted RAM-bound at native 4K ultra in this fixture row."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 56,
+      "fpsMax": 70,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 34,
+      "fpsMax": 42,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "VRAM pressure",
+        "explanation": "Stub ordinal: 16 GB system RAM with 4K DLSS Quality still shows fixture VRAM pressure in this combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 37,
+      "fpsMax": 46,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: 4K raster ultra is GPU-limited for this fixture GPU tier."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 63,
+      "fpsMax": 78,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "VRAM pressure",
+        "explanation": "Stub ordinal: 16 GB system RAM with 4K DLSS Quality still shows fixture VRAM pressure in this combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 68,
+      "fpsMax": 85,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 143,
+      "fpsMax": 166,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "CPU-bound",
+        "explanation": "Stub ordinal: high-end CPU+GPU at 1080p ultra is fixture CPU-bound before upscaling or frame generation."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 155,
+      "fpsMax": 180,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "CPU-bound",
+        "explanation": "Stub ordinal: high-end CPU+GPU at 1080p ultra is fixture CPU-bound before upscaling or frame generation."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 265,
+      "fpsMax": 307,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 287,
+      "fpsMax": 333,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 174,
+      "fpsMax": 202,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "CPU-bound",
+        "explanation": "Stub ordinal: high-end CPU+GPU at 1080p ultra is fixture CPU-bound before upscaling or frame generation."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 189,
+      "fpsMax": 220,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "CPU-bound",
+        "explanation": "Stub ordinal: high-end CPU+GPU at 1080p ultra is fixture CPU-bound before upscaling or frame generation."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 322,
+      "fpsMax": 374,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1080p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 350,
+      "fpsMax": 407,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 106,
+      "fpsMax": 127,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 115,
+      "fpsMax": 138,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 196,
+      "fpsMax": 235,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 213,
+      "fpsMax": 255,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 129,
+      "fpsMax": 155,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 140,
+      "fpsMax": 168,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 239,
+      "fpsMax": 287,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "1440p",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 259,
+      "fpsMax": 311,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 60,
+      "fpsMax": 75,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "RAM-bound",
+        "explanation": "Stub ordinal: 16 GB DDR5 baseline profile is asserted RAM-bound at native 4K ultra in this fixture row."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 65,
+      "fpsMax": 82,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 111,
+      "fpsMax": 139,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "RAM-bound",
+        "explanation": "Stub ordinal: 16 GB DDR5 baseline profile is asserted RAM-bound at native 4K ultra in this fixture row."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 120,
+      "fpsMax": 152,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 73,
+      "fpsMax": 92,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "VRAM pressure",
+        "explanation": "Stub ordinal: 16 GB system RAM with 4K DLSS Quality still shows fixture VRAM pressure in this combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.off",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 79,
+      "fpsMax": 100,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: baseline controlled conditions assert GPU as primary limiter for this fixture combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.16gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 135,
+      "fpsMax": 170,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "VRAM pressure",
+        "explanation": "Stub ordinal: 16 GB system RAM with 4K DLSS Quality still shows fixture VRAM pressure in this combo."
+      }
+    },
+    {
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4080",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "resolution": "4k",
+      "upscaleId": "upscale.dlss-quality",
+      "frameGenId": "framegen.on",
+      "ramTierId": "ram.32gb-ddr5",
+      "powerProfileId": "power.default",
+      "fpsMin": 146,
+      "fpsMax": 185,
+      "confidence": "stub",
+      "dataVersion": "perf1",
+      "basis": "phase-1 perf1 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results; framegen.on stub doubles perceived FPS via interpolation, not raw measured frames",
+      "limitingFactor": {
+        "category": "GPU-bound",
+        "explanation": "Stub ordinal: frame generation on raises displayed FPS via interpolation; raw render throughput remains GPU-limited in this fixture."
+      }
+    }
+  ]
+}

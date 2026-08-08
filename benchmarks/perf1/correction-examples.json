@@ -1,0 +1,120 @@
+{
+  "contractVersion": "perf1",
+  "dataVersion": "perf1",
+  "description": "Test-only environment-correction examples. Small set pairing BaselineQuery + CorrectionInput with CorrectedEstimate or WithheldCorrection outcomes. Not a production dataset; all confidence values are 'stub'.",
+  "examples": [
+    {
+      "note": "cpu-power.reduced applied alone — power-limit reduction correction",
+      "query": {
+        "cpuId": "cpu.zen4-7600",
+        "gpuId": "gpu.rtx4070",
+        "gameId": "game.cyberpunk-2077",
+        "presetId": "preset.raster-ultra",
+        "resolution": "1440p",
+        "upscaleId": "upscale.off",
+        "frameGenId": "framegen.off",
+        "ramTierId": "ram.32gb-ddr5",
+        "powerProfileId": "power.default"
+      },
+      "correction": {
+        "cpuPowerId": "cpu-power.reduced"
+      },
+      "result": {
+        "status": "ok",
+        "fpsMin": 46,
+        "fpsMax": 57,
+        "confidence": "stub",
+        "dataVersion": "perf1",
+        "basis": "phase-1 perf1 correction fixture; not measured; ordinal stub derate from baseline row",
+        "limitingFactor": {
+          "category": "power limit",
+          "explanation": "Stub ordinal: reduced CPU power limit tier shifts fixture bottleneck toward power limit under this correction."
+        },
+        "reason": "cpu-power.reduced applied: stub power-limit reduction lowers FPS range versus baseline controlled conditions."
+      }
+    },
+    {
+      "note": "cooling.insufficient + load.sustained with stub evidence present",
+      "query": {
+        "cpuId": "cpu.zen4-7800x3d",
+        "gpuId": "gpu.rtx4080",
+        "gameId": "game.cyberpunk-2077",
+        "presetId": "preset.raster-ultra",
+        "resolution": "4k",
+        "upscaleId": "upscale.off",
+        "frameGenId": "framegen.off",
+        "ramTierId": "ram.32gb-ddr5",
+        "powerProfileId": "power.default"
+      },
+      "correction": {
+        "coolingBucketId": "cooling.insufficient",
+        "loadProfileId": "load.sustained",
+        "evidenceSourceId": "fixture.stub-evidence-sustained-cooling"
+      },
+      "result": {
+        "status": "ok",
+        "fpsMin": 54,
+        "fpsMax": 68,
+        "confidence": "stub",
+        "dataVersion": "perf1",
+        "basis": "phase-1 perf1 correction fixture; not measured; ordinal stub derate with declared stub evidence",
+        "limitingFactor": {
+          "category": "GPU-bound",
+          "explanation": "Stub ordinal: sustained 4K load under insufficient cooling fixture bucket; GPU remains primary limiter with thermal headroom penalty applied."
+        },
+        "reason": "cooling.insufficient + load.sustained with stub evidence present: insufficient cooling under sustained load reduces FPS range versus baseline."
+      }
+    },
+    {
+      "note": "load.sustained without applicable evidence — withheld correction (completion scenario step 7)",
+      "query": {
+        "cpuId": "cpu.zen4-7600",
+        "gpuId": "gpu.rtx4080",
+        "gameId": "game.cyberpunk-2077",
+        "presetId": "preset.raster-ultra",
+        "resolution": "1080p",
+        "upscaleId": "upscale.dlss-quality",
+        "frameGenId": "framegen.off",
+        "ramTierId": "ram.32gb-ddr5",
+        "powerProfileId": "power.default"
+      },
+      "correction": {
+        "loadProfileId": "load.sustained"
+      },
+      "result": {
+        "status": "withheld",
+        "reason": "Sustained-performance correction was not computed: load.sustained supplied without applicable fixture evidence for this combo."
+      }
+    },
+    {
+      "note": "gpu-power.reduced applied alone — additional power-limit stub example",
+      "query": {
+        "cpuId": "cpu.zen4-7800x3d",
+        "gpuId": "gpu.rtx4070",
+        "gameId": "game.cyberpunk-2077",
+        "presetId": "preset.raster-ultra",
+        "resolution": "1080p",
+        "upscaleId": "upscale.off",
+        "frameGenId": "framegen.off",
+        "ramTierId": "ram.32gb-ddr5",
+        "powerProfileId": "power.default"
+      },
+      "correction": {
+        "gpuPowerId": "gpu-power.reduced"
+      },
+      "result": {
+        "status": "ok",
+        "fpsMin": 88,
+        "fpsMax": 104,
+        "confidence": "stub",
+        "dataVersion": "perf1",
+        "basis": "phase-1 perf1 correction fixture; not measured; ordinal stub derate from baseline row",
+        "limitingFactor": {
+          "category": "power limit",
+          "explanation": "Stub ordinal: reduced GPU power limit tier is asserted as primary limiter under this correction."
+        },
+        "reason": "gpu-power.reduced applied: stub power-limit reduction lowers FPS range versus baseline controlled conditions."
+      }
+    }
+  ]
+}

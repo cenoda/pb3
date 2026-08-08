@@ -38,7 +38,7 @@ docs/phases/phase-1/
 |------|--------|
 | Scope lock | **Written** — [`specs/phase-1.md`](./specs/phase-1.md); owner acceptance pending |
 | Data contract | Written — performance-data-contract.md; owner acceptance pending |
-| Fixtures | Not started (deliverable 3) |
+| Fixtures | **Written** — `benchmarks/perf1/` (96-row baseline + 8-row Cinebench + correction/unavailable examples); owner acceptance pending |
 | Runtime | **Static SPA** ([ADR-001](../../decisions/ADR-001-runtime-static-spa.md), scoped 0–3) |
 | Stack core | **TS + React + R3F + Vite** ([ADR-002](../../decisions/ADR-002-stack-core-ts-react-r3f-vite.md)) |
 | Stage 3 tools | **pnpm + Zod + Zustand + Vitest + fixture paths** ([ADR-003](../../decisions/ADR-003-stage3-tooling-and-fixtures.md)) |

@@ -1,0 +1,55 @@
+{
+  "contractVersion": "perf1",
+  "dataVersion": "perf1",
+  "description": "Test-only unavailable examples for perf1 baseline and workload paths. Queries here are intentionally absent from performance-fixtures.json and cinebench-fixtures.json.",
+  "examples": [
+    {
+      "note": "GPU id not present in fixture table (baseline path)",
+      "query": {
+        "cpuId": "cpu.zen4-7600",
+        "gpuId": "gpu.not-in-catalog",
+        "gameId": "game.cyberpunk-2077",
+        "presetId": "preset.raster-ultra",
+        "resolution": "1440p",
+        "upscaleId": "upscale.off",
+        "frameGenId": "framegen.off",
+        "ramTierId": "ram.32gb-ddr5",
+        "powerProfileId": "power.default"
+      },
+      "result": {
+        "status": "unavailable",
+        "reason": "No fixture row for gpuId gpu.not-in-catalog in perf1 baseline table."
+      }
+    },
+    {
+      "note": "Unknown upscaleId not in phase-1 §2.2 vocabulary",
+      "query": {
+        "cpuId": "cpu.zen4-7600",
+        "gpuId": "gpu.rtx4070",
+        "gameId": "game.cyberpunk-2077",
+        "presetId": "preset.raster-ultra",
+        "resolution": "1080p",
+        "upscaleId": "upscale.fsr-quality",
+        "frameGenId": "framegen.off",
+        "ramTierId": "ram.32gb-ddr5",
+        "powerProfileId": "power.default"
+      },
+      "result": {
+        "status": "unavailable",
+        "reason": "upscaleId upscale.fsr-quality is not in perf1 allowed vocabulary (upscale.off, upscale.dlss-quality)."
+      }
+    },
+    {
+      "note": "Unconfirmed Cinebench version id — rejected example, not new fixture vocabulary",
+      "query": {
+        "cpuId": "cpu.zen4-7600",
+        "workloadId": "cinebench.2026",
+        "metric": "metric.multi-core"
+      },
+      "result": {
+        "status": "unavailable",
+        "reason": "workloadId cinebench.2026 is unconfirmed; perf1 only supports cinebench.r23 and cinebench.2024."
+      }
+    }
+  ]
+}
