@@ -40,6 +40,7 @@ Detail: [`ADR-002-stack-core-ts-react-r3f-vite.md`](./ADR-002-stack-core-ts-reac
 | Package manager | **pnpm** |
 | Schema / state / test | **Zod** / **Zustand** / **Vitest** |
 | Fixture HTTP path strategy | Repo-root SSOT; browser `/parts`, `/benchmarks`; Vite dev serve + build copy into `dist/` |
+| Browser E2E (amendment) | **Playwright** headless — Phase 0 exit scenario (`pnpm test:e2e`) |
 
 Detail: [`ADR-003-stage3-tooling-and-fixtures.md`](./ADR-003-stage3-tooling-and-fixtures.md).
 
@@ -62,8 +63,9 @@ runtime shape = static SPA (ADR-001, scoped)  ✓
   deploy host deferred: local only for now; later GCP or Azure
   language + React + R3F + Vite (ADR-002)  ✓
   pnpm + Zod + Zustand + Vitest + fixture /parts|/benchmarks (ADR-003)  ✓
+  Playwright E2E for exit scenario (ADR-003 amendment)  ✓
   license: code + data = Apache-2.0 (ADR-004)  ✓ (3D assets still open)
-  → implement scaffold (only after owner “start implementation”)
+  → Phase 0 Steps 1–8 implemented; tag vertical-slice-v0 still owner-only
 ```
 
 License: code + data settled ahead of first third-party install.

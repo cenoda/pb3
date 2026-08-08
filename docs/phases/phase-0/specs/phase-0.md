@@ -106,11 +106,13 @@ The following is the only success path that closes phase 0:
 
 Checklist (same as exit criteria):
 
-- [ ] User can select CPU and GPU.
-- [ ] `BuildState` changes with selection.
-- [ ] 3D view replaces the GPU when `gpuId` changes.
-- [ ] Per-resolution expected performance ranges refresh for the fixed game/preset.
-- [ ] Full reload restores the same configuration from the URL.
+- [x] User can select CPU and GPU. (Playwright `pnpm test:e2e`)
+- [x] `BuildState` changes with selection. (Playwright)
+- [x] 3D view replaces the GPU when `gpuId` changes. (Playwright via `data-gpu-id`; visual GLB optional headed)
+- [x] Per-resolution expected performance ranges refresh for the fixed game/preset. (Playwright)
+- [x] Full reload restores the same configuration from the URL. (Playwright)
+
+Regression command: `pnpm test:all` (Vitest + Playwright headless). See [`../implementation_plan.md`](../implementation_plan.md) §5 and [`../../../e2e/exit-scenario.spec.ts`](../../../e2e/exit-scenario.spec.ts).
 
 ---
 

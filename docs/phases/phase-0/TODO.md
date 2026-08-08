@@ -43,13 +43,15 @@
 
 ### Implementation (only after explicit “start implementation”)
 
-- [ ] Scaffold app that loads fixtures from `/parts` and `/benchmarks` (or agreed paths)
-- [ ] CPU/GPU selection UI + `BuildState`
-- [ ] Full URL encode + partial URL decode
-- [ ] GPU GLB viewport swap
-- [ ] Stub performance panel (3 resolutions)
-- [ ] Reload restore verification
-- [ ] Exit checklist all green → tag `vertical-slice-v0`
+- [x] Scaffold app that loads fixtures from `/parts` and `/benchmarks` (or agreed paths)
+- [x] CPU/GPU selection UI + `BuildState`
+- [x] Full URL encode + partial URL decode
+- [x] GPU GLB viewport swap
+- [x] Stub performance panel (3 resolutions)
+- [x] Reload restore verification (URL sync unit tests + Playwright E2E)
+- [x] Exit checklist automated (Step 8 via Playwright headless) — tag still owner-only
+- [x] Playwright E2E harness (`pnpm test:e2e`) for exit scenario + fixture HTTP
+- [ ] Exit checklist all green → tag `vertical-slice-v0` (owner)
 
 ### Parallel
 

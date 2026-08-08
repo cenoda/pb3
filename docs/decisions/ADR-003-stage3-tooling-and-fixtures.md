@@ -49,7 +49,7 @@ Use `pnpm` for install/run scripts in docs and CI once implementation exists. Do
 |--------|------------|
 | Use for | Pure logic first: URL encode/decode, performance lookup, Zod schemas, catalog loaders |
 | Why | Same toolchain family as Vite; fast unit tests without a browser for most Phase 0 logic |
-| Browser/E2E | Optional later (e.g. Playwright) — **not** required by this ADR for Phase 0 exit if manual local checklist is accepted; prefer Vitest coverage of pure paths either way |
+| Browser/E2E | See **Amendment 2026-08-08** below — **Playwright** is now the project E2E tool for the Phase 0 exit scenario |
 
 ### Fixture HTTP strategy (normative)
 
@@ -102,16 +102,30 @@ Anti-patterns:
 
 - pnpm must be available in the owner environment (or install via Corepack).
 - One small Vite plugin/config surface to maintain for fixtures.
-- Zod/Zustand/Vitest add dependencies (expected for Stage 3).
+- Zod/Zustand/Vitest/Playwright add dependencies (expected for Stage 3 + E2E amendment).
 
 ### Explicit non-consequence
 
-- **Does not** start implementation or authorize `pnpm install` until the owner says so.
-- Does not lock UI component libraries, CSS approach, or E2E framework.
+- Does not lock UI component libraries or CSS approach.
+- Does not require pixel-level WebGL assertions; E2E proves URL/state/perf/selector + GPU id/path hooks.
+
+---
+
+## Amendment 2026-08-08 — Playwright E2E
+
+| Choice | **Playwright** (`@playwright/test`, headless Chromium) |
+|--------|--------------------------------------------------------|
+| Use for | Phase 0 **exit scenario** (spec §4 / plan Step 8): clean load, CPU/GPU change, URL rewrite, reload restore, fixture HTTP on built `dist/` |
+| Commands | `pnpm test:e2e` (build + `vite preview`); `pnpm test:all` = Vitest + Playwright |
+| Spec path | `e2e/exit-scenario.spec.ts` · config `playwright.config.ts` |
+| Why now | Owner requires automated regression instead of manual-only Step 8; ADR-003 already allowed optional browser E2E |
+| Not | Full visual regression of GLB meshes; optional headed run via `pnpm test:e2e:headed` for human sanity |
+
+Vitest remains the pure-logic suite. Playwright does **not** replace unit tests.
 
 ---
 
 ## Follow-ups
 
-1. Parallel: open-source **license** before first third-party install if not settled.
-2. Owner: **start implementation** → scaffold with ADR-001–003, Phase 0 exit checklist only.
+1. ~~Parallel: open-source **license**~~ — done (ADR-004).
+2. ~~Owner: **start implementation**~~ — Phase 0 Steps 1–8 shipped; tag `vertical-slice-v0` still owner-only.

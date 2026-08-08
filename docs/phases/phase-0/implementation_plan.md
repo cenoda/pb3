@@ -1,6 +1,6 @@
 # Phase 0 — Implementation Plan
 
-Status: **plan only — implementation not started**
+Status: **implementation complete (Step 8 verified 2026-08-08)** — tag `vertical-slice-v0` remains owner-only
 Scope authority: [`specs/phase-0.md`](./specs/phase-0.md)
 Data authority: [`specs/vertical-slice-data-contract.md`](./specs/vertical-slice-data-contract.md)
 Stack authority: [`ADR-001`](../../decisions/ADR-001-runtime-static-spa.md), [`ADR-002`](../../decisions/ADR-002-stack-core-ts-react-r3f-vite.md), [`ADR-003`](../../decisions/ADR-003-stage3-tooling-and-fixtures.md), [`ADR-004`](../../decisions/ADR-004-license-code-apache-2.0.md)
@@ -27,7 +27,7 @@ written.** This file is the first instance of that convention.
 | License | Code + data = Apache-2.0 — [`ADR-004`](../../decisions/ADR-004-license-code-apache-2.0.md) |
 | Data contract | `vs0` types + fixture IDs — [`vertical-slice-data-contract.md`](./specs/vertical-slice-data-contract.md) |
 | Fixtures on disk | `parts/**` (7 parts), `benchmarks/vs0/**` (12-row table + unavailable examples) — integrity-checked |
-| Owner "start implementation" | **Not yet given** — this plan is written ahead of that signal, not instead of it |
+| Owner "start implementation" | **Given** — scaffold shipped 2026-08-08 |
 
 If any of these are reopened before implementation starts, this plan must be revised first.
 
@@ -37,11 +37,14 @@ If any of these are reopened before implementation starts, this plan must be rev
 
 ```text
 pb3/
-  package.json                      pnpm, scripts: dev / build / preview / test
+  package.json                      pnpm, scripts: dev / build / preview / test / test:e2e / test:all
   pnpm-lock.yaml
   tsconfig.json
   vite.config.ts                    fixture serve (dev) + static copy (build), see §4
   vitest.config.ts                  or merged into vite.config.ts
+  playwright.config.ts              headless Chromium E2E (Step 8)
+  e2e/
+    exit-scenario.spec.ts           Phase 0 exit scenario + fixture HTTP on dist
   index.html
   src/
     main.tsx                        app entry, mounts <App/>
@@ -153,6 +156,8 @@ Walk the exact scenario from [`specs/phase-0.md`](./specs/phase-0.md) §4 on a c
 4. Copy the URL / reload → same CPU + GPU restored, ranges match.
 5. Change CPU/GPU again post-reload → still works.
 
+**Automated regression (required going forward):** `pnpm test:e2e` runs Playwright headless Chromium against `vite preview` (built `dist/`) via `e2e/exit-scenario.spec.ts`. Manual walkthrough remains useful for visual GLB sanity; URL/state/perf/selector paths are covered headless.
+
 Check off phase-0.md §4's checklist and this plan's own checklist below when all five pass.
 
 ### Step 9 — Tag
@@ -173,6 +178,7 @@ Check off phase-0.md §4's checklist and this plan's own checklist below when al
 ## 5. Testing strategy
 
 Per [`ADR-003`](../../decisions/ADR-003-stage3-tooling-and-fixtures.md): Vitest for pure logic first.
+**Owner update (2026-08-08):** Step 8 exit scenario is also automated with **Playwright** headless Chromium (ADR-003 allowed optional browser E2E later; now required for regression).
 
 | Layer | Covered by |
 |-------|-----------|
@@ -180,7 +186,8 @@ Per [`ADR-003`](../../decisions/ADR-003-stage3-tooling-and-fixtures.md): Vitest 
 | Catalog loading | `loadPartCatalog.test.ts` |
 | URL encode/decode | `urlSync.test.ts` |
 | Performance lookup | `estimatePerformance.test.ts` |
-| Full exit scenario | Manual walkthrough, Step 8 (no E2E framework required for phase-0 exit per ADR-003) |
+| Full exit scenario | `e2e/exit-scenario.spec.ts` (Playwright, headless) — replaces manual-only Step 8 as the regression gate |
+| Commands | `pnpm test` (Vitest), `pnpm test:e2e` (Playwright via preview build), `pnpm test:all` |
 
 ---
 
@@ -192,15 +199,15 @@ Same as [`specs/phase-0.md`](./specs/phase-0.md) §5 — do not let scaffold wor
 
 ## 7. Checklist (mirrors `TODO.md` Implementation section)
 
-- [ ] Step 1 — scaffold + fixture serving (dev + build)
-- [ ] Step 2 — contract types + Zod schemas
-- [ ] Step 3 — catalog + performance fixture loaders
-- [ ] Step 4 — `BuildState` store + URL encode/decode + reload restore
-- [ ] Step 5 — performance query + estimate functions
-- [ ] Step 6 — 3D viewport + GPU GLB swap
-- [ ] Step 7 — single build screen UI
-- [ ] Step 8 — exit scenario passes end-to-end on a clean checkout
-- [ ] Step 9 — tag `vertical-slice-v0`
+- [x] Step 1 — scaffold + fixture serving (dev + build)
+- [x] Step 2 — contract types + Zod schemas
+- [x] Step 3 — catalog + performance fixture loaders
+- [x] Step 4 — `BuildState` store + URL encode/decode + reload restore
+- [x] Step 5 — performance query + estimate functions
+- [x] Step 6 — 3D viewport + GPU GLB swap
+- [x] Step 7 — single build screen UI
+- [x] Step 8 — exit scenario passes end-to-end on a clean checkout
+- [ ] Step 9 — tag `vertical-slice-v0` (owner)
 
 ---
 

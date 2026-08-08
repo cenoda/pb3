@@ -1,7 +1,13 @@
 # JetBrains
 .idea/
 
-# Node (future implementation — see ADR-002/ADR-003; not created yet)
+# Node
 node_modules/
 dist/
 .pnpm-store/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

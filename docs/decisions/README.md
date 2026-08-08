@@ -14,7 +14,7 @@
 |-----|----------|--------|
 | [`ADR-001-runtime-static-spa.md`](./ADR-001-runtime-static-spa.md) | App runtime = **static SPA**, valid for charter phases **0–3** scope (no backend / auth / server-side measured perf model); **revisit** if server compute is required | Accepted |
 | [`ADR-002-stack-core-ts-react-r3f-vite.md`](./ADR-002-stack-core-ts-react-r3f-vite.md) | Stage 2 core = **TypeScript + React + R3F + Vite** (not implementation start) | Accepted |
-| [`ADR-003-stage3-tooling-and-fixtures.md`](./ADR-003-stage3-tooling-and-fixtures.md) | Stage 3 = **pnpm** + **Zod** + **Zustand** + **Vitest**; fixtures SSOT at repo root, HTTP `/parts` + `/benchmarks` via Vite serve/copy | Accepted |
+| [`ADR-003-stage3-tooling-and-fixtures.md`](./ADR-003-stage3-tooling-and-fixtures.md) | Stage 3 = **pnpm** + **Zod** + **Zustand** + **Vitest**; fixtures SSOT at repo root, HTTP `/parts` + `/benchmarks` via Vite serve/copy; **Amendment 2026-08-08:** **Playwright** headless E2E for Phase 0 exit scenario | Accepted |
 | [`ADR-004-license-code-apache-2.0.md`](./ADR-004-license-code-apache-2.0.md) | License = **Apache-2.0** for code + data fixtures (repo-root `LICENSE`); 3D assets still open | Accepted |
 
 ## Decided in docs (not yet formal ADRs)
@@ -38,7 +38,7 @@
 
 - **Stage 1–3:** Runtime, stack core, and tooling **locked** (ADR-001–003). Deploy remains deferred as above.
 - **License:** Code + data **locked** (ADR-004, Apache-2.0). **3D asset** license still open — resolve before real hardware models ship.
-- Implementation scaffold (needs explicit owner start)
+- Tag `vertical-slice-v0` (owner; after `pnpm test:all`)
 - Full benchmark raw schema (product phase 1)
 - Exact GCP vs Azure product (Static Web Apps, Blob+CDN, GCS+Cloud CDN, etc.) — later
 

@@ -65,6 +65,7 @@
 
 - **패키지 매니저:** pnpm
 - **스키마 / 상태 / 테스트:** Zod / Zustand / Vitest
+- **E2E (Amendment 2026-08-08):** Playwright headless Chromium — `pnpm test:e2e`, `e2e/exit-scenario.spec.ts`
 - **fixture:** 디스크 SSOT = 루트 `parts/`, `benchmarks/` · HTTP = `/parts`, `/benchmarks` · Vite dev 서빙 + build 시 `dist/` 복사
 - **문서:** [`docs/decisions/ADR-003-stage3-tooling-and-fixtures.md`](docs/decisions/ADR-003-stage3-tooling-and-fixtures.md)
 
@@ -85,4 +86,22 @@
 
 ## 다음 작업
 
-1. **명시적 구현 시작** → 스캐폴드 (ADR-001–003) → 로컬 종료 시나리오 → 태그 `vertical-slice-v0`
+1. ~~**명시적 구현 시작** → 스캐폴드 (ADR-001–003) → 로컬 종료 시나리오~~ → **구현 완료 (2026-08-08)**
+2. ~~Playwright headless E2E (Step 8 자동화)~~ → **추가 완료 (2026-08-08)**
+3. **태그 `vertical-slice-v0`** — 소유자가 `pnpm test:all` green 확인 후 수행
+
+## Phase 0 구현 상태 (2026-08-08)
+
+| 항목 | 상태 |
+|------|------|
+| Vite + React + R3F 스캐폴드 | 완료 |
+| Fixture HTTP (`/parts`, `/benchmarks`) dev + build | 완료 |
+| Contract layer (`vs0.ts`, Zod schemas) | 완료 |
+| Catalog + performance loaders | 완료 |
+| BuildState + URL sync (full encode / lenient decode) | 완료 |
+| Performance panel (3 resolutions, stub ranges) | 완료 |
+| 3D viewport + GPU GLB swap | 완료 |
+| `pnpm test` (4 test files, 14 tests) | PASS |
+| `pnpm build` + `dist/parts` + `dist/benchmarks` | PASS (static-copy 경로 flatten 버그 수정 포함) |
+| Step 8 exit scenario | Playwright headless (`pnpm test:e2e`) — 수동 전용 게이트에서 자동화로 승격 |
+| Tag `vertical-slice-v0` | **미생성** (소유자 전용) |

@@ -8,16 +8,14 @@ This file is the **repository-level agent brief**. Aria (Grok Build), Lira (Clau
 
 | Fact | State |
 |------|--------|
-| Repository contents | **Docs + fixtures only** — no app source, no `package.json`, no build/test/lint toolchain |
-| Implementation | **Not started** |
-| Stack / runtime / tooling | **Locked** (ADR-001–003) |
+| Repository contents | **Phase 0 app + docs + fixtures** — Vite/React/R3F SPA under `src/`, fixtures at repo-root `parts/` + `benchmarks/` |
+| Implementation | **Phase 0 Steps 1–8 complete** (see `docs/phases/phase-0/implementation_plan.md`); tag still open |
+| Stack / runtime / tooling | **Locked** (ADR-001–003) + **Playwright** for exit-scenario E2E |
 | License | Code + data: **Apache-2.0** (ADR-004); 3D assets still open |
-| Tag `vertical-slice-v0` | **Not created** |
-| Discarded history | Experimental scaffold `1d54c10` (Vite/React/R3F SPA + ADR-001) was **fully discarded**. Do not revive it unless the owner re-approves a stack and implementation start |
+| Tag `vertical-slice-v0` | **Not created** (owner-only after `pnpm test:all` green) |
+| Discarded history | Experimental scaffold `1d54c10` was **fully discarded**. Current tree is a fresh scaffold — do not revive `1d54c10` as baseline |
 
-**Do not** invent code, scaffold an app, install dependencies, lock a stack, or write an ADR that claims the stack is chosen **until the owner explicitly says to start implementation** (e.g. “구현 시작”, “start implementation”, or a named stack + “scaffold now”).
-
-Docs, fixtures, agent briefs, and status updates **are** allowed without that gate. Prefer the smallest correct doc change.
+Prefer the smallest correct change. Do not expand Phase 0 inventory or non-goals. Further phases still need their own `implementation_plan.md` before code.
 
 ---
 
@@ -128,12 +126,11 @@ Canonical detail: [`docs/decisions/TECH-DECISION-ORDER.md`](docs/decisions/TECH-
 1. **Runtime — locked:** **static SPA** ([`ADR-001`](docs/decisions/ADR-001-runtime-static-spa.md)). Phases **0–3** scope; revisit if server compute is required. **Deploy deferred** (local only; later GCP/Azure; portable static output).
 2. **Stack core — locked:** **TypeScript + React + R3F + Vite** ([`ADR-002`](docs/decisions/ADR-002-stack-core-ts-react-r3f-vite.md)). Discarded scaffold `1d54c10` is not baseline.
 3. **Stage 3 — locked:** **pnpm**, **Zod**, **Zustand**, **Vitest**; fixtures SSOT at repo-root `parts/` + `benchmarks/`, HTTP `/parts` + `/benchmarks`, Vite dev serve + build copy ([`ADR-003`](docs/decisions/ADR-003-stage3-tooling-and-fixtures.md)).
-4. IDE/DX — owner plans **WebStorm + Cursor**
-5. **License — locked (ADR-004):** code + data = **Apache License 2.0** (root `LICENSE`). 3D asset (`model.glb`) license still open — resolve before real hardware models ship.
+4. **E2E — adopted:** **Playwright** (headless Chromium) for Phase 0 exit scenario — `e2e/exit-scenario.spec.ts`, `pnpm test:e2e` (see ADR-003 amendment).
+5. IDE/DX — owner plans **WebStorm + Cursor**
+6. **License — locked (ADR-004):** code + data = **Apache License 2.0** (root `LICENSE`). 3D asset (`model.glb`) license still open — resolve before real hardware models ship.
 
-**Implementation** still requires explicit owner start — ADR locks alone do not authorize `pnpm install` or app scaffold.
-
-Owner handles **git push**. Record further locks as `docs/decisions/ADR-NNN-*.md`.
+Owner handles **git push** unless they explicitly ask the agent to push. Record further locks as `docs/decisions/ADR-NNN-*.md`.
 
 ---
 
@@ -144,7 +141,11 @@ Owner handles **git push**. Record further locks as `docs/decisions/ADR-NNN-*.md
 3. **Match local style.** Korean for many project prose docs; English for contracts, agent briefs, code, commits, ADRs. Match the file you edit.
 4. **No secrets** in the repo, commits, logs, or shared memory.
 5. **Commits:** create git commits when the owner asks or clearly allows it for the task. Prefer conventional, complete-sentence commit messages in English. Do not force-push or rewrite published history without explicit request.
-6. **Verification:** after fixture or contract edits, re-check path/id consistency where practical. Do not claim tests/builds ran if they did not. There is **no** project build/test command until implementation starts.
+6. **Verification:** after app, fixture, or contract edits run the relevant suite and do not claim green without running it:
+   - `pnpm test` — Vitest pure logic (`src/test/**`)
+   - `pnpm test:e2e` — Playwright headless exit scenario against `vite preview` (`e2e/**`)
+   - `pnpm test:all` — both (preferred before tag / hand-off)
+   - `pnpm build` when touching Vite config or fixture HTTP wiring
 7. **Shared team memory** (`agent-memory` / `~/.agent-team/shared-memory/`): on non-trivial work, read; after durable decisions or hand-offs, write short English bullets. Never store secrets.
 8. **Peer consult** (Aria / Lira / Nox): advisory only; task owner remains the agent the user is talking to unless reassigned.
 
@@ -152,25 +153,23 @@ Owner handles **git push**. Record further locks as `docs/decisions/ADR-NNN-*.md
 
 ## What to edit freely vs what needs approval
 
-| Allowed without “implementation start” | Needs explicit owner approval |
-|----------------------------------------|-------------------------------|
-| Specs, STATUS, TODO, README, charter links | App scaffold, `package.json`, lockfiles |
-| Fixture JSON / placeholder GLBs within phase-0 IDs | New stack ADRs that claim a lock |
-| Agent briefs (`AGENTS.md`, `CLAUDE.md`, `.grok/rules/`) | Application source under `src/` (or equivalent) |
-| Decision log *open questions* | Tags (`vertical-slice-v0`), deploy pipeline |
-
----
+| Allowed | Needs explicit owner approval |
+|---------|-------------------------------|
+| Specs, STATUS, TODO, README, charter links | Tags (`vertical-slice-v0`) |
+| Fixture JSON / placeholder GLBs within phase-0 IDs | Expanding inventory beyond phase-0 fixed IDs |
+| Agent briefs (`AGENTS.md`, `CLAUDE.md`, `.grok/rules/`) | New stack ADRs that claim a lock |
+| App source under `src/`, `e2e/`, Vite config within plan | Deploy pipeline / live hosting |
+| Unit + Playwright tests | Force-push / history rewrite |
 
 ## Quick start for a new session
 
 1. Read this file.
 2. Skim [`STATUS.md`](STATUS.md) and [`docs/phases/phase-0/TODO.md`](docs/phases/phase-0/TODO.md).
 3. If touching data shapes: [`docs/phases/phase-0/specs/vertical-slice-data-contract.md`](docs/phases/phase-0/specs/vertical-slice-data-contract.md).
-4. If implementation is requested: **stop and confirm stack + scope** with the owner first unless they already named both, and confirm that phase's `implementation_plan.md` exists and is current.
+4. For Phase 0 code: follow [`docs/phases/phase-0/implementation_plan.md`](docs/phases/phase-0/implementation_plan.md); run `pnpm test:all` after behavior changes.
 5. Update `STATUS.md` / phase TODO when durable state changes.
 6. Optionally: `agent-memory search "pb3"` and write hand-off facts after decisions.
 
----
 
 ## Harness prefix files in this repo
 
