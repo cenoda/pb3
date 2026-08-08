@@ -6,8 +6,8 @@ Canonical home for phase-2 **specs**, **TODO**, and fix records.
 
 **M0 planning gate: owner-accepted (2026-08-08).** Scope, data contract, and
 implementation plan are accepted, and the five open M0 decisions are resolved
-(see Status table below). No phase-2 implementation exists yet — it starts
-only when the owner explicitly says "start implementation."
+(see Status table below). Phase 2 implementation and closeout are complete;
+this folder now records the accepted plan and shipped `vs2`/`compat2` baseline.
 
 ## Layout
 
@@ -15,8 +15,8 @@ only when the owner explicitly says "start implementation."
 docs/phases/phase-2/
   README.md              ← this file
   TODO.md                ← open / done work for this phase
-  implementation_plan.md ← ordered, file-level build plan (draft; not yet executable)
-  specs/                 ← scope draft + data contract draft
+  implementation_plan.md ← accepted and executed file-level build plan
+  specs/                 ← accepted scope + data contract
   fixes/                 ← short fix / incident notes (when needed)
 ```
 
@@ -26,17 +26,17 @@ docs/phases/phase-2/
 |-----|------|
 | [`specs/phase-2.md`](./specs/phase-2.md) | Scope, inventory boundaries, compatibility/price/save-share model, forbidden work — **owner-accepted (2026-08-08)** |
 | [`specs/compatibility-data-contract.md`](./specs/compatibility-data-contract.md) | `vs2` BuildState/URL extension + `compat2` compatibility/price types — **owner-accepted (2026-08-08)** |
-| [`implementation_plan.md`](./implementation_plan.md) | Build order, file layout, step-by-step plan — **owner-accepted (2026-08-08)**; execution begins only on explicit "start implementation" |
+| [`implementation_plan.md`](./implementation_plan.md) | Build order, file layout, step-by-step plan — **owner-accepted and executed (2026-08-08)** |
 
 ## Related (outside this folder)
 
 | Path | Role |
 |------|------|
-| [`parts/`](../../../parts/) | Existing Phase 0/1 part fixtures — phase 2 adds RAM/PSU categories and a second case/motherboard here (not yet added) |
+| [`parts/`](../../../parts/) | Complete 13-part Phase 2 catalog, including RAM/PSU and second case/motherboard fixtures |
 | [`benchmarks/vs0/`](../../../benchmarks/vs0/) | Phase 0 stub table — untouched by phase 2 |
 | [`benchmarks/perf1/`](../../../benchmarks/perf1/) | Phase 1 SSOT — untouched by phase 2 |
-| `benchmarks/compat2/` | Phase 2 compatibility example fixtures — **planned, not yet created** |
-| `benchmarks/price2/` | Phase 2 price fixtures (separate path, decided 2026-08-08) — **planned, not yet created** |
+| [`benchmarks/compat2/`](../../../benchmarks/compat2/) | Phase 2 compatibility example fixtures — complete |
+| [`benchmarks/price2/`](../../../benchmarks/price2/) | Phase 2 price fixtures — complete |
 | [`docs/phases/phase-1/`](../phase-1/) | Predecessor — `perf1` engine, complete and closed out |
 | [`docs/phases/phase-0/specs/vertical-slice-data-contract.md`](../phase-0/specs/vertical-slice-data-contract.md) | `vs0` — the contract `vs2` extends |
 | [`STATUS.md`](../../../STATUS.md) | Project-wide status |

@@ -1,0 +1,1439 @@
+{
+  "physicalContractVersion": "phys3",
+  "geometryDataVersion": "phys3-exp-20260808",
+  "examples": [
+    {
+      "physicalContractVersion": "phys3",
+      "buildStateVersion": "vs2",
+      "assemblyState": {
+        "physicalContractVersion": "phys3",
+        "buildStateVersion": "vs2",
+        "mountSelections": [
+          {
+            "movingPartId": "mb.atx-b650-01",
+            "socketId": "socket.case",
+            "targetPartId": "case.mid-tower-atx-01",
+            "anchorId": "anchor.mb",
+            "orientationId": "normal"
+          },
+          {
+            "movingPartId": "cpu.zen4-7600",
+            "socketId": "socket.motherboard",
+            "targetPartId": "mb.atx-b650-01",
+            "anchorId": "anchor.cpu",
+            "orientationId": "normal"
+          },
+          {
+            "movingPartId": "gpu.rtx4070",
+            "socketId": "socket.motherboard",
+            "targetPartId": "mb.atx-b650-01",
+            "anchorId": "anchor.gpu",
+            "orientationId": "normal"
+          },
+          {
+            "movingPartId": "cooler.air-twin-tower-01",
+            "socketId": "socket.motherboard",
+            "targetPartId": "mb.atx-b650-01",
+            "anchorId": "anchor.cooler",
+            "orientationId": "normal"
+          },
+          {
+            "movingPartId": "ram.ddr5-32gb-6000",
+            "socketId": "socket.motherboard",
+            "targetPartId": "mb.atx-b650-01",
+            "anchorId": "anchor.ram",
+            "orientationId": "normal"
+          },
+          {
+            "movingPartId": "psu.750w-atx",
+            "socketId": "socket.case",
+            "targetPartId": "case.mid-tower-atx-01",
+            "anchorId": "anchor.psu",
+            "orientationId": "normal"
+          }
+        ]
+      },
+      "checks": [
+        {
+          "checkId": "collision:collision:case-floor|collision:mb-board",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "mb.atx-b650-01"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:mb-board"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.mb.atx-b650-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:cpu-die",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "cpu.zen4-7600"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:cpu-die"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.cpu.zen4-7600"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:gpu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "gpu.rtx4070"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:gpu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.gpu.rtx4070"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:cooler-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:ram-kit",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "ram.ddr5-32gb-6000"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:ram-kit"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cpu-die|collision:mb-board",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "cpu.zen4-7600"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:cpu-die"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.cpu.zen4-7600"
+          ]
+        },
+        {
+          "checkId": "collision:collision:gpu-body|collision:mb-board",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "gpu.rtx4070"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:gpu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.gpu.rtx4070"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:mb-board",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:mb-board|collision:ram-kit",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "ram.ddr5-32gb-6000"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:ram-kit"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+          ]
+        },
+        {
+          "checkId": "collision:collision:mb-board|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cpu-die|collision:gpu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cpu.zen4-7600",
+            "gpu.rtx4070"
+          ],
+          "involvedNodeNames": [
+            "collision:cpu-die",
+            "collision:gpu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cpu.zen4-7600",
+            "evidence.phys3.synthetic.gpu.rtx4070"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:cpu-die",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cpu.zen4-7600",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "collision:cpu-die",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cpu.zen4-7600",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cpu-die|collision:ram-kit",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cpu.zen4-7600",
+            "ram.ddr5-32gb-6000"
+          ],
+          "involvedNodeNames": [
+            "collision:cpu-die",
+            "collision:ram-kit"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cpu.zen4-7600",
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cpu-die|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cpu.zen4-7600",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:cpu-die",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cpu.zen4-7600",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:gpu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "gpu.rtx4070",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "collision:gpu-body",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.gpu.rtx4070",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:gpu-body|collision:ram-kit",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "gpu.rtx4070",
+            "ram.ddr5-32gb-6000"
+          ],
+          "involvedNodeNames": [
+            "collision:gpu-body",
+            "collision:ram-kit"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.gpu.rtx4070",
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+          ]
+        },
+        {
+          "checkId": "collision:collision:gpu-body|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "gpu.rtx4070",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:gpu-body",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.gpu.rtx4070",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:ram-kit",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cooler.air-twin-tower-01",
+            "ram.ddr5-32gb-6000"
+          ],
+          "involvedNodeNames": [
+            "collision:cooler-body",
+            "collision:ram-kit"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01",
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cooler.air-twin-tower-01",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:cooler-body",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:psu-body|collision:ram-kit",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "ram.ddr5-32gb-6000",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:ram-kit",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:mb-board",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "mb.atx-b650-01"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:mb-board"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.mb.atx-b650-01"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:cpu-die",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "cpu.zen4-7600"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:cpu-die"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.cpu.zen4-7600"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:gpu-body",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "gpu.rtx4070"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:gpu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.gpu.rtx4070"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:cooler-body",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:ram-kit",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "ram.ddr5-32gb-6000"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:ram-kit"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:psu-body",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        }
+      ],
+      "overallStatus": "fit",
+      "geometryDataVersion": "phys3-exp-20260808"
+    },
+    {
+      "physicalContractVersion": "phys3",
+      "buildStateVersion": "vs2",
+      "assemblyState": {
+        "physicalContractVersion": "phys3",
+        "buildStateVersion": "vs2",
+        "mountSelections": [
+          {
+            "movingPartId": "mb.atx-b650-01",
+            "socketId": "socket.case",
+            "targetPartId": "case.mid-tower-atx-01",
+            "anchorId": "anchor.mb",
+            "orientationId": "normal"
+          },
+          {
+            "movingPartId": "cpu.zen4-7600",
+            "socketId": "socket.motherboard",
+            "targetPartId": "mb.atx-b650-01",
+            "anchorId": "anchor.cpu",
+            "orientationId": "normal"
+          },
+          {
+            "movingPartId": "gpu.rtx4070",
+            "socketId": "socket.motherboard",
+            "targetPartId": "mb.atx-b650-01",
+            "anchorId": "anchor.gpu",
+            "orientationId": "normal"
+          },
+          {
+            "movingPartId": "cooler.air-twin-tower-01",
+            "socketId": "socket.motherboard",
+            "targetPartId": "mb.atx-b650-01",
+            "anchorId": "anchor.cooler",
+            "orientationId": "rotated-180"
+          },
+          {
+            "movingPartId": "ram.ddr5-32gb-6000",
+            "socketId": "socket.motherboard",
+            "targetPartId": "mb.atx-b650-01",
+            "anchorId": "anchor.ram",
+            "orientationId": "normal"
+          },
+          {
+            "movingPartId": "psu.750w-atx",
+            "socketId": "socket.case",
+            "targetPartId": "case.mid-tower-atx-01",
+            "anchorId": "anchor.psu",
+            "orientationId": "normal"
+          }
+        ]
+      },
+      "checks": [
+        {
+          "checkId": "collision:collision:case-floor|collision:mb-board",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "mb.atx-b650-01"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:mb-board"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.mb.atx-b650-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:cpu-die",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "cpu.zen4-7600"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:cpu-die"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.cpu.zen4-7600"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:gpu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "gpu.rtx4070"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:gpu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.gpu.rtx4070"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:cooler-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:ram-kit",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "ram.ddr5-32gb-6000"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:ram-kit"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cpu-die|collision:mb-board",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "cpu.zen4-7600"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:cpu-die"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.cpu.zen4-7600"
+          ]
+        },
+        {
+          "checkId": "collision:collision:gpu-body|collision:mb-board",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "gpu.rtx4070"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:gpu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.gpu.rtx4070"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:mb-board",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:mb-board|collision:ram-kit",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "ram.ddr5-32gb-6000"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:ram-kit"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+          ]
+        },
+        {
+          "checkId": "collision:collision:mb-board|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cpu-die|collision:gpu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cpu.zen4-7600",
+            "gpu.rtx4070"
+          ],
+          "involvedNodeNames": [
+            "collision:cpu-die",
+            "collision:gpu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cpu.zen4-7600",
+            "evidence.phys3.synthetic.gpu.rtx4070"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:cpu-die",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cpu.zen4-7600",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "collision:cpu-die",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cpu.zen4-7600",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cpu-die|collision:ram-kit",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cpu.zen4-7600",
+            "ram.ddr5-32gb-6000"
+          ],
+          "involvedNodeNames": [
+            "collision:cpu-die",
+            "collision:ram-kit"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cpu.zen4-7600",
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cpu-die|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cpu.zen4-7600",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:cpu-die",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cpu.zen4-7600",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:gpu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "gpu.rtx4070",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "collision:gpu-body",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.gpu.rtx4070",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:gpu-body|collision:ram-kit",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "gpu.rtx4070",
+            "ram.ddr5-32gb-6000"
+          ],
+          "involvedNodeNames": [
+            "collision:gpu-body",
+            "collision:ram-kit"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.gpu.rtx4070",
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+          ]
+        },
+        {
+          "checkId": "collision:collision:gpu-body|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "gpu.rtx4070",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:gpu-body",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.gpu.rtx4070",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:ram-kit",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cooler.air-twin-tower-01",
+            "ram.ddr5-32gb-6000"
+          ],
+          "involvedNodeNames": [
+            "collision:cooler-body",
+            "collision:ram-kit"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01",
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cooler.air-twin-tower-01",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:cooler-body",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:psu-body|collision:ram-kit",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "ram.ddr5-32gb-6000",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:ram-kit",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:mb-board",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "mb.atx-b650-01"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:mb-board"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.mb.atx-b650-01"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:cpu-die",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "cpu.zen4-7600"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:cpu-die"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.cpu.zen4-7600"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:gpu-body",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "gpu.rtx4070"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:gpu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.gpu.rtx4070"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:cooler-body",
+          "kind": "clearance",
+          "status": "interference",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:cooler-body"
+          ],
+          "explanation": "Clearance volume clearance:cooler-sidekeepout (case.mid-tower-atx-01) is violated by collision:cooler-body (cooler.air-twin-tower-01) beyond 0.1 mm.",
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:ram-kit",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "ram.ddr5-32gb-6000"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:ram-kit"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:psu-body",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        }
+      ],
+      "overallStatus": "interference",
+      "geometryDataVersion": "phys3-exp-20260808"
+    },
+    {
+      "physicalContractVersion": "phys3",
+      "buildStateVersion": "vs2",
+      "assemblyState": {
+        "physicalContractVersion": "phys3",
+        "buildStateVersion": "vs2",
+        "mountSelections": [
+          {
+            "movingPartId": "mb.atx-b650-01",
+            "socketId": "socket.case",
+            "targetPartId": "case.mid-tower-atx-01",
+            "anchorId": "anchor.mb",
+            "orientationId": "normal"
+          },
+          {
+            "movingPartId": "cpu.zen4-7600",
+            "socketId": "socket.motherboard",
+            "targetPartId": "mb.atx-b650-01",
+            "anchorId": "anchor.cpu",
+            "orientationId": "normal"
+          },
+          {
+            "movingPartId": "gpu.rtx4070",
+            "socketId": "socket.motherboard",
+            "targetPartId": "mb.atx-b650-01",
+            "anchorId": "anchor.gpu",
+            "orientationId": "normal"
+          },
+          {
+            "movingPartId": "cooler.air-twin-tower-01",
+            "socketId": "socket.motherboard",
+            "targetPartId": "mb.atx-b650-01",
+            "anchorId": "anchor.cooler",
+            "orientationId": "normal"
+          },
+          {
+            "movingPartId": "psu.750w-atx",
+            "socketId": "socket.case",
+            "targetPartId": "case.mid-tower-atx-01",
+            "anchorId": "anchor.psu",
+            "orientationId": "normal"
+          }
+        ]
+      },
+      "checks": [
+        {
+          "checkId": "coverage:ram.ddr5-16gb-7200",
+          "kind": "collision",
+          "status": "unavailable",
+          "involvedPartIds": [
+            "ram.ddr5-16gb-7200"
+          ],
+          "involvedNodeNames": [
+            "part:ram.ddr5-16gb-7200"
+          ],
+          "explanation": "Part ram.ddr5-16gb-7200 lacks phys3 physicalSpec (visual-only fallback).",
+          "evidenceSourceIds": []
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:mb-board",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "mb.atx-b650-01"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:mb-board"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.mb.atx-b650-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:cpu-die",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "cpu.zen4-7600"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:cpu-die"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.cpu.zen4-7600"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:gpu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "gpu.rtx4070"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:gpu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.gpu.rtx4070"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:cooler-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:case-floor|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:case-floor",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cpu-die|collision:mb-board",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "cpu.zen4-7600"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:cpu-die"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.cpu.zen4-7600"
+          ]
+        },
+        {
+          "checkId": "collision:collision:gpu-body|collision:mb-board",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "gpu.rtx4070"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:gpu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.gpu.rtx4070"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:mb-board",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:mb-board|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "mb.atx-b650-01",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:mb-board",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.mb.atx-b650-01",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cpu-die|collision:gpu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cpu.zen4-7600",
+            "gpu.rtx4070"
+          ],
+          "involvedNodeNames": [
+            "collision:cpu-die",
+            "collision:gpu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cpu.zen4-7600",
+            "evidence.phys3.synthetic.gpu.rtx4070"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:cpu-die",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cpu.zen4-7600",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "collision:cpu-die",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cpu.zen4-7600",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cpu-die|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cpu.zen4-7600",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:cpu-die",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cpu.zen4-7600",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:gpu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "gpu.rtx4070",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "collision:gpu-body",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.gpu.rtx4070",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "collision:collision:gpu-body|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "gpu.rtx4070",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:gpu-body",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.gpu.rtx4070",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "collision:collision:cooler-body|collision:psu-body",
+          "kind": "collision",
+          "status": "fit",
+          "involvedPartIds": [
+            "cooler.air-twin-tower-01",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "collision:cooler-body",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:mb-board",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "mb.atx-b650-01"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:mb-board"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.mb.atx-b650-01"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:cpu-die",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "cpu.zen4-7600"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:cpu-die"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.cpu.zen4-7600"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:gpu-body",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "gpu.rtx4070"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:gpu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.gpu.rtx4070"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:cooler-body",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "cooler.air-twin-tower-01"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:cooler-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+          ]
+        },
+        {
+          "checkId": "clearance:clearance:cooler-sidekeepout|collision:psu-body",
+          "kind": "clearance",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.mid-tower-atx-01",
+            "psu.750w-atx"
+          ],
+          "involvedNodeNames": [
+            "clearance:cooler-sidekeepout",
+            "collision:psu-body"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.mid-tower-atx-01",
+            "evidence.phys3.synthetic.psu.750w-atx"
+          ]
+        }
+      ],
+      "overallStatus": "unavailable",
+      "geometryDataVersion": "phys3-exp-20260808"
+    }
+  ]
+}

@@ -1,8 +1,7 @@
 # Phase 2 — Implementation Plan
 
-Status: **owner-accepted (2026-08-08)** — plan and all M0 open decisions
-accepted; implementation **not authorized** (requires a separate explicit
-"start implementation" instruction)
+Status: **owner-accepted and executed (2026-08-08)** — plan and all M0
+decisions accepted; Steps 1–9 implemented, verified, and closed out
 Scope authority: [`specs/phase-2.md`](./specs/phase-2.md)
 Data authority: [`specs/compatibility-data-contract.md`](./specs/compatibility-data-contract.md)
 Stack authority: [`ADR-001`](../../decisions/ADR-001-runtime-static-spa.md), [`ADR-002`](../../decisions/ADR-002-stack-core-ts-react-r3f-vite.md), [`ADR-003`](../../decisions/ADR-003-stage3-tooling-and-fixtures.md), [`ADR-004`](../../decisions/ADR-004-license-code-apache-2.0.md)
@@ -15,8 +14,9 @@ plan before code"). Per that convention, **no scaffold or source file for
 phase 2 exists yet and none is created by this document.** It was written
 alongside `specs/phase-2.md` and `specs/compatibility-data-contract.md`; the
 owner accepted all three and resolved every M0 open decision on 2026-08-08
-(see §1 and §12). Implementation still begins only after a separate explicit
-"start implementation" instruction.
+(see §1 and §12). The separate implementation authorization was subsequently
+given, and the plan was executed and closed out on 2026-08-08. Step text below
+is retained as the implementation record.
 
 ---
 
@@ -33,14 +33,12 @@ owner accepted all three and resolved every M0 open decision on 2026-08-08
 | Phase 2 scope lock | **Owner-accepted (2026-08-08)** — [`specs/phase-2.md`](./specs/phase-2.md) |
 | Phase 2 data contract | **Owner-accepted (2026-08-08)** — `vs2`/`compat2` types in [`compatibility-data-contract.md`](./specs/compatibility-data-contract.md) |
 | M0 open decisions | **Resolved (2026-08-08)** — currency `USD`, RAM-tier↔RAM-SKU mapping deferred, fixture paths split (`benchmarks/compat2/` + `benchmarks/price2/`), `PartDefinition` uses nested `compatSpec`, Phase 2 E2E required, `PSU_HEADROOM_MULTIPLIER = 1.3` |
-| Fixtures on disk | **Not started** |
-| Owner "start implementation" | **Not given** |
+| Fixtures on disk | **Complete** — 13 parts + compat2/price2 fixtures |
+| Owner "start implementation" | **Given; plan executed and closed out (2026-08-08)** |
 
-**Step 0 (§5) is the only remaining gate.** Scope, contract, and all M0 open
-decisions are resolved; the sole remaining precondition before Step 1 is the
-owner's explicit "start implementation" instruction. If any precondition or
-accepted decision changes before implementation starts, this plan must be
-revised first.
+All preconditions were cleared before implementation. If an accepted Phase 2
+decision changes in later work, revise the applicable contract/plan rather than
+silently rewriting this closed baseline.
 
 ---
 
@@ -192,8 +190,8 @@ work before step *N* compiles/tests clean.
       owner-accepted (2026-08-08), same pattern as Phase 1's
       `phase-1.md`/`performance-data-contract.md` acceptance record.
 
-Remaining precondition before Step 1 begins: a separate explicit owner
-"start implementation" instruction (not yet given).
+The separate owner implementation instruction was later given; Steps 1–9 are
+complete.
 
 ### Step 1 — Contract types + Zod schemas (`vs2`, `compat2`)
 
@@ -426,9 +424,9 @@ deliverable) when:
 - [x] Open decisions in phase-2.md §9 resolved by owner decision
       (2026-08-08).
 
-This planning deliverable is **done**. Phase-2 **implementation** (Steps
-1–9) exits per §5 Step 9 once executed — not yet reached; awaiting the
-owner's explicit "start implementation" instruction.
+This planning deliverable and Phase-2 **implementation** (Steps 1–9) are
+complete. Closeout truth and verification counts are recorded in `STATUS.md`
+and `TODO.md`.
 
 ---
 

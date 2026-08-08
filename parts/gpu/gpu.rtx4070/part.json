@@ -4,8 +4,35 @@
   "category": "gpu",
   "displayName": "GeForce RTX 4070 (fixture)",
   "modelGlbPath": "parts/gpu/gpu.rtx4070/model.glb",
-  "notes": "Shorter dual-slot-ish placeholder so GPU swaps are obvious vs rtx4080.",
+  "notes": "Phase-3 synthetic Experimental physical fixture; not manufacturer-verified.",
   "compatSpec": {
     "tdpWatts": 200
+  },
+  "physicalSpec": {
+    "physicalContractVersion": "phys3",
+    "evidence": {
+      "sourceId": "evidence.phys3.synthetic.gpu.rtx4070",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "modelGrade": "Experimental",
+      "basis": "project-authored synthetic fixture geometry; not manufacturer-verified"
+    },
+    "anchors": [],
+    "sockets": [
+      {
+        "socketId": "socket.motherboard",
+        "nodeName": "socket:motherboard",
+        "mountInterfaceId": "iface.mb-gpu.pcie",
+        "targetPartCategory": "motherboard",
+        "orientationVariants": [
+          {
+            "orientationId": "normal",
+            "offsetQuaternion": [0, 0, 0, 1],
+            "isDefault": true
+          }
+        ]
+      }
+    ],
+    "collisionNodes": ["collision:gpu-body"],
+    "clearanceNodes": []
   }
 }

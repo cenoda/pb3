@@ -14,6 +14,12 @@
 - **Phase 1 홈**: [`docs/phases/phase-1/`](docs/phases/phase-1/)
 - **Phase 1 스코프 락 + 데이터 계약 + fixture**: 소유자 수락 완료 (2026-08-08) — [`phase-1.md`](docs/phases/phase-1/specs/phase-1.md) / [`performance-data-contract.md`](docs/phases/phase-1/specs/performance-data-contract.md) / [`benchmarks/perf1/`](benchmarks/perf1/)
 - **Phase 1 성능 엔진 (`perf1`)**: 구현·검증·문서 동기화 완료 (2026-08-08) — `38b76d1` + closeout docs; 모든 fixture 값은 `confidence: "stub"` (실측 아님)
+- **Phase 3 M0 계획 패키지**: 스코프·`phys3` 계약·구현 계획 및 5개
+  결정안 소유자 수락 완료 (2026-08-08) — synthetic `Experimental` GLB,
+  Apache-2.0, box OBB + `0.1 mm` epsilon, 새 의존성 없음, runtime cooling
+  `unavailable`, cooler normal/180°
+- **Phase 3 구현 (Steps 1–9)**: 완료 (2026-08-08) — owner closeout(Step 10)
+  **미수락 / 미청구**; geometry data version `phys3-exp-20260808`
 - **URL 규칙 (수락)**
   - 인코더: `BuildState` **모든** 필드를 항상 기록 (정규 공유 링크)
   - 디코더: 누락 키는 기본 fixture로 복구 (부분 링크는 호환 입력만)
@@ -81,7 +87,8 @@
 
 ## 아직 정하지 않음
 
-- 3D 에셋 라이선스 (실제 하드웨어 모델 사용 전 결정)
+- 제3자/제조사 파생 실제 하드웨어 3D 에셋의 출처별 권리·라이선스
+  (프로젝트 직접 작성 synthetic fixture GLB는 Apache-2.0으로 결정됨)
 - 배포 호스트 세부 (의도적 미룸; 이후 GCP/Azure)
 - GCP vs Azure 구체 상품
 - 실측 벤치마크 원시 스키마 (제품 1단계)
@@ -95,7 +102,9 @@
 3. ~~**태그 `vertical-slice-v0`** — 소유자가 `pnpm test:all` green 확인 후 수행~~ → **완료 (2026-08-08)**
 4. ~~**Phase 1 (성능 엔진)** — 스코프·계약·fixture·구현·검증·closeout~~ → **완료 (2026-08-08)**
 5. ~~**Phase 2 (기본 견적 서비스)** — M0 수락 → 구현·검증·closeout~~ → **구현 완료 (2026-08-08)** — [`docs/phases/phase-2/`](docs/phases/phase-2/)
-6. **Phase 3 (3D 물리 검증)** — 아직 착수 전; phase plan 수락 후 시작
+6. **Phase 3 (3D 물리 검증)** — M0 수락 → 구현 Steps 1–9 완료 (2026-08-08)
+   ([`docs/phases/phase-3/`](docs/phases/phase-3/)); **owner closeout 대기
+   (Step 10 미청구)**
 
 ## Phase 0 종료 승인 (2026-08-08)
 
@@ -167,3 +176,49 @@
 - 검증: `pnpm test:all` (62 unit + 5 e2e) · `pnpm build` · Phase 2 completion scenario (`e2e/phase2-compat-price.spec.ts`) PASS
 - 데이터: fixture 가격 전부 USD stub; 호환성·가격 값은 fixture 전용 (`confidence`/basis 라벨링)
 - **여전히 열림 (의도적 defer):** `perf1` RAM tier ↔ RAM SKU 자동 매핑; PSU draw stub 상수 → 실측 모델 교체
+
+## Phase 3 구현 상태 (2026-08-08)
+
+| 항목 | 상태 |
+|------|------|
+| `phys3` contract types + Zod (`src/contract/phys3.ts`, `phys3.schema.ts`) | 완료 |
+| Physical-core inventory (9 IDs) + visual-only fallbacks (4 IDs) | 완료 — **재고 확장 없음** |
+| Geometry data version | `phys3-exp-20260808` |
+| Model grade | **Experimental** synthetic fixture (not Verified real-hardware) |
+| GLB authoring | `scripts/author-phys3-glbs.mjs` (deterministic, dependency-free) |
+| Mount resolver + `AssemblyState` (non-URL) | 완료 |
+| Cooler orientations | `normal`, `rotated-180` |
+| Collision/clearance | box OBB via `three/examples/jsm/math/OBB.js`; epsilon `0.1 mm` |
+| Cooling hook | runtime `unavailable` (empty production rows); stub-only unit path |
+| Viewport | bounded assembled scene (resolver-owned transforms) |
+| UI panels | MountControls, PhysicalValidationPanel, CoolingEvidencePanel |
+| `pnpm test` | **18 files, 96 tests PASS** (post-audit corrective fixes 2026-08-08) |
+| `pnpm test:e2e` | **6 tests PASS** (Phase 0 + Phase 2 + Phase 3) |
+| `pnpm test:all` + `pnpm build` | PASS |
+| Owner closeout (Step 10) | **미청구 — awaiting owner review** |
+
+### Phase 3 audit corrective notes (2026-08-08)
+
+- Inclusive `0.1 mm` overlap boundary corrected (≤0.1 fit, >0.1 interference)
+- `PhysicalValidationReport` Zod invariants enforced (non-empty checks + aggregate precedence)
+- Example fixture schema-validated
+- Mount unavailable families covered; production mount graph is a fixed DAG with a pure cycle detector (no `cyclic_dependency` reason — not in accepted phys3 contract)
+
+### Phase 3 physical-core IDs
+
+`case.mid-tower-atx-01`, `mb.atx-b650-01`, `cpu.zen4-7600`, `cpu.zen4-7800x3d`,
+`gpu.rtx4070`, `gpu.rtx4080`, `cooler.air-twin-tower-01`, `ram.ddr5-32gb-6000`,
+`psu.750w-atx`
+
+### Phase 3 visual-only fallback IDs
+
+`case.micro-atx-mini-01`, `mb.micro-b450-01`, `ram.ddr5-16gb-7200`,
+`psu.550w-sfx`
+
+### Phase 3 limitations (intentional)
+
+- No production cooling evidence / bucket mapping / FPS derate
+- Synthetic Experimental geometry only — not manufacturer-verified
+- Mount choices not URL-persisted
+- Box OBB only (no triangle-mesh / physics engine)
+- No inventory expansion beyond the existing 13-part catalog

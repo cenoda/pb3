@@ -4,9 +4,36 @@
   "category": "cpu",
   "displayName": "Ryzen 5 7600 (fixture)",
   "modelGlbPath": "parts/cpu/cpu.zen4-7600/model.glb",
-  "notes": "Phase-0 placeholder mesh.",
+  "notes": "Phase-3 synthetic Experimental physical fixture; not manufacturer-verified.",
   "compatSpec": {
     "socket": "AM5",
     "tdpWatts": 65
+  },
+  "physicalSpec": {
+    "physicalContractVersion": "phys3",
+    "evidence": {
+      "sourceId": "evidence.phys3.synthetic.cpu.zen4-7600",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "modelGrade": "Experimental",
+      "basis": "project-authored synthetic fixture geometry; not manufacturer-verified"
+    },
+    "anchors": [],
+    "sockets": [
+      {
+        "socketId": "socket.motherboard",
+        "nodeName": "socket:motherboard",
+        "mountInterfaceId": "iface.mb-cpu.am5",
+        "targetPartCategory": "motherboard",
+        "orientationVariants": [
+          {
+            "orientationId": "normal",
+            "offsetQuaternion": [0, 0, 0, 1],
+            "isDefault": true
+          }
+        ]
+      }
+    ],
+    "collisionNodes": ["collision:cpu-die"],
+    "clearanceNodes": []
   }
 }

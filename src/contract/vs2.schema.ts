@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { physicalSpecSchema } from "./phys3.schema";
 import { vs0ContractVersionSchema } from "./vs0.schema";
 
 export const vs2ContractVersionSchema = z.literal("vs2");
@@ -64,6 +65,8 @@ export const partDefinitionV2Schema = z.object({
   modelGlbPath: z.string().min(1),
   notes: z.string().optional(),
   compatSpec: compatSpecSchema.optional(),
+  /** Nested phys3 block; omitted = visual-only coverage. */
+  physicalSpec: physicalSpecSchema.optional(),
 });
 
 export const buildStateV2Schema = z.object({

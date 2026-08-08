@@ -1,12 +1,16 @@
-import { Component, Suspense, type ErrorInfo, type ReactNode } from "react";
+import { Component, type ErrorInfo, type ReactNode } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import type { MountTransform } from "../contract/phys3";
 import type { PartCatalog } from "../state/validateBuildState";
-import { GpuModel } from "./GpuModel";
+import { AssemblyModel, type AssemblyPartPose } from "./AssemblyModel";
 
 interface BuildViewportProps {
+  /** Primary GPU id kept for Phase 0/2 test hooks. */
   gpuId: string;
   catalog: PartCatalog;
+  poses: AssemblyPartPose[];
+  assemblyStatus: string;
 }
 
 function ViewportError({ message }: { message: string }) {
@@ -30,7 +34,6 @@ function ViewportError({ message }: { message: string }) {
   );
 }
 
-/** Catches useGLTF / loader failures so a missing GLB is visible, not a silent stale mesh. */
 class GlbErrorBoundary extends Component<
   { children: ReactNode; resetKey: string },
   { error: Error | null }
@@ -48,14 +51,14 @@ class GlbErrorBoundary extends Component<
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error("GPU GLB load failed:", error, info.componentStack);
+    console.error("Assembly GLB load failed:", error, info.componentStack);
   }
 
   render() {
     if (this.state.error) {
       return (
         <ViewportError
-          message={`Failed to load GPU model: ${this.state.error.message}`}
+          message={`Failed to load assembly model: ${this.state.error.message}`}
         />
       );
     }
@@ -63,51 +66,53 @@ class GlbErrorBoundary extends Component<
   }
 }
 
-export function BuildViewport({ gpuId, catalog }: BuildViewportProps) {
-  const gpuPart = catalog.get(gpuId);
+function poseAttr(poses: AssemblyPartPose[]): string {
+  return poses
+    .map((p) => {
+      const t = p.transform;
+      return `${p.partId}@${fmt(t)}`;
+    })
+    .join(";");
+}
 
-  if (!gpuPart) {
-    return (
-      <div
-        data-testid="build-viewport"
-        data-gpu-id={gpuId}
-        style={{ width: "100%", height: "360px", background: "#111" }}
-      >
-        <ViewportError message={`GPU part not found in catalog: ${gpuId}`} />
-      </div>
-    );
-  }
+function fmt(t: MountTransform): string {
+  const [x, y, z] = t.positionMm;
+  const [qx, qy, qz, qw] = t.orientationQuaternion;
+  const r = (n: number) => n.toFixed(3);
+  return `${r(x)},${r(y)},${r(z)}|${r(qx)},${r(qy)},${r(qz)},${r(qw)}`;
+}
+
+export function BuildViewport({
+  gpuId,
+  catalog,
+  poses,
+  assemblyStatus,
+}: BuildViewportProps) {
+  const gpuPart = catalog.get(gpuId);
+  const resetKey = poses.map((p) => p.partId).join(",") + assemblyStatus;
 
   return (
     <div
       data-testid="build-viewport"
       data-gpu-id={gpuId}
-      data-glb-path={gpuPart.modelGlbPath}
+      data-glb-path={gpuPart?.modelGlbPath ?? ""}
+      data-assembly-status={assemblyStatus}
+      data-assembly-poses={poseAttr(poses)}
       style={{ width: "100%", height: "360px", background: "#111" }}
     >
-      <GlbErrorBoundary resetKey={gpuId}>
-        <Canvas camera={{ position: [0, 80, 180], fov: 45 }}>
-          <color attach="background" args={["#1a1a1a"]} />
-          <ambientLight intensity={0.6} />
-          <directionalLight position={[100, 200, 100]} intensity={1.2} />
-          {/* Simple placeholder stand-in for the case mesh (phase-0 allows placeholder scene). */}
-          <mesh position={[0, -40, 0]} scale={[120, 4, 80]}>
-            <boxGeometry />
-            <meshStandardMaterial color="#333" />
-          </mesh>
-          <Suspense
-            fallback={
-              <mesh>
-                <boxGeometry args={[10, 10, 10]} />
-                <meshStandardMaterial color="#666" wireframe />
-              </mesh>
-            }
-          >
-            <GpuModel key={gpuId} modelGlbPath={gpuPart.modelGlbPath} />
-          </Suspense>
-          <OrbitControls makeDefault />
-        </Canvas>
-      </GlbErrorBoundary>
+      {poses.length === 0 ? (
+        <ViewportError message="Physical assembly unavailable — no mounted poses." />
+      ) : (
+        <GlbErrorBoundary resetKey={resetKey}>
+          <Canvas camera={{ position: [280, 220, 320], fov: 45 }}>
+            <color attach="background" args={["#1a1a1a"]} />
+            <ambientLight intensity={0.6} />
+            <directionalLight position={[100, 200, 100]} intensity={1.2} />
+            <AssemblyModel poses={poses} catalog={catalog} />
+            <OrbitControls makeDefault target={[0, 120, 0]} />
+          </Canvas>
+        </GlbErrorBoundary>
+      )}
     </div>
   );
 }

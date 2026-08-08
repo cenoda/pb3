@@ -1,7 +1,7 @@
 # Phase 2 — Basic Estimate Service
 
-Status: **owner-accepted (2026-08-08)** — scope and all M0 open decisions
-accepted; implementation **not started**
+Status: **owner-accepted and implemented (2026-08-08)** — scope and all M0
+decisions accepted; implementation verified and closed out
 Canonical reference for phase-2 bounds. Detailed field shapes live in
 [`compatibility-data-contract.md`](./compatibility-data-contract.md).
 
@@ -346,8 +346,9 @@ Remaining, not decided by this document (unchanged from the original draft):
    plan — **owner-accepted (2026-08-08)**; execution requires a separate
    explicit "start implementation" instruction
 4. Fixture data (RAM/PSU parts, price records, expanded case/motherboard
-   siblings) — **not started**
-5. Implementation → phase-2 exit scenario — **not started**
+   siblings) — **complete (2026-08-08)**
+5. Implementation → phase-2 exit scenario — **complete and verified
+   (2026-08-08)**
 
 ---
 

@@ -6,7 +6,7 @@ Project instructions for Claude Code (and Grok Claude-compat) in this repository
 
 ## Hard gates (do not skip)
 
-- **Phase 0 app and Phase 1 `perf1` engine are implemented and closed out**. Source lives under `src/`; fixtures stay at repo-root `parts/` and `benchmarks/`. Phase 2 has not started.
+- **Phase 0 app and Phase 1 `perf1` engine are implemented and closed out**. Phase 2 `vs2`/`compat2` is closed out. Phase 3 `phys3` implementation is complete and **awaiting owner closeout**. Source lives under `src/`; fixtures stay at repo-root `parts/` and `benchmarks/`.
 - **Runtime locked:** static SPA — `docs/decisions/ADR-001-runtime-static-spa.md` (phases 0–3 scope; revisit if server compute is required).
 - **Stack core locked:** TypeScript + React + R3F + Vite — `docs/decisions/ADR-002-stack-core-ts-react-r3f-vite.md`.
 - **Stage 3 locked:** pnpm + Zod + Zustand + Vitest; fixture `/parts` + `/benchmarks` — `docs/decisions/ADR-003-stage3-tooling-and-fixtures.md`.

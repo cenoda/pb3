@@ -6,10 +6,12 @@ import type {
   PsuCompatSpec,
   RamCompatSpec,
 } from "./compat2";
+import type { PhysicalSpec } from "./phys3";
 import type { PartCategoryV2 } from "./vs2";
 
 /**
  * Phase-2 catalog part shape: vs0 part.json base fields plus optional nested compatSpec.
+ * Optional nested physicalSpec is Phase-3 phys3 metadata; omitted means visual-only.
  */
 export interface PartDefinitionV2 {
   contractVersion: "vs0";
@@ -25,6 +27,7 @@ export interface PartDefinitionV2 {
     | RamCompatSpec
     | PsuCompatSpec
     | CaseCompatSpec;
+  physicalSpec?: PhysicalSpec;
 }
 
 const CATEGORIES_REQUIRING_COMPAT: ReadonlySet<PartCategoryV2> = new Set([

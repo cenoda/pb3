@@ -4,7 +4,7 @@
   "category": "motherboard",
   "displayName": "ATX B650 Board 01 (fixture)",
   "modelGlbPath": "parts/motherboard/mb.atx-b650-01/model.glb",
-  "notes": "Phase-0 placeholder mesh; AM5 ATX board for default compatible build.",
+  "notes": "Phase-3 synthetic Experimental physical fixture; not manufacturer-verified.",
   "compatSpec": {
     "socket": "AM5",
     "chipset": "B650",
@@ -14,5 +14,61 @@
     "biosMinVersionForCpu": {
       "cpu.zen4-7600": "1.20"
     }
+  },
+  "physicalSpec": {
+    "physicalContractVersion": "phys3",
+    "evidence": {
+      "sourceId": "evidence.phys3.synthetic.mb.atx-b650-01",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "modelGrade": "Experimental",
+      "basis": "project-authored synthetic fixture geometry; not manufacturer-verified"
+    },
+    "anchors": [
+      {
+        "anchorId": "anchor.cpu",
+        "nodeName": "anchor:cpu",
+        "mountInterfaceId": "iface.mb-cpu.am5",
+        "acceptsPartCategory": "cpu",
+        "isDefault": true
+      },
+      {
+        "anchorId": "anchor.cooler",
+        "nodeName": "anchor:cooler",
+        "mountInterfaceId": "iface.mb-cooler.am5",
+        "acceptsPartCategory": "cooler",
+        "isDefault": true
+      },
+      {
+        "anchorId": "anchor.ram",
+        "nodeName": "anchor:ram",
+        "mountInterfaceId": "iface.mb-ram.ddr5",
+        "acceptsPartCategory": "ram",
+        "isDefault": true
+      },
+      {
+        "anchorId": "anchor.gpu",
+        "nodeName": "anchor:gpu",
+        "mountInterfaceId": "iface.mb-gpu.pcie",
+        "acceptsPartCategory": "gpu",
+        "isDefault": true
+      }
+    ],
+    "sockets": [
+      {
+        "socketId": "socket.case",
+        "nodeName": "socket:case",
+        "mountInterfaceId": "iface.case-mb.atx",
+        "targetPartCategory": "case",
+        "orientationVariants": [
+          {
+            "orientationId": "normal",
+            "offsetQuaternion": [0, 0, 0, 1],
+            "isDefault": true
+          }
+        ]
+      }
+    ],
+    "collisionNodes": ["collision:mb-board"],
+    "clearanceNodes": []
   }
 }

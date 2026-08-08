@@ -1,4 +1,4 @@
-# ADR-004: License — code + data under Apache-2.0, 3D assets deferred
+# ADR-004: License — code, data, and project-authored synthetic fixture GLBs under Apache-2.0
 
 - **Status:** Accepted
 - **Date:** 2026-08-08
@@ -25,7 +25,8 @@ These don't necessarily need the same license.
 |---------|---------|-------|
 | **Code** | **Apache License 2.0** | Repo root `LICENSE` file added (unmodified Apache-2.0 text) |
 | **Data** (`parts/**`, `benchmarks/**` fixture JSON) | **Apache License 2.0** (same umbrella as code) | No separate data license file; simplest to maintain while fixtures stay small and owner-authored |
-| **3D assets** (`model.glb`) | **Still open / deferred** | Placeholder GLBs today carry no meaningful IP. Real hardware models later may raise manufacturer trademark/design-rights questions distinct from code copyright — do **not** assume Apache-2.0 covers assets. Revisit before any non-placeholder model ships. |
+| **Project-authored synthetic fixture GLBs** (`model.glb`) | **Apache License 2.0** | Includes Phase 0–2 placeholders and Phase 3 synthetic `Experimental` physical-fixture geometry authored for this repository |
+| **Third-party or manufacturer-derived real-hardware GLBs** | **Still open / deferred** | May raise separate copyright, trademark, and design-rights issues; do not import or mark these assets licensed without a per-source decision |
 
 All current dependencies targeted by ADR-002/ADR-003 (React, R3F/three, Vite, TypeScript, Zod, Zustand, Vitest, pnpm) are MIT/BSD-licensed and compatible with Apache-2.0 — no conflict for planned installs.
 
@@ -50,13 +51,17 @@ All current dependencies targeted by ADR-002/ADR-003 (React, R3F/three, Vite, Ty
 
 ### Negative / accepted
 
-- 3D asset licensing remains an open follow-up; must be resolved before shipping non-placeholder hardware models.
+- Project-authored synthetic fixture GLBs can ship under the repository's
+  Apache-2.0 license.
+- Third-party or manufacturer-derived real-hardware asset licensing remains an
+  open follow-up and must be resolved per source before import.
 - No `NOTICE` file added (not required unless the project later redistributes modified Apache-2.0 third-party NOTICE content).
 
 ---
 
 ## Follow-ups
 
-1. Decide 3D asset license before replacing placeholder GLBs with real hardware models.
+1. Decide source-specific rights before importing any third-party or
+   manufacturer-derived real-hardware model.
 2. Optional: add SPDX license headers to source files at implementation scaffold time.
 3. Owner: **start implementation** remains the only other gate before scaffold (ADR-001–003).

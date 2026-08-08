@@ -8,14 +8,18 @@ This file is the **repository-level agent brief**. Aria (Grok Build), Lira (Clau
 
 | Fact | State |
 |------|--------|
-| Repository contents | **Phase 0 + Phase 1 app, docs, and fixtures** — Vite/React/R3F SPA under `src/`, fixtures at repo-root `parts/` + `benchmarks/` |
-| Implementation | **Phase 0 complete; Phase 1 `perf1` engine complete and closed out**; Phase 2 not started |
+| Repository contents | **Phase 0–3 app, docs, and fixtures** — Vite/React/R3F SPA under `src/`, 13-part catalog and fixtures at repo-root `parts/` + `benchmarks/` |
+| Implementation | **Phase 0 complete; Phase 1 `perf1` complete; Phase 2 `vs2`/`compat2` complete; Phase 3 `phys3` implementation complete — awaiting owner closeout** |
+| Current planning gate | **Phase 3 implementation complete (2026-08-08)** under `docs/phases/phase-3/`; owner closeout (Step 10) not yet accepted |
 | Stack / runtime / tooling | **Locked** (ADR-001–003) + **Playwright** for exit-scenario E2E |
-| License | Code + data: **Apache-2.0** (ADR-004); 3D assets still open |
+| License | Code + data + project-authored synthetic fixture GLBs: **Apache-2.0** (ADR-004); third-party/manufacturer-derived real-hardware GLBs still require a separate source-specific decision |
 | Tag `vertical-slice-v0` | **Created and pushed** after owner-authorized Phase 0 PASS |
 | Discarded history | Experimental scaffold `1d54c10` was **fully discarded**. Current tree is a fresh scaffold — do not revive `1d54c10` as baseline |
 
-Prefer the smallest correct change. Do not expand Phase 0 inventory or non-goals. Further phases still need their own `implementation_plan.md` before code.
+Prefer the smallest correct change. Do not expand an accepted phase inventory or
+non-goals silently. Every further phase still needs an accepted
+`implementation_plan.md` and a separate explicit implementation-start
+instruction before code.
 
 ---
 
@@ -34,9 +38,12 @@ Core principles that constrain every change:
 
 ---
 
-## Current phase: Phase 0 (vertical slice)
+## Current implementation baseline: Phase 0–3 implemented; Phase 3 awaiting owner closeout
 
-Phase 0 is a **technical connection check**, not a product MVP. Prove one thin path end-to-end, then freeze 3D work until Phase 1 (performance engine).
+Phase 0 remains the historical vertical-slice regression baseline below. Phase
+1 (`perf1`) and Phase 2 (`vs2`/`compat2`) are also implemented and closed out.
+Phase 3 (`phys3`) implementation Steps 1–9 are complete (2026-08-08). Owner
+closeout (Step 10) is **not** claimed.
 
 ### Canonical phase home
 
@@ -65,7 +72,7 @@ Pointer stubs (do not re-expand into full duplicates):
 |-----|------|
 | [`STATUS.md`](STATUS.md) | Project-wide decided vs open |
 | [`docs/phases/phase-0/TODO.md`](docs/phases/phase-0/TODO.md) | Phase-0 checklist |
-| [`docs/decisions/README.md`](docs/decisions/README.md) | ADR index (formal ADRs not started) |
+| [`docs/decisions/README.md`](docs/decisions/README.md) | Accepted ADR index |
 
 ### Fixed inventory (do not expand while phase 0 is open)
 
@@ -129,7 +136,7 @@ Canonical detail: [`docs/decisions/TECH-DECISION-ORDER.md`](docs/decisions/TECH-
 4. **E2E — adopted:** **Playwright Test** (headless Chromium) for Phase 0 exit scenario — `e2e/exit-scenario.spec.ts`, `pnpm test:e2e` (see ADR-003 amendment).
 5. **Agent browser exploration (optional):** **Playwright CLI** (`@playwright/cli`, `pnpm explore:phase0`) and **Playwright MCP** (`@playwright/mcp` in the host) for live a11y-driven browsing — not a regression gate. See [`docs/verification/AGENT_BROWSER_EXPLORATION.md`](docs/verification/AGENT_BROWSER_EXPLORATION.md).
 6. IDE/DX — owner plans **WebStorm + Cursor**
-7. **License — locked (ADR-004):** code + data = **Apache License 2.0** (root `LICENSE`). 3D asset (`model.glb`) license still open — resolve before real hardware models ship.
+7. **License — locked (ADR-004):** code + data + project-authored synthetic fixture GLBs = **Apache License 2.0** (root `LICENSE`). Third-party or manufacturer-derived real-hardware GLBs still require a separate source-specific decision.
 
 Owner handles **git push** unless they explicitly ask the agent to push. Record further locks as `docs/decisions/ADR-NNN-*.md`.
 

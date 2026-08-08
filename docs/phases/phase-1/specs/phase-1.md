@@ -1,6 +1,7 @@
 # Phase 1 — Performance Prediction Engine
 
-Status: **owner-accepted (2026-08-08)** — scope, data contract, and fixtures accepted; implementation **not started**  
+Status: **owner-accepted and implemented (2026-08-08)** — scope, data
+contract, fixtures, implementation, and closeout complete
 Canonical reference for phase-1 bounds. Detailed field shapes will live in
 [`performance-data-contract.md`](./performance-data-contract.md) *(deliverable 2; not written yet)*.
 
