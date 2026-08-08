@@ -6,27 +6,35 @@
       model, price model, save/share model, open decisions
 - [x] Data contract draft (`specs/compatibility-data-contract.md`) — `vs2`
       BuildState/URL extension, `compat2` compatibility + price types
-- [x] `implementation_plan.md` drafted (ordered, file-level build plan;
-      not yet authorized to execute)
+- [x] `implementation_plan.md` drafted (ordered, file-level build plan)
 - [x] Phase working folder under `docs/phases/phase-2/`
+- [x] Owner acceptance of `specs/phase-2.md` (2026-08-08)
+- [x] Owner acceptance of `specs/compatibility-data-contract.md` (2026-08-08)
+- [x] Owner acceptance of `implementation_plan.md` (2026-08-08)
+- [x] M0 open decisions resolved (2026-08-08):
+  - [x] Fixture currency → **USD**
+  - [x] RAM-tier (`perf1`) ↔ RAM-SKU (`compat2`) mapping → **deferred**
+        (not wired in phase 2)
+  - [x] Fixture paths → split: `benchmarks/compat2/compatibility-examples.json`
+        (compatibility examples) + `benchmarks/price2/price-fixtures.json`
+        (price) — differs from the single `benchmarks/compat2/` path
+        implementation_plan.md §3 originally sketched; use this split at
+        implementation time
+  - [x] `PartDefinition` shape → **nested `compatSpec` block**
+        (e.g. `{ "compatSpec": { "socket": "AM5", "tdpWatts": 65 } }`)
+  - [x] Phase 2 E2E (`e2e/phase2-compat-price.spec.ts`) → **required**, not
+        optional; part of the Step 8 gate
+  - [x] `PSU_HEADROOM_MULTIPLIER` stub constant → **1.3** (30% headroom;
+        `checkPsuWattage.ts` + contract §4.4)
 
 ## Open
 
-### M0 gate (must clear before any implementation)
+### M0 gate
 
-- [ ] Owner review and acceptance of `specs/phase-2.md`
-- [ ] Owner review and acceptance of `specs/compatibility-data-contract.md`
-- [ ] Owner review and acceptance of `implementation_plan.md`
-- [ ] Resolve open decisions (`specs/phase-2.md` §9):
-  - [ ] PSU headroom multiplier value
-  - [ ] Fixture currency (proposed default: `USD`)
-  - [ ] RAM-tier (`perf1`) ↔ RAM-SKU (`compat2`) mapping — decide or
-        explicitly defer
-  - [ ] Exact `benchmarks/compat2/` fixture path
-  - [ ] `PartDefinition` shape change: inline compat fields vs. nested
-        `compatSpec` block
+M0 gate is **clear**. Implementation still requires an explicit owner
+"start implementation" instruction before Step 1 begins.
 
-### Implementation (only after M0 gate clears + explicit "start implementation")
+### Implementation (only after explicit "start implementation")
 
 - [ ] `vs2` / `compat2` contract types + Zod schemas
 - [ ] Phase-2 fixtures on disk: second case, second motherboard, 2 RAM, 2 PSU

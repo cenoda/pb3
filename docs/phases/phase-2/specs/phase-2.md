@@ -1,6 +1,7 @@
 # Phase 2 — Basic Estimate Service
 
-Status: **M0 planning draft — not owner-accepted**
+Status: **owner-accepted (2026-08-08)** — scope and all M0 open decisions
+accepted; implementation **not started**
 Canonical reference for phase-2 bounds. Detailed field shapes live in
 [`compatibility-data-contract.md`](./compatibility-data-contract.md).
 
@@ -14,8 +15,10 @@ Authority: [PROJECT_CHARTER.md](../../../PROJECT_CHARTER.md) §4 "2단계 — �
 견적 서비스".
 
 This document is a **planning artifact (M0 gate)**. It fixes scope so an
-`implementation_plan.md` can be written and reviewed. It does **not** authorize
-implementation. Nothing here is owner-accepted until recorded in `STATUS.md`.
+`implementation_plan.md` can be written and reviewed. Owner acceptance of this
+document (recorded in `STATUS.md`, 2026-08-08) does **not** by itself
+authorize implementation — that requires a separate explicit "start
+implementation" instruction.
 
 ---
 
@@ -130,7 +133,7 @@ rule is defined this phase; cooler mounting is physical, deferred to Phase 3).
 | CPU socket ↔ motherboard socket | `cpu.socket` vs `motherboard.socket` | Equality |
 | Motherboard chipset ↔ BIOS support for CPU | `motherboard.chipset` + `motherboard.biosMinVersionForCpu[cpuId]` (fixture-declared map) | Table lookup; **unavailable** (not "compatible") when the CPU/chipset pair has no declared BIOS entry — never assume compatibility from a missing row |
 | RAM type/speed ↔ motherboard support | `ram.memoryType` + `ram.speedMtS` vs `motherboard.supportedMemoryType` + `motherboard.maxMemorySpeedMtS` | Type equality + speed ≤ max |
-| PSU wattage ↔ estimated system draw | `psu.wattage` vs `cpu.tdpWatts + gpu.tdpWatts` + a documented fixed headroom margin | Threshold with fixed margin (see contract §4.4); never a measured live draw |
+| PSU wattage ↔ estimated system draw | `psu.wattage` vs `cpu.tdpWatts + gpu.tdpWatts` × `PSU_HEADROOM_MULTIPLIER = 1.3` (stub constant, 30% headroom; owner-accepted 2026-08-08, to be replaced by a real draw model later) | Threshold with fixed margin (see contract §4.4); never a measured live draw |
 | Case form factor ↔ motherboard form factor | `case.supportedFormFactors` vs `motherboard.formFactor` | Set membership |
 
 These five checks are the complete phase-2 compatibility surface. No socket
@@ -293,16 +296,26 @@ and reviewed:
 
 ---
 
-## 9. Open decisions (not resolved by this M0 document)
+## 9. M0 decisions record
+
+All decisions this document originally flagged as open were resolved by the
+owner on 2026-08-08:
+
+| Decision | Resolution |
+|----------|------------|
+| Fixture file layout/paths for RAM/PSU parts and price records | Compatibility examples: `benchmarks/compat2/compatibility-examples.json`. Price fixtures: `benchmarks/price2/price-fixtures.json` (separate path from compatibility examples) |
+| Whether a selected RAM SKU should drive the `perf1` RAM tier automatically | **Deferred** — not wired in phase 2. The `perf1` RAM tier control stays independent; `perf1` code is not touched by phase 2 |
+| PSU headroom margin (§3.3) | `PSU_HEADROOM_MULTIPLIER = 1.3` (30% headroom), a stub constant documented in code and in the data contract, to be replaced by a real power-draw model in a later phase |
+| Currency for phase-2 fixture prices | `USD`, fixed for all phase-2 price fixture rows |
+| `PartDefinition` shape for compat spec fields | Nested `compatSpec` block (e.g. `{ "compatSpec": { "socket": "AM5", "tdpWatts": 65 } }`), not inline top-level fields |
+| Phase 2 E2E coverage | **Required**, not optional — `e2e/phase2-compat-price.spec.ts` is part of the implementation-plan Step 8 test gate |
+
+Remaining, not decided by this document (unchanged from the original draft):
 
 | Decision | Status |
 |----------|--------|
-| Exact fixture file layout/paths for RAM/PSU parts and price records | Deferred to `implementation_plan.md` |
-| Whether a selected RAM SKU should drive the `perf1` RAM tier automatically | Open — needs its own decision before implementation touches `perf1` |
-| Exact PSU headroom margin percentage (§3.3) | Open — needs a concrete documented number in the data contract before implementation |
-| Currency for phase-2 fixture prices | Open — proposed default in contract §6, needs owner confirmation |
 | Storage category and any further catalog expansion | Explicitly deferred, not decided here |
-| Filtering UI scope (which attributes are filterable) | Deferred to `implementation_plan.md` UI integration section |
+| Filtering UI scope (which attributes are filterable) | Deferred to `implementation_plan.md` UI integration section (implementation-time decision, not a blocker for starting) |
 
 ---
 
@@ -325,14 +338,13 @@ and reviewed:
 
 ## 11. Deliverable order inside phase 2 (M0 gate)
 
-1. This document (scope draft) — **current deliverable**
+1. This document (scope lock) — **owner-accepted (2026-08-08)**
 2. [`compatibility-data-contract.md`](./compatibility-data-contract.md) — types for
-   compatibility, price, and the `vs2` `BuildState`/URL extension — **current
-   deliverable**
+   compatibility, price, and the `vs2` `BuildState`/URL extension —
+   **owner-accepted (2026-08-08)**
 3. [`implementation_plan.md`](../implementation_plan.md) — ordered, file-level
-   plan — **current deliverable, drafted ahead of owner acceptance of 1–2 so
-   the full M0 package can be reviewed together; implementation must not start
-   until owner accepts all three**
+   plan — **owner-accepted (2026-08-08)**; execution requires a separate
+   explicit "start implementation" instruction
 4. Fixture data (RAM/PSU parts, price records, expanded case/motherboard
    siblings) — **not started**
 5. Implementation → phase-2 exit scenario — **not started**

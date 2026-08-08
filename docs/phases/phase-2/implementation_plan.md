@@ -1,6 +1,8 @@
 # Phase 2 — Implementation Plan
 
-Status: **M0 draft — written for review; implementation not authorized**
+Status: **owner-accepted (2026-08-08)** — plan and all M0 open decisions
+accepted; implementation **not authorized** (requires a separate explicit
+"start implementation" instruction)
 Scope authority: [`specs/phase-2.md`](./specs/phase-2.md)
 Data authority: [`specs/compatibility-data-contract.md`](./specs/compatibility-data-contract.md)
 Stack authority: [`ADR-001`](../../decisions/ADR-001-runtime-static-spa.md), [`ADR-002`](../../decisions/ADR-002-stack-core-ts-react-r3f-vite.md), [`ADR-003`](../../decisions/ADR-003-stage3-tooling-and-fixtures.md), [`ADR-004`](../../decisions/ADR-004-license-code-apache-2.0.md)
@@ -10,10 +12,11 @@ and closed out ([`../phase-1/implementation_plan.md`](../phase-1/implementation_
 This document is the ordered, file-level build plan required by the
 plan-before-code convention ([`docs/phases/README.md`](../README.md) "Rule:
 plan before code"). Per that convention, **no scaffold or source file for
-phase 2 exists yet and none is created by this document.** It is written
-alongside `specs/phase-2.md` and `specs/compatibility-data-contract.md` so the
-full M0 package can be reviewed together; implementation begins only after the
-owner accepts all three.
+phase 2 exists yet and none is created by this document.** It was written
+alongside `specs/phase-2.md` and `specs/compatibility-data-contract.md`; the
+owner accepted all three and resolved every M0 open decision on 2026-08-08
+(see §1 and §12). Implementation still begins only after a separate explicit
+"start implementation" instruction.
 
 ---
 
@@ -27,17 +30,17 @@ owner accepts all three.
 | License | Code + data = Apache-2.0 — [`ADR-004`](../../decisions/ADR-004-license-code-apache-2.0.md) |
 | Phase 0 app | Implemented under `src/`; exit scenario automated (`e2e/exit-scenario.spec.ts`) |
 | Phase 1 `perf1` engine | Implemented, verified, closed out (`38b76d1`) |
-| Phase 2 scope lock | **Draft, not yet owner-accepted** — [`specs/phase-2.md`](./specs/phase-2.md) |
-| Phase 2 data contract | **Draft, not yet owner-accepted** — `vs2`/`compat2` types in [`compatibility-data-contract.md`](./specs/compatibility-data-contract.md) |
+| Phase 2 scope lock | **Owner-accepted (2026-08-08)** — [`specs/phase-2.md`](./specs/phase-2.md) |
+| Phase 2 data contract | **Owner-accepted (2026-08-08)** — `vs2`/`compat2` types in [`compatibility-data-contract.md`](./specs/compatibility-data-contract.md) |
+| M0 open decisions | **Resolved (2026-08-08)** — currency `USD`, RAM-tier↔RAM-SKU mapping deferred, fixture paths split (`benchmarks/compat2/` + `benchmarks/price2/`), `PartDefinition` uses nested `compatSpec`, Phase 2 E2E required, `PSU_HEADROOM_MULTIPLIER = 1.3` |
 | Fixtures on disk | **Not started** |
 | Owner "start implementation" | **Not given** |
 
-**This plan cannot be executed as-is.** Step 1 below cannot begin until the
-owner accepts `specs/phase-2.md` and `specs/compatibility-data-contract.md`,
-and resolves the open decisions listed in phase-2.md §9 (PSU headroom
-multiplier, currency, RAM-tier mapping stance, exact fixture paths). If any
-precondition or open decision changes before implementation starts, this plan
-must be revised first.
+**Step 0 (§5) is the only remaining gate.** Scope, contract, and all M0 open
+decisions are resolved; the sole remaining precondition before Step 1 is the
+owner's explicit "start implementation" instruction. If any precondition or
+accepted decision changes before implementation starts, this plan must be
+revised first.
 
 ---
 
@@ -75,7 +78,7 @@ pb3/
     catalog/
       loadPartCatalog.ts             existing — extend to load ram/psu categories + new case/mb ids
       loadPerf1Fixtures.ts           existing — unchanged
-      loadCompat2Fixtures.ts         NEW — fetch + parse benchmarks/compat2/*.json
+      loadCompat2Fixtures.ts         NEW — fetch + parse benchmarks/compat2/compatibility-examples.json
     compat/
       compatibilityInputs.ts         NEW — BuildStateV2 → per-check spec lookups (contract §4.3)
       checkCpuSocket.ts               NEW — contract §4.4 row 1
@@ -85,7 +88,7 @@ pb3/
       checkCaseFormFactor.ts          NEW — contract §4.4 row 5
       buildCompatibilityReport.ts     NEW — runs all five checks, aggregates overallStatus
     price/
-      loadPriceFixtures.ts            NEW — price-fixtures.json loader
+      loadPriceFixtures.ts            NEW — fetch + parse benchmarks/price2/price-fixtures.json
       buildPriceSummary.ts            NEW — BuildStateV2 → BuildPriceSummary (contract §5.2)
     state/
       buildStore.ts                   existing — extend BuildState → BuildStateV2 (ram/psu fields)
@@ -104,8 +107,9 @@ pb3/
       compatibilityChecks.test.ts      NEW — all 5 checks: compatible / incompatible / unavailable
       buildPriceSummary.test.ts        NEW — ok / unavailable / partial total
     App.tsx                            EXTEND: also load compat2 fixtures + expanded catalog
-  benchmarks/compat2/                  NEW SSOT (path per contract §6, to confirm at implementation start)
+  benchmarks/compat2/                  NEW SSOT (path owner-confirmed 2026-08-08, contract §6)
     compatibility-examples.json         test-only compatible/incompatible/unavailable examples
+  benchmarks/price2/                   NEW SSOT — separate path from compat2 (owner-confirmed 2026-08-08)
     price-fixtures.json                 price rows for all phase-2 part ids
   parts/
     case/case.mid-tower-atx-01/         existing — unchanged
@@ -116,7 +120,7 @@ pb3/
     psu/{psu-id-1}/, psu/{psu-id-2}/    NEW — PSU category
   e2e/
     exit-scenario.spec.ts               Phase 0 regression — must stay green
-    phase2-compat-price.spec.ts         NEW (optional split) — phase-2 completion scenario
+    phase2-compat-price.spec.ts         NEW (required, owner-confirmed 2026-08-08) — phase-2 completion scenario
 ```
 
 Notes:
@@ -125,8 +129,9 @@ Notes:
   Zod in `src/contract/*.schema.ts`.
 - **`EstimateConfidence` is not redefined** — reused from `vs0` (contract §2).
 - **Fixture SSOT stays at repo root**, matching ADR-003's fixture HTTP
-  strategy; `benchmarks/compat2/` needs no new Vite plugin beyond the existing
-  `/benchmarks/**` serve + dist-copy wiring, unless practice shows otherwise.
+  strategy; `benchmarks/compat2/` and `benchmarks/price2/` need no new Vite
+  plugin beyond the existing `/benchmarks/**` serve + dist-copy wiring, unless
+  practice shows otherwise.
 - **No 3D/GLB work.** New parts (RAM, PSU, second case/motherboard) need
   `part.json` + a placeholder `model.glb` only to satisfy the existing part
   loader contract (`vs0` §4.6) — no new viewport features, no anchors.
@@ -173,16 +178,22 @@ Notes:
 Each step names its exit condition. Do not start step *N+1*'s app-behavior
 work before step *N* compiles/tests clean.
 
-### Step 0 — Owner acceptance gate (precondition, not implementation)
+### Step 0 — Owner acceptance gate (precondition, not implementation) — CLEARED
 
-- Owner reviews and accepts `specs/phase-2.md` and
-  `specs/compatibility-data-contract.md`.
-- Owner resolves the open decisions in phase-2.md §9: PSU headroom
-  multiplier value, fixture currency, RAM-tier-mapping stance (defer vs.
-  decide now), exact `benchmarks/compat2/` path.
-- **Exit:** `STATUS.md` records phase-2 scope + contract as owner-accepted,
-  same pattern as Phase 1's `phase-1.md`/`performance-data-contract.md`
-  acceptance record.
+- [x] Owner accepted `specs/phase-2.md`, `specs/compatibility-data-contract.md`,
+      and this plan (2026-08-08).
+- [x] Owner resolved the open decisions from phase-2.md §9: currency `USD`,
+      RAM-tier↔RAM-SKU mapping deferred, fixture paths split
+      (`benchmarks/compat2/` for compatibility examples,
+      `benchmarks/price2/` for price fixtures), `PartDefinition` uses a
+      nested `compatSpec` block, Phase 2 E2E required,
+      `PSU_HEADROOM_MULTIPLIER = 1.3`.
+- [x] **Exit met:** `STATUS.md` records phase-2 scope + contract as
+      owner-accepted (2026-08-08), same pattern as Phase 1's
+      `phase-1.md`/`performance-data-contract.md` acceptance record.
+
+Remaining precondition before Step 1 begins: a separate explicit owner
+"start implementation" instruction (not yet given).
 
 ### Step 1 — Contract types + Zod schemas (`vs2`, `compat2`)
 
@@ -215,11 +226,12 @@ work before step *N* compiles/tests clean.
   0/1 fixtures never declared them.
 - Author `benchmarks/compat2/compatibility-examples.json` (at least one
   compatible, one incompatible with `explanation`, one `unavailable` case per
-  contract §8 checklist) and `benchmarks/compat2/price-fixtures.json` (price
+  contract §8 checklist) and `benchmarks/price2/price-fixtures.json` (price
   row per phase-2 part id, plus at least one deliberately missing row to
   exercise the `unavailable` price path).
-- `src/catalog/loadCompat2Fixtures.ts`: fetch + Zod-parse both files; fail
-  loud on HTTP or schema failure, matching `loadPerf1Fixtures.ts` discipline.
+- `src/catalog/loadCompat2Fixtures.ts` + `src/price/loadPriceFixtures.ts`:
+  fetch + Zod-parse each file from its own path; fail loud on HTTP or schema
+  failure, matching `loadPerf1Fixtures.ts` discipline.
 - Extend `loadPartCatalog.ts` (or add a sibling loader) to include `ram` and
   `psu` categories and the new case/motherboard ids.
 - **Exit:** loaders work against `pnpm dev`; a data-only fixture integrity
@@ -318,9 +330,9 @@ work before step *N* compiles/tests clean.
 | Price | `buildPriceSummary.test.ts` | Full total, partial total, no invented amounts |
 | URL | `urlSync.vs2.test.ts` | vs2 round-trip; vs0 legacy backward-compat |
 | Phase 0 regression | `pnpm test:e2e` / `e2e/exit-scenario.spec.ts` | Still passes headless, unchanged behavior |
-| Phase 2 E2E (optional split) | `e2e/phase2-compat-price.spec.ts` | Draft completion scenario (phase-2.md §8), if the owner wants E2E coverage beyond unit tests |
+| Phase 2 E2E (required) | `e2e/phase2-compat-price.spec.ts` | Completion scenario (phase-2.md §8) — owner-confirmed required, not optional |
 | Full gate | `pnpm test:all` | Unit + E2E green before claiming exit |
-| Build | `pnpm build` | New fixture paths (`benchmarks/compat2/`, `parts/ram/`, `parts/psu/`) copy into `dist/` correctly |
+| Build | `pnpm build` | New fixture paths (`benchmarks/compat2/`, `benchmarks/price2/`, `parts/ram/`, `parts/psu/`) copy into `dist/` correctly |
 
 - **Exit:** `pnpm test:all` and `pnpm build` green on a clean checkout.
 
@@ -383,7 +395,8 @@ Then (owner / hand-off):
 ## 9. Unit and E2E test strategy
 
 Per ADR-003: Vitest for pure logic first; Playwright for Phase 0 regression
-(mandatory) and optional phase-2 E2E expansion.
+(mandatory) and phase-2 E2E (also mandatory — owner-confirmed 2026-08-08, not
+optional).
 
 | Layer | Covered by |
 |-------|------------|
@@ -392,7 +405,7 @@ Per ADR-003: Vitest for pure logic first; Playwright for Phase 0 regression
 | Price aggregation (ok / partial) | `buildPriceSummary.test.ts` |
 | URL vs2 round-trip + vs0 backward-compat | `urlSync.vs2.test.ts` |
 | Phase 0 exit scenario | `e2e/exit-scenario.spec.ts` (must stay green) |
-| Phase 2 completion scenario (optional E2E) | `e2e/phase2-compat-price.spec.ts` |
+| Phase 2 completion scenario (required) | `e2e/phase2-compat-price.spec.ts` |
 | Commands | `pnpm test`, `pnpm test:e2e`, `pnpm test:all`, `pnpm build` |
 
 `benchmarks/compat2/compatibility-examples.json` is a **test oracle**, not
@@ -408,13 +421,14 @@ deliverable) when:
 
 - [x] Directory layout, build order, and step-level exit conditions are
       written (this document).
-- [ ] Owner accepts this plan alongside `specs/phase-2.md` and
-      `specs/compatibility-data-contract.md` (Step 0).
-- [ ] Open decisions in phase-2.md §9 are resolved or explicitly deferred by
-      owner decision before Step 1 begins.
+- [x] Owner accepted this plan alongside `specs/phase-2.md` and
+      `specs/compatibility-data-contract.md` (Step 0, 2026-08-08).
+- [x] Open decisions in phase-2.md §9 resolved by owner decision
+      (2026-08-08).
 
-Phase-2 **implementation** (Steps 1–9) exits per §5 Step 9 once executed —
-not yet reached.
+This planning deliverable is **done**. Phase-2 **implementation** (Steps
+1–9) exits per §5 Step 9 once executed — not yet reached; awaiting the
+owner's explicit "start implementation" instruction.
 
 ---
 
@@ -431,26 +445,34 @@ implementation drift into:
 | Accounts, auth, server-mediated share/sync | Static SPA (ADR-001) |
 | Expanding CPU/GPU/cooler/game/preset counts | Scope lock, unchanged |
 | Storage or any category beyond phase-2.md §2.1–§2.3 | Scope lock |
-| Auto-mapping selected RAM SKU to `perf1` RAM tier | Open decision, not resolved |
+| Auto-mapping selected RAM SKU to `perf1` RAM tier | Owner decision: deferred (2026-08-08), not implemented in phase 2 |
 | Inventing compatibility, price, or performance values | Charter §2 |
 | Modifying `perf1` baseline/correction/workload code | Out of phase-2 scope |
-| Starting any step in §5 before Step 0's owner acceptance | Plan-before-code convention |
+| Starting any step in §5 before an explicit "start implementation" | Plan-before-code convention; Step 0 acceptance alone does not authorize code |
 
 If a step seems to require one of these, stop and flag it rather than adding
 it quietly.
 
 ---
 
-## 12. Risks and unresolved decisions
+## 12. Risks and decisions
 
-| Risk / decision | Impact if unresolved | Owner action needed |
+All six M0 open decisions this plan originally flagged were resolved by the
+owner on 2026-08-08:
+
+| Decision | Resolution |
+|---|---|
+| PSU headroom multiplier | `PSU_HEADROOM_MULTIPLIER = 1.3` (stub constant, replace with a real draw model later) |
+| Fixture currency | `USD` |
+| RAM-tier ↔ RAM-SKU mapping stance | Deferred — phase 2 ships without the mapping; `perf1` code untouched |
+| Fixture paths | Split: `benchmarks/compat2/` (compatibility examples), `benchmarks/price2/` (price fixtures) |
+| `PartDefinition` shape | Nested `compatSpec` block |
+| Phase-2 E2E requirement | Required, not optional |
+
+Remaining risk, not resolvable by decision alone:
+
+| Risk | Impact | Mitigation |
 |---|---|---|
-| PSU headroom multiplier value undecided | `checkPsuWattage` cannot be implemented correctly; a placeholder value risks being mistaken for a real safety margin | Confirm a specific multiplier (e.g. a percentage) before Step 3 |
-| Fixture currency undecided | Price fixtures block on a currency choice | Confirm `"USD"` (proposed) or another currency before Step 2 |
-| RAM-tier ↔ RAM-SKU mapping stance undecided | Ambiguity about whether phase 2 silently should/shouldn't touch `perf1`; risk of scope creep into performance-engine changes | Explicit decision: defer (phase 2 ships without the mapping) or scope a follow-up |
-| Exact fixture paths under `benchmarks/compat2/` not finalized | Minor — low-cost to change before Step 2, higher cost after | Confirm during Step 0/1 |
-| `PartDefinition` shape change (inline compat fields vs. nested `compatSpec`) undecided | Affects Zod schema design and every phase-2 part fixture's shape | Decide during Step 1 (contract §6 open note) |
-| Whether phase-2 E2E (`phase2-compat-price.spec.ts`) is required or optional | Affects Step 8/9 scope and effort | Owner call at Step 0 or Step 8 |
 | Two-motherboard / two-case set may reveal additional compatibility edge cases once real specs are chosen (e.g. a third form factor) | Could pressure inventory beyond §2.2 boundaries | Hold the line at 2/2 per phase-2.md §2; open a new decision rather than expanding silently |
 
 ---

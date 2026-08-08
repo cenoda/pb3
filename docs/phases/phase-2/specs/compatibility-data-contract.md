@@ -1,6 +1,6 @@
 # Phase 2 Data Contract — Compatibility, Price, and `vs2` BuildState
 
-Status: **M0 planning draft — not owner-accepted**
+Status: **owner-accepted (2026-08-08)**
 Scope authority: [`phase-2.md`](./phase-2.md)
 
 This document defines the Phase 2 types: the logical **compatibility** model,
@@ -283,7 +283,7 @@ export interface CaseCompatSpec {
 | `cpu-socket` | `cpu.socket === motherboard.socket` → compatible; else incompatible | Either spec is missing the `socket` field |
 | `chipset-bios` | Look up `motherboard.biosMinVersionForCpu[cpuId]`; if present, compatible (phase 2 does not model the user's currently-flashed BIOS version — presence of a documented minimum is treated as compatible, since verifying the user's actual BIOS is out of scope) | No entry for `cpuId` in `biosMinVersionForCpu` — **never** assume compatible from a missing entry |
 | `ram-support` | `ram.memoryType === motherboard.supportedMemoryType` **and** `ram.speedMtS <= motherboard.maxMemorySpeedMtS` → compatible; type mismatch or over-speed → incompatible | Either spec missing the relevant field |
-| `psu-wattage` | `psu.wattage >= (cpu.tdpWatts + gpu.tdpWatts) * PSU_HEADROOM_MULTIPLIER` → compatible; else incompatible. `PSU_HEADROOM_MULTIPLIER` is a fixed constant, value **open** (phase-2.md §9) — must be set before implementation, not left as a silent default in code | Any of `psu.wattage`, `cpu.tdpWatts`, `gpu.tdpWatts` missing |
+| `psu-wattage` | `psu.wattage >= (cpu.tdpWatts + gpu.tdpWatts) * PSU_HEADROOM_MULTIPLIER` → compatible; else incompatible. `PSU_HEADROOM_MULTIPLIER = 1.3` (30% headroom) — **owner-accepted stub constant (2026-08-08)**, to be replaced by a real power-draw model in a later phase; not a silent default in code | Any of `psu.wattage`, `cpu.tdpWatts`, `gpu.tdpWatts` missing |
 | `case-form-factor` | `motherboard.formFactor ∈ case.supportedFormFactors` → compatible; else incompatible | Either spec missing the relevant field |
 
 `chipset-bios` is intentionally a **declared-data** check, not a live BIOS
@@ -387,12 +387,11 @@ export interface BuildPriceSummary {
 }
 ```
 
-### 5.3 Currency (open decision)
+### 5.3 Currency
 
-This draft proposes **`"USD"`** as the fixed fixture currency for phase 2,
-matching the mostly-English/international part naming already used in Phase
-0/1 fixtures. This is listed as open in phase-2.md §9 pending owner
-confirmation; implementation must not proceed on this field until confirmed.
+**`"USD"`** — owner-confirmed (2026-08-08) as the fixed fixture currency for
+all phase-2 price rows, matching the mostly-English/international part
+naming already used in Phase 0/1 fixtures.
 
 ### 5.4 Example fixture row
 
@@ -455,20 +454,41 @@ export interface PriceFixtureFile {
 }
 ```
 
-Suggested (not final) paths, following the `benchmarks/{contract}/` convention
-established by `benchmarks/vs0/` and `benchmarks/perf1/`:
+Paths — **owner-confirmed (2026-08-08)**, following the
+`benchmarks/{contract}/` convention established by `benchmarks/vs0/` and
+`benchmarks/perf1/`, split into two directories:
 
 ```text
 benchmarks/compat2/
   compatibility-examples.json
+
+benchmarks/price2/
   price-fixtures.json
 ```
 
+Compatibility examples and price fixtures are governed by the same
+`compat2` contract version but live under separate paths so pricing data
+(commercial, likely to change independently) stays physically separate from
+compatibility test fixtures.
+
 Case/motherboard/RAM/PSU spec fields (§4.3) live on each part's `part.json`
 under `parts/{category}/{id}/part.json`, following the existing `vs0` layout
-(`vertical-slice-data-contract.md` §4.1) — extended with the new compat spec
-fields, not a parallel spec file. Exact field placement (top-level vs a nested
-`compatSpec` object) is an implementation-plan decision, not fixed here.
+(`vertical-slice-data-contract.md` §4.1), nested under a `compatSpec` object
+— **owner-confirmed (2026-08-08)**:
+
+```json
+{
+  "contractVersion": "vs2",
+  "id": "cpu.zen4-7600",
+  "category": "cpu",
+  "displayName": "Ryzen 5 7600 (fixture)",
+  "modelGlbPath": "parts/cpu/cpu.zen4-7600/model.glb",
+  "compatSpec": {
+    "socket": "AM5",
+    "tdpWatts": 65
+  }
+}
+```
 
 ---
 

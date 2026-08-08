@@ -94,11 +94,17 @@
 2. ~~Playwright headless E2E (Step 8 자동화)~~ → **추가 완료 (2026-08-08)**
 3. ~~**태그 `vertical-slice-v0`** — 소유자가 `pnpm test:all` green 확인 후 수행~~ → **완료 (2026-08-08)**
 4. ~~**Phase 1 (성능 엔진)** — 스코프·계약·fixture·구현·검증·closeout~~ → **완료 (2026-08-08)**
-5. **Phase 2 (기본 견적 서비스)** — M0 계획 패키지 초안 작성 완료 (2026-08-08), 아직 소유자 승인 전; 구현 미착수 — [`docs/phases/phase-2/`](docs/phases/phase-2/)
-   - [`specs/phase-2.md`](docs/phases/phase-2/specs/phase-2.md): 인벤토리 경계, 논리 호환성 모델, 가격 집계, 저장/공유(`vs2`) 모델, 미해결 결정 목록
-   - [`specs/compatibility-data-contract.md`](docs/phases/phase-2/specs/compatibility-data-contract.md): `vs2` BuildState/URL 확장 + `compat2` 호환성·가격 타입
-   - [`implementation_plan.md`](docs/phases/phase-2/implementation_plan.md): 순서화된 파일 단위 구현 계획 (실행 승인 전)
-   - 미해결: PSU 여유 배수 값, fixture 통화, `perf1` RAM 티어 ↔ `compat2` RAM SKU 매핑 여부, `benchmarks/compat2/` 정확한 경로
+5. **Phase 2 (기본 견적 서비스)** — M0 계획 패키지 **소유자 수락 완료 (2026-08-08)**; 구현은 아직 시작하지 않음 — [`docs/phases/phase-2/`](docs/phases/phase-2/)
+   - [`specs/phase-2.md`](docs/phases/phase-2/specs/phase-2.md): 인벤토리 경계, 논리 호환성 모델, 가격 집계, 저장/공유(`vs2`) 모델 — **수락**
+   - [`specs/compatibility-data-contract.md`](docs/phases/phase-2/specs/compatibility-data-contract.md): `vs2` BuildState/URL 확장 + `compat2` 호환성·가격 타입 — **수락**
+   - [`implementation_plan.md`](docs/phases/phase-2/implementation_plan.md): 순서화된 파일 단위 구현 계획 — **수락** (실행은 "start implementation" 명시 후)
+   - **M0 미해결 결정 확정 (2026-08-08):**
+     - fixture 통화: **USD**
+     - `perf1` RAM 티어 ↔ `compat2` RAM SKU 매핑: **defer** (Phase 2에서는 연결하지 않음, 패널 RAM 티어 컨트롤 독립 유지)
+     - fixture 경로: 호환성 예시 `benchmarks/compat2/compatibility-examples.json`, 가격 `benchmarks/price2/price-fixtures.json` (분리)
+     - `PartDefinition` 확장 형태: **중첩 `compatSpec` 블록** (예: `{ "compatSpec": { "socket": "AM5", "tdpWatts": 65 } }`)
+     - Phase 2 E2E(`e2e/phase2-compat-price.spec.ts`): **필수** (Step 8 게이트에 포함, optional 아님)
+     - `PSU_HEADROOM_MULTIPLIER` stub 상수: **1.3** (30% 여유; 실측 기반 모델로 추후 교체 예정, `checkPsuWattage.ts` + 계약서 §4.4 명시)
 
 ## Phase 0 종료 승인 (2026-08-08)
 
