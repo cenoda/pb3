@@ -4,10 +4,12 @@ Loaded automatically under `.grok/rules/`. Detail lives in repo-root `AGENTS.md`
 
 ## Gates
 
-- **Docs + fixtures only.** No app code, no dependency install, no stack lock without explicit owner “start implementation”.
-- **Do not revive** discarded scaffold `1d54c10` / assumed Vite-React-R3F stack.
+- **Docs + fixtures only** until explicit owner “start implementation”. No app code or dependency install without that gate.
+- **Runtime locked:** static SPA — `docs/decisions/ADR-001-runtime-static-spa.md` (scoped phases 0–3; revisit if server compute needed). Stage 2+ stack still undecided.
+- **Do not revive** discarded scaffold `1d54c10` as baseline (even if a future stack looks similar).
 - Phase home: `docs/phases/phase-0/`. Fixtures: `parts/`, `benchmarks/vs0/`.
 - Contract version `vs0`. URL: full encode / lenient decode. No invented FPS.
+- Deploy: local only for Phase 0; later GCP/Azure; portable static output.
 - Commits when the owner asks or allows; English commit messages; no force-push unless asked.
 
 ## Before non-trivial work

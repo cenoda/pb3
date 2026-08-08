@@ -20,7 +20,7 @@ This is the dependency order for stack choices. Do not reverse it: later choices
 
 | Decision | Why first | Notes |
 |----------|-----------|--------|
-| **App runtime shape** | Determines whether a backend, SSR, or client-only model is in play | Phase-0 non-goals already exclude backend, auth, prices → **static SPA is a strong candidate (not locked)**, not yet formally locked |
+| **App runtime shape** | Determines whether a backend, SSR, or client-only model is in play | **Locked:** static SPA — [`ADR-001-runtime-static-spa.md`](./ADR-001-runtime-static-spa.md). Scoped to phases 0–3; revisit if server compute is required |
 | **Deploy host** | Narrows once runtime is static assets | **Deferred for Phase 0.** Verify exit criteria with **local preview** only. When deploy matters later: prefer **GCP or Azure** static hosting; keep build output portable (static files + SPA fallback), avoid host-specific frameworks |
 
 ## Stage 2 — Stack core (tightly coupled)
@@ -54,7 +54,8 @@ This is the dependency order for stack choices. Do not reverse it: later choices
 ## Recommended sequence (short)
 
 ```text
-runtime shape  (deploy host deferred: local only for now; later GCP or Azure)
+runtime shape = static SPA (ADR-001, scoped)  ✓
+  deploy host deferred: local only for now; later GCP or Azure
   → language
   → (UI framework + 3D stack together)
   → bundler
@@ -73,7 +74,11 @@ License: parallel, but before `npm install` / equivalent.
 
 ## Formal ADRs
 
-When a stage item is locked, add `ADR-NNN-title.md` under this folder and update:
+| ADR | Topic |
+|-----|--------|
+| [`ADR-001-runtime-static-spa.md`](./ADR-001-runtime-static-spa.md) | Static SPA runtime (scoped 0–3; revisit on server compute) |
+
+When further items lock, add `ADR-NNN-title.md` and update:
 
 - [`README.md`](./README.md) (index)
 - [`STATUS.md`](../../STATUS.md)

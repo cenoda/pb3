@@ -6,10 +6,10 @@ Project instructions for Claude Code (and Grok Claude-compat) in this repository
 
 ## Hard gates (do not skip)
 
-- This repo is **docs + fixtures only**. There is **no** implementation code, build system, or locked stack.
+- This repo is **docs + fixtures only** until implementation start. There is **no** app code or build system yet.
+- **Runtime locked:** static SPA — `docs/decisions/ADR-001-runtime-static-spa.md` (valid for phases 0–3 scope; revisit if server compute is required). Language / UI / 3D / bundler / license still **undecided**.
 - **Do not scaffold, install dependencies, or write app code** until the owner explicitly starts implementation.
 - Experimental scaffold `1d54c10` was **discarded**; it is not baseline.
-- Stack, runtime, package manager, UI, 3D framework, and license are **all undecided**.
 - Phase-0 home: `docs/phases/phase-0/` (specs, TODO, fixes). Fixtures stay at repo-root `parts/` and `benchmarks/`.
 - Never invent FPS; unknown combos are `unavailable`. Estimates are ranges with confidence.
 

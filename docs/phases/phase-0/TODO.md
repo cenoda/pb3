@@ -15,7 +15,7 @@
 
 ### Stage 1 — foundation (see `docs/decisions/TECH-DECISION-ORDER.md`)
 
-- [ ] Lock app runtime shape (static SPA candidate only by non-goals; **not locked yet**)
+- [x] Lock app runtime shape → **static SPA** ([`ADR-001`](../../decisions/ADR-001-runtime-static-spa.md)); scoped to phases 0–3; revisit if server compute is required
 - [x] Deploy host for Phase 0: **deferred** — no live site now; local verification only. Future direction: **GCP or Azure** (portable static output; not a Phase 0 blocker)
 
 ### Stage 2 — stack core (after Stage 1; language still undecided)

@@ -119,13 +119,13 @@ Fixtures stay at **repo root** `parts/` and `benchmarks/` — do not move them u
 
 Canonical detail: [`docs/decisions/TECH-DECISION-ORDER.md`](docs/decisions/TECH-DECISION-ORDER.md).
 
-1. **Runtime shape** — static SPA **strongly implied**, not formally locked. **Deploy deferred:** no public site now; Phase 0 = **local only**. Later hosts likely **GCP or Azure** — keep static output portable; do not bind scaffold to Vercel/Netlify/etc.
+1. **Runtime shape — locked:** **static SPA** ([`ADR-001`](docs/decisions/ADR-001-runtime-static-spa.md)). Valid for charter phases **0–3** (no backend / auth / server-side measured perf model). **Revisit** if server compute is required (benchmark collection, accounts, server-mediated sharing, etc.) — prefer SPA + API over silent contradiction. **Deploy deferred:** no public site now; Phase 0 = **local only**. Later hosts likely **GCP or Azure** — portable static output; do not bind scaffold to Vercel/Netlify/etc.
 2. **Language** (still undecided) → **UI + 3D as a pair** → bundler
 3. Package manager / schema / state / test / fixture HTTP paths
 4. IDE/DX anytime — owner plans **WebStorm + Cursor**
 5. **License** parallel; finish code license before third-party deps
 
-Owner handles **git push**. Record locks as `docs/decisions/ADR-NNN-*.md`. Until locked, do not assume TypeScript, Vite, React, R3F, Zod, Vitest, Zustand, or any other stack.
+Owner handles **git push**. Record further locks as `docs/decisions/ADR-NNN-*.md`. Do not assume TypeScript, Vite, React, R3F, Zod, Vitest, Zustand, or any other **Stage 2+** stack until locked.
 
 ---
 

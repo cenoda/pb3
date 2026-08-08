@@ -8,6 +8,12 @@
 |-----|------|
 | [`TECH-DECISION-ORDER.md`](./TECH-DECISION-ORDER.md) | Accepted dependency order for stack choices (Stage 1→4 + license parallel) |
 
+## Formal ADRs
+
+| ADR | Decision | Status |
+|-----|----------|--------|
+| [`ADR-001-runtime-static-spa.md`](./ADR-001-runtime-static-spa.md) | App runtime = **static SPA**, valid for charter phases **0–3** scope (no backend / auth / server-side measured perf model); **revisit** if server compute is required | Accepted |
+
 ## Decided in docs (not yet formal ADRs)
 
 | Topic | Where |
@@ -27,11 +33,11 @@
 
 ## Still open (follow tech decision order)
 
-- **Stage 1:** App runtime shape (static SPA candidate only, **not formally locked**); deploy already deferred as above
+- **Stage 1:** Runtime shape **locked** (ADR-001). Deploy remains deferred as above.
 - **Stage 2:** Language (undecided), UI + 3D as a pair, bundler
 - **Stage 3:** Package manager, schema/state/test tools, fixture HTTP paths
 - **Parallel:** Open-source license for **code**, **data**, and **3D assets** (finish code license before third-party deps)
 - Full benchmark raw schema (product phase 1)
 - Exact GCP vs Azure product (Static Web Apps, Blob+CDN, GCS+Cloud CDN, etc.) — later
 
-When items lock, add `ADR-NNN-title.md` with: context, options, decision, consequences, revisit when.
+When further items lock, add `ADR-NNN-title.md` with: context, options, decision, consequences, revisit when.
