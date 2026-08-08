@@ -126,9 +126,10 @@ Canonical detail: [`docs/decisions/TECH-DECISION-ORDER.md`](docs/decisions/TECH-
 1. **Runtime — locked:** **static SPA** ([`ADR-001`](docs/decisions/ADR-001-runtime-static-spa.md)). Phases **0–3** scope; revisit if server compute is required. **Deploy deferred** (local only; later GCP/Azure; portable static output).
 2. **Stack core — locked:** **TypeScript + React + R3F + Vite** ([`ADR-002`](docs/decisions/ADR-002-stack-core-ts-react-r3f-vite.md)). Discarded scaffold `1d54c10` is not baseline.
 3. **Stage 3 — locked:** **pnpm**, **Zod**, **Zustand**, **Vitest**; fixtures SSOT at repo-root `parts/` + `benchmarks/`, HTTP `/parts` + `/benchmarks`, Vite dev serve + build copy ([`ADR-003`](docs/decisions/ADR-003-stage3-tooling-and-fixtures.md)).
-4. **E2E — adopted:** **Playwright** (headless Chromium) for Phase 0 exit scenario — `e2e/exit-scenario.spec.ts`, `pnpm test:e2e` (see ADR-003 amendment).
-5. IDE/DX — owner plans **WebStorm + Cursor**
-6. **License — locked (ADR-004):** code + data = **Apache License 2.0** (root `LICENSE`). 3D asset (`model.glb`) license still open — resolve before real hardware models ship.
+4. **E2E — adopted:** **Playwright Test** (headless Chromium) for Phase 0 exit scenario — `e2e/exit-scenario.spec.ts`, `pnpm test:e2e` (see ADR-003 amendment).
+5. **Agent browser exploration (optional):** **Playwright CLI** (`@playwright/cli`, `pnpm explore:phase0`) and **Playwright MCP** (`@playwright/mcp` in the host) for live a11y-driven browsing — not a regression gate. See [`docs/verification/AGENT_BROWSER_EXPLORATION.md`](docs/verification/AGENT_BROWSER_EXPLORATION.md).
+6. IDE/DX — owner plans **WebStorm + Cursor**
+7. **License — locked (ADR-004):** code + data = **Apache License 2.0** (root `LICENSE`). 3D asset (`model.glb`) license still open — resolve before real hardware models ship.
 
 Owner handles **git push** unless they explicitly ask the agent to push. Record further locks as `docs/decisions/ADR-NNN-*.md`.
 
@@ -143,9 +144,10 @@ Owner handles **git push** unless they explicitly ask the agent to push. Record 
 5. **Commits:** create git commits when the owner asks or clearly allows it for the task. Prefer conventional, complete-sentence commit messages in English. Do not force-push or rewrite published history without explicit request.
 6. **Verification:** after app, fixture, or contract edits run the relevant suite and do not claim green without running it:
    - `pnpm test` — Vitest pure logic (`src/test/**`)
-   - `pnpm test:e2e` — Playwright headless exit scenario against `vite preview` (`e2e/**`)
+   - `pnpm test:e2e` — Playwright Test headless exit scenario against `vite preview` (`e2e/**`)
    - `pnpm test:all` — both (preferred before tag / hand-off)
    - `pnpm build` when touching Vite config or fixture HTTP wiring
+   - Optional explore: `pnpm dev` + `pnpm explore:phase0` or Playwright MCP (see agent browser doc) — recommended before tag / after large UI changes; not required on every commit
 7. **Shared team memory** (`agent-memory` / `~/.agent-team/shared-memory/`): on non-trivial work, read; after durable decisions or hand-offs, write short English bullets. Never store secrets.
 8. **Peer consult** (Aria / Lira / Nox): advisory only; task owner remains the agent the user is talking to unless reassigned.
 

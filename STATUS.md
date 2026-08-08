@@ -65,7 +65,8 @@
 
 - **패키지 매니저:** pnpm
 - **스키마 / 상태 / 테스트:** Zod / Zustand / Vitest
-- **E2E (Amendment 2026-08-08):** Playwright headless Chromium — `pnpm test:e2e`, `e2e/exit-scenario.spec.ts`
+- **E2E (Amendment 2026-08-08):** Playwright Test headless Chromium — `pnpm test:e2e`, `e2e/exit-scenario.spec.ts`
+- **Agent explore (optional):** Playwright CLI (`pnpm explore:phase0`) + Playwright MCP example — [`docs/verification/AGENT_BROWSER_EXPLORATION.md`](docs/verification/AGENT_BROWSER_EXPLORATION.md)
 - **fixture:** 디스크 SSOT = 루트 `parts/`, `benchmarks/` · HTTP = `/parts`, `/benchmarks` · Vite dev 서빙 + build 시 `dist/` 복사
 - **문서:** [`docs/decisions/ADR-003-stage3-tooling-and-fixtures.md`](docs/decisions/ADR-003-stage3-tooling-and-fixtures.md)
 

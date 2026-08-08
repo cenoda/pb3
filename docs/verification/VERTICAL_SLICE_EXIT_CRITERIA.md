@@ -30,7 +30,14 @@ Covers:
 - Invalid ids → default fallback
 - Built `dist/` serves `/parts/...` and `/benchmarks/vs0/...`
 
-Manual headed pass (`pnpm test:e2e:headed` or `pnpm dev`) remains useful for **visual** GLB color/length sanity only.
+### Agent browser exploration (optional, always available)
+
+Not a merge gate by default. Complements automated E2E when agents need live browsing:
+
+- **CLI:** `pnpm explore:phase0` (requires `pnpm dev`) — see [`AGENT_BROWSER_EXPLORATION.md`](./AGENT_BROWSER_EXPLORATION.md)
+- **MCP:** `@playwright/mcp` in the agent host — example [`mcp-playwright.example.json`](./mcp-playwright.example.json)
+
+Manual headed pass (`pnpm test:e2e:headed` or human + `pnpm dev`) remains useful for **visual** GLB color/length sanity.
 
 ## Checklist
 

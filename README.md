@@ -17,13 +17,16 @@ pnpm build && pnpm preview
 | 명령 | 내용 |
 |------|------|
 | `pnpm test` | Vitest — 스키마, 카탈로그, URL, 성능 룩업 |
-| `pnpm test:e2e` | Playwright headless — Phase 0 종료 시나리오 (build + `vite preview`) |
+| `pnpm test:e2e` | Playwright **Test** headless — Phase 0 종료 시나리오 (build + `vite preview`) |
 | `pnpm test:e2e:headed` | 동일, headed 브라우저 |
 | `pnpm test:all` | unit + e2e (태그/`vertical-slice-v0` 전 권장) |
+| `pnpm explore:phase0` | Playwright **CLI** 에이전트 탐색 (먼저 `pnpm dev`) — 회귀 아님 |
+| Playwright **MCP** | 호스트에 `@playwright/mcp` 등록 — 채팅 에이전트 브라우징 |
 
-첫 E2E 전 브라우저 바이너리: `pnpm exec playwright install chromium`
+첫 브라우저 바이너리: `pnpm exec playwright install chromium`
 
-E2E 스펙: [`e2e/exit-scenario.spec.ts`](e2e/exit-scenario.spec.ts) · 설정: [`playwright.config.ts`](playwright.config.ts)
+- E2E: [`e2e/exit-scenario.spec.ts`](e2e/exit-scenario.spec.ts) · [`playwright.config.ts`](playwright.config.ts)
+- 에이전트 탐색: [`docs/verification/AGENT_BROWSER_EXPLORATION.md`](docs/verification/AGENT_BROWSER_EXPLORATION.md)
 
 ## 문서
 

@@ -10,7 +10,9 @@
     "test": "node scripts/run-clean-env.mjs vitest run --config vitest.config.ts",
     "test:e2e": "node scripts/run-clean-env.mjs playwright test",
     "test:e2e:headed": "node scripts/run-clean-env.mjs playwright test --headed",
-    "test:all": "pnpm test && pnpm test:e2e"
+    "test:all": "pnpm test && pnpm test:e2e",
+    "explore:cli": "node scripts/run-clean-env.mjs playwright-cli",
+    "explore:phase0": "node scripts/explore-phase0-cli.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.6",
@@ -22,6 +24,7 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@playwright/cli": "^0.1.18",
     "@playwright/test": "^1.62.1",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.17",

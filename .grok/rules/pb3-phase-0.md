@@ -8,7 +8,8 @@ Loaded automatically under `.grok/rules/`. Detail lives in repo-root `AGENTS.md`
 - **Runtime locked:** static SPA — `docs/decisions/ADR-001-runtime-static-spa.md` (scoped phases 0–3; revisit if server compute needed).
 - **Stack core locked:** TS + React + R3F + Vite — `docs/decisions/ADR-002-stack-core-ts-react-r3f-vite.md`.
 - **Stage 3 locked:** pnpm, Zod, Zustand, Vitest; fixtures via `/parts` + `/benchmarks` — `docs/decisions/ADR-003-stage3-tooling-and-fixtures.md`.
-- **E2E:** Playwright headless (`pnpm test:e2e`, `e2e/exit-scenario.spec.ts`) is the regression gate for the Step 8 exit scenario. Prefer `pnpm test:all` after behavior changes.
+- **E2E:** Playwright Test headless (`pnpm test:e2e`) is the regression gate for Step 8. Prefer `pnpm test:all` after behavior changes.
+- **Agent explore (optional):** Playwright CLI / MCP — `docs/verification/AGENT_BROWSER_EXPLORATION.md`. Always available; not required every commit.
 - **Do not revive** discarded scaffold `1d54c10` as baseline (even if a future stack looks similar).
 - Phase home: `docs/phases/phase-0/`. Contract version `vs0`. URL: full encode / lenient decode. No invented FPS.
 - Deploy: local only for Phase 0; later GCP/Azure; portable static output.

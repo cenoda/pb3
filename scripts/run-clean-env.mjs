@@ -8,6 +8,9 @@ import { spawnSync } from "node:child_process";
 const env = { ...process.env };
 delete env.NO_COLOR;
 delete env.FORCE_COLOR;
+// Ensure local package bins resolve when not launched via pnpm.
+const binDir = new URL("../node_modules/.bin", import.meta.url).pathname;
+env.PATH = `${binDir}${env.PATH ? `:${env.PATH}` : ""}`;
 
 const args = process.argv.slice(2);
 if (args.length === 0) {
