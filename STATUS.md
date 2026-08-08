@@ -94,7 +94,11 @@
 2. ~~Playwright headless E2E (Step 8 자동화)~~ → **추가 완료 (2026-08-08)**
 3. ~~**태그 `vertical-slice-v0`** — 소유자가 `pnpm test:all` green 확인 후 수행~~ → **완료 (2026-08-08)**
 4. ~~**Phase 1 (성능 엔진)** — 스코프·계약·fixture·구현·검증·closeout~~ → **완료 (2026-08-08)**
-5. **Phase 2 (호환성 엔진)** — 아직 시작하지 않음; 별도 `implementation_plan.md` 필요
+5. **Phase 2 (기본 견적 서비스)** — M0 계획 패키지 초안 작성 완료 (2026-08-08), 아직 소유자 승인 전; 구현 미착수 — [`docs/phases/phase-2/`](docs/phases/phase-2/)
+   - [`specs/phase-2.md`](docs/phases/phase-2/specs/phase-2.md): 인벤토리 경계, 논리 호환성 모델, 가격 집계, 저장/공유(`vs2`) 모델, 미해결 결정 목록
+   - [`specs/compatibility-data-contract.md`](docs/phases/phase-2/specs/compatibility-data-contract.md): `vs2` BuildState/URL 확장 + `compat2` 호환성·가격 타입
+   - [`implementation_plan.md`](docs/phases/phase-2/implementation_plan.md): 순서화된 파일 단위 구현 계획 (실행 승인 전)
+   - 미해결: PSU 여유 배수 값, fixture 통화, `perf1` RAM 티어 ↔ `compat2` RAM SKU 매핑 여부, `benchmarks/compat2/` 정확한 경로
 
 ## Phase 0 종료 승인 (2026-08-08)
 
