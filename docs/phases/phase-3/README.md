@@ -5,8 +5,9 @@ adjustment, and evidence-backed cooling inputs for the existing `perf1`
 correction hook.
 
 **M0 status: owner-accepted (2026-08-08).**
-**Implementation status: complete (2026-08-08); awaiting owner closeout.**
-Step 10 owner closeout is **not** claimed.
+**Implementation + owner closeout: complete (2026-08-08).**
+Step 10 owner closeout is **accepted**. Implementation commit:
+`acd038b`. Keepsake screenshots: [`keepsake/`](./keepsake/).
 
 ## Layout
 
@@ -15,6 +16,7 @@ docs/phases/phase-3/
   README.md
   TODO.md
   implementation_plan.md
+  keepsake/              ← owner-closeout commemorative screenshots
   specs/
     phase-3.md
     physical-validation-data-contract.md
@@ -24,10 +26,11 @@ docs/phases/phase-3/
 
 | Document | Role | State |
 |----------|------|-------|
-| [`specs/phase-3.md`](./specs/phase-3.md) | Scope, inventory boundary, assembly/validation/cooling behavior, non-goals | Owner-accepted (2026-08-08) |
-| [`specs/physical-validation-data-contract.md`](./specs/physical-validation-data-contract.md) | Independent `phys3` types and GLB metadata contract | Owner-accepted (2026-08-08) |
-| [`implementation_plan.md`](./implementation_plan.md) | Ordered file-level plan with step exit conditions | Owner-accepted (2026-08-08); Steps 1–9 implemented |
-| [`TODO.md`](./TODO.md) | M0 review and implementation checklist | Implementation complete; awaiting owner closeout |
+| [`specs/phase-3.md`](./specs/phase-3.md) | Scope, inventory boundary, assembly/validation/cooling behavior, non-goals | Owner-accepted (2026-08-08); closed out |
+| [`specs/physical-validation-data-contract.md`](./specs/physical-validation-data-contract.md) | Independent `phys3` types and GLB metadata contract | Owner-accepted (2026-08-08); closed out |
+| [`implementation_plan.md`](./implementation_plan.md) | Ordered file-level plan with step exit conditions | Owner-accepted and executed (2026-08-08); Steps 1–10 complete |
+| [`TODO.md`](./TODO.md) | M0 review and implementation checklist | Complete; owner closeout accepted |
+| [`keepsake/`](./keepsake/) | Commemorative closeout screenshots | Captured 2026-08-08 |
 
 ## Inherited boundaries
 

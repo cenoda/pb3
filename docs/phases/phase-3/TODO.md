@@ -31,8 +31,9 @@
 - [x] Add physical-validation and cooling-status UI.
 - [x] Add unit, fixture-integrity, and required Playwright E2E coverage.
 - [x] Run `pnpm test:all` and `pnpm build`.
-- [ ] Complete owner review and Phase 3 closeout truth-sync
-      (**awaiting owner; not claimed**).
+- [x] Complete owner review and Phase 3 closeout truth-sync
+      (**owner-accepted 2026-08-08** — re-audit PASS; Playwright 6/6;
+      keepsake screenshots under `keepsake/`).
 
 ## Resolved M0 decisions (2026-08-08)
 

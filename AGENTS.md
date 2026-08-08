@@ -9,8 +9,8 @@ This file is the **repository-level agent brief**. Aria (Grok Build), Lira (Clau
 | Fact | State |
 |------|--------|
 | Repository contents | **Phase 0–3 app, docs, and fixtures** — Vite/React/R3F SPA under `src/`, 13-part catalog and fixtures at repo-root `parts/` + `benchmarks/` |
-| Implementation | **Phase 0 complete; Phase 1 `perf1` complete; Phase 2 `vs2`/`compat2` complete; Phase 3 `phys3` implementation complete — awaiting owner closeout** |
-| Current planning gate | **Phase 3 implementation complete (2026-08-08)** under `docs/phases/phase-3/`; owner closeout (Step 10) not yet accepted |
+| Implementation | **Phase 0–3 complete** — Phase 0 `vs0`, Phase 1 `perf1`, Phase 2 `vs2`/`compat2`, Phase 3 `phys3` closed out |
+| Current planning gate | **Phase 3 closed out (2026-08-08)** under `docs/phases/phase-3/`; further phases need their own accepted plan + explicit start |
 | Stack / runtime / tooling | **Locked** (ADR-001–003) + **Playwright** for exit-scenario E2E |
 | License | Code + data + project-authored synthetic fixture GLBs: **Apache-2.0** (ADR-004); third-party/manufacturer-derived real-hardware GLBs still require a separate source-specific decision |
 | Tag `vertical-slice-v0` | **Created and pushed** after owner-authorized Phase 0 PASS |
@@ -38,12 +38,11 @@ Core principles that constrain every change:
 
 ---
 
-## Current implementation baseline: Phase 0–3 implemented; Phase 3 awaiting owner closeout
+## Current implementation baseline: Phase 0–3 implemented and closed out
 
 Phase 0 remains the historical vertical-slice regression baseline below. Phase
-1 (`perf1`) and Phase 2 (`vs2`/`compat2`) are also implemented and closed out.
-Phase 3 (`phys3`) implementation Steps 1–9 are complete (2026-08-08). Owner
-closeout (Step 10) is **not** claimed.
+1 (`perf1`), Phase 2 (`vs2`/`compat2`), and Phase 3 (`phys3`) are implemented
+and closed out (2026-08-08). Phase 3 implementation commit: `acd038b`.
 
 ### Canonical phase home
 

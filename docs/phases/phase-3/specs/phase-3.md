@@ -1,13 +1,14 @@
 # Phase 3 — 3D Assembly and Physical Validation
 
-Status: **owner-accepted (2026-08-08); implementation complete; awaiting owner closeout**
+Status: **owner-accepted and closed out (2026-08-08)** — scope, contract,
+fixtures, implementation, verification, and Step 10 owner closeout complete
 
 Scope authority: [`PROJECT_CHARTER.md`](../../../../PROJECT_CHARTER.md) §2, §4
 "3단계 — 3D 조립 및 물리 검증", and §6. Detailed accepted types live in
 [`physical-validation-data-contract.md`](./physical-validation-data-contract.md).
 
-This document remains the accepted Phase 3 scope lock. Implementation Steps 1–9
-are complete. Step 10 owner closeout is **not** claimed.
+This document remains the accepted Phase 3 scope lock. Implementation Steps 1–10
+are complete; owner closeout is **accepted** (2026-08-08).
 
 ## 1. Goal
 

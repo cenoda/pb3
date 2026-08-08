@@ -1,6 +1,7 @@
 # Phase 3 — Implementation Plan
 
-Status: **owner-accepted (2026-08-08); Steps 1–9 implemented; awaiting owner closeout**
+Status: **owner-accepted and executed (2026-08-08)** — Steps 1–10 complete;
+owner closeout accepted
 
 Scope authority: [`specs/phase-3.md`](./specs/phase-3.md)
 
@@ -12,8 +13,9 @@ Stack authority: [`ADR-001`](../../decisions/ADR-001-runtime-static-spa.md),
 [`ADR-004`](../../decisions/ADR-004-license-code-apache-2.0.md)
 
 This is the accepted file-level plan required by the plan-before-code rule.
-Steps 1–9 are implemented. Step 10 owner closeout is **not** claimed. No new
-dependency, inventory expansion, or existing-contract change was introduced.
+Steps 1–10 are complete; owner closeout was accepted on 2026-08-08
+(implementation commit `acd038b`). No new dependency, inventory expansion, or
+existing-contract change was introduced.
 
 ## 1. Preconditions
 
@@ -251,6 +253,10 @@ inventory, engine boundary, or dependency changes require a plan revision.
   and unresolved limitations in `STATUS.md`, README, and TODO.
 - Do not promote model grades or claim thermal validation beyond evidence.
 - **Exit:** owner reviews the evidence and explicitly accepts Phase 3 closeout.
+- **Done (2026-08-08):** re-audit PASS (inclusive 0.1 mm epsilon, schema
+  invariants, fixture schema parse, mount unavailable/DAG coverage);
+  `pnpm test` 96/96; `pnpm test:e2e` 6/6; `pnpm build` green; keepsake
+  screenshots under `keepsake/`; owner-authorized closeout recorded.
 
 ## 6. Collision engine boundaries
 
@@ -299,7 +305,7 @@ This M0 plan is ready for execution only when:
 - [x] owner separately authorizes implementation.
 
 Phase 3 itself exits only after Steps 1–10 and explicit owner closeout.
-Steps 1–9 are complete; Step 10 owner closeout is awaiting review.
+**All steps complete; owner closeout accepted (2026-08-08).**
 
 ## 10. Explicit non-goals
 

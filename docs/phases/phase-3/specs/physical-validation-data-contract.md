@@ -1,6 +1,6 @@
 # Phase 3 Physical Validation Data Contract
 
-Status: **owner-accepted (2026-08-08); implementation complete; awaiting owner closeout**
+Status: **owner-accepted and closed out (2026-08-08)**
 
 Proposed contract version: **`phys3`**
 

@@ -18,8 +18,9 @@
   결정안 소유자 수락 완료 (2026-08-08) — synthetic `Experimental` GLB,
   Apache-2.0, box OBB + `0.1 mm` epsilon, 새 의존성 없음, runtime cooling
   `unavailable`, cooler normal/180°
-- **Phase 3 구현 (Steps 1–9)**: 완료 (2026-08-08) — owner closeout(Step 10)
-  **미수락 / 미청구**; geometry data version `phys3-exp-20260808`
+- **Phase 3 (`phys3`)**: 구현·검증·owner closeout 완료 (2026-08-08) —
+  `acd038b` + closeout docs/keepsake; geometry data version
+  `phys3-exp-20260808`
 - **URL 규칙 (수락)**
   - 인코더: `BuildState` **모든** 필드를 항상 기록 (정규 공유 링크)
   - 디코더: 누락 키는 기본 fixture로 복구 (부분 링크는 호환 입력만)
@@ -102,9 +103,8 @@
 3. ~~**태그 `vertical-slice-v0`** — 소유자가 `pnpm test:all` green 확인 후 수행~~ → **완료 (2026-08-08)**
 4. ~~**Phase 1 (성능 엔진)** — 스코프·계약·fixture·구현·검증·closeout~~ → **완료 (2026-08-08)**
 5. ~~**Phase 2 (기본 견적 서비스)** — M0 수락 → 구현·검증·closeout~~ → **구현 완료 (2026-08-08)** — [`docs/phases/phase-2/`](docs/phases/phase-2/)
-6. **Phase 3 (3D 물리 검증)** — M0 수락 → 구현 Steps 1–9 완료 (2026-08-08)
-   ([`docs/phases/phase-3/`](docs/phases/phase-3/)); **owner closeout 대기
-   (Step 10 미청구)**
+6. ~~**Phase 3 (3D 물리 검증)** — M0 수락 → 구현·검증·closeout~~ → **완료
+   (2026-08-08)** — [`docs/phases/phase-3/`](docs/phases/phase-3/)
 
 ## Phase 0 종료 승인 (2026-08-08)
 
@@ -195,7 +195,23 @@
 | `pnpm test` | **18 files, 96 tests PASS** (post-audit corrective fixes 2026-08-08) |
 | `pnpm test:e2e` | **6 tests PASS** (Phase 0 + Phase 2 + Phase 3) |
 | `pnpm test:all` + `pnpm build` | PASS |
-| Owner closeout (Step 10) | **미청구 — awaiting owner review** |
+| Owner closeout (Step 10) | **PASS — owner-accepted (2026-08-08)** |
+| Keepsake screenshots | [`docs/phases/phase-3/keepsake/`](docs/phases/phase-3/keepsake/) |
+
+## Phase 3 종료 승인 (2026-08-08)
+
+- 구현 커밋: `acd038b` (`feat(phys3): implement Phase 3 physical validation and assembly`)
+- 재감사 (read-only corrective re-audit): **PASS**
+  - Inclusive `0.1 mm` epsilon (0.099/0.100 fit, 0.101 interference)
+  - `PhysicalValidationReport` Zod invariants (non-empty checks + aggregate precedence)
+  - `benchmarks/phys3/physical-validation-examples.json` + cooling evidence schema-parsed
+  - All 8 `MountUnavailableReason` families + mount-graph DAG cycle detection
+- 검증: `pnpm test` 96/96 · `pnpm test:e2e` 6/6 · `pnpm build` PASS
+- Closeout Playwright 재실행: **6/6 PASS** (2026-08-08, post-push)
+- Keepsake: fit / cooler-180 interference / visual-only unavailable full-page screenshots
+- 소유자 명시 승인: **PASS**
+- 데이터 등급: 전부 **Experimental** synthetic fixture — Verified real-hardware 아님
+- 런타임 cooling: production evidence rows empty → structured `unavailable` (의도)
 
 ### Phase 3 audit corrective notes (2026-08-08)
 
