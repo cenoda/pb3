@@ -8,10 +8,10 @@
 
 ### Deliverable 2 — data contract
 
-- [ ] Baseline + correction model types and normative rules (`specs/performance-data-contract.md`)
-- [ ] `WorkloadEstimate` type for Cinebench CPU-only scores (distinct from `PerformanceEstimate`)
-- [ ] Raw benchmark ingestion schema (deferred from scope doc; defined in contract doc)
-- [ ] Contract version string chosen and documented (successor to `vs0` for performance engine)
+- [x] Baseline + correction model types and normative rules (`specs/performance-data-contract.md`)
+- [x] `WorkloadEstimate` type for Cinebench CPU-only scores (distinct from `PerformanceEstimate`)
+- [x] Raw benchmark ingestion schema (deferred from scope doc; defined in contract doc)
+- [x] Contract version string chosen and documented (successor to `vs0` for performance engine)
 
 ### Deliverable 3 — fixture stub data
 

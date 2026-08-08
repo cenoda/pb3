@@ -37,7 +37,7 @@ docs/phases/phase-1/
 | Area | State |
 |------|--------|
 | Scope lock | **Written** — [`specs/phase-1.md`](./specs/phase-1.md); owner acceptance pending |
-| Data contract | Not started (deliverable 2) |
+| Data contract | Written — performance-data-contract.md; owner acceptance pending |
 | Fixtures | Not started (deliverable 3) |
 | Runtime | **Static SPA** ([ADR-001](../../decisions/ADR-001-runtime-static-spa.md), scoped 0–3) |
 | Stack core | **TS + React + R3F + Vite** ([ADR-002](../../decisions/ADR-002-stack-core-ts-react-r3f-vite.md)) |
