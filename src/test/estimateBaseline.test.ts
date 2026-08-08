@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { loadBaselineFixtures } from "../catalog/loadPerf1Fixtures";
-import { DEFAULT_BUILD_STATE } from "../contract/vs0";
+import { DEFAULT_BUILD_STATE_V2 } from "../contract/vs2";
 import {
   DEFAULT_PERF_PANEL_DIMENSIONS,
   type BaselineQuery,
@@ -30,7 +30,7 @@ describe("estimateBaseline", () => {
   it("returns exact fixture ranges for default build at 1440p", async () => {
     const fixtures = await loadBaselineFixtures();
     const [query] = baselineQueriesForBuild(
-      DEFAULT_BUILD_STATE,
+      DEFAULT_BUILD_STATE_V2,
       DEFAULT_PERF_PANEL_DIMENSIONS,
     ).filter((q) => q.resolution === "1440p");
 
@@ -48,7 +48,7 @@ describe("estimateBaseline", () => {
   it("returns exact ranges for all three resolutions on default build", async () => {
     const fixtures = await loadBaselineFixtures();
     const queries = baselineQueriesForBuild(
-      DEFAULT_BUILD_STATE,
+      DEFAULT_BUILD_STATE_V2,
       DEFAULT_PERF_PANEL_DIMENSIONS,
     );
 

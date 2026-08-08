@@ -94,17 +94,8 @@
 2. ~~Playwright headless E2E (Step 8 자동화)~~ → **추가 완료 (2026-08-08)**
 3. ~~**태그 `vertical-slice-v0`** — 소유자가 `pnpm test:all` green 확인 후 수행~~ → **완료 (2026-08-08)**
 4. ~~**Phase 1 (성능 엔진)** — 스코프·계약·fixture·구현·검증·closeout~~ → **완료 (2026-08-08)**
-5. **Phase 2 (기본 견적 서비스)** — M0 계획 패키지 **소유자 수락 완료 (2026-08-08)**; 구현은 아직 시작하지 않음 — [`docs/phases/phase-2/`](docs/phases/phase-2/)
-   - [`specs/phase-2.md`](docs/phases/phase-2/specs/phase-2.md): 인벤토리 경계, 논리 호환성 모델, 가격 집계, 저장/공유(`vs2`) 모델 — **수락**
-   - [`specs/compatibility-data-contract.md`](docs/phases/phase-2/specs/compatibility-data-contract.md): `vs2` BuildState/URL 확장 + `compat2` 호환성·가격 타입 — **수락**
-   - [`implementation_plan.md`](docs/phases/phase-2/implementation_plan.md): 순서화된 파일 단위 구현 계획 — **수락** (실행은 "start implementation" 명시 후)
-   - **M0 미해결 결정 확정 (2026-08-08):**
-     - fixture 통화: **USD**
-     - `perf1` RAM 티어 ↔ `compat2` RAM SKU 매핑: **defer** (Phase 2에서는 연결하지 않음, 패널 RAM 티어 컨트롤 독립 유지)
-     - fixture 경로: 호환성 예시 `benchmarks/compat2/compatibility-examples.json`, 가격 `benchmarks/price2/price-fixtures.json` (분리)
-     - `PartDefinition` 확장 형태: **중첩 `compatSpec` 블록** (예: `{ "compatSpec": { "socket": "AM5", "tdpWatts": 65 } }`)
-     - Phase 2 E2E(`e2e/phase2-compat-price.spec.ts`): **필수** (Step 8 게이트에 포함, optional 아님)
-     - `PSU_HEADROOM_MULTIPLIER` stub 상수: **1.3** (30% 여유; 실측 기반 모델로 추후 교체 예정, `checkPsuWattage.ts` + 계약서 §4.4 명시)
+5. ~~**Phase 2 (기본 견적 서비스)** — M0 수락 → 구현·검증·closeout~~ → **구현 완료 (2026-08-08)** — [`docs/phases/phase-2/`](docs/phases/phase-2/)
+6. **Phase 3 (3D 물리 검증)** — 아직 착수 전; phase plan 수락 후 시작
 
 ## Phase 0 종료 승인 (2026-08-08)
 
@@ -151,3 +142,28 @@
 - 검증: `pnpm test:all` (39 unit + 4 e2e) · `pnpm build` · `pnpm dev` 수동 walkthrough 12항목 PASS
 - 데이터: `benchmarks/perf1/` stub fixture만 사용; 실측 벤치 검증·열 시뮬레이션·ingestion 파이프라인 **미구현**
 - Phase 2 작업 **시작하지 않음**
+
+## Phase 2 구현 상태 (2026-08-08)
+
+| 항목 | 상태 |
+|------|------|
+| `vs2` / `compat2` contract types + Zod (`src/contract/vs2.ts`, `compat2.ts`, `*.schema.ts`) | 완료 |
+| Phase-2 catalog (13 parts) + nested `compatSpec` on disk | 완료 |
+| Fixture SSOT: `benchmarks/compat2/compatibility-examples.json`, `benchmarks/price2/price-fixtures.json` | 완료 |
+| Compatibility engine (5 checks + aggregate report) | 완료 |
+| Price aggregation (`buildPriceSummary`, partial total labeling) | 완료 |
+| Part selection UI (7 categories) + attribute filters | 완료 |
+| Compatibility + price panels | 완료 |
+| `vs2` URL encode/decode + `vs0` legacy backward-compat | 완료 |
+| `perf1` RAM tier ↔ RAM SKU mapping | **deferred** (not wired) |
+| `PSU_HEADROOM_MULTIPLIER` | stub **1.3** in `checkPsuWattage.ts` |
+| `pnpm test` (13 files, 62 tests) | PASS |
+| `pnpm test:e2e` (Phase 0 exit + Phase 2 completion, 5 tests) | PASS |
+| `pnpm test:all` + `pnpm build` | PASS (closeout 재실행) |
+
+## Phase 2 종료 승인 (2026-08-08)
+
+- 구현: `implementation_plan.md` Steps 1–9 완료
+- 검증: `pnpm test:all` (62 unit + 5 e2e) · `pnpm build` · Phase 2 completion scenario (`e2e/phase2-compat-price.spec.ts`) PASS
+- 데이터: fixture 가격 전부 USD stub; 호환성·가격 값은 fixture 전용 (`confidence`/basis 라벨링)
+- **여전히 열림 (의도적 defer):** `perf1` RAM tier ↔ RAM SKU 자동 매핑; PSU draw stub 상수 → 실측 모델 교체

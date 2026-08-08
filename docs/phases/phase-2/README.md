@@ -48,10 +48,10 @@ docs/phases/phase-2/
 |------|--------|
 | Scope | **Owner-accepted (2026-08-08)** — [`specs/phase-2.md`](./specs/phase-2.md) |
 | Data contract | **Owner-accepted (2026-08-08)** — `vs2`/`compat2` in `compatibility-data-contract.md` |
-| Implementation plan | **Owner-accepted (2026-08-08)** — [`implementation_plan.md`](./implementation_plan.md); execution not yet authorized |
-| M0 open decisions | **Resolved (2026-08-08):** currency `USD` · RAM-tier↔RAM-SKU mapping deferred · fixtures split `benchmarks/compat2/` (compatibility) + `benchmarks/price2/` (price) · `PartDefinition` uses nested `compatSpec` · `PSU_HEADROOM_MULTIPLIER = 1.3` (stub) · Phase 2 E2E required |
-| Fixtures | **Not started** |
-| Implementation | **Not started** — begins on explicit "start implementation" |
+| Implementation plan | **Owner-accepted (2026-08-08)** — [`implementation_plan.md`](./implementation_plan.md) |
+| M0 open decisions | **Resolved (2026-08-08)** — see [`STATUS.md`](../../../STATUS.md) |
+| Fixtures | **Complete** — 13 parts + `benchmarks/compat2/` + `benchmarks/price2/` |
+| Implementation | **Complete (2026-08-08)** — Steps 1–9; `pnpm test:all` + `pnpm build` green |
 | Runtime / stack / tooling | Unchanged — still ADR-001–004 (static SPA, TS+React+R3F+Vite, pnpm+Zod+Zustand+Vitest+Playwright, Apache-2.0) |
 
 See [`TODO.md`](./TODO.md) for the working checklist.

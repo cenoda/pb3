@@ -4,5 +4,15 @@
   "category": "motherboard",
   "displayName": "ATX B650 Board 01 (fixture)",
   "modelGlbPath": "parts/motherboard/mb.atx-b650-01/model.glb",
-  "notes": "Phase-0 placeholder mesh."
+  "notes": "Phase-0 placeholder mesh; AM5 ATX board for default compatible build.",
+  "compatSpec": {
+    "socket": "AM5",
+    "chipset": "B650",
+    "formFactor": "ATX",
+    "supportedMemoryType": "DDR5",
+    "maxMemorySpeedMtS": 6400,
+    "biosMinVersionForCpu": {
+      "cpu.zen4-7600": "1.20"
+    }
+  }
 }

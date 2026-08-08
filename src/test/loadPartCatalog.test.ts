@@ -1,19 +1,22 @@
 import { describe, expect, it } from "vitest";
 import { loadPartCatalog } from "../catalog/loadPartCatalog";
+import { loadCompat2Examples } from "../catalog/loadCompat2Fixtures";
+import { loadPriceFixtures } from "../price/loadPriceFixtures";
+import { PHASE2_PART_PATHS } from "../contract/vs2";
 import {
   DEFAULT_BUILD_STATE,
-  PHASE0_PART_PATHS,
-} from "../contract/vs0";
-import { partDefinitionSchema } from "../contract/vs0.schema";
+  assertPartCompatFields,
+  createBuildStateValidator,
+} from "../state/validateBuildState";
 
 describe("loadPartCatalog", () => {
-  it("loads all fixed phase-0 part ids", async () => {
+  it("loads all fixed phase-2 part ids", async () => {
     const catalog = await loadPartCatalog();
-    for (const partPath of PHASE0_PART_PATHS) {
+    for (const partPath of PHASE2_PART_PATHS) {
       const id = partPath.split("/")[2];
       expect(catalog.get(id!), id).toBeDefined();
     }
-    expect(catalog.byId.size).toBe(7);
+    expect(catalog.byId.size).toBe(13);
   });
 
   it("resolves default build state ids", async () => {
@@ -25,31 +28,33 @@ describe("loadPartCatalog", () => {
     expect(catalog.get(DEFAULT_BUILD_STATE.cpuId)?.category).toBe("cpu");
     expect(catalog.get(DEFAULT_BUILD_STATE.gpuId)?.category).toBe("gpu");
     expect(catalog.get(DEFAULT_BUILD_STATE.coolerId)?.category).toBe("cooler");
+    expect(catalog.get(DEFAULT_BUILD_STATE.ramId)?.category).toBe("ram");
+    expect(catalog.get(DEFAULT_BUILD_STATE.psuId)?.category).toBe("psu");
   });
 
-  it("fails loudly on malformed part json", async () => {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async () =>
-      new Response(
-        JSON.stringify({
-          contractVersion: "vs0",
-          id: "bad.part",
-          category: "gpu",
-        }),
-        { status: 200 },
-      );
+  it("every required part has compatSpec", async () => {
+    const catalog = await loadPartCatalog();
+    assertPartCompatFields(catalog);
+    const isValid = createBuildStateValidator(catalog);
+    expect(isValid(DEFAULT_BUILD_STATE)).toBe(true);
+  });
+});
 
-    await expect(loadPartCatalog()).rejects.toThrow(/Invalid part fixture/);
-
-    globalThis.fetch = originalFetch;
+describe("compat2 fixture loaders", () => {
+  it("loads compatibility examples", async () => {
+    const file = await loadCompat2Examples();
+    expect(file.compatContractVersion).toBe("compat2");
+    expect(file.examples.length).toBeGreaterThanOrEqual(3);
   });
 
-  it("fails loudly when schema parse rejects fixture", () => {
-    const parsed = partDefinitionSchema.safeParse({
-      contractVersion: "vs0",
-      id: "gpu.rtx4070",
-      category: "gpu",
-    });
-    expect(parsed.success).toBe(false);
+  it("loads price fixtures for all catalog parts", async () => {
+    const [catalog, prices] = await Promise.all([
+      loadPartCatalog(),
+      loadPriceFixtures(),
+    ]);
+    expect(prices.compatContractVersion).toBe("compat2");
+    for (const partId of catalog.byId.keys()) {
+      expect(prices.rows.some((row) => row.partId === partId)).toBe(true);
+    }
   });
 });

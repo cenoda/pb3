@@ -1,5 +1,6 @@
-import { PHASE0_PART_PATHS } from "../contract/vs0";
-import { partDefinitionSchema } from "../contract/vs0.schema";
+import type { PartDefinitionV2 } from "../contract/partV2";
+import { PHASE2_PART_PATHS } from "../contract/vs2";
+import { partDefinitionV2Schema } from "../contract/vs2.schema";
 import {
   createPartCatalog,
   type PartCatalog,
@@ -7,7 +8,7 @@ import {
 
 export async function loadPartCatalog(): Promise<PartCatalog> {
   const parts = await Promise.all(
-    PHASE0_PART_PATHS.map(async (partPath) => {
+    PHASE2_PART_PATHS.map(async (partPath) => {
       const response = await fetch(`/${partPath}`);
       if (!response.ok) {
         throw new Error(
@@ -16,7 +17,7 @@ export async function loadPartCatalog(): Promise<PartCatalog> {
       }
 
       const json: unknown = await response.json();
-      const parsed = partDefinitionSchema.safeParse(json);
+      const parsed = partDefinitionV2Schema.safeParse(json);
       if (!parsed.success) {
         throw new Error(
           `Invalid part fixture at /${partPath}: ${parsed.error.message}`,
@@ -29,7 +30,7 @@ export async function loadPartCatalog(): Promise<PartCatalog> {
         );
       }
 
-      return parsed.data;
+      return parsed.data as PartDefinitionV2;
     }),
   );
 

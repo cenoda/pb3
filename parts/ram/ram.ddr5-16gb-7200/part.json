@@ -1,0 +1,13 @@
+{
+  "contractVersion": "vs0",
+  "id": "ram.ddr5-16gb-7200",
+  "category": "ram",
+  "displayName": "16 GB DDR5-7200 Kit (fixture)",
+  "modelGlbPath": "parts/ram/ram.ddr5-16gb-7200/model.glb",
+  "notes": "Phase-2 placeholder; over-speed for B650 max (6400) incompatibility test.",
+  "compatSpec": {
+    "memoryType": "DDR5",
+    "speedMtS": 7200,
+    "capacityGb": 16
+  }
+}

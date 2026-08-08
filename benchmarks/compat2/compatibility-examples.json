@@ -1,0 +1,67 @@
+{
+  "compatContractVersion": "compat2",
+  "dataVersion": "compat2-fixture-draft",
+  "examples": [
+    {
+      "compatContractVersion": "compat2",
+      "buildStateVersion": "vs2",
+      "checks": [
+        {
+          "checkId": "cpu-socket",
+          "status": "compatible",
+          "involvedPartIds": ["cpu.zen4-7600", "mb.atx-b650-01"]
+        },
+        {
+          "checkId": "chipset-bios",
+          "status": "compatible",
+          "involvedPartIds": ["cpu.zen4-7600", "mb.atx-b650-01"]
+        },
+        {
+          "checkId": "ram-support",
+          "status": "compatible",
+          "involvedPartIds": ["ram.ddr5-32gb-6000", "mb.atx-b650-01"]
+        },
+        {
+          "checkId": "psu-wattage",
+          "status": "compatible",
+          "involvedPartIds": ["psu.750w-atx", "cpu.zen4-7600", "gpu.rtx4070"]
+        },
+        {
+          "checkId": "case-form-factor",
+          "status": "compatible",
+          "involvedPartIds": ["case.mid-tower-atx-01", "mb.atx-b650-01"]
+        }
+      ],
+      "overallStatus": "compatible",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "compatContractVersion": "compat2",
+      "buildStateVersion": "vs2",
+      "checks": [
+        {
+          "checkId": "cpu-socket",
+          "status": "incompatible",
+          "explanation": "CPU cpu.zen4-7600 uses socket AM5; motherboard mb.micro-b450-01 uses socket AM4. These parts cannot be paired.",
+          "involvedPartIds": ["cpu.zen4-7600", "mb.micro-b450-01"]
+        }
+      ],
+      "overallStatus": "incompatible",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "compatContractVersion": "compat2",
+      "buildStateVersion": "vs2",
+      "checks": [
+        {
+          "checkId": "chipset-bios",
+          "status": "unavailable",
+          "explanation": "No documented minimum BIOS version for cpu.zen4-7800x3d on mb.atx-b650-01.",
+          "involvedPartIds": ["cpu.zen4-7800x3d", "mb.atx-b650-01"]
+        }
+      ],
+      "overallStatus": "unavailable",
+      "dataVersion": "compat2-fixture-draft"
+    }
+  ]
+}

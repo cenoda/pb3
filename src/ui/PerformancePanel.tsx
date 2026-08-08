@@ -1,5 +1,5 @@
 import { RESOLUTIONS } from "../contract/vs0";
-import type { BuildState } from "../contract/vs0";
+import type { BuildStateV2 } from "../contract/vs2";
 import type {
   BaselineEstimateResult,
   CorrectionInput,
@@ -15,7 +15,7 @@ import { estimateWorkload } from "../perf/estimateWorkload";
 import { usePerfPanelStore } from "../state/perfPanelState";
 
 interface PerformancePanelProps {
-  buildState: BuildState;
+  buildState: BuildStateV2;
   perf1Fixtures: Perf1Fixtures;
 }
 

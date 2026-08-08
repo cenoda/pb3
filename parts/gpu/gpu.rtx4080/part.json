@@ -4,5 +4,8 @@
   "category": "gpu",
   "displayName": "GeForce RTX 4080 (fixture)",
   "modelGlbPath": "parts/gpu/gpu.rtx4080/model.glb",
-  "notes": "Longer triple-slot-ish placeholder; clearly larger than rtx4070."
+  "notes": "Longer triple-slot-ish placeholder so GPU swaps are obvious vs rtx4070.",
+  "compatSpec": {
+    "tdpWatts": 320
+  }
 }

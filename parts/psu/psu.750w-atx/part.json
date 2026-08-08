@@ -1,0 +1,11 @@
+{
+  "contractVersion": "vs0",
+  "id": "psu.750w-atx",
+  "category": "psu",
+  "displayName": "750 W ATX PSU (fixture)",
+  "modelGlbPath": "parts/psu/psu.750w-atx/model.glb",
+  "notes": "Phase-2 placeholder; default PSU selection.",
+  "compatSpec": {
+    "wattage": 750
+  }
+}

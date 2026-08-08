@@ -2,7 +2,7 @@
   "contractVersion": "vs0",
   "id": "cooler.air-twin-tower-01",
   "category": "cooler",
-  "displayName": "Twin-tower Air Cooler 01 (fixture)",
+  "displayName": "Air Twin Tower Cooler 01 (fixture)",
   "modelGlbPath": "parts/cooler/cooler.air-twin-tower-01/model.glb",
-  "notes": "Phase-0 placeholder mesh."
+  "notes": "Phase-0 placeholder mesh; no phase-2 logical compatibility fields."
 }

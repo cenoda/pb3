@@ -1,4 +1,4 @@
-import type { BuildState } from "../contract/vs0";
+import type { BuildStateV2 } from "../contract/vs2";
 import type {
   BaselineQuery,
   Perf1ResolutionId,
@@ -12,11 +12,13 @@ const PERF1_RESOLUTIONS: readonly Perf1ResolutionId[] = [
 ] as const;
 
 /**
- * Build three baseline queries (one per resolution) from vs0 BuildState and
- * panel dimensions. Case, motherboard, and cooler are intentionally omitted.
+ * Build three baseline queries (one per resolution) from BuildStateV2 and
+ * panel dimensions. Case, motherboard, cooler, ram, and psu ids are
+ * intentionally omitted — RAM tier stays a perf1 panel dimension, not the
+ * compat2 RAM SKU (ramId), per the deferred mapping decision.
  */
 export function baselineQueriesForBuild(
-  buildState: BuildState,
+  buildState: BuildStateV2,
   dimensions: PerfPanelDimensions,
 ): BaselineQuery[] {
   return PERF1_RESOLUTIONS.map((resolution) => ({

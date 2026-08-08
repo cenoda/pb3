@@ -4,5 +4,8 @@
   "category": "case",
   "displayName": "Mid-tower ATX Case 01 (fixture)",
   "modelGlbPath": "parts/case/case.mid-tower-atx-01/model.glb",
-  "notes": "Phase-0 placeholder mesh; not a measured chassis."
+  "notes": "Phase-0 placeholder mesh; supports ATX and Micro-ATX boards.",
+  "compatSpec": {
+    "supportedFormFactors": ["ATX", "Micro-ATX"]
+  }
 }

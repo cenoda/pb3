@@ -1,0 +1,16 @@
+{
+  "contractVersion": "vs0",
+  "id": "mb.micro-b450-01",
+  "category": "motherboard",
+  "displayName": "Micro-ATX B450 Board 01 (fixture)",
+  "modelGlbPath": "parts/motherboard/mb.micro-b450-01/model.glb",
+  "notes": "Phase-2 placeholder; AM4 Micro-ATX — socket mismatch with Zen 4 CPUs.",
+  "compatSpec": {
+    "socket": "AM4",
+    "chipset": "B450",
+    "formFactor": "Micro-ATX",
+    "supportedMemoryType": "DDR5",
+    "maxMemorySpeedMtS": 5600,
+    "biosMinVersionForCpu": {}
+  }
+}

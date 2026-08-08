@@ -1,0 +1,13 @@
+{
+  "contractVersion": "vs0",
+  "id": "ram.ddr5-32gb-6000",
+  "category": "ram",
+  "displayName": "32 GB DDR5-6000 Kit (fixture)",
+  "modelGlbPath": "parts/ram/ram.ddr5-32gb-6000/model.glb",
+  "notes": "Phase-2 placeholder; default RAM selection.",
+  "compatSpec": {
+    "memoryType": "DDR5",
+    "speedMtS": 6000,
+    "capacityGb": 32
+  }
+}

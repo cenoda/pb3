@@ -4,5 +4,9 @@
   "category": "cpu",
   "displayName": "Ryzen 5 7600 (fixture)",
   "modelGlbPath": "parts/cpu/cpu.zen4-7600/model.glb",
-  "notes": "Phase-0 placeholder mesh."
+  "notes": "Phase-0 placeholder mesh.",
+  "compatSpec": {
+    "socket": "AM5",
+    "tdpWatts": 65
+  }
 }

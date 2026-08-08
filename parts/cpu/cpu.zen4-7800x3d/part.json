@@ -4,5 +4,9 @@
   "category": "cpu",
   "displayName": "Ryzen 7 7800X3D (fixture)",
   "modelGlbPath": "parts/cpu/cpu.zen4-7800x3d/model.glb",
-  "notes": "Phase-0 placeholder mesh."
+  "notes": "Phase-0 placeholder mesh.",
+  "compatSpec": {
+    "socket": "AM5",
+    "tdpWatts": 120
+  }
 }

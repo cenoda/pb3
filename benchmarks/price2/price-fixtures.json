@@ -1,0 +1,123 @@
+{
+  "compatContractVersion": "compat2",
+  "dataVersion": "compat2-fixture-draft",
+  "rows": [
+    {
+      "partId": "case.mid-tower-atx-01",
+      "category": "case",
+      "status": "ok",
+      "amount": 89,
+      "currency": "USD",
+      "basis": "phase-2 fixture price; not a live market quote",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "partId": "case.micro-atx-mini-01",
+      "category": "case",
+      "status": "ok",
+      "amount": 69,
+      "currency": "USD",
+      "basis": "phase-2 fixture price; not a live market quote",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "partId": "mb.atx-b650-01",
+      "category": "motherboard",
+      "status": "ok",
+      "amount": 189,
+      "currency": "USD",
+      "basis": "phase-2 fixture price; not a live market quote",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "partId": "mb.micro-b450-01",
+      "category": "motherboard",
+      "status": "ok",
+      "amount": 99,
+      "currency": "USD",
+      "basis": "phase-2 fixture price; not a live market quote",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "partId": "cpu.zen4-7600",
+      "category": "cpu",
+      "status": "ok",
+      "amount": 199,
+      "currency": "USD",
+      "basis": "phase-2 fixture price; not a live market quote",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "partId": "cpu.zen4-7800x3d",
+      "category": "cpu",
+      "status": "ok",
+      "amount": 329,
+      "currency": "USD",
+      "basis": "phase-2 fixture price; not a live market quote",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "partId": "gpu.rtx4070",
+      "category": "gpu",
+      "status": "ok",
+      "amount": 599,
+      "currency": "USD",
+      "basis": "phase-2 fixture price; not a live market quote",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "partId": "gpu.rtx4080",
+      "category": "gpu",
+      "status": "ok",
+      "amount": 999,
+      "currency": "USD",
+      "basis": "phase-2 fixture price; not a live market quote",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "partId": "cooler.air-twin-tower-01",
+      "category": "cooler",
+      "status": "ok",
+      "amount": 49,
+      "currency": "USD",
+      "basis": "phase-2 fixture price; not a live market quote",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "partId": "ram.ddr5-32gb-6000",
+      "category": "ram",
+      "status": "ok",
+      "amount": 119,
+      "currency": "USD",
+      "basis": "phase-2 fixture price; not a live market quote",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "partId": "ram.ddr5-16gb-7200",
+      "category": "ram",
+      "status": "ok",
+      "amount": 89,
+      "currency": "USD",
+      "basis": "phase-2 fixture price; not a live market quote",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "partId": "psu.750w-atx",
+      "category": "psu",
+      "status": "ok",
+      "amount": 109,
+      "currency": "USD",
+      "basis": "phase-2 fixture price; not a live market quote",
+      "dataVersion": "compat2-fixture-draft"
+    },
+    {
+      "partId": "psu.550w-sfx",
+      "category": "psu",
+      "status": "ok",
+      "amount": 79,
+      "currency": "USD",
+      "basis": "phase-2 fixture price; not a live market quote",
+      "dataVersion": "compat2-fixture-draft"
+    }
+  ]
+}
