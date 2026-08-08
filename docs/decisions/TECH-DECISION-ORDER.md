@@ -13,19 +13,21 @@ This is the dependency order for stack choices. Do not reverse it: later choices
 | Git push | Owner pushes; agents commit only when asked/allowed |
 | Language | **Not decided** (TypeScript is a low-risk default candidate only) |
 | Implementation | **Not started** until owner explicitly starts it |
+| **Live public site** | **Not available now** — do not block Phase 0 on a deployed URL |
+| **Likely future hosts** | **GCP** or **Azure** (static / object-storage + CDN style). Not Vercel/Netlify/GitHub Pages as the planned primary |
 
 ## Stage 1 — Foundation (blocks everything else)
 
 | Decision | Why first | Notes |
 |----------|-----------|--------|
-| **App runtime shape** | Determines whether a backend, SSR, or client-only model is in play | Phase-0 non-goals already exclude backend, auth, prices → **static SPA is a strong candidate**, **not formally locked** (owner may want to explore alternatives) |
-| **Deploy host** | Narrows once runtime shape is known | Still open at process level; lock with runtime or defer |
+| **App runtime shape** | Determines whether a backend, SSR, or client-only model is in play | Phase-0 non-goals already exclude backend, auth, prices → **static SPA is a strong candidate (not locked)**, not yet formally locked |
+| **Deploy host** | Narrows once runtime is static assets | **Deferred for Phase 0.** Verify exit criteria with **local preview** only. When deploy matters later: prefer **GCP or Azure** static hosting; keep build output portable (static files + SPA fallback), avoid host-specific frameworks |
 
 ## Stage 2 — Stack core (tightly coupled)
 
 | Decision | Coupling |
 |----------|----------|
-| **Language** | Low risk to pick early once runtime is known; still **open** |
+| **Language** | Low risk to pick early once runtime is SPA; still **open** |
 | **UI framework + 3D stack** | **Decide as a pair** (e.g. React ↔ R3F, or vanilla ↔ Three.js). Do not pick one without the other |
 | **Bundler / build tool** | Usually follows the UI choice; Vite is a common default for SPA + TS, not locked |
 
@@ -52,7 +54,7 @@ This is the dependency order for stack choices. Do not reverse it: later choices
 ## Recommended sequence (short)
 
 ```text
-runtime shape → deploy host
+runtime shape  (deploy host deferred: local only for now; later GCP or Azure)
   → language
   → (UI framework + 3D stack together)
   → bundler
@@ -61,6 +63,13 @@ runtime shape → deploy host
 ```
 
 License: parallel, but before `npm install` / equivalent.
+
+### Deploy implications (accepted constraint)
+
+- No requirement for a public demo URL in Phase 0.
+- Do not design the scaffold around a specific PaaS (Vercel/Netlify/etc.).
+- Prefer **portable static artifacts** so the same `dist/` (or equivalent) can land on GCS + CDN, Azure Static Web Apps / Blob + CDN, or local `preview`.
+- Cloud-specific IaC/CI for GCP/Azure is **out of Phase 0** unless the owner reopens it.
 
 ## Formal ADRs
 

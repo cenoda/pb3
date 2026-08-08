@@ -15,8 +15,8 @@
 
 ### Stage 1 — foundation (see `docs/decisions/TECH-DECISION-ORDER.md`)
 
-- [ ] Lock app runtime shape (**not locked yet** — static SPA is a candidate only)
-- [ ] Lock or defer deploy host
+- [ ] Lock app runtime shape (static SPA candidate only by non-goals; **not locked yet**)
+- [x] Deploy host for Phase 0: **deferred** — no live site now; local verification only. Future direction: **GCP or Azure** (portable static output; not a Phase 0 blocker)
 
 ### Stage 2 — stack core (after Stage 1; language still undecided)
 

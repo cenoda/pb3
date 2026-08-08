@@ -119,7 +119,7 @@ Fixtures stay at **repo root** `parts/` and `benchmarks/` — do not move them u
 
 Canonical detail: [`docs/decisions/TECH-DECISION-ORDER.md`](docs/decisions/TECH-DECISION-ORDER.md).
 
-1. **Runtime shape** (+ deploy host) — static SPA is a **candidate**, **not formally locked**
+1. **Runtime shape** — static SPA **strongly implied**, not formally locked. **Deploy deferred:** no public site now; Phase 0 = **local only**. Later hosts likely **GCP or Azure** — keep static output portable; do not bind scaffold to Vercel/Netlify/etc.
 2. **Language** (still undecided) → **UI + 3D as a pair** → bundler
 3. Package manager / schema / state / test / fixture HTTP paths
 4. IDE/DX anytime — owner plans **WebStorm + Cursor**
