@@ -49,4 +49,4 @@ pnpm build && pnpm preview
 - 0단계 최소 계약(`vs0`) 밖으로 필드를 미리 넓히지 않는다.
 - FPS는 **범위 + confidence + basis**만; 없는 조합은 `unavailable` (숫자 발명 금지).
 - 0단계 고정 범위 밖으로 부품·기능을 확장하지 않는다.
-- 태그 `vertical-slice-v0`는 소유자가 `pnpm test:all` 통과 후 생성한다.
+- 태그 `vertical-slice-v0`는 Phase 0 PASS 후 생성·push 완료 상태다.

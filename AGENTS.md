@@ -8,11 +8,11 @@ This file is the **repository-level agent brief**. Aria (Grok Build), Lira (Clau
 
 | Fact | State |
 |------|--------|
-| Repository contents | **Phase 0 app + docs + fixtures** — Vite/React/R3F SPA under `src/`, fixtures at repo-root `parts/` + `benchmarks/` |
-| Implementation | **Phase 0 Steps 1–8 complete** (see `docs/phases/phase-0/implementation_plan.md`); tag still open |
+| Repository contents | **Phase 0 + Phase 1 app, docs, and fixtures** — Vite/React/R3F SPA under `src/`, fixtures at repo-root `parts/` + `benchmarks/` |
+| Implementation | **Phase 0 complete; Phase 1 `perf1` engine complete and closed out**; Phase 2 not started |
 | Stack / runtime / tooling | **Locked** (ADR-001–003) + **Playwright** for exit-scenario E2E |
 | License | Code + data: **Apache-2.0** (ADR-004); 3D assets still open |
-| Tag `vertical-slice-v0` | **Not created** (owner-only after `pnpm test:all` green) |
+| Tag `vertical-slice-v0` | **Created and pushed** after owner-authorized Phase 0 PASS |
 | Discarded history | Experimental scaffold `1d54c10` was **fully discarded**. Current tree is a fresh scaffold — do not revive `1d54c10` as baseline |
 
 Prefer the smallest correct change. Do not expand Phase 0 inventory or non-goals. Further phases still need their own `implementation_plan.md` before code.

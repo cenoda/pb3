@@ -49,7 +49,7 @@
 - [x] GPU GLB viewport swap
 - [x] Stub performance panel (3 resolutions)
 - [x] Reload restore verification (URL sync unit tests + Playwright E2E)
-- [x] Exit checklist automated (Step 8 via Playwright headless) — tag still owner-only
+- [x] Exit checklist automated (Step 8 via Playwright headless)
 - [x] Playwright E2E harness (`pnpm test:e2e`) for exit scenario + fixture HTTP
 - [x] Agent browser explore path (Playwright CLI + MCP docs; `pnpm explore:phase0`) — optional, not a merge gate
 - [x] Exit checklist all green → tag `vertical-slice-v0` (owner) — **PASS, tagged 2026-08-08**

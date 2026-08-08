@@ -6,7 +6,7 @@ Project instructions for Claude Code (and Grok Claude-compat) in this repository
 
 ## Hard gates (do not skip)
 
-- **Phase 0 app is implemented** (Steps 1–8). Source lives under `src/`; fixtures stay at repo-root `parts/` and `benchmarks/`.
+- **Phase 0 app and Phase 1 `perf1` engine are implemented and closed out**. Source lives under `src/`; fixtures stay at repo-root `parts/` and `benchmarks/`. Phase 2 has not started.
 - **Runtime locked:** static SPA — `docs/decisions/ADR-001-runtime-static-spa.md` (phases 0–3 scope; revisit if server compute is required).
 - **Stack core locked:** TypeScript + React + R3F + Vite — `docs/decisions/ADR-002-stack-core-ts-react-r3f-vite.md`.
 - **Stage 3 locked:** pnpm + Zod + Zustand + Vitest; fixture `/parts` + `/benchmarks` — `docs/decisions/ADR-003-stage3-tooling-and-fixtures.md`.
@@ -16,7 +16,7 @@ Project instructions for Claude Code (and Grok Claude-compat) in this repository
 - Experimental scaffold `1d54c10` was **discarded**; it is not baseline.
 - Phase-0 home: `docs/phases/phase-0/` (specs, TODO, plan, fixes).
 - Never invent FPS; unknown combos are `unavailable`. Estimates are ranges with confidence.
-- Tag `vertical-slice-v0` is **owner-only**.
+- Tag `vertical-slice-v0` is **created and pushed**.
 
 ## Session bootstrap
 

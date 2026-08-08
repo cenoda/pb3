@@ -65,7 +65,7 @@ runtime shape = static SPA (ADR-001, scoped)  ✓
   pnpm + Zod + Zustand + Vitest + fixture /parts|/benchmarks (ADR-003)  ✓
   Playwright E2E for exit scenario (ADR-003 amendment)  ✓
   license: code + data = Apache-2.0 (ADR-004)  ✓ (3D assets still open)
-  → Phase 0 Steps 1–8 implemented; tag vertical-slice-v0 still owner-only
+  → Phase 0 complete and `vertical-slice-v0` tagged; Phase 1 `perf1` closeout complete; Phase 2 M0 planning next
 ```
 
 License: code + data settled ahead of first third-party install.

@@ -44,8 +44,8 @@ docs/phases/phase-0/
 | License | Code + data: **Apache-2.0** ([ADR-004](../../decisions/ADR-004-license-code-apache-2.0.md)); 3D assets still open |
 | Deploy | Deferred (local only; later GCP/Azure) |
 | Implementation plan | Written — [`implementation_plan.md`](./implementation_plan.md) |
-| Implementation | **Steps 1–8 complete**; tag still open |
-| Tag `vertical-slice-v0` | Not created (owner; after `pnpm test:all`) |
+| Implementation | **Steps 1–8 complete** |
+| Tag `vertical-slice-v0` | **Created and pushed** after owner-authorized PASS |
 
 ### Verification commands
 

@@ -38,7 +38,8 @@
 
 - **Stage 1–3:** Runtime, stack core, and tooling **locked** (ADR-001–003). Deploy remains deferred as above.
 - **License:** Code + data **locked** (ADR-004, Apache-2.0). **3D asset** license still open — resolve before real hardware models ship.
-- Tag `vertical-slice-v0` (owner; after `pnpm test:all`)
+- Phase 0 tag `vertical-slice-v0` (**created and pushed** after PASS)
+- Phase 2 scope, contract, and implementation plan (**next M0 planning gate**)
 - Full benchmark raw schema (product phase 1)
 - Exact GCP vs Azure product (Static Web Apps, Blob+CDN, GCS+Cloud CDN, etc.) — later
 

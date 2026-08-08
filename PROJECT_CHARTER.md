@@ -219,6 +219,6 @@ Verified 등급의 정확도(장착면, 전원 커넥터 위치 등)는 수동 �
 - 0단계 범위 문서: `docs/phases/phase-0/specs/phase-0.md`
 - 0단계 데이터 계약 (`vs0`): `docs/phases/phase-0/specs/vertical-slice-data-contract.md`
 - 0단계 fixture 배치 완료 (`parts/**`, `benchmarks/vs0/**`)
-- 구현·스택은 미착수 (명시적 승인 후 시작)
-- 다음 작업: Phase 0 TODO 정리 → 스택 결정 → 종료 시나리오 구현 → 태그 `vertical-slice-v0`
-
+- 0단계 구현 및 태그 `vertical-slice-v0` 완료
+- 1단계 `perf1` 성능 엔진 구현·검증·closeout 완료 (현재 fixture 값은 전부 stub)
+- 다음 작업: Phase 2 M0 범위·계약·`implementation_plan.md` 작성; Phase 2 구현은 미착수

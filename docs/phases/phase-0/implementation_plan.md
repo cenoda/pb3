@@ -1,6 +1,6 @@
 # Phase 0 — Implementation Plan
 
-Status: **implementation complete (Step 8 verified 2026-08-08)** — tag `vertical-slice-v0` remains owner-only
+Status: **complete (Steps 1–9 verified 2026-08-08)** — tag `vertical-slice-v0` created and pushed after owner-authorized PASS
 Scope authority: [`specs/phase-0.md`](./specs/phase-0.md)
 Data authority: [`specs/vertical-slice-data-contract.md`](./specs/vertical-slice-data-contract.md)
 Stack authority: [`ADR-001`](../../decisions/ADR-001-runtime-static-spa.md), [`ADR-002`](../../decisions/ADR-002-stack-core-ts-react-r3f-vite.md), [`ADR-003`](../../decisions/ADR-003-stage3-tooling-and-fixtures.md), [`ADR-004`](../../decisions/ADR-004-license-code-apache-2.0.md)
@@ -162,7 +162,7 @@ Check off phase-0.md §4's checklist and this plan's own checklist below when al
 
 ### Step 9 — Tag
 
-- Once Step 8 passes on a clean checkout, tag `vertical-slice-v0` (owner performs the tag/push per existing convention) and freeze further 3D feature work per phase-0 spec §6.
+- Step 9 completed 2026-08-08: tag `vertical-slice-v0` was created and pushed after the clean Step 8 PASS. Phase 0's 3D freeze remained in effect until Phase 1 closeout.
 
 ---
 
@@ -207,7 +207,7 @@ Same as [`specs/phase-0.md`](./specs/phase-0.md) §5 — do not let scaffold wor
 - [x] Step 6 — 3D viewport + GPU GLB swap
 - [x] Step 7 — single build screen UI
 - [x] Step 8 — exit scenario passes end-to-end on a clean checkout
-- [ ] Step 9 — tag `vertical-slice-v0` (owner)
+- [x] Step 9 — tag `vertical-slice-v0` (owner; completed 2026-08-08)
 
 ---
 

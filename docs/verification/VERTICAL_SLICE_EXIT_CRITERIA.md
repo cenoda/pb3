@@ -46,6 +46,6 @@ Manual headed pass (`pnpm test:e2e:headed` or human + `pnpm dev`) remains useful
 - [x] 3D view replaces the GPU when `gpuId` changes. (E2E via `data-gpu-id` / path; visual optional)
 - [x] Per-resolution expected performance ranges refresh for the fixed game/preset. (E2E)
 - [x] Full reload restores the same configuration from the URL. (E2E)
-- [ ] Tag `vertical-slice-v0` (owner)
+- [x] Tag `vertical-slice-v0` (owner-authorized PASS, 2026-08-08)
 
-On success: tag `vertical-slice-v0`, then freeze non-critical 3D work until phase 1 ends.
+Closeout: `vertical-slice-v0` is tagged. Phase 0's non-critical 3D freeze lasted until Phase 1 ended and is now lifted.

@@ -128,4 +128,4 @@ Vitest remains the pure-logic suite. Playwright does **not** replace unit tests.
 ## Follow-ups
 
 1. ~~Parallel: open-source **license**~~ — done (ADR-004).
-2. ~~Owner: **start implementation**~~ — Phase 0 Steps 1–8 shipped; tag `vertical-slice-v0` still owner-only.
+2. ~~Owner: **start implementation**~~ — Phase 0 shipped and `vertical-slice-v0` was tagged and pushed; Phase 1 `perf1` closeout is complete.
