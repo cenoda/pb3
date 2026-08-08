@@ -42,7 +42,7 @@
 
 ## 도구 / 운영 (스택과 무관)
 
-- **IDE:** WebStorm + Cursor 사용 예정
+- **IDE:** WebStorm + Cursor + Zed 사용. 공통 포맷/들여쓰기는 루트 `.editorconfig`. Zed는 `.zed/settings.json` + `.zed/tasks.json`, Cursor는 `.vscode/settings.json` + `.vscode/extensions.json`(추천 확장) + `.cursor/rules/pb3-phase-0.mdc`(AGENTS.md 게이트 상시 로드) — 전부 git 추적. WebStorm `.idea/`는 로컬 전용(gitignore), 패키지 매니저는 pnpm으로 설정
 - **Git push:** 소유자가 직접 진행 (에이전트는 요청/허용 시에만 커밋)
 - **기술 결정 순서:** [`docs/decisions/TECH-DECISION-ORDER.md`](docs/decisions/TECH-DECISION-ORDER.md)
 - **공개 사이트:** 지금은 **불가/비범위** — Phase 0 검증은 **로컬**만 가정

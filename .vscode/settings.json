@@ -1,0 +1,19 @@
+{
+  "editor.tabSize": 2,
+  "editor.insertFinalNewline": true,
+  "editor.trimTrailingWhitespace": true,
+  "files.eol": "\n",
+  "editor.formatOnSave": true,
+  "[markdown]": {
+    "editor.formatOnSave": false,
+    "files.trimTrailingWhitespace": false
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true
+  }
+}

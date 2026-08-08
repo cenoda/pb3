@@ -1,0 +1,39 @@
+// pb3 tasks — expect a pnpm-scripted Vite/Vitest scaffold (ADR-002/003).
+// These reference package.json scripts that don't exist yet (implementation
+// not started, see AGENTS.md); they become runnable once the scaffold lands.
+// Verify script names against the real package.json when it's created.
+[
+  {
+    "label": "pnpm install",
+    "command": "pnpm",
+    "args": ["install"],
+    "reveal": "always"
+  },
+  {
+    "label": "pnpm dev",
+    "command": "pnpm",
+    "args": ["dev"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "pnpm build",
+    "command": "pnpm",
+    "args": ["build"],
+    "reveal": "always"
+  },
+  {
+    "label": "pnpm test",
+    "command": "pnpm",
+    "args": ["test"],
+    "reveal": "always"
+  },
+  {
+    "label": "pnpm test:watch",
+    "command": "pnpm",
+    "args": ["test", "--watch"],
+    "use_new_terminal": true,
+    "reveal": "always"
+  }
+]

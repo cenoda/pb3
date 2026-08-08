@@ -1,0 +1,35 @@
+{
+  // pb3 — 3D PC Builder. Project-local Zed settings, shared via git.
+  // Stack: TypeScript + React + R3F + Vite (ADR-002); pnpm + Zod + Zustand + Vitest (ADR-003).
+  // Fixtures (parts/, benchmarks/) are repo-root SSOT — see AGENTS.md.
+  //
+  // TypeScript/TSX/JSON/CSS/Tailwind/ESLint all have built-in Zed language-server
+  // support — no extra marketplace extensions are required for this stack today.
+  "tab_size": 2,
+  "format_on_save": "on",
+  "ensure_final_newline_on_save": true,
+  "remove_trailing_whitespace_on_save": true,
+
+  "languages": {
+    "TypeScript": { "tab_size": 2 },
+    "TSX": { "tab_size": 2 },
+    "JavaScript": { "tab_size": 2 },
+    "JSON": { "tab_size": 2 },
+    "JSONC": { "tab_size": 2 },
+    "CSS": { "tab_size": 2 },
+    "Markdown": {
+      "format_on_save": "off",
+      "remove_trailing_whitespace_on_save": false
+    }
+  },
+
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/CVS",
+    "**/.idea",
+    "**/node_modules",
+    "**/dist"
+  ]
+}

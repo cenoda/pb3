@@ -1,2 +1,7 @@
 # JetBrains
 .idea/
+
+# Node (future implementation — see ADR-002/ADR-003; not created yet)
+node_modules/
+dist/
+.pnpm-store/
