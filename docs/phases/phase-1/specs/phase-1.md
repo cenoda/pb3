@@ -1,6 +1,6 @@
 # Phase 1 — Performance Prediction Engine
 
-Status: **fixed scope** — implementation **not started**  
+Status: **owner-accepted (2026-08-08)** — scope, data contract, and fixtures accepted; implementation **not started**  
 Canonical reference for phase-1 bounds. Detailed field shapes will live in
 [`performance-data-contract.md`](./performance-data-contract.md) *(deliverable 2; not written yet)*.
 
@@ -334,15 +334,14 @@ shape, and contract version bump policy. Write only after this scope doc is acce
 
 ## 8. Deliverable order inside phase 1
 
-1. This document (scope lock) — **written; owner acceptance pending**
-2. [`performance-data-contract.md`](./performance-data-contract.md) — baseline + correction
-   model + raw benchmark schema
-3. Fixture stub data — **two separate tables:**
+1. This document (scope lock) — **owner-accepted (2026-08-08)**
+2. [`performance-data-contract.md`](./performance-data-contract.md) — **owner-accepted (2026-08-08)**
+3. Fixture stub data — **owner-accepted (2026-08-08)**, `benchmarks/perf1/`:
    - Baseline FPS table (96 rows), correction examples, unavailable / withhold examples
    - Cinebench workload table (8 rows; §2.5)
    All happy-path stubs marked `confidence: "stub"`
 4. [`implementation_plan.md`](../implementation_plan.md) — ordered, file-level plan
-   (only after explicit owner approval of scope + contract)
+   (next; owner approval of scope + contract now given)
 5. Implementation → exit §4 → lift Phase 0 3D freeze
 
 ---

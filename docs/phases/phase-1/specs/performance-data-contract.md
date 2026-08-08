@@ -1,6 +1,6 @@
 # Performance Data Contract (Phase 1)
 
-Status: **written — owner acceptance pending**
+Status: **owner-accepted (2026-08-08)**
 Scope authority: [`phase-1.md`](./phase-1.md)
 
 This document defines the Phase 1 performance-engine types and normative rules. It

@@ -12,7 +12,7 @@
 - **Phase 0 범위**: [`docs/phases/phase-0/specs/phase-0.md`](docs/phases/phase-0/specs/phase-0.md)
 - **Phase 0 데이터 계약 (`vs0`)**: [`docs/phases/phase-0/specs/vertical-slice-data-contract.md`](docs/phases/phase-0/specs/vertical-slice-data-contract.md)
 - **Phase 1 홈**: [`docs/phases/phase-1/`](docs/phases/phase-1/)
-- **Phase 1 범위 (스코프 락 초안)**: [`docs/phases/phase-1/specs/phase-1.md`](docs/phases/phase-1/specs/phase-1.md) — 소유자 수락 전; 구현·데이터 계약 미착수
+- **Phase 1 스코프 락 + 데이터 계약 + fixture**: 소유자 수락 완료 (2026-08-08) — [`phase-1.md`](docs/phases/phase-1/specs/phase-1.md) / [`performance-data-contract.md`](docs/phases/phase-1/specs/performance-data-contract.md) / [`benchmarks/perf1/`](benchmarks/perf1/); 다음은 `implementation_plan.md`
 - **URL 규칙 (수락)**
   - 인코더: `BuildState` **모든** 필드를 항상 기록 (정규 공유 링크)
   - 디코더: 누락 키는 기본 fixture로 복구 (부분 링크는 호환 입력만)
