@@ -2,7 +2,7 @@
 
 설명 가능한 성능 예측과 실제 치수 기반 3D 물리 검증을 연결하는 프로젝트입니다.
 
-**Phase 0 (vertical slice)** 앱이 구현되어 있습니다: 정적 SPA로 CPU/GPU 선택 → URL 동기화 → GPU GLB 스왑 → stub FPS 범위 표시. 스택은 [ADR-001](docs/decisions/ADR-001-runtime-static-spa.md)–[004](docs/decisions/ADR-004-license-code-apache-2.0.md) 기준입니다.
+**Phase 0 (vertical slice)** 앱이 구현되어 있습니다: 정적 SPA로 CPU/GPU 선택 → URL 동기화 → GPU GLB 스왑 → 성능 범위 표시. **Phase 1 (성능 엔진, `perf1`)** 이 연결되어 baseline lookup(96행), 환경 보정(apply/withhold), Cinebench workload lookup, PerformancePanel 통합이 동작합니다. 현재 모든 perf1 fixture 값은 `confidence: "stub"` wiring fixture이며 실측 데이터가 아닙니다. 스택은 [ADR-001](docs/decisions/ADR-001-runtime-static-spa.md)–[004](docs/decisions/ADR-004-license-code-apache-2.0.md) 기준입니다.
 
 ## 로컬 실행
 
@@ -16,7 +16,7 @@ pnpm build && pnpm preview
 
 | 명령 | 내용 |
 |------|------|
-| `pnpm test` | Vitest — 스키마, 카탈로그, URL, 성능 룩업 |
+| `pnpm test` | Vitest — 스키마, 카탈로그, URL, vs0·perf1 룩업·보정 |
 | `pnpm test:e2e` | Playwright **Test** headless — Phase 0 종료 시나리오 (build + `vite preview`) |
 | `pnpm test:e2e:headed` | 동일, headed 브라우저 |
 | `pnpm test:all` | unit + e2e (태그/`vertical-slice-v0` 전 권장) |
@@ -34,6 +34,7 @@ pnpm build && pnpm preview
 - [현재 상태](STATUS.md)
 - [에이전트 규칙 (AGENTS.md)](AGENTS.md) ← Aria / Lira / Nox 공통 브리프
 - [Phase 0 홈](docs/phases/phase-0/) ← TODO · plan · fixes · specs
+- [Phase 1 홈](docs/phases/phase-1/) ← perf1 성능 엔진 (2026-08-08 closeout)
 - [Phase 0 범위](docs/phases/phase-0/specs/phase-0.md) ← 범위·금지·종료 조건
 - [Phase 0 데이터 계약 (`vs0`)](docs/phases/phase-0/specs/vertical-slice-data-contract.md)
 - [구현 플랜](docs/phases/phase-0/implementation_plan.md)

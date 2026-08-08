@@ -1,16 +1,16 @@
 # Phase 1 — Implementation Plan
 
-Status: **written, not started** — plan only; no source changes authorized by this document  
-Scope authority: [`specs/phase-1.md`](./specs/phase-1.md)  
-Data authority: [`specs/performance-data-contract.md`](./specs/performance-data-contract.md)  
-Stack authority: [`ADR-001`](../../decisions/ADR-001-runtime-static-spa.md), [`ADR-002`](../../decisions/ADR-002-stack-core-ts-react-r3f-vite.md), [`ADR-003`](../../decisions/ADR-003-stage3-tooling-and-fixtures.md), [`ADR-004`](../../decisions/ADR-004-license-code-apache-2.0.md)  
+Status: **complete (2026-08-08)** — all steps implemented; closeout verified
+Scope authority: [`specs/phase-1.md`](./specs/phase-1.md)
+Data authority: [`specs/performance-data-contract.md`](./specs/performance-data-contract.md)
+Stack authority: [`ADR-001`](../../decisions/ADR-001-runtime-static-spa.md), [`ADR-002`](../../decisions/ADR-002-stack-core-ts-react-r3f-vite.md), [`ADR-003`](../../decisions/ADR-003-stage3-tooling-and-fixtures.md), [`ADR-004`](../../decisions/ADR-004-license-code-apache-2.0.md)
 Predecessor: Phase 0 app under `src/` (Steps 1–8 complete) — [`../phase-0/implementation_plan.md`](../phase-0/implementation_plan.md)
+Implementation commit: `38b76d1` (`feat(perf): wire perf1 baseline and correction engine`)
 
-This document turns the flat checklist in [`TODO.md`](./TODO.md) into an ordered,
-file-level build plan. It does **not** authorize implementation. Per
-[`AGENTS.md`](../../../AGENTS.md) and deliverable order in
-[`specs/phase-1.md`](./specs/phase-1.md) §8, coding starts only after the owner
-explicitly says to start implementation (or equivalent).
+This document turned the flat checklist in [`TODO.md`](./TODO.md) into an ordered,
+file-level build plan. **Implementation completed 2026-08-08** per the steps below.
+All perf1 fixture values remain `confidence: "stub"` wiring data — not real
+benchmark measurements. Thermal simulation and benchmark ingestion are out of scope.
 
 Convention: **every phase gets its own `implementation_plan.md` under
 `docs/phases/phase-N/`, written and reviewed before any code for that phase is
@@ -30,7 +30,7 @@ written.** Phase 0 established the pattern; this file is the Phase 1 instance.
 | Scope lock | Owner-accepted — [`specs/phase-1.md`](./specs/phase-1.md) |
 | Data contract | Owner-accepted — `perf1` types in [`performance-data-contract.md`](./specs/performance-data-contract.md) |
 | Fixtures on disk | `benchmarks/perf1/` — 96-row baseline, 8-row Cinebench, correction + unavailable examples — owner-accepted |
-| Owner “start implementation” | **Not given** — this plan is deliverable 4 only |
+| Owner “start implementation” | **Given and completed** — `38b76d1` |
 
 If any of these are reopened before implementation starts, this plan must be revised first.
 
@@ -384,28 +384,28 @@ If a step seems to require one of these, stop and flag it rather than adding it 
 
 ## 7. Checklist (mirrors `TODO.md` Implementation section)
 
-- [ ] Step 1 — `perf1` contract types + Zod schemas + schema tests
-- [ ] Step 2 — load baseline + Cinebench fixtures from `benchmarks/perf1/`; boot fail-loud
-- [ ] Step 3 — baseline lookup model (`BaselineQuery` → range / unavailable)
-- [ ] Step 4 — correction layer (apply with reason + withhold without guessed derate)
-- [ ] Step 5 — Cinebench workload model (score / unavailable; no correction)
-- [ ] Step 6 — wire engine into existing performance panel (controls + explanations; no 3D)
-- [ ] Step 7 — unit coverage complete; `pnpm test:all` (Phase 0 E2E green)
-- [ ] Step 8 — phase-1.md §4 completion scenario + §6 exit / freeze lift (owner records)
+- [x] Step 1 — `perf1` contract types + Zod schemas + schema tests
+- [x] Step 2 — load baseline + Cinebench fixtures from `benchmarks/perf1/`; boot fail-loud
+- [x] Step 3 — baseline lookup model (`BaselineQuery` → range / unavailable)
+- [x] Step 4 — correction layer (apply with reason + withhold without guessed derate)
+- [x] Step 5 — Cinebench workload model (score / unavailable; no correction)
+- [x] Step 6 — wire engine into existing performance panel (controls + explanations; no 3D)
+- [x] Step 7 — unit coverage complete; `pnpm test:all` (Phase 0 E2E green)
+- [x] Step 8 — phase-1.md §4 completion scenario + §6 exit / freeze lift (recorded in STATUS.md)
 
 ---
 
 ## 8. Exit-criteria checklist (mirrors phase-1.md §4)
 
-Automated and/or manual verification before declaring Phase 1 complete:
+Automated and/or manual verification — **all passed at closeout (2026-08-08)**:
 
-- [ ] Supported baseline combo returns explained range for all three resolutions.
-- [ ] Unsupported combo returns structured unavailable.
-- [ ] Allowed correction input changes range with visible reason.
-- [ ] Withheld correction never triggers a guessed sustained derate.
-- [ ] Supported Cinebench CPU + version + metric returns scored `WorkloadEstimate`.
-- [ ] Unknown/unconfirmed Cinebench version returns structured unavailable.
-- [ ] Phase 0 exit scenario still passes (`pnpm test:all`).
+- [x] Supported baseline combo returns explained range for all three resolutions.
+- [x] Unsupported combo returns structured unavailable.
+- [x] Allowed correction input changes range with visible reason.
+- [x] Withheld correction never triggers a guessed sustained derate.
+- [x] Supported Cinebench CPU + version + metric returns scored `WorkloadEstimate`.
+- [x] Unknown/unconfirmed Cinebench version returns structured unavailable.
+- [x] Phase 0 exit scenario still passes (`pnpm test:all`).
 
 ---
 

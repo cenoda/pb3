@@ -3,38 +3,29 @@
 ## Done
 
 - [x] Scope lock (`specs/phase-1.md`)
-
-## Open
-
-### Deliverable 2 — data contract
-
 - [x] Baseline + correction model types and normative rules (`specs/performance-data-contract.md`)
 - [x] `WorkloadEstimate` type for Cinebench CPU-only scores (distinct from `PerformanceEstimate`)
-- [x] Raw benchmark ingestion schema (deferred from scope doc; defined in contract doc)
-- [x] Contract version string chosen and documented (successor to `vs0` for performance engine)
-
-### Deliverable 3 — fixture stub data
-
-- [x] Baseline performance fixture table (96 rows; all rows `confidence: "stub"` until real benches exist)
-- [x] Cinebench workload fixture table (8 rows; §2.5 — separate from FPS baseline matrix)
+- [x] Raw benchmark ingestion record shape (deferred runner; defined in contract doc)
+- [x] Contract version string chosen and documented (`perf1`)
+- [x] Baseline performance fixture table (96 rows; all rows `confidence: "stub"`)
+- [x] Cinebench workload fixture table (8 rows; §2.5)
 - [x] Environment-correction fixture examples (allowed correction inputs only)
-- [x] Unavailable / withheld-correction examples (tests only, separate from happy-path table)
+- [x] Unavailable / withheld-correction examples (tests only)
 - [x] Data-only fixture integrity check
-
-### Deliverable 4 — implementation plan
-
 - [x] `implementation_plan.md` written (ordered, file-level build plan)
+- [x] `perf1` contract types + Zod schemas (`src/contract/perf1.ts`, `perf1.schema.ts`)
+- [x] perf1 fixture loaders (`src/catalog/loadPerf1Fixtures.ts`)
+- [x] Baseline performance model — 96-row lookup (`estimateBaseline.ts`, `baselineQuery.ts`)
+- [x] Environment correction layer — apply with reason + withhold without guessed derate (`applyCorrection.ts`)
+- [x] Correction interface stable for future Phase 3 cooling outputs (reserved fields on `CorrectionInput`)
+- [x] Bottleneck / limiting-factor explanation on supported estimates
+- [x] Cinebench workload model (`estimateWorkload.ts`)
+- [x] Wire engine into Phase 0 performance panel (`PerformancePanel.tsx`, `perfPanelState.ts`)
+- [x] Unit tests — baseline, unavailable, correction apply/withhold, workload, schema, loaders
+- [x] Phase 0 E2E exit scenario still green (`pnpm test:all`)
+- [x] Exit checklist green → Phase 1 complete; Phase 0 3D freeze lifted (2026-08-08)
 
-### Implementation (only after explicit “start implementation”)
-
-- [ ] Baseline performance model (controlled conditions → range + basis + confidence + dataVersion)
-- [ ] Environment correction layer (limited inputs; explicit withhold when evidence missing)
-- [ ] Correction interface stable for future Phase 3 cooling outputs (headroom, intake restriction, etc.)
-- [ ] Bottleneck / limiting-factor explanation on supported estimates
-- [ ] Wire engine into existing Phase 0 UI path (no new 3D scope)
-- [ ] Unit tests for baseline lookup, unavailable paths, and correction apply / withhold
-- [ ] Extend or add E2E coverage for correction UX (if UI exposes correction inputs)
-- [ ] Exit checklist all green → Phase 1 complete; lifts Phase 0 3D freeze
+## Open
 
 ### Parallel / inherited
 
@@ -44,14 +35,15 @@
 
 - Real thermal or fluid simulation
 - Full logical compatibility engine (Phase 2)
-- 3D collision, anchors, mounting, cooling mesh work (Phase 3; frozen from Phase 0)
+- 3D collision, anchors, mounting, cooling mesh work (Phase 3)
 - Expanding part or game inventory beyond `specs/phase-1.md` §2
 - Live pricing, accounts, backend, auth, public deploy requirement
 - Inventing FPS when data or correction evidence is missing
+- Real benchmark ingestion / PresentMon runner (record shape only in contract)
 
 ## Notes
 
 - Phase 0 remains the regression baseline; do not break `vertical-slice-v0` exit scenario.
 - Stack is locked (ADR-001–003); do not re-litigate tooling in this phase folder.
-- Implementation work starts only when the owner says so, after scope + contract acceptance.
+- All perf1 fixture values remain `confidence: "stub"` — wiring fixtures, not measured benchmarks.
 - Owner handles `git push`.

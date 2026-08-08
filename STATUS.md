@@ -12,7 +12,8 @@
 - **Phase 0 범위**: [`docs/phases/phase-0/specs/phase-0.md`](docs/phases/phase-0/specs/phase-0.md)
 - **Phase 0 데이터 계약 (`vs0`)**: [`docs/phases/phase-0/specs/vertical-slice-data-contract.md`](docs/phases/phase-0/specs/vertical-slice-data-contract.md)
 - **Phase 1 홈**: [`docs/phases/phase-1/`](docs/phases/phase-1/)
-- **Phase 1 스코프 락 + 데이터 계약 + fixture**: 소유자 수락 완료 (2026-08-08) — [`phase-1.md`](docs/phases/phase-1/specs/phase-1.md) / [`performance-data-contract.md`](docs/phases/phase-1/specs/performance-data-contract.md) / [`benchmarks/perf1/`](benchmarks/perf1/); 다음은 `implementation_plan.md`
+- **Phase 1 스코프 락 + 데이터 계약 + fixture**: 소유자 수락 완료 (2026-08-08) — [`phase-1.md`](docs/phases/phase-1/specs/phase-1.md) / [`performance-data-contract.md`](docs/phases/phase-1/specs/performance-data-contract.md) / [`benchmarks/perf1/`](benchmarks/perf1/)
+- **Phase 1 성능 엔진 (`perf1`)**: 구현·검증·문서 동기화 완료 (2026-08-08) — `38b76d1` + closeout docs; 모든 fixture 값은 `confidence: "stub"` (실측 아님)
 - **URL 규칙 (수락)**
   - 인코더: `BuildState` **모든** 필드를 항상 기록 (정규 공유 링크)
   - 디코더: 누락 키는 기본 fixture로 복구 (부분 링크는 호환 입력만)
@@ -92,14 +93,15 @@
 1. ~~**명시적 구현 시작** → 스캐폴드 (ADR-001–003) → 로컬 종료 시나리오~~ → **구현 완료 (2026-08-08)**
 2. ~~Playwright headless E2E (Step 8 자동화)~~ → **추가 완료 (2026-08-08)**
 3. ~~**태그 `vertical-slice-v0`** — 소유자가 `pnpm test:all` green 확인 후 수행~~ → **완료 (2026-08-08)**
-4. **Phase 1 (성능 엔진)** — 스코프 락 문서 초안 작성됨 ([`docs/phases/phase-1/specs/phase-1.md`](docs/phases/phase-1/specs/phase-1.md)); 소유자 수락 후 데이터 계약 → fixture → 구현 계획 순
+4. ~~**Phase 1 (성능 엔진)** — 스코프·계약·fixture·구현·검증·closeout~~ → **완료 (2026-08-08)**
+5. **Phase 2 (호환성 엔진)** — 아직 시작하지 않음; 별도 `implementation_plan.md` 필요
 
 ## Phase 0 종료 승인 (2026-08-08)
 
 - 감사 실행: `pnpm build` / `pnpm test` (4 files, 14/14) / `pnpm test:e2e` (4/4) 전부 재실행 확인, working tree clean
 - 소유자 명시 승인: **PASS**
 - 태그: `vertical-slice-v0` 생성 및 원격 push 완료
-- Phase 0 동결 (`docs/phases/phase-0/specs/phase-0.md` §6): 이후 3D 관련 변경은 데이터 계약 파손 수정 또는 종료 시나리오 회귀 버그 수정만 허용, Phase 1 완료 전까지
+- Phase 0 3D 동결 **해제** (2026-08-08): Phase 1 종료 조건 충족 — 이후 Phase 3 3D 작업은 해당 phase plan에서 재개 가능; Phase 1 자체는 3D 범위 없음
 
 ## Phase 0 구현 상태 (2026-08-08)
 
@@ -116,3 +118,26 @@
 | `pnpm build` + `dist/parts` + `dist/benchmarks` | PASS (static-copy 경로 flatten 버그 수정 포함) |
 | Step 8 exit scenario | Playwright headless (`pnpm test:e2e`) — 수동 전용 게이트에서 자동화로 승격 |
 | Tag `vertical-slice-v0` | **완료** (2026-08-08, PASS 승인 후 생성·push) |
+
+## Phase 1 구현 상태 (2026-08-08)
+
+| 항목 | 상태 |
+|------|------|
+| `perf1` contract types + Zod (`src/contract/perf1.ts`, `perf1.schema.ts`) | 완료 |
+| perf1 fixture loaders (`loadPerf1Fixtures.ts`) | 완료 |
+| 96-row baseline lookup (`estimateBaseline.ts`, `baselineQuery.ts`) | 완료 |
+| Environment correction apply / withhold (`applyCorrection.ts`) | 완료 |
+| Cinebench workload lookup (`estimateWorkload.ts`) | 완료 |
+| PerformancePanel integration (upscale / framegen / RAM / correction / Cinebench) | 완료 |
+| `pnpm test` (9 files, 39 tests) | PASS |
+| `pnpm test:e2e` (Phase 0 exit scenario, 4 tests) | PASS |
+| `pnpm test:all` + `pnpm build` | PASS (closeout 재실행) |
+| Fixture 값 | 전부 `confidence: "stub"` — 실측·벤치 수집·열 시뮬레이션 없음 |
+| Phase 0 3D freeze | **해제** (phase-1.md §6) |
+
+## Phase 1 종료 승인 (2026-08-08)
+
+- 구현 커밋: `38b76d1` (`feat(perf): wire perf1 baseline and correction engine`)
+- 검증: `pnpm test:all` (39 unit + 4 e2e) · `pnpm build` · `pnpm dev` 수동 walkthrough 12항목 PASS
+- 데이터: `benchmarks/perf1/` stub fixture만 사용; 실측 벤치 검증·열 시뮬레이션·ingestion 파이프라인 **미구현**
+- Phase 2 작업 **시작하지 않음**
