@@ -23,7 +23,7 @@
 
 ### Deliverable 4 — implementation plan
 
-- [ ] `implementation_plan.md` written (ordered, file-level build plan) — only after owner accepts scope + contract
+- [x] `implementation_plan.md` written (ordered, file-level build plan)
 
 ### Implementation (only after explicit “start implementation”)
 

@@ -10,7 +10,7 @@ docs/phases/phase-1/
   README.md              ← this file
   TODO.md                ← open / done work for this phase
   specs/                 ← scope lock + (later) data contract
-  implementation_plan.md ← ordered, file-level build plan (written before any code; not started)
+  implementation_plan.md ← ordered, file-level build plan (written; code not started)
   fixes/                 ← short fix / incident notes (when needed)
 ```
 
@@ -19,8 +19,8 @@ docs/phases/phase-1/
 | Doc | Role |
 |-----|------|
 | [`specs/phase-1.md`](./specs/phase-1.md) | Scope, inventory, forbidden work, exit criteria |
-| [`specs/performance-data-contract.md`](./specs/performance-data-contract.md) | Baseline + correction types, raw benchmark schema *(not written yet — deliverable 2)* |
-| [`implementation_plan.md`](./implementation_plan.md) | Build order, file layout, step-by-step plan *(not written yet — deliverable 4)* |
+| [`specs/performance-data-contract.md`](./specs/performance-data-contract.md) | Baseline + correction types, raw benchmark schema — **owner-accepted** |
+| [`implementation_plan.md`](./implementation_plan.md) | Build order, file layout, step-by-step plan — **written (deliverable 4); implementation not started** |
 
 ## Related (outside this folder)
 
@@ -45,15 +45,15 @@ docs/phases/phase-1/
 | E2E | Phase 0 regression gate remains — `pnpm test:e2e` / `e2e/exit-scenario.spec.ts` |
 | License | Code + data: **Apache-2.0** ([ADR-004](../../decisions/ADR-004-license-code-apache-2.0.md)); 3D assets still open |
 | Deploy | Deferred (local only; later GCP/Azure) |
-| Implementation plan | Not written |
+| Implementation plan | **Written (2026-08-08)** — [`implementation_plan.md`](./implementation_plan.md); awaiting owner “start implementation” |
 | Implementation | **Not started** |
 | Phase 0 3D freeze | **Active** until Phase 1 exit criteria pass |
 
 ### Verification commands
 
-No Phase 1–specific verification commands exist yet. Until implementation lands:
+Until implementation lands, only Phase 0 regression applies. After Step 1+ of the plan:
 
-- Phase 0 regression (must stay green): `pnpm test:all`
-- Phase 1 engine tests and fixtures will be defined in the data contract and implementation plan.
+- Phase 0 regression (must stay green throughout Phase 1): `pnpm test:all`
+- Planned Phase 1 unit suites: `perf1.schema`, `estimateBaseline`, `applyCorrection`, `estimateWorkload` — see [`implementation_plan.md`](./implementation_plan.md) §5
 
 See [`TODO.md`](./TODO.md) for the working checklist.
