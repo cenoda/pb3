@@ -8,8 +8,9 @@
 
 - [프로젝트 헌장](PROJECT_CHARTER.md)
 - [현재 상태](STATUS.md)
-- [Phase 0 범위 (수직 슬라이스)](docs/phase-0.md) ← **범위·금지·종료 조건**
-- [Phase 0 데이터 계약 (`vs0`)](docs/vertical-slice-data-contract.md) ← **타입·JSON·URL 규칙**
+- [Phase 0 홈](docs/phases/phase-0/) ← TODO · fixes · specs
+- [Phase 0 범위](docs/phases/phase-0/specs/phase-0.md) ← 범위·금지·종료 조건
+- [Phase 0 데이터 계약 (`vs0`)](docs/phases/phase-0/specs/vertical-slice-data-contract.md)
 - [개발 단계](docs/roadmap/PHASES.md)
 - [데이터 문서 안내](docs/data/README.md)
 - [의사결정 기록 안내](docs/decisions/README.md)

@@ -7,4 +7,4 @@
 
 Numbers are ordinal wiring stubs. They are **not** laboratory measurements.
 
-Canonical field shapes: [`docs/vertical-slice-data-contract.md`](../../docs/vertical-slice-data-contract.md).
+Canonical field shapes: [`docs/phases/phase-0/specs/vertical-slice-data-contract.md`](../../docs/phases/phase-0/specs/vertical-slice-data-contract.md).

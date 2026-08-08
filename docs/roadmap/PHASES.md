@@ -3,8 +3,9 @@
 세부 원칙과 범위는 [프로젝트 헌장](../../PROJECT_CHARTER.md)을 기준으로 한다.
 
 1. **0단계 — 수직 슬라이스**: 전체 흐름의 기술적 연결 검증  
-   - 범위: [`../phase-0.md`](../phase-0.md)  
-   - 데이터 계약: [`../vertical-slice-data-contract.md`](../vertical-slice-data-contract.md)
+   - 홈: [`../phases/phase-0/`](../phases/phase-0/)  
+   - 범위: [`../phases/phase-0/specs/phase-0.md`](../phases/phase-0/specs/phase-0.md)  
+   - 데이터 계약: [`../phases/phase-0/specs/vertical-slice-data-contract.md`](../phases/phase-0/specs/vertical-slice-data-contract.md)
 2. **1단계 — 성능 예측 엔진**: 설명 가능한 기준 성능과 제한된 환경 보정
 3. **2단계 — 기본 견적 서비스**: 일반 부품 선택과 논리 호환성, 저장·공유
 4. **3단계 — 3D 조립 및 물리 검증**: 자동 장착, 충돌, 여유 공간, 냉각 연동

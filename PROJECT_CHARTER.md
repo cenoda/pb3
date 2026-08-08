@@ -215,10 +215,10 @@ Verified 등급의 정확도(장착면, 전원 커넥터 위치 등)는 수동 �
 ## 8. 현재 상태
 
 - 철학, 개발 순서, 성능 엔진 경계, 0단계 범위와 종료 조건이 확정됨
-- 0단계 범위 문서: `docs/phase-0.md`
-- 0단계 데이터 계약 (`vs0`): `docs/vertical-slice-data-contract.md`
+- 0단계 홈: `docs/phases/phase-0/`
+- 0단계 범위 문서: `docs/phases/phase-0/specs/phase-0.md`
+- 0단계 데이터 계약 (`vs0`): `docs/phases/phase-0/specs/vertical-slice-data-contract.md`
 - 0단계 fixture 배치 완료 (`parts/**`, `benchmarks/vs0/**`)
-- 다음 작업:
-  1. 스택 선정 및 스캐폴드
-  2. 0단계 종료 시나리오 구현 → 태그 `vertical-slice-v0`
+- 구현·스택은 미착수 (명시적 승인 후 시작)
+- 다음 작업: Phase 0 TODO 정리 → 스택 결정 → 종료 시나리오 구현 → 태그 `vertical-slice-v0`
 

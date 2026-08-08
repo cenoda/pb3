@@ -8,8 +8,9 @@
 - 0단계 수직 슬라이스의 범위와 종료 조건
 - 부품의 기본 파일 구성: `part.json` + `model.glb`
 - 모델 좌표계와 단위: mm, Y-up
-- **Phase 0 범위**: [`docs/phase-0.md`](docs/phase-0.md)
-- **Phase 0 데이터 계약 (`vs0`)**: [`docs/vertical-slice-data-contract.md`](docs/vertical-slice-data-contract.md)
+- **Phase 0 홈**: [`docs/phases/phase-0/`](docs/phases/phase-0/)
+- **Phase 0 범위**: [`docs/phases/phase-0/specs/phase-0.md`](docs/phases/phase-0/specs/phase-0.md)
+- **Phase 0 데이터 계약 (`vs0`)**: [`docs/phases/phase-0/specs/vertical-slice-data-contract.md`](docs/phases/phase-0/specs/vertical-slice-data-contract.md)
 - **URL 규칙 (수락)**
   - 인코더: `BuildState` **모든** 필드를 항상 기록 (정규 공유 링크)
   - 디코더: 누락 키는 기본 fixture로 복구 (부분 링크는 호환 입력만)
@@ -43,6 +44,6 @@
 
 ## 다음 작업
 
-1. 스택 ADR + 스캐폴드 (TypeScript / Vite / UI / 3D 후보)
-2. fixture를 소비해 종료 시나리오 구현
-3. 태그 `vertical-slice-v0`
+1. Phase 0 TODO 검토 (`docs/phases/phase-0/TODO.md`)
+2. 런타임/스택 결정 (명시적 구현 시작 승인 후)
+3. 종료 시나리오 구현 → 태그 `vertical-slice-v0`

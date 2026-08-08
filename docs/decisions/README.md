@@ -6,8 +6,8 @@
 
 | Topic | Where |
 |-------|--------|
-| Phase-0 scope lock | [`../phase-0.md`](../phase-0.md) |
-| Phase-0 data contract `vs0` | [`../vertical-slice-data-contract.md`](../vertical-slice-data-contract.md) |
+| Phase-0 scope lock | [`../phases/phase-0/specs/phase-0.md`](../phases/phase-0/specs/phase-0.md) |
+| Phase-0 data contract `vs0` | [`../phases/phase-0/specs/vertical-slice-data-contract.md`](../phases/phase-0/specs/vertical-slice-data-contract.md) |
 
 ## Still open
 

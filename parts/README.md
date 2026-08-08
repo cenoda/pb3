@@ -24,8 +24,9 @@ parts/
 
 GPU placeholders are intentionally different so mesh swap is obvious in the viewport.
 
-Contract and field shapes: [`docs/vertical-slice-data-contract.md`](../docs/vertical-slice-data-contract.md)  
-Scope limits: [`docs/phase-0.md`](../docs/phase-0.md)
+Contract and field shapes: [`docs/phases/phase-0/specs/vertical-slice-data-contract.md`](../docs/phases/phase-0/specs/vertical-slice-data-contract.md)  
+Scope limits: [`docs/phases/phase-0/specs/phase-0.md`](../docs/phases/phase-0/specs/phase-0.md)  
+Phase 0 home: [`docs/phases/phase-0/`](../docs/phases/phase-0/)
 
 Do not add production fields (price, collision, anchors, etc.) in phase 0.
 Units: mm, Y-up. Runtime anchor/socket/collision nodes are not required yet.

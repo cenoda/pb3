@@ -8,7 +8,7 @@
 | [`vs0/performance-unavailable.examples.json`](./vs0/performance-unavailable.examples.json) | Unavailable estimate examples for tests only |
 | [`vs0/README.md`](./vs0/README.md) | Folder notes |
 
-Canonical shapes: [`docs/vertical-slice-data-contract.md`](../docs/vertical-slice-data-contract.md).
+Canonical shapes: [`docs/phases/phase-0/specs/vertical-slice-data-contract.md`](../docs/phases/phase-0/specs/vertical-slice-data-contract.md).
 
 ## Later
 

@@ -2,7 +2,7 @@
 
 Canonical phase-0 scope, completion scenario, and exit checklist:
 
-**[`../phase-0.md`](../phase-0.md)** (sections 4–6)
+**[`../phases/phase-0/specs/phase-0.md`](../phases/phase-0/specs/phase-0.md)** (sections 4–6)
 
 Quick checklist:
 
