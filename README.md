@@ -8,6 +8,7 @@
 
 - [프로젝트 헌장](PROJECT_CHARTER.md)
 - [현재 상태](STATUS.md)
+- [에이전트 규칙 (AGENTS.md)](AGENTS.md) ← Aria / Lira / Nox 공통 브리프
 - [Phase 0 홈](docs/phases/phase-0/) ← TODO · fixes · specs
 - [Phase 0 범위](docs/phases/phase-0/specs/phase-0.md) ← 범위·금지·종료 조건
 - [Phase 0 데이터 계약 (`vs0`)](docs/phases/phase-0/specs/vertical-slice-data-contract.md)

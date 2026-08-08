@@ -34,6 +34,12 @@
 | unavailable 예시 쿼리가 본 테이블에 없음, fps null | PASS |
 | GPU 플레이스홀더: rtx4070 짧고 파랑 / rtx4080 길고 주황 (시각 구분) | PASS |
 
+## 에이전트 문서
+
+- 공통 브리프: [`AGENTS.md`](AGENTS.md) (모든 하네스)
+- Claude 진입점: [`CLAUDE.md`](CLAUDE.md) → `AGENTS.md` 포인터 + 하드 게이트
+- Grok 프로젝트 규칙: [`.grok/rules/pb3-phase-0.md`](.grok/rules/pb3-phase-0.md)
+
 ## 아직 정하지 않음
 
 - 구현 언어와 기술 스택
