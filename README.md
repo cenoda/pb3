@@ -2,7 +2,7 @@
 
 설명 가능한 성능 예측과 실제 치수 기반 3D 물리 검증을 연결하는 프로젝트입니다.
 
-현재 저장소는 방향 문서, **0단계 수직 슬라이스 계약**, **fixture 데이터**, 런타임(**정적 SPA**, [ADR-001](docs/decisions/ADR-001-runtime-static-spa.md)), 스택 코어(**TS + React + R3F + Vite**, [ADR-002](docs/decisions/ADR-002-stack-core-ts-react-r3f-vite.md))까지 준비된 단계입니다. 스캐폴드·구현은 명시적 시작 승인 후입니다.
+현재 저장소는 방향 문서, **0단계 수직 슬라이스 계약**, **fixture 데이터**, 그리고 스택 결정([ADR-001](docs/decisions/ADR-001-runtime-static-spa.md)–[003](docs/decisions/ADR-003-stage3-tooling-and-fixtures.md): 정적 SPA · TS/React/R3F/Vite · pnpm/Zod/Zustand/Vitest · fixture 경로)까지 준비된 단계입니다. 스캐폴드·구현은 명시적 시작 승인 후입니다.
 
 ## 문서
 

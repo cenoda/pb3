@@ -8,7 +8,8 @@ Project instructions for Claude Code (and Grok Claude-compat) in this repository
 
 - This repo is **docs + fixtures only** until implementation start. There is **no** app code or build system yet.
 - **Runtime locked:** static SPA — `docs/decisions/ADR-001-runtime-static-spa.md` (phases 0–3 scope; revisit if server compute is required).
-- **Stack core locked:** TypeScript + React + R3F + Vite — `docs/decisions/ADR-002-stack-core-ts-react-r3f-vite.md`. Stage 3 tools and license still open. **Lock ≠ start implementation.**
+- **Stack core locked:** TypeScript + React + R3F + Vite — `docs/decisions/ADR-002-stack-core-ts-react-r3f-vite.md`.
+- **Stage 3 locked:** pnpm + Zod + Zustand + Vitest; fixture `/parts` + `/benchmarks` — `docs/decisions/ADR-003-stage3-tooling-and-fixtures.md`. License still open. **Lock ≠ start implementation.**
 - **Do not scaffold, install dependencies, or write app code** until the owner explicitly starts implementation.
 - Experimental scaffold `1d54c10` was **discarded**; it is not baseline.
 - Phase-0 home: `docs/phases/phase-0/` (specs, TODO, fixes). Fixtures stay at repo-root `parts/` and `benchmarks/`.

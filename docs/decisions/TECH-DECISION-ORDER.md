@@ -33,13 +33,15 @@ This is the dependency order for stack choices. Do not reverse it: later choices
 
 Detail: [`ADR-002-stack-core-ts-react-r3f-vite.md`](./ADR-002-stack-core-ts-react-r3f-vite.md).
 
-## Stage 3 — Satellite tools (follow Stage 2)
+## Stage 3 — Satellite tools — **locked (ADR-003)**
 
-| Decision | Depends on |
-|----------|------------|
-| Package manager (`npm` / `pnpm` / …) | Low risk; anytime after Stage 2 starts |
-| Schema / state / test (e.g. Zod, store, Vitest) | Natural defaults once UI stack is known |
-| Fixture HTTP path strategy | Build tool static-serve conventions (`public/`, copy plugin, etc.) |
+| Decision | Choice |
+|----------|--------|
+| Package manager | **pnpm** |
+| Schema / state / test | **Zod** / **Zustand** / **Vitest** |
+| Fixture HTTP path strategy | Repo-root SSOT; browser `/parts`, `/benchmarks`; Vite dev serve + build copy into `dist/` |
+
+Detail: [`ADR-003-stage3-tooling-and-fixtures.md`](./ADR-003-stage3-tooling-and-fixtures.md).
 
 ## Stage 4 — Not urgent
 
@@ -59,8 +61,9 @@ Detail: [`ADR-002-stack-core-ts-react-r3f-vite.md`](./ADR-002-stack-core-ts-reac
 runtime shape = static SPA (ADR-001, scoped)  ✓
   deploy host deferred: local only for now; later GCP or Azure
   language + React + R3F + Vite (ADR-002)  ✓
-  → package manager / schema / state / test / fixture serve
+  pnpm + Zod + Zustand + Vitest + fixture /parts|/benchmarks (ADR-003)  ✓
   → implement scaffold (only after owner “start implementation”)
+  → prefer license discussion before first third-party install
 ```
 
 License: parallel, but before `npm install` / equivalent.
@@ -78,6 +81,7 @@ License: parallel, but before `npm install` / equivalent.
 |-----|--------|
 | [`ADR-001-runtime-static-spa.md`](./ADR-001-runtime-static-spa.md) | Static SPA runtime (scoped 0–3; revisit on server compute) |
 | [`ADR-002-stack-core-ts-react-r3f-vite.md`](./ADR-002-stack-core-ts-react-r3f-vite.md) | TS + React + R3F + Vite |
+| [`ADR-003-stage3-tooling-and-fixtures.md`](./ADR-003-stage3-tooling-and-fixtures.md) | pnpm, Zod, Zustand, Vitest, fixture HTTP |
 
 When further items lock, add `ADR-NNN-title.md` and update:
 

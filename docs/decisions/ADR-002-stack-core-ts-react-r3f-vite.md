@@ -67,10 +67,9 @@ Lock Stage 2 stack core as:
 4. Vite produces static build output suitable for local preview and later GCP/Azure static hosting (portable artifact; no PaaS-specific framework lock-in).
 5. Fixture paths (`parts/`, `benchmarks/`) remain repo-root SSOT; **how** Vite serves/copies them is **Stage 3** (fixture HTTP strategy), not fixed in this ADR beyond “must work in dev and production build.”
 
-### Out of scope for this ADR (Stage 3+)
+### Out of scope for this ADR (see ADR-003 / later)
 
-- Package manager (`npm` / `pnpm` / …)
-- Schema validation, client state library, test runner (e.g. Zod / Zustand / Vitest) — likely defaults later, **not locked here**
+- Package manager, schema/state/test, fixture HTTP — **locked in** [`ADR-003`](./ADR-003-stage3-tooling-and-fixtures.md)
 - Exact folder layout under `src/`
 - Open-source license
 - Implementation scaffold itself
@@ -116,6 +115,6 @@ Do **not** revisit merely because a discarded historical scaffold used similar l
 
 ## Follow-ups
 
-1. Stage 3: package manager, schema/state/test defaults, fixture serve/copy strategy under Vite.
+1. Stage 3 — done: [`ADR-003`](./ADR-003-stage3-tooling-and-fixtures.md).
 2. Parallel: code/data/asset licenses before third-party deps if not already settled.
 3. Owner: explicit **start implementation** → scaffold only to Phase 0 exit checklist.

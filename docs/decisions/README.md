@@ -13,7 +13,8 @@
 | ADR | Decision | Status |
 |-----|----------|--------|
 | [`ADR-001-runtime-static-spa.md`](./ADR-001-runtime-static-spa.md) | App runtime = **static SPA**, valid for charter phases **0–3** scope (no backend / auth / server-side measured perf model); **revisit** if server compute is required | Accepted |
-| [`ADR-002-stack-core-ts-react-r3f-vite.md`](./ADR-002-stack-core-ts-react-r3f-vite.md) | Stage 2 core = **TypeScript + React + R3F + Vite** (not implementation start; Stage 3 tools still open) | Accepted |
+| [`ADR-002-stack-core-ts-react-r3f-vite.md`](./ADR-002-stack-core-ts-react-r3f-vite.md) | Stage 2 core = **TypeScript + React + R3F + Vite** (not implementation start) | Accepted |
+| [`ADR-003-stage3-tooling-and-fixtures.md`](./ADR-003-stage3-tooling-and-fixtures.md) | Stage 3 = **pnpm** + **Zod** + **Zustand** + **Vitest**; fixtures SSOT at repo root, HTTP `/parts` + `/benchmarks` via Vite serve/copy | Accepted |
 
 ## Decided in docs (not yet formal ADRs)
 
@@ -34,10 +35,9 @@
 
 ## Still open (follow tech decision order)
 
-- **Stage 1:** Runtime shape **locked** (ADR-001). Deploy remains deferred as above.
-- **Stage 2:** Stack core **locked** (ADR-002: TS + React + R3F + Vite).
-- **Stage 3:** Package manager, schema/state/test tools, fixture HTTP paths
+- **Stage 1–3:** Runtime, stack core, and tooling **locked** (ADR-001–003). Deploy remains deferred as above.
 - **Parallel:** Open-source license for **code**, **data**, and **3D assets** (finish code license before third-party deps)
+- Implementation scaffold (needs explicit owner start)
 - Full benchmark raw schema (product phase 1)
 - Exact GCP vs Azure product (Static Web Apps, Blob+CDN, GCS+Cloud CDN, etc.) — later
 

@@ -60,18 +60,24 @@
 - **결정:** **TypeScript + React + R3F + Vite**
 - **문서:** [`docs/decisions/ADR-002-stack-core-ts-react-r3f-vite.md`](docs/decisions/ADR-002-stack-core-ts-react-r3f-vite.md)
 - **아님:** 구현 시작 승인 아님. 폐기 스캐폴드 `1d54c10` 자동 부활 아님
-- **미포함 (Stage 3):** 패키지 매니저, Zod/상태/테스트 등, fixture 서빙 세부
+
+## Stage 3 도구 (ADR-003)
+
+- **패키지 매니저:** pnpm
+- **스키마 / 상태 / 테스트:** Zod / Zustand / Vitest
+- **fixture:** 디스크 SSOT = 루트 `parts/`, `benchmarks/` · HTTP = `/parts`, `/benchmarks` · Vite dev 서빙 + build 시 `dist/` 복사
+- **문서:** [`docs/decisions/ADR-003-stage3-tooling-and-fixtures.md`](docs/decisions/ADR-003-stage3-tooling-and-fixtures.md)
 
 ## 아직 정하지 않음
 
-- **1·2단계:** 런타임·스택 코어 **락 완료**. 배포 호스트는 **의도적 미룸**
-- **3단계:** 패키지 매니저, 스키마/상태/테스트, fixture HTTP 경로
-- 오픈소스 라이선스 (코드 / 데이터 / 3D 에셋 분리 논의; 의존성 설치 전 코드 라이선스 권장)
-- GCP vs Azure 구체 상품 (Static Web Apps, Blob+CDN, GCS+Cloud CDN 등)
+- 오픈소스 라이선스 (코드 / 데이터 / 3D 에셋 분리 논의; **의존성 설치 전** 코드 라이선스 권장)
+- 배포 호스트 세부 (의도적 미룸; 이후 GCP/Azure)
+- GCP vs Azure 구체 상품
 - 실측 벤치마크 원시 스키마 (제품 1단계)
 - 완성형 생산용 `part.json` 필드
+- UI 컴포넌트 라이브러리 / CSS 접근 (스캐폴드 시 최소로)
 
 ## 다음 작업
 
-1. **Stage 3** 부수 도구 (원하면) 또는 **명시적 구현 시작** 후 스캐폴드
-2. 로컬 종료 시나리오 → 태그 `vertical-slice-v0`
+1. (권장) 코드 라이선스 방향 합의
+2. **명시적 구현 시작** → 스캐폴드 (ADR-001–003) → 로컬 종료 시나리오 → 태그 `vertical-slice-v0`

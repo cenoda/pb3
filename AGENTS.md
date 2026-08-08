@@ -120,10 +120,12 @@ Fixtures stay at **repo root** `parts/` and `benchmarks/` — do not move them u
 Canonical detail: [`docs/decisions/TECH-DECISION-ORDER.md`](docs/decisions/TECH-DECISION-ORDER.md).
 
 1. **Runtime — locked:** **static SPA** ([`ADR-001`](docs/decisions/ADR-001-runtime-static-spa.md)). Phases **0–3** scope; revisit if server compute is required. **Deploy deferred** (local only; later GCP/Azure; portable static output).
-2. **Stack core — locked:** **TypeScript + React + R3F + Vite** ([`ADR-002`](docs/decisions/ADR-002-stack-core-ts-react-r3f-vite.md)). Not an implementation start; discarded scaffold `1d54c10` is not baseline.
-3. **Stage 3 still open:** package manager / schema / state / test / fixture HTTP paths (do not assume Zod, Zustand, Vitest, npm vs pnpm until locked or scaffold chooses minimal defaults under owner approval).
+2. **Stack core — locked:** **TypeScript + React + R3F + Vite** ([`ADR-002`](docs/decisions/ADR-002-stack-core-ts-react-r3f-vite.md)). Discarded scaffold `1d54c10` is not baseline.
+3. **Stage 3 — locked:** **pnpm**, **Zod**, **Zustand**, **Vitest**; fixtures SSOT at repo-root `parts/` + `benchmarks/`, HTTP `/parts` + `/benchmarks`, Vite dev serve + build copy ([`ADR-003`](docs/decisions/ADR-003-stage3-tooling-and-fixtures.md)).
 4. IDE/DX — owner plans **WebStorm + Cursor**
-5. **License** parallel; finish code license before third-party deps
+5. **License** still open (parallel); finish code license before third-party deps when possible.
+
+**Implementation** still requires explicit owner start — ADR locks alone do not authorize `pnpm install` or app scaffold.
 
 Owner handles **git push**. Record further locks as `docs/decisions/ADR-NNN-*.md`.
 

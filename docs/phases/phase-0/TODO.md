@@ -25,11 +25,12 @@
 - [x] Bundler → **Vite**
 - Note: lock ≠ implementation start; do not install deps until owner says so
 
-### Stage 3 — satellites (after Stage 2)
+### Stage 3 — satellites ([`ADR-003`](../../decisions/ADR-003-stage3-tooling-and-fixtures.md))
 
-- [ ] Package manager
-- [ ] Schema / state / test tools
-- [ ] Fixture HTTP path strategy under the chosen build tool
+- [x] Package manager → **pnpm**
+- [x] Schema / state / test → **Zod** / **Zustand** / **Vitest**
+- [x] Fixture HTTP → repo-root SSOT; `/parts` + `/benchmarks`; Vite serve + dist copy
+- Note: still not implementation start
 
 ### Implementation (only after explicit “start implementation”)
 
