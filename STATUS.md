@@ -11,6 +11,8 @@
 - **Phase 0 홈**: [`docs/phases/phase-0/`](docs/phases/phase-0/)
 - **Phase 0 범위**: [`docs/phases/phase-0/specs/phase-0.md`](docs/phases/phase-0/specs/phase-0.md)
 - **Phase 0 데이터 계약 (`vs0`)**: [`docs/phases/phase-0/specs/vertical-slice-data-contract.md`](docs/phases/phase-0/specs/vertical-slice-data-contract.md)
+- **Phase 1 홈**: [`docs/phases/phase-1/`](docs/phases/phase-1/)
+- **Phase 1 범위 (스코프 락 초안)**: [`docs/phases/phase-1/specs/phase-1.md`](docs/phases/phase-1/specs/phase-1.md) — 소유자 수락 전; 구현·데이터 계약 미착수
 - **URL 규칙 (수락)**
   - 인코더: `BuildState` **모든** 필드를 항상 기록 (정규 공유 링크)
   - 디코더: 누락 키는 기본 fixture로 복구 (부분 링크는 호환 입력만)
@@ -90,7 +92,7 @@
 1. ~~**명시적 구현 시작** → 스캐폴드 (ADR-001–003) → 로컬 종료 시나리오~~ → **구현 완료 (2026-08-08)**
 2. ~~Playwright headless E2E (Step 8 자동화)~~ → **추가 완료 (2026-08-08)**
 3. ~~**태그 `vertical-slice-v0`** — 소유자가 `pnpm test:all` green 확인 후 수행~~ → **완료 (2026-08-08)**
-4. **Phase 1 (성능 엔진)** — 시작 전 별도 논의 필요
+4. **Phase 1 (성능 엔진)** — 스코프 락 문서 초안 작성됨 ([`docs/phases/phase-1/specs/phase-1.md`](docs/phases/phase-1/specs/phase-1.md)); 소유자 수락 후 데이터 계약 → fixture → 구현 계획 순
 
 ## Phase 0 종료 승인 (2026-08-08)
 
@@ -113,4 +115,4 @@
 | `pnpm test` (4 test files, 14 tests) | PASS |
 | `pnpm build` + `dist/parts` + `dist/benchmarks` | PASS (static-copy 경로 flatten 버그 수정 포함) |
 | Step 8 exit scenario | Playwright headless (`pnpm test:e2e`) — 수동 전용 게이트에서 자동화로 승격 |
-| Tag `vertical-slice-v0` | **미생성** (소유자 전용) |
+| Tag `vertical-slice-v0` | **완료** (2026-08-08, PASS 승인 후 생성·push) |
