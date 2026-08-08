@@ -36,7 +36,8 @@ docs/phases/phase-0/
 | Scope + contract | Accepted |
 | Fixtures | Checked in; integrity pass (data-only) |
 | Runtime | **Static SPA** ([ADR-001](../../decisions/ADR-001-runtime-static-spa.md), scoped 0–3) |
-| Language / UI / 3D / license | **Undecided** |
+| Stack core | **TS + React + R3F + Vite** ([ADR-002](../../decisions/ADR-002-stack-core-ts-react-r3f-vite.md)) |
+| Stage 3 tools / license | **Undecided** (pkg manager, schema/state/test, fixture serve) |
 | Deploy | Deferred (local only; later GCP/Azure) |
 | Implementation | **Not started** |
 | Tag `vertical-slice-v0` | Not created |

@@ -18,11 +18,12 @@
 - [x] Lock app runtime shape → **static SPA** ([`ADR-001`](../../decisions/ADR-001-runtime-static-spa.md)); scoped to phases 0–3; revisit if server compute is required
 - [x] Deploy host for Phase 0: **deferred** — no live site now; local verification only. Future direction: **GCP or Azure** (portable static output; not a Phase 0 blocker)
 
-### Stage 2 — stack core (after Stage 1; language still undecided)
+### Stage 2 — stack core ([`ADR-002`](../../decisions/ADR-002-stack-core-ts-react-r3f-vite.md))
 
-- [ ] Language
-- [ ] UI framework **and** 3D stack **as a pair**
-- [ ] Bundler / build tool
+- [x] Language → **TypeScript**
+- [x] UI + 3D pair → **React + R3F**
+- [x] Bundler → **Vite**
+- Note: lock ≠ implementation start; do not install deps until owner says so
 
 ### Stage 3 — satellites (after Stage 2)
 

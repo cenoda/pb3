@@ -11,7 +11,7 @@ This is the dependency order for stack choices. Do not reverse it: later choices
 |-------|--------|
 | IDE | **WebStorm** and **Cursor** (planned; DX, not a stack lock) |
 | Git push | Owner pushes; agents commit only when asked/allowed |
-| Language | **Not decided** (TypeScript is a low-risk default candidate only) |
+| Language | **TypeScript** (ADR-002) |
 | Implementation | **Not started** until owner explicitly starts it |
 | **Live public site** | **Not available now** — do not block Phase 0 on a deployed URL |
 | **Likely future hosts** | **GCP** or **Azure** (static / object-storage + CDN style). Not Vercel/Netlify/GitHub Pages as the planned primary |
@@ -23,13 +23,15 @@ This is the dependency order for stack choices. Do not reverse it: later choices
 | **App runtime shape** | Determines whether a backend, SSR, or client-only model is in play | **Locked:** static SPA — [`ADR-001-runtime-static-spa.md`](./ADR-001-runtime-static-spa.md). Scoped to phases 0–3; revisit if server compute is required |
 | **Deploy host** | Narrows once runtime is static assets | **Deferred for Phase 0.** Verify exit criteria with **local preview** only. When deploy matters later: prefer **GCP or Azure** static hosting; keep build output portable (static files + SPA fallback), avoid host-specific frameworks |
 
-## Stage 2 — Stack core (tightly coupled)
+## Stage 2 — Stack core (tightly coupled) — **locked (ADR-002)**
 
-| Decision | Coupling |
-|----------|----------|
-| **Language** | Low risk to pick early once runtime is SPA; still **open** |
-| **UI framework + 3D stack** | **Decide as a pair** (e.g. React ↔ R3F, or vanilla ↔ Three.js). Do not pick one without the other |
-| **Bundler / build tool** | Usually follows the UI choice; Vite is a common default for SPA + TS, not locked |
+| Decision | Choice |
+|----------|--------|
+| **Language** | **TypeScript** |
+| **UI framework + 3D stack** | **React + R3F** (`react-three-fiber` / `three`) |
+| **Bundler / build tool** | **Vite** |
+
+Detail: [`ADR-002-stack-core-ts-react-r3f-vite.md`](./ADR-002-stack-core-ts-react-r3f-vite.md).
 
 ## Stage 3 — Satellite tools (follow Stage 2)
 
@@ -56,9 +58,7 @@ This is the dependency order for stack choices. Do not reverse it: later choices
 ```text
 runtime shape = static SPA (ADR-001, scoped)  ✓
   deploy host deferred: local only for now; later GCP or Azure
-  → language
-  → (UI framework + 3D stack together)
-  → bundler
+  language + React + R3F + Vite (ADR-002)  ✓
   → package manager / schema / state / test / fixture serve
   → implement scaffold (only after owner “start implementation”)
 ```
@@ -77,6 +77,7 @@ License: parallel, but before `npm install` / equivalent.
 | ADR | Topic |
 |-----|--------|
 | [`ADR-001-runtime-static-spa.md`](./ADR-001-runtime-static-spa.md) | Static SPA runtime (scoped 0–3; revisit on server compute) |
+| [`ADR-002-stack-core-ts-react-r3f-vite.md`](./ADR-002-stack-core-ts-react-r3f-vite.md) | TS + React + R3F + Vite |
 
 When further items lock, add `ADR-NNN-title.md` and update:
 
