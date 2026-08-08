@@ -40,16 +40,23 @@
 - Claude 진입점: [`CLAUDE.md`](CLAUDE.md) → `AGENTS.md` 포인터 + 하드 게이트
 - Grok 프로젝트 규칙: [`.grok/rules/pb3-phase-0.md`](.grok/rules/pb3-phase-0.md)
 
+## 도구 / 운영 (스택과 무관)
+
+- **IDE:** WebStorm + Cursor 사용 예정
+- **Git push:** 소유자가 직접 진행 (에이전트는 요청/허용 시에만 커밋)
+- **기술 결정 순서:** [`docs/decisions/TECH-DECISION-ORDER.md`](docs/decisions/TECH-DECISION-ORDER.md)
+
 ## 아직 정하지 않음
 
-- 구현 언어와 기술 스택
-- 애플리케이션 및 배포 구조
-- 오픈소스 라이선스 (코드 / 데이터 / 3D 에셋 분리 논의)
-- 실측 벤치마크 원시 스키마 (1단계)
+- **1단계:** 앱 런타임 형태 (**공식 락 전**), 배포 호스트
+- **2단계:** 언어 (**미정**), UI + 3D (동시 결정), 빌드 도구
+- **3단계:** 패키지 매니저, 스키마/상태/테스트, fixture HTTP 경로
+- 오픈소스 라이선스 (코드 / 데이터 / 3D 에셋 분리 논의; 의존성 설치 전 코드 라이선스 권장)
+- 실측 벤치마크 원시 스키마 (제품 1단계)
 - 완성형 생산용 `part.json` 필드
 
 ## 다음 작업
 
-1. Phase 0 TODO 검토 (`docs/phases/phase-0/TODO.md`)
-2. 런타임/스택 결정 (명시적 구현 시작 승인 후)
-3. 종료 시나리오 구현 → 태그 `vertical-slice-v0`
+1. **Stage 1:** 런타임 형태 (± 배포 호스트) 논의·락
+2. Stage 2→3 스택 코어·부수 도구 (언어는 아직 미정)
+3. 명시적 구현 시작 승인 후 스캐폴드 → 종료 시나리오 → 태그 `vertical-slice-v0`

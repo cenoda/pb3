@@ -115,21 +115,17 @@ Fixtures stay at **repo root** `parts/` and `benchmarks/` — do not move them u
 
 ---
 
-## Still undecided (priority order for later)
+## Tech decision order (process accepted)
 
-When the owner is ready to choose stack, prefer deciding in this order (recommendation, not locked):
+Canonical detail: [`docs/decisions/TECH-DECISION-ORDER.md`](docs/decisions/TECH-DECISION-ORDER.md).
 
-1. **Runtime shape** (e.g. static SPA vs alternatives)
-2. **Language**
-3. **UI framework**
-4. **3D stack**
-5. Build tool / package manager
-6. Schema / state / test tools
-7. Fixture serve strategy in the app
-8. Deploy target
-9. Open-source **license** (code / data / 3D assets may differ — discuss separately)
+1. **Runtime shape** (+ deploy host) — static SPA is a **candidate**, **not formally locked**
+2. **Language** (still undecided) → **UI + 3D as a pair** → bundler
+3. Package manager / schema / state / test / fixture HTTP paths
+4. IDE/DX anytime — owner plans **WebStorm + Cursor**
+5. **License** parallel; finish code license before third-party deps
 
-Record stack and license decisions as `docs/decisions/ADR-NNN-*.md` when they land. Until then, do not assume TypeScript, Vite, React, R3F, Zod, Vitest, Zustand, or any other stack.
+Owner handles **git push**. Record locks as `docs/decisions/ADR-NNN-*.md`. Until locked, do not assume TypeScript, Vite, React, R3F, Zod, Vitest, Zustand, or any other stack.
 
 ---
 

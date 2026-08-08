@@ -13,8 +13,25 @@
 
 ## Open
 
-- [ ] Decide app runtime shape (static SPA vs alternatives) — product decision
-- [ ] Decide language / UI / 3D / build / package manager — **after explicit “start implementation”**
+### Stage 1 — foundation (see `docs/decisions/TECH-DECISION-ORDER.md`)
+
+- [ ] Lock app runtime shape (**not locked yet** — static SPA is a candidate only)
+- [ ] Lock or defer deploy host
+
+### Stage 2 — stack core (after Stage 1; language still undecided)
+
+- [ ] Language
+- [ ] UI framework **and** 3D stack **as a pair**
+- [ ] Bundler / build tool
+
+### Stage 3 — satellites (after Stage 2)
+
+- [ ] Package manager
+- [ ] Schema / state / test tools
+- [ ] Fixture HTTP path strategy under the chosen build tool
+
+### Implementation (only after explicit “start implementation”)
+
 - [ ] Scaffold app that loads fixtures from `/parts` and `/benchmarks` (or agreed paths)
 - [ ] CPU/GPU selection UI + `BuildState`
 - [ ] Full URL encode + partial URL decode
@@ -22,7 +39,10 @@
 - [ ] Stub performance panel (3 resolutions)
 - [ ] Reload restore verification
 - [ ] Exit checklist all green → tag `vertical-slice-v0`
-- [ ] Open-source license discussion (code / data / assets) — can stay parallel
+
+### Parallel
+
+- [ ] Open-source license discussion (code / data / assets) — can stay parallel; finish **code** license before third-party deps
 
 ## Explicit non-goals (do not add here)
 
@@ -34,3 +54,5 @@
 
 - Do not treat discarded experimental scaffolds as project baseline.
 - Implementation work starts only when the owner says so.
+- IDE plan (WebStorm + Cursor) does not lock the stack.
+- Owner handles `git push`.
