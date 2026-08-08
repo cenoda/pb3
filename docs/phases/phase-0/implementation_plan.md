@@ -79,6 +79,8 @@ Notes:
 - This is a **starting shape**, not a lock — small deviations during scaffold (e.g. merging two files) are fine without a plan revision. Structural deviations (new top-level layers, moving fixtures, adding a backend) need a plan update first.
 - No CSS framework / design system per phase-0 non-goals; inline styles or a single minimal stylesheet is enough.
 - No router library needed — one screen, query-string state only (contract §6).
+- **App path is `/` (site root), not `/build`.** The data contract's `https://example.local/build?...` examples are illustrative only — phase 0 does not need a route for the exit scenario, and adding one would need SPA-fallback hosting config for zero benefit at this scope. Query-string rules (contract §6) apply unchanged at `/`.
+- No `localStorage`. The spec allows it as a non-authoritative cache, but phase 0 deliberately omits it — the URL alone is the persistence layer to keep the reload-restore path (contract §6, phase-0 spec §3.3) unambiguous to test.
 
 ---
 
@@ -88,7 +90,7 @@ Each step names its exit condition. Do not start step *N+1*'s app-behavior work 
 
 ### Step 1 — Scaffold + tooling wiring
 
-- `pnpm create vite` (react-ts template) or hand-rolled equivalent; add R3F (`@react-three/fiber`, `three`), Zod, Zustand, Vitest per ADR-002/003.
+- `pnpm create vite` (react-ts template) or hand-rolled equivalent; add R3F (`@react-three/fiber`, `three`), `@react-three/drei` (for `useGLTF` in Step 6 — small, R3F-ecosystem-standard, allowed under ADR-002 "add R3F helpers when needed"), Zod, Zustand, Vitest per ADR-002/003.
 - `pnpm-lock.yaml` committed.
 - Configure `vite.config.ts` fixture serving per [`ADR-003`](../../decisions/ADR-003-stage3-tooling-and-fixtures.md) fixture HTTP strategy: dev serves `/parts` and `/benchmarks` from repo-root directories; build copies both into `dist/` at the same paths.
 - **Exit:** `pnpm dev` serves an empty shell; `curl localhost:<port>/parts/gpu/gpu.rtx4070/part.json` and `/benchmarks/vs0/performance-fixtures.json` both return the real fixture files.
@@ -109,10 +111,18 @@ Each step names its exit condition. Do not start step *N+1*'s app-behavior work 
 
 ### Step 4 — Build state + URL sync
 
-- `state/buildStore.ts`: Zustand store holding `BuildState`, exposing `setCpu(id)`, `setGpu(id)` (case/mb/cooler/game/preset fixed for phase 0 but still part of the shape).
-- `state/urlSync.ts`: implement `buildStateToSearchParams` / `buildStateFromSearchParams` exactly per contract §6.3; wire `history.replaceState` on every store change (§6.5); decode-on-mount using catalog-based `isValid`.
+- `state/buildStore.ts`: Zustand store holding `BuildState`, exposing `setCpu(id)`, `setGpu(id)` (case/mb/cooler/game/preset fixed for phase 0 but still part of the shape). `setCpu`/`setGpu` no-op on an id outside the fixed two-per-category set (invalid selector input is not a realistic UI path with a closed dropdown, but the store should not silently accept garbage).
+- `state/urlSync.ts`: implement `buildStateToSearchParams` / `buildStateFromSearchParams` exactly per contract §6.3.
+- **Boot sequence (must run in this order in `App.tsx` / entry point, before the store subscribes to anything):**
+  1. Load part catalog + performance fixtures (Step 3 loaders). Fail loud (visible error) if either is missing — do not fall back to a default `BuildState` because fixtures failed to load.
+  2. Decode the current URL with `buildStateFromSearchParams`, using the loaded catalog to build `isValid` (contract §5.1 invariants).
+  3. Initialize the Zustand store with the decoded (or default-fallback) `BuildState`.
+  4. Immediately `replaceState` with the **canonical full-field encode** of that state — this is what turns a partial/compatibility link (contract §6.4) into the canonical share-link form on load, before the user does anything.
+  5. **Only after step 4** does the store subscribe `replaceState` on every subsequent `setCpu`/`setGpu` change.
+
+  Doing this in the wrong order is the easy way to break the contract: validating against an empty catalog (steps 1/2 swapped) forces everything to default, and subscribing before the initial canonical rewrite (steps 4/5 swapped) can double-write or race the mount-time URL update.
 - `src/test/urlSync.test.ts`: full-field encode is canonical; partial query decodes against defaults (contract §6.4 examples); invalid ids fall back to default `BuildState` (contract §5.1 invariants).
-- **Exit:** tests green; manual check in browser console that changing store state updates the address bar and a full reload with a hand-typed partial URL restores expected state.
+- **Exit:** tests green; manual check that (a) opening a hand-typed **partial** URL (e.g. only `cpu`+`gpu`) rewrites the address bar to the full canonical query on load, and (b) changing CPU/GPU afterward keeps updating that full query via `replaceState`, and (c) a full reload restores the same `BuildState`.
 
 ### Step 5 — Performance path
 
@@ -130,6 +140,7 @@ Each step names its exit condition. Do not start step *N+1*'s app-behavior work 
 
 - `ui/PartSelector.tsx`, `ui/BuildSummary.tsx`, `ui/PerformancePanel.tsx`, wired into `App.tsx` with `BuildViewport`.
 - CPU and GPU selectors call the store's `setCpu`/`setGpu`; summary shows fixed case/board/cooler/game/preset display names; performance panel renders 3 rows from `queriesForBuild` + `estimatePerformance`, showing range, `confidence`, and `dataVersion`/`basis` (small text is enough per phase-0 spec §3.1).
+- `PerformancePanel` must branch on `status`: `"ok"` → render `fpsMin`–`fpsMax` + confidence/basis; `"unavailable"` → render the `basis`/`reason` text with **no FPS numbers at all** (not `null`, not `0`, not a dash standing in for a number — just the unavailable message). All 12 happy-path fixture rows are `"ok"` so this branch is untested by the exit scenario itself; cover it with the Step 5 unit test data instead.
 - **Exit:** single screen shows all required elements from phase-0 spec §3.1.
 
 ### Step 8 — End-to-end exit scenario verification

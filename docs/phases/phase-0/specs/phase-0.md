@@ -161,8 +161,8 @@ Phase 0 docs must **not** attempt to finalize:
 - Full production `part.json` for all commercial fields
 - Complete benchmark ingestion pipeline
 - Environment-correction model details beyond a stub `basis` string
-- License text for code vs assets (tracked separately later)
-- Application stack choice (decided **after** this contract is accepted)
+- License text for code vs assets (tracked separately later — resolved for code/data by [`ADR-004`](../../decisions/ADR-004-license-code-apache-2.0.md); 3D assets still open)
+- Application stack choice (decided **after** this contract is accepted — resolved by [`ADR-001`](../../decisions/ADR-001-runtime-static-spa.md)–[`ADR-003`](../../decisions/ADR-003-stage3-tooling-and-fixtures.md))
 
 ---
 
