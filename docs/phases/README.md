@@ -6,7 +6,8 @@ Per-phase working areas (specs, TODO, fix log). Cross-cutting project docs stay 
 |-------|------|--------|
 | Phase 0 — Vertical slice | [`phase-0/`](./phase-0/) | Complete; `vertical-slice-v0` tagged and pushed |
 | Phase 1 — Performance prediction engine | [`phase-1/`](./phase-1/) | Complete; `perf1` stub engine verified and closed out |
-| Phase 2 — Basic estimate service | [`phase-2/`](./phase-2/) | M0 planning package (scope, data contract, implementation plan) owner-accepted 2026-08-08; implementation not started |
+| Phase 2 — Basic estimate service | [`phase-2/`](./phase-2/) | Complete (2026-08-08); `vs2`/`compat2` engine implemented and verified |
+| Phase 3 — 3D assembly and physical validation | Not created yet | M0 planning next; implementation not started |
 
 Fixture data remains at repo root: `parts/`, `benchmarks/` (not moved into phase folders).
 
