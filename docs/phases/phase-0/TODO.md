@@ -37,6 +37,10 @@
 - [x] Code + data (`parts/`, `benchmarks/`) → **Apache License 2.0** (root `LICENSE`)
 - [ ] 3D assets (`model.glb`) — still open; resolve before real hardware models ship
 
+### Implementation plan
+
+- [x] `implementation_plan.md` written (ordered, file-level build plan) — [`implementation_plan.md`](./implementation_plan.md)
+
 ### Implementation (only after explicit “start implementation”)
 
 - [ ] Scaffold app that loads fixtures from `/parts` and `/benchmarks` (or agreed paths)

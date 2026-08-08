@@ -46,10 +46,15 @@ Phase 0 is a **technical connection check**, not a product MVP. Prove one thin p
 docs/phases/phase-0/
   README.md
   TODO.md                          ← open / done checklist
+  implementation_plan.md           ← ordered, file-level build plan (required before code)
   specs/phase-0.md                 ← scope, inventory, forbidden work, exit criteria
   specs/vertical-slice-data-contract.md   ← vs0 types, JSON, URL rules
   fixes/                           ← short incident / fix notes
 ```
+
+**Plan-before-code rule:** every phase requires its own `docs/phases/phase-N/implementation_plan.md`,
+written and reviewed before any scaffold or source file for that phase exists. Locked ADRs and an
+accepted spec/contract feed the plan; they don't replace it.
 
 Pointer stubs (do not re-expand into full duplicates):
 
@@ -161,7 +166,7 @@ Owner handles **git push**. Record further locks as `docs/decisions/ADR-NNN-*.md
 1. Read this file.
 2. Skim [`STATUS.md`](STATUS.md) and [`docs/phases/phase-0/TODO.md`](docs/phases/phase-0/TODO.md).
 3. If touching data shapes: [`docs/phases/phase-0/specs/vertical-slice-data-contract.md`](docs/phases/phase-0/specs/vertical-slice-data-contract.md).
-4. If implementation is requested: **stop and confirm stack + scope** with the owner first unless they already named both.
+4. If implementation is requested: **stop and confirm stack + scope** with the owner first unless they already named both, and confirm that phase's `implementation_plan.md` exists and is current.
 5. Update `STATUS.md` / phase TODO when durable state changes.
 6. Optionally: `agent-memory search "pb3"` and write hand-off facts after decisions.
 
