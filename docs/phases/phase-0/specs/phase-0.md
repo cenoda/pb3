@@ -1,6 +1,6 @@
 # Phase 0 — Vertical Slice
 
-Status: **fixed scope** (implementation not started)  
+Status: **PASS — exit scenario complete, owner-authorized, tagged `vertical-slice-v0`** (2026-08-08)  
 Canonical reference for phase-0 bounds. Detailed field shapes live in
 [`vertical-slice-data-contract.md`](./vertical-slice-data-contract.md).
 
@@ -173,8 +173,8 @@ Phase 0 docs must **not** attempt to finalize:
 1. This document (scope lock) — **done**
 2. [`vertical-slice-data-contract.md`](./vertical-slice-data-contract.md) with types + examples — **done**
 3. Fixture `part.json` (+ placeholder GLBs) and performance fixture table — **done**
-4. Stack decision + scaffold (only after explicit implementation approval) — **not started**
-5. Implement the exit scenario → tag `vertical-slice-v0`
+4. Stack decision + scaffold (only after explicit implementation approval) — **done (2026-08-08)**
+5. Implement the exit scenario → tag `vertical-slice-v0` — **done, owner-authorized PASS (2026-08-08)**
 
 ---
 

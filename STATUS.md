@@ -89,7 +89,15 @@
 
 1. ~~**명시적 구현 시작** → 스캐폴드 (ADR-001–003) → 로컬 종료 시나리오~~ → **구현 완료 (2026-08-08)**
 2. ~~Playwright headless E2E (Step 8 자동화)~~ → **추가 완료 (2026-08-08)**
-3. **태그 `vertical-slice-v0`** — 소유자가 `pnpm test:all` green 확인 후 수행
+3. ~~**태그 `vertical-slice-v0`** — 소유자가 `pnpm test:all` green 확인 후 수행~~ → **완료 (2026-08-08)**
+4. **Phase 1 (성능 엔진)** — 시작 전 별도 논의 필요
+
+## Phase 0 종료 승인 (2026-08-08)
+
+- 감사 실행: `pnpm build` / `pnpm test` (4 files, 14/14) / `pnpm test:e2e` (4/4) 전부 재실행 확인, working tree clean
+- 소유자 명시 승인: **PASS**
+- 태그: `vertical-slice-v0` 생성 및 원격 push 완료
+- Phase 0 동결 (`docs/phases/phase-0/specs/phase-0.md` §6): 이후 3D 관련 변경은 데이터 계약 파손 수정 또는 종료 시나리오 회귀 버그 수정만 허용, Phase 1 완료 전까지
 
 ## Phase 0 구현 상태 (2026-08-08)
 

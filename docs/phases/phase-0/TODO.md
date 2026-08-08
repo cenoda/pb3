@@ -52,7 +52,7 @@
 - [x] Exit checklist automated (Step 8 via Playwright headless) — tag still owner-only
 - [x] Playwright E2E harness (`pnpm test:e2e`) for exit scenario + fixture HTTP
 - [x] Agent browser explore path (Playwright CLI + MCP docs; `pnpm explore:phase0`) — optional, not a merge gate
-- [ ] Exit checklist all green → tag `vertical-slice-v0` (owner)
+- [x] Exit checklist all green → tag `vertical-slice-v0` (owner) — **PASS, tagged 2026-08-08**
 
 ### Parallel
 
