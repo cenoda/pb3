@@ -23,3 +23,12 @@ Phase 4 M0 계획 패키지(스코프·`prov4` 계약·`implementation_plan.md`�
 완료됐다. Step 9 evidence-quality closeout은 캡처 진위와 증거 품질에 대한
 명시적 owner PASS 전까지 미완료로 남는다. 후속 phase는 아직 M0로 계획되지
 않았으며, Phase 4 closeout 후 별도 스코프·계약·구현 계획 수락이 필요하다.
+
+### Corrective gate (not a charter phase)
+
+Phase 0–4 앱 **제품 표면**에 대한 교정 게이트가 docs 패키지로 준비됐다
+(baseline `e73602a`). Phase 5가 아니며, 로드맵 단계를 대체·삽입하지 않는다.
+
+- 홈: [`../corrections/product-ux-1/`](../corrections/product-ux-1/)
+- 인덱스: [`../corrections/README.md`](../corrections/README.md)
+- 상태: 계획 패키지 draft (2026-08-09) — 소유자 수락·구현 시작 지시 전 **코드 변경 금지**

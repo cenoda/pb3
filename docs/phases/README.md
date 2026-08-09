@@ -12,6 +12,11 @@ Per-phase working areas (specs, TODO, fix log). Cross-cutting project docs stay 
 
 Fixture data remains at repo root: `parts/`, `benchmarks/` (not moved into phase folders).
 
+**Corrective work (not a phase):** product-surface UX gate lives under
+[`../corrections/`](../corrections/) (currently
+[`product-ux-1`](../corrections/product-ux-1/)). It does not reopen Phase 0–4
+architecture and is not Phase 5.
+
 ## Rule: plan before code
 
 Every phase must have `docs/phases/phase-N/implementation_plan.md` — an ordered,

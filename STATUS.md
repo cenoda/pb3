@@ -105,9 +105,14 @@
 5. ~~**Phase 2 (기본 견적 서비스)** — M0 수락 → 구현·검증·closeout~~ → **구현 완료 (2026-08-08)** — [`docs/phases/phase-2/`](docs/phases/phase-2/)
 6. ~~**Phase 3 (3D 물리 검증)** — M0 수락 → 구현·검증·closeout~~ → **완료
    (2026-08-08)** — [`docs/phases/phase-3/`](docs/phases/phase-3/)
-7. **Phase 4 M0 implementation in progress (2026-08-09)** — owner-authorized
-   start; Steps 1–8 software gate green. **Evidence-quality closeout (Step 9)
-   blocked until owner PASS** — [`docs/phases/phase-4/`](docs/phases/phase-4/)
+7. **Phase 4 M0** — Steps 1–8 software gate green (2026-08-09).
+   **Evidence-quality closeout (Step 9) blocked until owner PASS** —
+   [`docs/phases/phase-4/`](docs/phases/phase-4/)
+8. **Product UX corrective gate (`product-ux-1`)** — docs package drafted
+   (2026-08-09) on baseline `e73602a`; **not** Phase 5; **not** implementation-
+   authorized. Awaits owner package acceptance + separate start instruction —
+   [`docs/corrections/product-ux-1/`](docs/corrections/product-ux-1/)
+9. **Phase 5+** — not planned; requires separate M0 after the above gates
 
 ## Phase 0 종료 승인 (2026-08-08)
 
@@ -298,3 +303,24 @@
 - 1080p first-party package is present for the software path; closeout still
   requires explicit owner review of capture authenticity / attestation.
 - Do **not** treat green tests alone as Phase 4 PASS.
+
+## Product UX corrective gate (`product-ux-1`, 2026-08-09)
+
+Bounded **docs-only** corrective planning package over the Phase 0–4 app surface.
+**Not** Phase 5, **not** an architecture reset, **not** implementation authorization.
+
+| 항목 | 상태 |
+|------|------|
+| Baseline commit | **`e73602a`** |
+| Home | [`docs/corrections/product-ux-1/`](docs/corrections/product-ux-1/) |
+| Audit | [`AUDIT.md`](docs/corrections/product-ux-1/AUDIT.md) — live 1280×720 verification |
+| Plan | [`corrective_plan.md`](docs/corrections/product-ux-1/corrective_plan.md) |
+| Package acceptance | **Pending owner review** |
+| Implementation | **Blocked** (needs package acceptance + separate start instruction) |
+| Phase 4 Step 9 | **Unchanged** — still pending evidence-quality PASS |
+| Contracts / inventory | **Frozen** — presentation-only intent |
+
+**Audit headline (verified live):** engines/URL/pilot isolation OK; product
+surface not ready (transparent page bg + black text; ~6.3k px document height
+at 1280×720; evidence/physical dumps dominate; 3D viewport fixed 538×360 and
+not sticky).
