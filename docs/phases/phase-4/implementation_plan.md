@@ -1,6 +1,7 @@
 # Phase 4 — Implementation Plan
 
-Status: **M0 owner-accepted (2026-08-09)** — implementation **not** authorized
+Status: **M0 owner-accepted (2026-08-09)** — implementation **authorized**;
+Steps 1–8 complete; Step 9 evidence-quality closeout pending owner PASS
 
 Scope authority: [`specs/phase-4.md`](./specs/phase-4.md)
 
@@ -13,9 +14,7 @@ Stack authority: [`ADR-001`](../../decisions/ADR-001-runtime-static-spa.md),
 
 This is the ordered, file-level plan required by the plan-before-code rule.
 Owner accepted the scope, contract, this plan, and O1–O4 / D1–D16 on
-2026-08-09. **Implementation Step 1 remains blocked** until the owner gives a
-**separate** explicit implementation-start instruction. Acceptance of this
-plan alone is not that instruction.
+2026-08-09. Implementation start was authorized separately on 2026-08-09.
 
 ---
 
@@ -29,7 +28,7 @@ plan alone is not that instruction.
 | Phase 4 brief / pilot path | Owner-selected **single-build evidence pilot** |
 | Phase 4 scope / contract / plan | **Owner-accepted (2026-08-09)** |
 | Open decisions O1–O4 / D1–D16 | **Resolved (2026-08-09)** |
-| Explicit owner start | **Not given** |
+| Explicit owner start | **Given (2026-08-09)** |
 
 ---
 
@@ -132,9 +131,8 @@ breaking existing contracts require a plan revision.
 - [x] Owner accepts `specs/provenance-data-contract.md` (2026-08-09).
 - [x] Owner accepts this plan (2026-08-09).
 - [x] Owner formally accepts O1–O4 / D1–D16 (2026-08-09).
-- [ ] Receive a separate explicit implementation-start instruction.
-- **Exit:** planning gates complete; implementation begins only on start
-  instruction.
+- [x] Receive a separate explicit implementation-start instruction.
+- **Exit:** planning gates complete; implementation began on start instruction.
 
 ### Step 1 — `prov4` types and Zod schemas
 
@@ -293,7 +291,7 @@ breaking existing contracts require a plan revision.
       documented;
 - [x] owner accepted scope + contract + plan (2026-08-09);
 - [x] owner formally accepted O1–O4 / D1–D16 (2026-08-09);
-- [ ] owner separately authorizes implementation.
+- [x] owner separately authorizes implementation.
 
 ### 7.2 Phase 4 itself exits when
 

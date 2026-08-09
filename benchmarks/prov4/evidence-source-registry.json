@@ -1,0 +1,33 @@
+{
+  "provenanceContractVersion": "prov4",
+  "registryVersion": "prov4-registry-20260809",
+  "sources": [
+    {
+      "sourceId": "src.first-party.lab-cp2077-pilot",
+      "sourceClass": "first-party",
+      "rightsClass": "apache-2.0-project",
+      "title": "pb3 pilot lab — Cyberpunk 2077 raster ultra baseline",
+      "origin": "benchmarks/prov4/raw/pilot-1080p-capture.json",
+      "publishedAt": "2026-08-08",
+      "notes": "Phase 4 M0 pilot first-party capture package. Evidence-quality closeout requires owner PASS."
+    },
+    {
+      "sourceId": "src.project-synthetic.pilot-perf",
+      "sourceClass": "project-synthetic",
+      "rightsClass": "apache-2.0-project",
+      "title": "pb3 synthetic residual pilot performance cells",
+      "origin": "benchmarks/prov4/pilot-performance-evidence.json",
+      "publishedAt": "2026-08-09",
+      "notes": "Explicit synthetic-stub residuals for 1440p/4k disclosure continuity."
+    },
+    {
+      "sourceId": "src.project-synthetic.geometry-phys3",
+      "sourceClass": "project-synthetic",
+      "rightsClass": "apache-2.0-project",
+      "title": "pb3 phys3 Experimental synthetic geometry pack",
+      "origin": "parts/*/model.glb + physicalSpec evidence (phys3-exp-20260808)",
+      "publishedAt": "2026-08-08",
+      "notes": "O2-A: geometry grade remains Experimental; not manufacturer-verified."
+    }
+  ]
+}

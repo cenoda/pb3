@@ -12,12 +12,14 @@
 
 Phase 0–3은 모두 구현·검증·소유자 closeout까지 완료됐다 (2026-08-08).
 
-5. **4단계 — Evidence-grade data and validation (M0 수락)**: 단일 빌드 evidence pilot
+5. **4단계 — Evidence-grade data and validation**: 단일 빌드 evidence pilot
    - 홈: [`../phases/phase-4/`](../phases/phase-4/)
    - 범위: [`../phases/phase-4/specs/phase-4.md`](../phases/phase-4/specs/phase-4.md)
    - provenance 계약 (`prov4`): [`../phases/phase-4/specs/provenance-data-contract.md`](../phases/phase-4/specs/provenance-data-contract.md)
    - 구현 계획: [`../phases/phase-4/implementation_plan.md`](../phases/phase-4/implementation_plan.md)
 
 Phase 4 M0 계획 패키지(스코프·`prov4` 계약·`implementation_plan.md`·D1–D16/O1–O4)는
-2026-08-09 소유자 수락됐다. 구현은 소유자의 별도 "start implementation" 지시가
-있을 때만 시작한다 — 아직 시작하지 않았다.
+2026-08-09 소유자 수락됐고, 별도 승인 후 구현 Steps 1–8과 software gate까지
+완료됐다. Step 9 evidence-quality closeout은 캡처 진위와 증거 품질에 대한
+명시적 owner PASS 전까지 미완료로 남는다. 후속 phase는 아직 M0로 계획되지
+않았으며, Phase 4 closeout 후 별도 스코프·계약·구현 계획 수락이 필요하다.

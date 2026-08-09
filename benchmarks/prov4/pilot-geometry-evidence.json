@@ -1,0 +1,90 @@
+{
+  "provenanceContractVersion": "prov4",
+  "dataVersion": "prov4-pilot-geo-20260809",
+  "rows": [
+    {
+      "provenanceContractVersion": "prov4",
+      "evidenceId": "geo.pilot.case.mid-tower-atx-01",
+      "partId": "case.mid-tower-atx-01",
+      "phys3EvidenceSourceId": "evidence.phys3.synthetic.case.mid-tower-atx-01",
+      "modelGrade": "Experimental",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "sourceIds": ["src.project-synthetic.geometry-phys3"],
+      "reviewedAt": "2026-08-08T00:00:00.000Z",
+      "freshnessPolicy": { "maxAgeDays": 365 },
+      "basis": "O2-A Experimental synthetic fixture; joined to phys3 evidence sourceId"
+    },
+    {
+      "provenanceContractVersion": "prov4",
+      "evidenceId": "geo.pilot.mb.atx-b650-01",
+      "partId": "mb.atx-b650-01",
+      "phys3EvidenceSourceId": "evidence.phys3.synthetic.mb.atx-b650-01",
+      "modelGrade": "Experimental",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "sourceIds": ["src.project-synthetic.geometry-phys3"],
+      "reviewedAt": "2026-08-08T00:00:00.000Z",
+      "freshnessPolicy": { "maxAgeDays": 365 },
+      "basis": "O2-A Experimental synthetic fixture; joined to phys3 evidence sourceId"
+    },
+    {
+      "provenanceContractVersion": "prov4",
+      "evidenceId": "geo.pilot.cpu.zen4-7600",
+      "partId": "cpu.zen4-7600",
+      "phys3EvidenceSourceId": "evidence.phys3.synthetic.cpu.zen4-7600",
+      "modelGrade": "Experimental",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "sourceIds": ["src.project-synthetic.geometry-phys3"],
+      "reviewedAt": "2026-08-08T00:00:00.000Z",
+      "freshnessPolicy": { "maxAgeDays": 365 },
+      "basis": "O2-A Experimental synthetic fixture; joined to phys3 evidence sourceId"
+    },
+    {
+      "provenanceContractVersion": "prov4",
+      "evidenceId": "geo.pilot.gpu.rtx4070",
+      "partId": "gpu.rtx4070",
+      "phys3EvidenceSourceId": "evidence.phys3.synthetic.gpu.rtx4070",
+      "modelGrade": "Experimental",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "sourceIds": ["src.project-synthetic.geometry-phys3"],
+      "reviewedAt": "2026-08-08T00:00:00.000Z",
+      "freshnessPolicy": { "maxAgeDays": 365 },
+      "basis": "O2-A Experimental synthetic fixture; joined to phys3 evidence sourceId"
+    },
+    {
+      "provenanceContractVersion": "prov4",
+      "evidenceId": "geo.pilot.cooler.air-twin-tower-01",
+      "partId": "cooler.air-twin-tower-01",
+      "phys3EvidenceSourceId": "evidence.phys3.synthetic.cooler.air-twin-tower-01",
+      "modelGrade": "Experimental",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "sourceIds": ["src.project-synthetic.geometry-phys3"],
+      "reviewedAt": "2026-08-08T00:00:00.000Z",
+      "freshnessPolicy": { "maxAgeDays": 365 },
+      "basis": "O2-A Experimental synthetic fixture; joined to phys3 evidence sourceId"
+    },
+    {
+      "provenanceContractVersion": "prov4",
+      "evidenceId": "geo.pilot.ram.ddr5-32gb-6000",
+      "partId": "ram.ddr5-32gb-6000",
+      "phys3EvidenceSourceId": "evidence.phys3.synthetic.ram.ddr5-32gb-6000",
+      "modelGrade": "Experimental",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "sourceIds": ["src.project-synthetic.geometry-phys3"],
+      "reviewedAt": "2026-08-08T00:00:00.000Z",
+      "freshnessPolicy": { "maxAgeDays": 365 },
+      "basis": "O2-A Experimental synthetic fixture; joined to phys3 evidence sourceId"
+    },
+    {
+      "provenanceContractVersion": "prov4",
+      "evidenceId": "geo.pilot.psu.750w-atx",
+      "partId": "psu.750w-atx",
+      "phys3EvidenceSourceId": "evidence.phys3.synthetic.psu.750w-atx",
+      "modelGrade": "Experimental",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "sourceIds": ["src.project-synthetic.geometry-phys3"],
+      "reviewedAt": "2026-08-08T00:00:00.000Z",
+      "freshnessPolicy": { "maxAgeDays": 365 },
+      "basis": "O2-A Experimental synthetic fixture; joined to phys3 evidence sourceId"
+    }
+  ]
+}

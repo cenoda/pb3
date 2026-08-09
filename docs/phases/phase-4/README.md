@@ -2,8 +2,9 @@
 
 Working area for the first phase after the Phase 0–3 technical baseline.
 
-**Status: M0 planning package owner-accepted (2026-08-09).** Implementation is
-**not** authorized until a separate explicit start instruction.
+**Status: M0 accepted + implementation Steps 1–8 complete (2026-08-09).**
+Step 9 evidence-quality closeout awaits **owner PASS** (software green alone
+is insufficient).
 
 Owner-selected pilot path: **single-build evidence pilot** (see
 [`BRIEF.md`](./BRIEF.md) and [`specs/phase-4.md`](./specs/phase-4.md)).
@@ -40,12 +41,12 @@ docs/phases/phase-4/
       charter metrics, raw artifact digest, first-party `runCount >= 2`)
 - [x] Owner accepted O1–O4 / D1–D16 (2026-08-09)
 - [x] Owner accepted the complete M0 planning package (2026-08-09)
-- [ ] Receive a separate explicit instruction to start implementation
+- [x] Explicit implementation-start instruction (2026-08-09)
 
 ### Implementation
 
-Blocked until the owner gives a separate start instruction. No `src/`,
-`parts/`, or `benchmarks/` Phase 4 work is authorized by M0 acceptance alone.
+- [x] Steps 1–8 (software gate) — unit 171 / e2e 9 / build green
+- [ ] Step 9 evidence-quality closeout — **owner PASS required**
 
 ## Accepted decisions (2026-08-09)
 

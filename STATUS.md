@@ -105,9 +105,9 @@
 5. ~~**Phase 2 (기본 견적 서비스)** — M0 수락 → 구현·검증·closeout~~ → **구현 완료 (2026-08-08)** — [`docs/phases/phase-2/`](docs/phases/phase-2/)
 6. ~~**Phase 3 (3D 물리 검증)** — M0 수락 → 구현·검증·closeout~~ → **완료
    (2026-08-08)** — [`docs/phases/phase-3/`](docs/phases/phase-3/)
-7. **Phase 4 M0 owner-accepted (2026-08-09)** — single-build evidence pilot
-   스코프·`prov4` 계약·구현 계획·D1–D16/O1–O4 수락. **구현은 별도 start 지시
-   전까지 미착수** — [`docs/phases/phase-4/`](docs/phases/phase-4/)
+7. **Phase 4 M0 implementation in progress (2026-08-09)** — owner-authorized
+   start; Steps 1–8 software gate green. **Evidence-quality closeout (Step 9)
+   blocked until owner PASS** — [`docs/phases/phase-4/`](docs/phases/phase-4/)
 
 ## Phase 0 종료 승인 (2026-08-08)
 
@@ -260,5 +260,41 @@
 | Audit remediations retained | high gate · geometry join · 3-cell · sidecar · asOf · charter metrics · RawArtifactReference · first-party runCount≥2 |
 | Pilot build | `DEFAULT_BUILD_STATE_V2` (7600 + 4070 ATX set) |
 | Owner M0 acceptance | **PASS (2026-08-09)** |
-| Implementation start | **Not given** — blocked until separate explicit instruction |
-| Implementation / fixtures / deps | **Not started** |
+| Implementation start | **Authorized (2026-08-09)** — explicit start instruction |
+| Implementation / fixtures / deps | **Steps 1–8 complete** (software gate); Step 9 pending owner PASS |
+
+## Phase 4 implementation progress (2026-08-09)
+
+| Step | Status |
+|------|--------|
+| 1. `prov4` types + Zod + schema tests | **Done** — `runCount` 0/1 reject; high-gate structural; bare artifact string reject |
+| 2. Pilot constants + freshness/binding | **Done** |
+| 3. `benchmarks/prov4/*` + integrity | **Done** — 3 perf / 7 geo / empty cooling; raw artifact digest match |
+| 4. Loaders | **Done** — fail-closed Zod + repo-file digest verify |
+| 5. PerformancePanel sidecar overlay | **Done** — exact pilot key only |
+| 6. Physical/cooling disclosure | **Done** — phys3 join + empty cooling unavailable |
+| 7. EvidenceDisclosurePanel | **Done** |
+| 8. E2E + build regression | **Done** — unit **171**, e2e **9**, `dist/benchmarks/prov4` present |
+| 9. Evidence-quality closeout | **Pending** — software green ≠ closeout; owner PASS required |
+
+### Phase 4 software verification (2026-08-09)
+
+| Check | Result |
+|-------|--------|
+| `pnpm test` | **25 files, 171 tests PASS** (Phase 3 baseline was 18/96) |
+| `pnpm test:e2e` | **9 tests PASS** (Phase 0+2+3 + new Phase 4) |
+| `pnpm test:all` | PASS |
+| `pnpm build` | PASS; `dist/benchmarks/prov4/**` copied |
+| Pilot 1080p | `first-party-measured`, `confidence: "medium"`, `runCount: 2` |
+| Pilot 1440p / 4k | `synthetic-stub` + MetricUnavailable charter fields |
+| Geometry | 7× Experimental; join on `phys3EvidenceSourceId` |
+| Cooling | empty rows → unavailable |
+| Human verification | empty (no `"high"` claims shipped) |
+| `perf1` / `phys3` / `vs2` public shapes | **unchanged** |
+
+### Phase 4 evidence-quality gate (not closed)
+
+- Owner has **not** yet accepted evidence-quality closeout.
+- 1080p first-party package is present for the software path; closeout still
+  requires explicit owner review of capture authenticity / attestation.
+- Do **not** treat green tests alone as Phase 4 PASS.

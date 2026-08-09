@@ -1,6 +1,8 @@
 # Provenance Data Contract (Phase 4)
 
-Status: **M0 owner-accepted (2026-08-09)** — implementation **not** authorized
+Status: **M0 owner-accepted and implementation authorized (2026-08-09)**;
+contract software path implemented, Step 9 evidence-quality closeout pending
+**owner PASS**
 
 Contract version: **`prov4`**
 

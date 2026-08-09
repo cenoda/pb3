@@ -6,7 +6,7 @@ import { buildCompatibilityReport } from "./compat/buildCompatibilityReport";
 import { loadPriceFixtures } from "./price/loadPriceFixtures";
 import { buildPriceSummary } from "./price/buildPriceSummary";
 import type { PriceFixtureFile } from "./contract/compat2";
-import type { CoolingEvidenceFile } from "./contract/phys3";
+import type { CoolingEvidenceFile, PhysicalSpec } from "./contract/phys3";
 import { useAssemblyStore } from "./state/assemblyStore";
 import { useBuildStore } from "./state/buildStore";
 import { usePerfPanelStore } from "./state/perfPanelState";
@@ -25,9 +25,15 @@ import { buildCoolingCorrectionInput } from "./physical/cooling/buildCoolingCorr
 import { loadCoolingEvidence } from "./physical/cooling/loadCoolingEvidence";
 import type { GlbPhysicalIndex } from "./physical/indexGlbPhysicalNodes";
 import { loadGlbPhysicalIndexes } from "./physical/loadGlbPhysicalIndexes";
+import { buildPilotDisclosureReport } from "./provenance/buildPilotDisclosureReport";
+import {
+  loadProv4Fixtures,
+  type Prov4Fixtures,
+} from "./provenance/loadProv4Fixtures";
 import { BuildSummary } from "./ui/BuildSummary";
 import { CompatibilityPanel } from "./ui/CompatibilityPanel";
 import { CoolingEvidencePanel } from "./ui/CoolingEvidencePanel";
+import { EvidenceDisclosurePanel } from "./ui/EvidenceDisclosurePanel";
 import { MountControls } from "./ui/MountControls";
 import { PartFilterControls } from "./ui/PartFilterControls";
 import { PartSelector } from "./ui/PartSelector";
@@ -48,6 +54,7 @@ type BootState =
       priceFixtures: PriceFixtureFile;
       glbIndexes: Map<string, GlbPhysicalIndex>;
       coolingEvidence: CoolingEvidenceFile;
+      prov4Fixtures: Prov4Fixtures;
     };
 
 export default function App() {
@@ -73,13 +80,19 @@ export default function App() {
 
     async function bootApp() {
       try {
-        const [catalog, perf1Fixtures, priceFixtures, coolingEvidence] =
-          await Promise.all([
-            loadPartCatalog(),
-            loadPerf1Fixtures(),
-            loadPriceFixtures(),
-            loadCoolingEvidence(),
-          ]);
+        const [
+          catalog,
+          perf1Fixtures,
+          priceFixtures,
+          coolingEvidence,
+          prov4Fixtures,
+        ] = await Promise.all([
+          loadPartCatalog(),
+          loadPerf1Fixtures(),
+          loadPriceFixtures(),
+          loadCoolingEvidence(),
+          loadProv4Fixtures(),
+        ]);
         await loadCompat2Examples();
         const glbIndexes = await loadGlbPhysicalIndexes(catalog);
 
@@ -103,6 +116,7 @@ export default function App() {
           priceFixtures,
           glbIndexes,
           coolingEvidence,
+          prov4Fixtures,
         });
       } catch (error) {
         if (cancelled) return;
@@ -181,6 +195,36 @@ export default function App() {
     });
   }, [boot, assembly, physicalReport, buildState]);
 
+  const disclosureReport = useMemo(() => {
+    if (boot.status !== "ready" || !buildState) return null;
+    const physicalSpecsByPartId = new Map<string, PhysicalSpec | undefined>();
+    for (const partId of [
+      buildState.caseId,
+      buildState.motherboardId,
+      buildState.cpuId,
+      buildState.gpuId,
+      buildState.coolerId,
+      buildState.ramId,
+      buildState.psuId,
+    ]) {
+      physicalSpecsByPartId.set(
+        partId,
+        boot.catalog.byId.get(partId)?.physicalSpec,
+      );
+    }
+    return buildPilotDisclosureReport({
+      state: buildState,
+      physicalSpecsByPartId,
+      registry: boot.prov4Fixtures.registry,
+      performance: boot.prov4Fixtures.performance,
+      geometry: boot.prov4Fixtures.geometry,
+      cooling: boot.prov4Fixtures.cooling,
+      verifications: boot.prov4Fixtures.verifications,
+      nowIso: new Date().toISOString(),
+      verifiedArtifactDigests: boot.prov4Fixtures.verifiedArtifactDigests,
+    });
+  }, [boot, buildState]);
+
   if (boot.status === "loading") {
     return <main style={styles.main}>Loading fixtures…</main>;
   }
@@ -188,7 +232,7 @@ export default function App() {
   if (boot.status === "error") {
     return (
       <main style={styles.main}>
-        <h1>pb3 — Phase 3</h1>
+        <h1>pb3 — Phase 4</h1>
         <p style={{ color: "#b91c1c" }}>Failed to load fixtures: {boot.message}</p>
       </main>
     );
@@ -200,7 +244,8 @@ export default function App() {
     !priceSummary ||
     !assembly ||
     !physicalReport ||
-    !coolingResult
+    !coolingResult ||
+    !disclosureReport
   ) {
     return <main style={styles.main}>Initializing build state…</main>;
   }
@@ -236,7 +281,7 @@ export default function App() {
 
   return (
     <main style={styles.main}>
-      <h1 style={{ marginTop: 0 }}>pb3 — Phase 3 build</h1>
+      <h1 style={{ marginTop: 0 }}>pb3 — Phase 4 build</h1>
       <div style={styles.layout}>
         <section style={styles.controls}>
           <PartFilterControls filters={filters} onChange={setFilters} />
@@ -310,12 +355,23 @@ export default function App() {
           />
           <BuildSummary buildState={buildState} catalog={catalog} />
           <CompatibilityPanel report={compatibilityReport} />
-          <PhysicalValidationPanel report={physicalReport} />
-          <CoolingEvidencePanel result={coolingResult} mode="physical" />
+          <EvidenceDisclosurePanel report={disclosureReport} />
+          <PhysicalValidationPanel
+            report={physicalReport}
+            geometryBindings={
+              disclosureReport.isPilotBuild ? disclosureReport.geometry : undefined
+            }
+          />
+          <CoolingEvidencePanel
+            result={coolingResult}
+            mode="physical"
+            coolingProvenance={disclosureReport.cooling}
+          />
           <PriceSummaryPanel summary={priceSummary} />
           <PerformancePanel
             buildState={buildState}
             perf1Fixtures={boot.perf1Fixtures}
+            prov4Fixtures={boot.prov4Fixtures}
           />
         </section>
         <section style={styles.viewport} data-testid="viewport-section">

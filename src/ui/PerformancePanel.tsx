@@ -7,7 +7,14 @@ import type {
   WorkloadId,
   WorkloadMetric,
 } from "../contract/perf1";
+import type { PerformanceEvidenceBinding } from "../contract/prov4";
 import type { Perf1Fixtures } from "../catalog/loadPerf1Fixtures";
+import type { Prov4Fixtures } from "../provenance/loadProv4Fixtures";
+import { bindPerformanceEvidence } from "../provenance/bindPerformanceEvidence";
+import {
+  isPilotPerformanceOverlayActive,
+  pilotBaselineKeyFor,
+} from "../provenance/pilotBuild";
 import { applyCorrection } from "../perf/applyCorrection";
 import { baselineQueriesForBuild } from "../perf/baselineQuery";
 import { estimateBaseline } from "../perf/estimateBaseline";
@@ -17,6 +24,8 @@ import { usePerfPanelStore } from "../state/perfPanelState";
 interface PerformancePanelProps {
   buildState: BuildStateV2;
   perf1Fixtures: Perf1Fixtures;
+  /** When present, exact pilot keys overlay sidecar evidence (perf1 unchanged). */
+  prov4Fixtures?: Prov4Fixtures;
 }
 
 const WORKLOAD_IDS: WorkloadId[] = ["cinebench.r23", "cinebench.2024"];
@@ -40,6 +49,7 @@ function isPerformanceEstimate(
 export function PerformancePanel({
   buildState,
   perf1Fixtures,
+  prov4Fixtures,
 }: PerformancePanelProps) {
   const dimensions = usePerfPanelStore((s) => s.dimensions);
   const correction = usePerfPanelStore((s) => s.correction);
@@ -51,6 +61,10 @@ export function PerformancePanel({
 
   const queries = baselineQueriesForBuild(buildState, dimensions);
   const labelById = new Map(RESOLUTIONS.map((r) => [r.id, r.label]));
+  const sidecarActive =
+    !!prov4Fixtures &&
+    isPilotPerformanceOverlayActive(buildState, dimensions);
+  const nowIso = new Date().toISOString();
 
   const rows = queries.map((query) => {
     const baseline = estimateBaseline(query, perf1Fixtures.baseline);
@@ -59,7 +73,20 @@ export function PerformancePanel({
         applyCorrection(query, baseline, correction)
       : null;
 
-    return { query, baseline, correctionResult };
+    let sidecar: PerformanceEvidenceBinding | null = null;
+    if (sidecarActive && prov4Fixtures) {
+      sidecar = bindPerformanceEvidence({
+        key: pilotBaselineKeyFor(query.resolution),
+        isPilotBuild: true,
+        evidenceFile: prov4Fixtures.performance,
+        registry: prov4Fixtures.registry,
+        verifications: prov4Fixtures.verifications,
+        nowIso,
+        verifiedArtifactDigests: prov4Fixtures.verifiedArtifactDigests,
+      });
+    }
+
+    return { query, baseline, correctionResult, sidecar };
   });
 
   const cinebenchRows = WORKLOAD_IDS.flatMap((workloadId) =>
@@ -243,12 +270,120 @@ export function PerformancePanel({
         </div>
       </details>
 
+      {sidecarActive ? (
+        <p
+          data-testid="perf-sidecar-active"
+          style={{ fontSize: "0.85rem", color: "#1d4ed8", marginTop: 0 }}
+        >
+          Pilot prov4 sidecar overlay active (exact key match). perf1 table
+          unchanged.
+        </p>
+      ) : null}
+
       <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-        {rows.map(({ query, baseline, correctionResult }) => {
+        {rows.map(({ query, baseline, correctionResult, sidecar }) => {
           const resId = query.resolution as Perf1ResolutionId;
           const label = labelById.get(resId) ?? resId;
-          const unavailable = isUnavailable(baseline);
 
+          if (sidecar?.status === "bound") {
+            const ev = sidecar.evidence;
+            const m = ev.measurement;
+            return (
+              <li
+                key={resId}
+                data-testid={`perf-row-${resId}`}
+                data-status="ok"
+                data-sidecar="bound"
+                data-metric-kind={m.metricKind}
+                style={{
+                  border: "1px solid #93c5fd",
+                  borderRadius: "4px",
+                  padding: "0.75rem",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                <div style={{ fontWeight: 600 }}>{label}</div>
+                <div data-testid={`perf-range-${resId}`}>
+                  {m.fpsMin}–{m.fpsMax} FPS
+                </div>
+                <div
+                  data-testid={`perf-confidence-${resId}`}
+                  style={{ fontSize: "0.85rem", color: "#555" }}
+                >
+                  confidence: {ev.confidence} · {ev.dataVersion} · {ev.basis}
+                </div>
+                <div
+                  data-testid={`perf-metric-kind-${resId}`}
+                  style={{ fontSize: "0.85rem", color: "#444" }}
+                >
+                  metricKind: {m.metricKind}
+                </div>
+                <div
+                  data-testid={`perf-freshness-${resId}`}
+                  style={{ fontSize: "0.85rem", color: "#444" }}
+                >
+                  freshness: {sidecar.freshness.state} —{" "}
+                  {sidecar.freshness.explanation}
+                </div>
+                <div
+                  data-testid={`perf-sources-${resId}`}
+                  style={{ fontSize: "0.85rem", color: "#444" }}
+                >
+                  sources:{" "}
+                  {sidecar.sources
+                    .map((s) => `${s.sourceClass} (${s.sourceId})`)
+                    .join("; ")}
+                </div>
+                {ev.captureConditions ? (
+                  <div
+                    data-testid={`perf-capture-${resId}`}
+                    style={{ fontSize: "0.85rem", color: "#1e3a8a" }}
+                  >
+                    capture: {ev.captureConditions.toolName}{" "}
+                    {ev.captureConditions.toolVersion} · runs{" "}
+                    {ev.captureConditions.runCount} ·{" "}
+                    {ev.captureConditions.rangeDerivation}
+                  </div>
+                ) : null}
+                {ev.limitingFactor ? (
+                  <div
+                    data-testid={`perf-limiting-${resId}`}
+                    style={{ fontSize: "0.85rem", color: "#444" }}
+                  >
+                    {ev.limitingFactor.category}: {ev.limitingFactor.explanation}
+                  </div>
+                ) : null}
+              </li>
+            );
+          }
+
+          if (sidecar?.status === "unavailable") {
+            return (
+              <li
+                key={resId}
+                data-testid={`perf-row-${resId}`}
+                data-status="unavailable"
+                data-sidecar="unavailable"
+                style={{
+                  border: "1px solid #fca5a5",
+                  borderRadius: "4px",
+                  padding: "0.75rem",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                <div style={{ fontWeight: 600 }}>{label}</div>
+                <div
+                  data-testid={`perf-unavailable-${resId}`}
+                  style={{ fontSize: "0.9rem", color: "#666" }}
+                >
+                  prov4 sidecar unavailable ({sidecar.reason}):{" "}
+                  {sidecar.explanation}
+                </div>
+              </li>
+            );
+          }
+
+          const unavailable = isUnavailable(baseline);
           const displayEstimate =
             correctionResult?.status === "ok" ? correctionResult : (
               isPerformanceEstimate(baseline) ? baseline : null
@@ -259,6 +394,7 @@ export function PerformancePanel({
               key={resId}
               data-testid={`perf-row-${resId}`}
               data-status={unavailable ? "unavailable" : "ok"}
+              data-sidecar="off"
               style={{
                 border: "1px solid #ddd",
                 borderRadius: "4px",

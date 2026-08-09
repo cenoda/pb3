@@ -221,4 +221,7 @@ Verified 등급의 정확도(장착면, 전원 커넥터 위치 등)는 수동 �
 - 0단계 fixture 배치 완료 (`parts/**`, `benchmarks/vs0/**`)
 - 0단계 구현 및 태그 `vertical-slice-v0` 완료
 - 1단계 `perf1` 성능 엔진 구현·검증·closeout 완료 (현재 fixture 값은 전부 stub)
-- 다음 작업: Phase 2 M0 범위·계약·`implementation_plan.md` 작성; Phase 2 구현은 미착수
+- Phase 2–3 구현·검증·closeout 완료
+- Phase 4 M0 수락 및 구현 Steps 1–8 software gate 완료
+- 다음 작업: Phase 4 Step 9 evidence-quality closeout owner PASS; 후속 phase는
+  별도 M0 범위·계약·`implementation_plan.md` 수락 전까지 미착수

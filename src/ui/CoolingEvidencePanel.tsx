@@ -1,13 +1,17 @@
 import type { CoolingHookResult } from "../contract/phys3";
+import type { PilotDisclosureReport } from "../contract/prov4";
 
 interface CoolingEvidencePanelProps {
   result: CoolingHookResult;
   mode: "physical" | "manual";
+  /** Optional prov4 cooling disclosure (empty → unavailable). */
+  coolingProvenance?: PilotDisclosureReport["cooling"];
 }
 
 export function CoolingEvidencePanel({
   result,
   mode,
+  coolingProvenance,
 }: CoolingEvidencePanelProps) {
   return (
     <section
@@ -56,6 +60,30 @@ export function CoolingEvidencePanel({
           </p>
         </div>
       )}
+      {coolingProvenance ? (
+        <div
+          data-testid="cooling-prov4"
+          data-status={coolingProvenance.status}
+          style={{
+            marginTop: "0.75rem",
+            fontSize: "0.85rem",
+            color: "#4b5563",
+            borderTop: "1px solid #e5e7eb",
+            paddingTop: "0.5rem",
+          }}
+        >
+          <strong>prov4 cooling provenance</strong>
+          {coolingProvenance.status === "unavailable" ? (
+            <p data-testid="cooling-prov4-unavailable">
+              {coolingProvenance.reason}: {coolingProvenance.explanation}
+            </p>
+          ) : (
+            <p data-testid="cooling-prov4-available">
+              provenance row present (still no FPS derate)
+            </p>
+          )}
+        </div>
+      ) : null}
     </section>
   );
 }

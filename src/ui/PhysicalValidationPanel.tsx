@@ -1,13 +1,17 @@
 import type { PhysicalValidationReport } from "../contract/phys3";
+import type { GeometryEvidenceBinding } from "../contract/prov4";
 
 interface PhysicalValidationPanelProps {
   report: PhysicalValidationReport;
   modelGrade?: string;
+  /** Optional prov4 geometry bindings for pilot disclosure. */
+  geometryBindings?: GeometryEvidenceBinding[];
 }
 
 export function PhysicalValidationPanel({
   report,
   modelGrade = "Experimental",
+  geometryBindings,
 }: PhysicalValidationPanelProps) {
   return (
     <section
@@ -29,6 +33,40 @@ export function PhysicalValidationPanel({
         Geometry: {report.geometryDataVersion} · Model grade: {modelGrade}{" "}
         (synthetic fixture; not manufacturer-verified)
       </p>
+      {geometryBindings && geometryBindings.length > 0 ? (
+        <div
+          data-testid="physical-geometry-provenance"
+          style={{ fontSize: "0.85rem", marginBottom: "0.75rem" }}
+        >
+          <strong>prov4 geometry join</strong>
+          <ul style={{ margin: "0.35rem 0 0", paddingLeft: "1.25rem" }}>
+            {geometryBindings.map((binding) => {
+              const partId =
+                binding.status === "bound" ?
+                  binding.evidence.partId
+                : binding.partId;
+              return (
+                <li
+                  key={partId}
+                  data-testid={`physical-geo-prov-${partId}`}
+                  data-status={binding.status}
+                >
+                  {binding.status === "bound" ? (
+                    <>
+                      {partId}: {binding.evidence.modelGrade} via{" "}
+                      {binding.evidence.phys3EvidenceSourceId}
+                    </>
+                  ) : (
+                    <>
+                      {partId}: unavailable ({binding.reason})
+                    </>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ) : null}
       <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
         {report.checks.map((check) => (
           <li

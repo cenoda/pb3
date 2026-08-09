@@ -1,6 +1,8 @@
 # Phase 4 — Evidence-grade data and validation
 
-Status: **M0 owner-accepted (2026-08-09)** — implementation **not** authorized
+Status: **M0 owner-accepted and implementation authorized (2026-08-09)**;
+Steps 1–8 software gate complete; Step 9 evidence-quality closeout pending
+**owner PASS**
 
 Scope authority: owner-selected Phase 4 direction from
 [`../BRIEF.md`](../BRIEF.md) — **single-build evidence pilot**. Detailed
@@ -8,10 +10,9 @@ versioned types live in
 [`provenance-data-contract.md`](./provenance-data-contract.md).
 
 This document is the **accepted M0 scope lock**. It fixes the pilot path,
-inventory, evidence bar, and exit criteria. Owner acceptance of this package
-(recorded in `STATUS.md`, 2026-08-09) does **not** by itself authorize
-implementation — that still requires a separate explicit "start
-implementation" instruction.
+inventory, evidence bar, and exit criteria. The owner separately authorized
+implementation on 2026-08-09. Steps 1–8 are complete; software green does not
+close Step 9 without explicit owner acceptance of evidence quality.
 
 ---
 
