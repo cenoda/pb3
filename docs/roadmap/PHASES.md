@@ -49,12 +49,25 @@ silently break frozen `prov4`/`est1` contracts.
 - `est1` M0 software + AMD vendor-catalog spine: shipped; further Path A / sim
   expansion **paused**
 
-### Corrective gate (not a charter phase)
+6. **5단계 — 제품 표면 (Product surface)**: Phase 0–4 엔진 위에 처음 보는 사람이
+   쓸 수 있는 화면을 만든다
+   - 홈: [`../phases/phase-5/`](../phases/phase-5/)
+   - 범위: [`../phases/phase-5/specs/phase-5.md`](../phases/phase-5/specs/phase-5.md)
+   - 구현 계획: [`../phases/phase-5/implementation_plan.md`](../phases/phase-5/implementation_plan.md)
+   - 새 계약 없음. 표시 계층만 교체하고 엔진은 읽기 전용.
+   - 종료 조건은 헌장 0단계와 같은 문법 — 계약 준수가 아니라 **사용자 동작 5개**,
+     오너가 브라우저에서 직접 수행해 판정한다.
+   - 상태: **M0 범위 오너 수락 (2026-08-09), 결정 D1–D4 확정, 구현 진행 중.**
 
-Phase 0–4 앱 **제품 표면**에 대한 교정 게이트가 docs 패키지로 준비됐다
-(baseline `e73602a`). Phase 5가 아니며, 로드맵 단계를 대체·삽입하지 않는다.
+### Corrective gate (closed — Phase 5로 흡수)
 
-- 홈: [`../corrections/product-ux-1/`](../corrections/product-ux-1/)
+제품 표면 작업은 더 이상 교정 게이트가 아니라 **Phase 5**다. 교정 트랙은 닫혔고,
+두 패키지는 증거로만 보관한다. 새 제품 표면 교정 게이트를 열지 말 것 — Phase 5를
+확장한다.
+
+- [`../corrections/product-ux-1/`](../corrections/product-ux-1/) — 앱 셸 구현
+  + 오너 walkthrough PASS, closeout 완료 (2026-08-09)
+- [`../corrections/product-ux-2/`](../corrections/product-ux-2/) — `095f551`
+  기준 제품 여정 감사, 판정 **FAIL**; Phase 5 범위의 근거
 - 인덱스: [`../corrections/README.md`](../corrections/README.md)
-- 상태: 구현 software path + 소유자 UX walkthrough PASS, formal closeout 완료
-  (2026-08-09); Phase 4 Step 9·Phase 5 변경 없음
+- Phase 4 Step 9 변경 없음 (동결 유지)
