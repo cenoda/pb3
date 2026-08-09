@@ -2,11 +2,14 @@
 
 Working area for the first phase after the Phase 0–3 technical baseline.
 
-**Status: corrective gate reopened (2026-08-09).** Original Steps 1–8 were
-implemented, but the invalid first-party pilot claim was removed. Step 9 is
-blocked while the owner-accepted
+**Status: external-evidence pipeline shipped; Step 9 still open (2026-08-09).**
+Original Steps 1–8 ran; invalid first-party claim was removed; corrective
 [`../../corrections/phase4-external-evidence-1/`](../../corrections/phase4-external-evidence-1/)
-package awaits Cursor implementation and re-audit.
+Steps 1–5 are on `main` (`6f0a306`). Independent source investigation
+([`SOURCE_INGESTION_INVESTIGATION.md`](./SOURCE_INGESTION_INVESTIGATION.md))
+found **no defensible exact-match public FPS** for pilot `cpu.zen4-7600` from
+Tier A/B review benches (flagship CPUs only). Product external FPS remains
+empty by design until owner Step 9 path is chosen.
 
 Owner-selected pilot path: **single-build evidence pilot** (see
 [`BRIEF.md`](./BRIEF.md) and [`specs/phase-4.md`](./specs/phase-4.md)).
@@ -19,6 +22,7 @@ docs/phases/phase-4/
   BRIEF.md                  ← direction brief (pilot path selected)
   TODO.md                   ← planning / acceptance checklist
   implementation_plan.md    ← ordered file-level plan (accepted)
+  SOURCE_INGESTION_INVESTIGATION.md  ← external source exact-key research (2026-08-09)
   specs/
     phase-4.md              ← scope lock (accepted)
     provenance-data-contract.md  ← prov4 types (accepted)
