@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|--------|
 | Work id | `product-ux-1` |
-| Status | **Owner-accepted (2026-08-09)** — implementation **not** authorized |
+| Status | **Implementation software-complete** — owner UX PASS pending |
 | Baseline | **`e73602a`** (docs package on `5aea499`+) |
 | Authority | [`AUDIT.md`](./AUDIT.md), [`README.md`](./README.md) |
 | Stack | ADR-001–004 unchanged (static SPA, TS/React/R3F/Vite, pnpm/Zod/Zustand/Vitest, Apache-2.0) |
@@ -12,8 +12,8 @@ This is the ordered, file-level plan required before any corrective UI code.
 It is **not** Phase 5. It does **not** reopen Phase 0–4 architecture or
 contracts.
 
-**Package accepted (2026-08-09).** Implementation remains blocked until the
-owner gives a **separate** explicit implementation-start instruction.
+**Package accepted and implementation started (2026-08-09).** Software steps
+complete; owner UX walkthrough PASS still required for formal closeout.
 
 ---
 
@@ -28,7 +28,7 @@ owner gives a **separate** explicit implementation-start instruction.
 | Inventory | **Frozen** (13 parts; phase constants for game/preset) |
 | New dependencies / design system | **Forbidden** unless a later written amendment |
 | This plan owner-accepted | **Yes (2026-08-09)** |
-| Explicit start instruction | **No** |
+| Explicit start instruction | **Yes (2026-08-09)** |
 
 ---
 
@@ -448,7 +448,7 @@ instruction overrides them.
 |----|----------|-----------------|-------|
 | O1 | Theme strategy | **A** — fixed light app surface | Readable under dark host chrome; no toggle in M0 |
 | O2 | Viewport persistence | **A** sticky, fall back to **B** | B = non-scrolling stage + internal controls scroll if Canvas/sticky fails |
-| O3 | Filters on first screen | **A**, collapse to **B** if T3 fails | Prefer always-visible filters until density breaks 1280×720 |
+| O3 | Filters on first screen | **A**, collapse to **B** if T3 fails | **Shipped as B** — T3 required filters under `<details>` |
 | O4 | FPS in summary | **A** — three resolution chips | 1080p / 1440p / 4k |
 | O5 | Global CSS file | **B** when needed — small `app-shell.css` | No design-system package |
 
@@ -474,7 +474,9 @@ instruction overrides them.
 | Scope bounded to product surface | Yes |
 | Engines/contracts preserved by design | Yes |
 | Owner package acceptance | **Yes (2026-08-09)** |
-| Implementation authorized | **No** — needs separate explicit start |
+| Implementation authorized | **Yes (2026-08-09)** |
+| Software verification | **PASS** — unit 173 + e2e 14; T3 via O3-B filters collapsed |
+| Owner UX closeout | **Pending** |
 
-**Current gate:** planning package **accepted**. **NO-GO for implementation**
-until a separate explicit start instruction.
+**Current gate:** software path complete. Record owner UX PASS (or amendments)
+before formal closeout. Do **not** treat this as Phase 4 Step 9 or Phase 5.

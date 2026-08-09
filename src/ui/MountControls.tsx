@@ -10,20 +10,12 @@ export function MountControls({
   onReset,
 }: MountControlsProps) {
   return (
-    <section
-      data-testid="mount-controls"
-      style={{
-        border: "1px solid #e5e7eb",
-        borderRadius: "6px",
-        padding: "0.75rem",
-        marginBottom: "1rem",
-      }}
-    >
-      <h2 style={{ marginTop: 0, fontSize: "1rem" }}>Mount controls</h2>
-      <p style={{ marginTop: 0, fontSize: "0.9rem", color: "#4b5563" }}>
-        Declared cooler orientations only (no free transform).
+    <section className="panel mount-compact" data-testid="mount-controls">
+      <h2 style={{ marginTop: 0, fontSize: "0.95rem" }}>Mount</h2>
+      <p className="muted" style={{ marginTop: 0, marginBottom: "0.35rem" }}>
+        Declared cooler orientations only.
       </p>
-      <label style={{ display: "block", marginBottom: "0.5rem" }}>
+      <label style={{ display: "block", marginBottom: "0.35rem" }}>
         Cooler orientation
         <select
           data-testid="cooler-orientation-select"
@@ -33,7 +25,7 @@ export function MountControls({
               e.target.value as "normal" | "rotated-180",
             )
           }
-          style={{ display: "block", marginTop: "0.25rem", width: "100%" }}
+          style={{ display: "block", marginTop: "0.2rem", width: "100%" }}
         >
           <option value="normal">normal</option>
           <option value="rotated-180">rotated-180</option>

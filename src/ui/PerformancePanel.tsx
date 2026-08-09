@@ -109,16 +109,14 @@ export function PerformancePanel({
   }
 
   return (
-    <section data-testid="performance-panel">
-      <h2 style={{ marginTop: 0, fontSize: "1rem" }}>
-        Performance (perf1 engine)
-      </h2>
+    <section className="panel" data-testid="performance-panel">
+      <h2 style={{ marginTop: 0 }}>Performance</h2>
 
       <div
         style={{
           display: "grid",
           gap: "0.5rem",
-          marginBottom: "1rem",
+          marginBottom: "0.75rem",
           fontSize: "0.9rem",
         }}
       >
@@ -163,7 +161,7 @@ export function PerformancePanel({
         </label>
       </div>
 
-      <details style={{ marginBottom: "1rem", fontSize: "0.9rem" }}>
+      <details style={{ marginBottom: "0.75rem", fontSize: "0.9rem" }}>
         <summary>Environment correction (optional)</summary>
         <div
           data-testid="correction-controls"
@@ -273,10 +271,10 @@ export function PerformancePanel({
       {sidecarActive ? (
         <p
           data-testid="perf-sidecar-active"
-          style={{ fontSize: "0.85rem", color: "#1d4ed8", marginTop: 0 }}
+          className="muted"
+          style={{ marginTop: 0 }}
         >
-          Pilot prov4 sidecar overlay active (exact key match). perf1 table
-          unchanged.
+          Pilot evidence overlay active
         </p>
       ) : null}
 
@@ -298,7 +296,7 @@ export function PerformancePanel({
                 style={{
                   border: "1px solid #93c5fd",
                   borderRadius: "4px",
-                  padding: "0.75rem",
+                  padding: "0.65rem",
                   marginBottom: "0.5rem",
                 }}
               >
@@ -308,51 +306,58 @@ export function PerformancePanel({
                 </div>
                 <div
                   data-testid={`perf-confidence-${resId}`}
-                  style={{ fontSize: "0.85rem", color: "#555" }}
+                  className="muted"
                 >
-                  confidence: {ev.confidence} · {ev.dataVersion} · {ev.basis}
+                  confidence: {ev.confidence}
                 </div>
-                <div
-                  data-testid={`perf-metric-kind-${resId}`}
-                  style={{ fontSize: "0.85rem", color: "#444" }}
-                >
-                  metricKind: {m.metricKind}
-                </div>
-                <div
-                  data-testid={`perf-freshness-${resId}`}
-                  style={{ fontSize: "0.85rem", color: "#444" }}
-                >
-                  freshness: {sidecar.freshness.state} —{" "}
-                  {sidecar.freshness.explanation}
-                </div>
-                <div
-                  data-testid={`perf-sources-${resId}`}
-                  style={{ fontSize: "0.85rem", color: "#444" }}
-                >
-                  sources:{" "}
-                  {sidecar.sources
-                    .map((s) => `${s.sourceClass} (${s.sourceId})`)
-                    .join("; ")}
-                </div>
-                {ev.captureConditions ? (
+                <details data-testid={`perf-detail-${resId}`}>
+                  <summary>Evidence details</summary>
                   <div
-                    data-testid={`perf-capture-${resId}`}
-                    style={{ fontSize: "0.85rem", color: "#1e3a8a" }}
+                    data-testid={`perf-metric-kind-${resId}`}
+                    className="muted"
                   >
-                    capture: {ev.captureConditions.toolName}{" "}
-                    {ev.captureConditions.toolVersion} · runs{" "}
-                    {ev.captureConditions.runCount} ·{" "}
-                    {ev.captureConditions.rangeDerivation}
+                    metricKind: {m.metricKind}
                   </div>
-                ) : null}
-                {ev.limitingFactor ? (
                   <div
-                    data-testid={`perf-limiting-${resId}`}
-                    style={{ fontSize: "0.85rem", color: "#444" }}
+                    data-testid={`perf-freshness-${resId}`}
+                    className="muted"
                   >
-                    {ev.limitingFactor.category}: {ev.limitingFactor.explanation}
+                    freshness: {sidecar.freshness.state} —{" "}
+                    {sidecar.freshness.explanation}
                   </div>
-                ) : null}
+                  <div
+                    data-testid={`perf-sources-${resId}`}
+                    className="muted"
+                  >
+                    sources:{" "}
+                    {sidecar.sources
+                      .map((s) => `${s.sourceClass} (${s.sourceId})`)
+                      .join("; ")}
+                  </div>
+                  {ev.captureConditions ? (
+                    <div
+                      data-testid={`perf-capture-${resId}`}
+                      className="muted"
+                    >
+                      capture: {ev.captureConditions.toolName}{" "}
+                      {ev.captureConditions.toolVersion} · runs{" "}
+                      {ev.captureConditions.runCount} ·{" "}
+                      {ev.captureConditions.rangeDerivation}
+                    </div>
+                  ) : null}
+                  {ev.limitingFactor ? (
+                    <div
+                      data-testid={`perf-limiting-${resId}`}
+                      className="muted"
+                    >
+                      {ev.limitingFactor.category}:{" "}
+                      {ev.limitingFactor.explanation}
+                    </div>
+                  ) : null}
+                  <div className="muted">
+                    {ev.dataVersion} · {ev.basis}
+                  </div>
+                </details>
               </li>
             );
           }
@@ -367,16 +372,16 @@ export function PerformancePanel({
                 style={{
                   border: "1px solid #fca5a5",
                   borderRadius: "4px",
-                  padding: "0.75rem",
+                  padding: "0.65rem",
                   marginBottom: "0.5rem",
                 }}
               >
                 <div style={{ fontWeight: 600 }}>{label}</div>
                 <div
                   data-testid={`perf-unavailable-${resId}`}
-                  style={{ fontSize: "0.9rem", color: "#666" }}
+                  className="muted"
                 >
-                  prov4 sidecar unavailable ({sidecar.reason}):{" "}
+                  Evidence overlay unavailable ({sidecar.reason}):{" "}
                   {sidecar.explanation}
                 </div>
               </li>
@@ -398,7 +403,7 @@ export function PerformancePanel({
               style={{
                 border: "1px solid #ddd",
                 borderRadius: "4px",
-                padding: "0.75rem",
+                padding: "0.65rem",
                 marginBottom: "0.5rem",
               }}
             >
@@ -406,7 +411,7 @@ export function PerformancePanel({
               {unavailable ? (
                 <div
                   data-testid={`perf-unavailable-${resId}`}
-                  style={{ fontSize: "0.9rem", color: "#666" }}
+                  className="muted"
                 >
                   {baseline.reason}
                 </div>
@@ -417,14 +422,14 @@ export function PerformancePanel({
                   </div>
                   <div
                     data-testid={`perf-limiting-${resId}`}
-                    style={{ fontSize: "0.85rem", color: "#444" }}
+                    className="muted"
                   >
                     {displayEstimate.limitingFactor.category}:{" "}
                     {displayEstimate.limitingFactor.explanation}
                   </div>
-                  <div style={{ fontSize: "0.85rem", color: "#555" }}>
+                  <div className="muted">
                     confidence: {displayEstimate.confidence} ·{" "}
-                    {displayEstimate.dataVersion} · {displayEstimate.basis}
+                    {displayEstimate.dataVersion}
                   </div>
                   {correctionResult?.status === "ok" ? (
                     <div
@@ -437,7 +442,8 @@ export function PerformancePanel({
                   {correctionResult?.status === "withheld" ? (
                     <div
                       data-testid={`perf-withheld-${resId}`}
-                      style={{ fontSize: "0.85rem", color: "#b45309" }}
+                      className="status-warn"
+                      style={{ fontSize: "0.85rem" }}
                     >
                       {correctionResult.reason}
                     </div>
@@ -449,9 +455,9 @@ export function PerformancePanel({
         })}
       </ul>
 
-      <section data-testid="cinebench-panel" style={{ marginTop: "1.25rem" }}>
-        <h3 style={{ marginTop: 0, fontSize: "0.95rem" }}>Cinebench (CPU)</h3>
-        <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+      <details data-testid="cinebench-panel" style={{ marginTop: "0.75rem" }}>
+        <summary>Cinebench (CPU)</summary>
+        <ul style={{ listStyle: "none", margin: "0.5rem 0 0", padding: 0 }}>
           {cinebenchRows.map(({ workloadId, metric, result }) => {
             const key = `${workloadId}-${metric}`;
             return (
@@ -482,7 +488,7 @@ export function PerformancePanel({
             );
           })}
         </ul>
-      </section>
+      </details>
     </section>
   );
 }

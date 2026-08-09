@@ -24,10 +24,11 @@ and verified.**
 
 ## Authorization (separate from package acceptance)
 
-- [ ] Owner issues a **separate explicit implementation-start** instruction
-- [ ] Implementation branch/work starts only after the above
-- [ ] No Phase 5 scope opened under this gate
-- [ ] Phase 4 Step 9 evidence-quality closeout **not** claimed by this work
+- [x] Owner issues a **separate explicit implementation-start** instruction
+      (2026-08-09)
+- [x] Implementation branch/work starts only after the above
+- [x] No Phase 5 scope opened under this gate
+- [x] Phase 4 Step 9 evidence-quality closeout **not** claimed by this work
 
 ---
 
@@ -35,35 +36,35 @@ and verified.**
 
 ### Theme / readability
 
-- [ ] Global readable theme (owned page background + text colors)
-- [ ] No transparent page background dependency
-- [ ] Text readable in light host context
-- [ ] Text readable in dark host context (or explicit app light surface that remains readable under dark OS chrome)
+- [x] Global readable theme (owned page background + text colors)
+- [x] No transparent page background dependency
+- [x] Text readable in light host context
+- [x] Text readable in dark host context (or explicit app light surface that remains readable under dark OS chrome)
 
 ### Information architecture
 
-- [ ] Builder-centered shell (selectors + summary + 3D as primary)
-- [ ] Compact result summary for **compatibility**, **fit**, **FPS**, **price**
-- [ ] Progressive disclosure for provenance / evidence details
-- [ ] Progressive disclosure for physical collision/clearance diagnostics
-- [ ] Removal of duplicate performance / geometry / cooling blocks on the **default** surface
-- [ ] Product-facing labels on the primary surface (contract IDs not default chrome)
+- [x] Builder-centered shell (selectors + summary + 3D as primary)
+- [x] Compact result summary for **compatibility**, **fit**, **FPS**, **price**
+- [x] Progressive disclosure for provenance / evidence details
+- [x] Progressive disclosure for physical collision/clearance diagnostics
+- [x] Removal of duplicate performance / geometry / cooling blocks on the **default** surface
+- [x] Product-facing labels on the primary surface (contract IDs not default chrome)
 
 ### 3D viewport
 
-- [ ] Prominent 3D viewport (product center, not a small afterthought)
-- [ ] Sticky or otherwise persistently visible viewport during primary builder workflow (desktop)
-- [ ] Existing assembly / GPU swap behavior preserved
+- [x] Prominent 3D viewport (product center, not a small afterthought)
+- [x] Sticky or otherwise persistently visible viewport during primary builder workflow (desktop)
+- [x] Existing assembly / GPU swap behavior preserved
 
 ### Verification
 
-- [ ] Desktop viewport verification at **1280×720** (required)
-- [ ] Selectors + 3D + primary result summary co-visible without scrolling at 1280×720
-- [ ] GPU change immediately reflects in summary (compat / fit / FPS / price) and 3D
-- [ ] Canonical `vs2` URL behavior unchanged
-- [ ] Pilot evidence never carries into non-pilot builds
-- [ ] Existing Phase 0–4 unit + E2E regression green (`pnpm test:all`)
-- [ ] Deterministic UI/E2E coverage updated for new shell/summary/disclosure as needed
+- [x] Desktop viewport verification at **1280×720** (required)
+- [x] Selectors + 3D + primary result summary co-visible without scrolling at 1280×720
+- [x] GPU change immediately reflects in summary (compat / fit / FPS / price) and 3D
+- [x] Canonical `vs2` URL behavior unchanged
+- [x] Pilot evidence never carries into non-pilot builds
+- [x] Existing Phase 0–4 unit + E2E regression green (`pnpm test:all`)
+- [x] Deterministic UI/E2E coverage updated for new shell/summary/disclosure as needed
 - [ ] Owner UX walkthrough PASS
 - [ ] Final corrective closeout + status truth-sync
 
@@ -71,11 +72,11 @@ and verified.**
 
 ## Explicit non-goals (checklist reminders)
 
-- [ ] ~~Expand part / game / preset / workload inventory~~ — **out**
-- [ ] ~~Bump or widen `vs0` / `perf1` / `vs2` / `compat2` / `phys3` / `prov4`~~ — **out**
-- [ ] ~~Add design-system dependency~~ — **out** unless later amendment
-- [ ] ~~Start Phase 5~~ — **out**
-- [ ] ~~Close Phase 4 Step 9 via UX work~~ — **out** (separate owner PASS)
+- [x] ~~Expand part / game / preset / workload inventory~~ — **out**
+- [x] ~~Bump or widen `vs0` / `perf1` / `vs2` / `compat2` / `phys3` / `prov4`~~ — **out**
+- [x] ~~Add design-system dependency~~ — **out** unless later amendment
+- [x] ~~Start Phase 5~~ — **out**
+- [x] ~~Close Phase 4 Step 9 via UX work~~ — **out** (separate owner PASS)
 
 ---
 
@@ -84,8 +85,18 @@ and verified.**
 | Item | Value |
 |------|--------|
 | Package accepted (date) | **2026-08-09** (owner) |
-| Implementation start authorized (date) | _pending_ |
-| Implementation complete commit | _pending_ |
-| `pnpm test:all` | _pending_ |
-| 1280×720 walkthrough | _pending_ |
+| Implementation start authorized (date) | **2026-08-09** (owner) |
+| Implementation complete commit | _pending owner commit / PASS_ |
+| `pnpm test:all` | **PASS** — unit 173 + e2e 14 (2026-08-09) |
+| 1280×720 walkthrough | **Software PASS** via `e2e/product-ux-shell.spec.ts` (T1–T7/T9/T10) |
 | Owner UX PASS | _pending_ |
+
+### Locked O1–O5 (as implemented)
+
+| ID | Choice | Notes |
+|----|--------|-------|
+| O1 | **A** fixed light app surface | `src/styles/app-shell.css` |
+| O2 | **A** sticky viewport | `position: sticky` on viewport column |
+| O3 | **B** filters collapsed | T3 failed with A; filters under `<details>` |
+| O4 | **A** three FPS chips | `BuildResultSummary` |
+| O5 | **B** small `app-shell.css` | no design system |

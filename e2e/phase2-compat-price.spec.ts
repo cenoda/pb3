@@ -29,6 +29,13 @@ async function waitForPhase2Ready(page: import("@playwright/test").Page) {
   await expect(page.getByTestId("price-summary-panel")).toBeVisible();
 }
 
+async function openFilters(page: import("@playwright/test").Page) {
+  const details = page.getByTestId("filters-details");
+  if (!(await details.getAttribute("open"))) {
+    await details.locator("summary").click();
+  }
+}
+
 test.describe("Phase 2 completion scenario", () => {
   test("catalog pickers, compatibility, price, share URL, vs0 legacy decode", async ({
     page,
@@ -43,6 +50,7 @@ test.describe("Phase 2 completion scenario", () => {
     await expect(page.getByTestId("price-partial-label")).toHaveCount(0);
     await expect(page.getByTestId("price-subtotal")).toContainText("USD");
 
+    await openFilters(page);
     await page.getByTestId("filter-motherboard-form-factor").selectOption("Micro-ATX");
     await page.getByTestId("motherboard-select").selectOption("mb.micro-b450-01");
     await expect(page.getByTestId("compat-check-cpu-socket")).toHaveAttribute(

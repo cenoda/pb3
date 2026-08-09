@@ -59,6 +59,10 @@ test.describe("Phase 0 exit scenario (plan Step 8)", () => {
       "data-gpu-id",
       DEFAULT_GPU,
     );
+    const partsDetails = page.getByTestId("build-parts-details");
+    if (!(await partsDetails.getAttribute("open"))) {
+      await partsDetails.locator("summary").click();
+    }
     await expect(page.getByTestId("build-summary")).toBeVisible();
 
     await page.getByTestId("cpu-select").selectOption(OTHER_CPU);

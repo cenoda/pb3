@@ -98,7 +98,12 @@ export function BuildViewport({
       data-glb-path={gpuPart?.modelGlbPath ?? ""}
       data-assembly-status={assemblyStatus}
       data-assembly-poses={poseAttr(poses)}
-      style={{ width: "100%", height: "360px", background: "#111" }}
+      style={{
+        width: "100%",
+        height: "min(52vh, 480px)",
+        minHeight: "380px",
+        background: "#111",
+      }}
     >
       {poses.length === 0 ? (
         <ViewportError message="Physical assembly unavailable — no mounted poses." />

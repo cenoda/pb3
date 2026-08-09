@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { loadCompat2Examples } from "./catalog/loadCompat2Fixtures";
 import { loadPartCatalog } from "./catalog/loadPartCatalog";
 import { loadPerf1Fixtures, type Perf1Fixtures } from "./catalog/loadPerf1Fixtures";
@@ -30,8 +30,11 @@ import {
   loadProv4Fixtures,
   type Prov4Fixtures,
 } from "./provenance/loadProv4Fixtures";
+import { BuildResultSummary } from "./ui/BuildResultSummary";
 import { BuildSummary } from "./ui/BuildSummary";
+import { buildResultSummaryModel } from "./ui/buildResultSummaryModel";
 import { CompatibilityPanel } from "./ui/CompatibilityPanel";
+import { computeFpsSummaryChips } from "./ui/computeFpsSummaryChips";
 import { CoolingEvidencePanel } from "./ui/CoolingEvidencePanel";
 import { EvidenceDisclosurePanel } from "./ui/EvidenceDisclosurePanel";
 import { MountControls } from "./ui/MountControls";
@@ -74,6 +77,9 @@ export default function App() {
   const coolerOrientationId = useAssemblyStore((s) => s.coolerOrientationId);
   const setCoolerOrientation = useAssemblyStore((s) => s.setCoolerOrientation);
   const resetMounts = useAssemblyStore((s) => s.resetToAuto);
+
+  const perfDimensions = usePerfPanelStore((s) => s.dimensions);
+  const perfCorrection = usePerfPanelStore((s) => s.correction);
 
   useEffect(() => {
     let cancelled = false;
@@ -225,14 +231,50 @@ export default function App() {
     });
   }, [boot, buildState]);
 
+  const resultSummary = useMemo(() => {
+    if (
+      boot.status !== "ready" ||
+      !buildState ||
+      !compatibilityReport ||
+      !physicalReport ||
+      !priceSummary ||
+      !disclosureReport
+    ) {
+      return null;
+    }
+    const fpsChips = computeFpsSummaryChips({
+      buildState,
+      perf1Fixtures: boot.perf1Fixtures,
+      dimensions: perfDimensions,
+      correction: perfCorrection,
+      prov4Fixtures: boot.prov4Fixtures,
+    });
+    return buildResultSummaryModel({
+      compatibility: compatibilityReport,
+      physical: physicalReport,
+      price: priceSummary,
+      fpsChips,
+      isPilotBuild: disclosureReport.isPilotBuild,
+    });
+  }, [
+    boot,
+    buildState,
+    compatibilityReport,
+    physicalReport,
+    priceSummary,
+    disclosureReport,
+    perfDimensions,
+    perfCorrection,
+  ]);
+
   if (boot.status === "loading") {
-    return <main style={styles.main}>Loading fixtures…</main>;
+    return <main className="app-shell">Loading fixtures…</main>;
   }
 
   if (boot.status === "error") {
     return (
-      <main style={styles.main}>
-        <h1>pb3 — Phase 4</h1>
+      <main className="app-shell">
+        <h1>pb3 — PC Builder</h1>
         <p style={{ color: "#b91c1c" }}>Failed to load fixtures: {boot.message}</p>
       </main>
     );
@@ -245,9 +287,10 @@ export default function App() {
     !assembly ||
     !physicalReport ||
     !coolingResult ||
-    !disclosureReport
+    !disclosureReport ||
+    !resultSummary
   ) {
-    return <main style={styles.main}>Initializing build state…</main>;
+    return <main className="app-shell">Initializing build state…</main>;
   }
 
   const catalog = boot.catalog;
@@ -280,102 +323,124 @@ export default function App() {
   });
 
   return (
-    <main style={styles.main}>
-      <h1 style={{ marginTop: 0 }}>pb3 — Phase 4 build</h1>
-      <div style={styles.layout}>
-        <section style={styles.controls}>
-          <PartFilterControls filters={filters} onChange={setFilters} />
-          <PartSelector
-            {...selectorProps(
-              "case",
-              "Case",
-              "case-select",
-              buildState.caseId,
-              setCase,
-            )}
-          />
-          <PartSelector
-            {...selectorProps(
-              "motherboard",
-              "Motherboard",
-              "motherboard-select",
-              buildState.motherboardId,
-              setMotherboard,
-            )}
-          />
-          <PartSelector
-            {...selectorProps(
-              "cpu",
-              "CPU",
-              "cpu-select",
-              buildState.cpuId,
-              setCpu,
-            )}
-          />
-          <PartSelector
-            {...selectorProps(
-              "gpu",
-              "GPU",
-              "gpu-select",
-              buildState.gpuId,
-              setGpu,
-            )}
-          />
-          <PartSelector
-            {...selectorProps(
-              "cooler",
-              "Cooler",
-              "cooler-select",
-              buildState.coolerId,
-              setCooler,
-            )}
-          />
-          <PartSelector
-            {...selectorProps(
-              "ram",
-              "RAM",
-              "ram-part-select",
-              buildState.ramId,
-              setRam,
-            )}
-          />
-          <PartSelector
-            {...selectorProps(
-              "psu",
-              "PSU",
-              "psu-select",
-              buildState.psuId,
-              setPsu,
-            )}
-          />
-          <MountControls
-            coolerOrientationId={coolerOrientationId}
-            onCoolerOrientationChange={setCoolerOrientation}
-            onReset={resetMounts}
-          />
-          <BuildSummary buildState={buildState} catalog={catalog} />
-          <CompatibilityPanel report={compatibilityReport} />
-          <EvidenceDisclosurePanel report={disclosureReport} />
-          <PhysicalValidationPanel
-            report={physicalReport}
-            geometryBindings={
-              disclosureReport.isPilotBuild ? disclosureReport.geometry : undefined
-            }
-          />
-          <CoolingEvidencePanel
-            result={coolingResult}
-            mode="physical"
-            coolingProvenance={disclosureReport.cooling}
-          />
-          <PriceSummaryPanel summary={priceSummary} />
-          <PerformancePanel
-            buildState={buildState}
-            perf1Fixtures={boot.perf1Fixtures}
-            prov4Fixtures={boot.prov4Fixtures}
-          />
+    <main className="app-shell" data-testid="app-shell">
+      <header className="app-header">
+        <h1>pb3 — PC Builder</h1>
+      </header>
+
+      <div className="builder-stage" data-testid="builder-stage">
+        <section className="builder-controls" data-testid="builder-controls">
+          <details className="panel" data-testid="filters-details">
+            <summary style={{ fontWeight: 600, fontSize: "0.95rem" }}>
+              Filters
+            </summary>
+            <PartFilterControls filters={filters} onChange={setFilters} />
+          </details>
+
+          <div className="panel">
+            <h2 style={{ marginTop: 0, fontSize: "0.95rem" }}>Parts</h2>
+            <div className="selector-grid">
+              <PartSelector
+                {...selectorProps(
+                  "case",
+                  "Case",
+                  "case-select",
+                  buildState.caseId,
+                  setCase,
+                )}
+              />
+              <PartSelector
+                {...selectorProps(
+                  "motherboard",
+                  "Motherboard",
+                  "motherboard-select",
+                  buildState.motherboardId,
+                  setMotherboard,
+                )}
+              />
+              <PartSelector
+                {...selectorProps(
+                  "cpu",
+                  "CPU",
+                  "cpu-select",
+                  buildState.cpuId,
+                  setCpu,
+                )}
+              />
+              <PartSelector
+                {...selectorProps(
+                  "gpu",
+                  "GPU",
+                  "gpu-select",
+                  buildState.gpuId,
+                  setGpu,
+                )}
+              />
+              <PartSelector
+                {...selectorProps(
+                  "cooler",
+                  "Cooler",
+                  "cooler-select",
+                  buildState.coolerId,
+                  setCooler,
+                )}
+              />
+              <PartSelector
+                {...selectorProps(
+                  "ram",
+                  "RAM",
+                  "ram-part-select",
+                  buildState.ramId,
+                  setRam,
+                )}
+              />
+              <PartSelector
+                {...selectorProps(
+                  "psu",
+                  "PSU",
+                  "psu-select",
+                  buildState.psuId,
+                  setPsu,
+                )}
+              />
+            </div>
+          </div>
+
+          <BuildResultSummary model={resultSummary} />
+
+          <div className="details-stack" data-testid="builder-details">
+            <details className="panel-details" data-testid="mount-details">
+              <summary>Mount controls</summary>
+              <MountControls
+                coolerOrientationId={coolerOrientationId}
+                onCoolerOrientationChange={setCoolerOrientation}
+                onReset={resetMounts}
+              />
+            </details>
+
+            <details className="panel-details" data-testid="build-parts-details">
+              <summary>Build parts list</summary>
+              <BuildSummary buildState={buildState} catalog={catalog} />
+            </details>
+
+            <CompatibilityPanel report={compatibilityReport} />
+            <EvidenceDisclosurePanel report={disclosureReport} />
+            <PhysicalValidationPanel report={physicalReport} />
+            <CoolingEvidencePanel result={coolingResult} mode="physical" />
+            <PriceSummaryPanel summary={priceSummary} />
+            <PerformancePanel
+              buildState={buildState}
+              perf1Fixtures={boot.perf1Fixtures}
+              prov4Fixtures={boot.prov4Fixtures}
+            />
+          </div>
         </section>
-        <section style={styles.viewport} data-testid="viewport-section">
-          <h2 style={{ marginTop: 0, fontSize: "1rem" }}>3D viewport</h2>
+
+        <section
+          className="builder-viewport-column"
+          data-testid="viewport-section"
+        >
+          <h2>Assembly</h2>
           <BuildViewport
             gpuId={buildState.gpuId}
             catalog={catalog}
@@ -387,23 +452,3 @@ export default function App() {
     </main>
   );
 }
-
-const styles: Record<string, CSSProperties> = {
-  main: {
-    fontFamily: "system-ui, sans-serif",
-    margin: "0 auto",
-    maxWidth: "1100px",
-    padding: "1.5rem",
-  },
-  layout: {
-    display: "grid",
-    gap: "1.5rem",
-    gridTemplateColumns: "1fr 1fr",
-  },
-  controls: {
-    minWidth: 0,
-  },
-  viewport: {
-    minWidth: 0,
-  },
-};

@@ -13,9 +13,8 @@ function displayName(catalog: PartCatalog, id: string): string {
 
 export function BuildSummary({ buildState, catalog }: BuildSummaryProps) {
   return (
-    <section data-testid="build-summary" style={{ marginBottom: "1rem" }}>
-      <h2 style={{ marginTop: 0, fontSize: "1rem" }}>Build summary</h2>
-      <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
+    <section data-testid="build-summary">
+      <ul style={{ margin: 0, paddingLeft: "1.25rem", fontSize: "0.9rem" }}>
         <li data-testid="summary-case">
           Case: {displayName(catalog, buildState.caseId)}
         </li>

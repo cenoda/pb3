@@ -25,6 +25,13 @@ async function waitForPhase4Ready(page: Page) {
   await expect(page.getByTestId("cooling-evidence-panel")).toBeVisible();
 }
 
+async function openEvidenceDetails(page: Page) {
+  const details = page.getByTestId("evidence-details");
+  if (!(await details.getAttribute("open"))) {
+    await details.locator("summary").click();
+  }
+}
+
 test.describe("Phase 4 pilot evidence scenario", () => {
   test("pilot disclosure: 3 perf bindings, measured cell, geometry, cooling unavailable", async ({
     page,
@@ -40,6 +47,10 @@ test.describe("Phase 4 pilot evidence scenario", () => {
       "active",
     );
     await expect(page.getByTestId("perf-sidecar-active")).toBeVisible();
+    await expect(page.getByTestId("build-result-summary")).toHaveAttribute(
+      "data-pilot",
+      "true",
+    );
 
     // Three performance rows via sidecar
     for (const res of ["1080p", "1440p", "4k"] as const) {
@@ -47,6 +58,11 @@ test.describe("Phase 4 pilot evidence scenario", () => {
         "data-sidecar",
         "bound",
       );
+    }
+
+    await openEvidenceDetails(page);
+
+    for (const res of ["1080p", "1440p", "4k"] as const) {
       await expect(page.getByTestId(`evidence-perf-${res}`)).toHaveAttribute(
         "data-status",
         "bound",
@@ -58,6 +74,7 @@ test.describe("Phase 4 pilot evidence scenario", () => {
       "data-metric-kind",
       "first-party-measured",
     );
+    await page.getByTestId("perf-detail-1080p").locator("summary").click();
     await expect(page.getByTestId("perf-metric-kind-1080p")).toContainText(
       "first-party-measured",
     );
@@ -77,11 +94,7 @@ test.describe("Phase 4 pilot evidence scenario", () => {
       "stub",
     );
 
-    // Geometry Experimental join via phys3EvidenceSourceId
-    await expect(page.getByTestId("physical-geometry-provenance")).toBeVisible();
-    await expect(
-      page.getByTestId("physical-geo-prov-cpu.zen4-7600"),
-    ).toHaveAttribute("data-status", "bound");
+    // Geometry Experimental join lives under evidence details (deduped)
     await expect(
       page.getByTestId("evidence-geo-grade-cpu.zen4-7600"),
     ).toContainText("Experimental");
@@ -89,12 +102,8 @@ test.describe("Phase 4 pilot evidence scenario", () => {
       page.getByTestId("evidence-geo-join-gpu.rtx4070"),
     ).toContainText("evidence.phys3.synthetic.gpu.rtx4070");
 
-    // Cooling empty / unavailable
+    // Cooling empty / unavailable — panel + evidence details
     await expect(page.getByTestId("cooling-evidence-panel")).toHaveAttribute(
-      "data-status",
-      "unavailable",
-    );
-    await expect(page.getByTestId("cooling-prov4")).toHaveAttribute(
       "data-status",
       "unavailable",
     );
@@ -121,6 +130,10 @@ test.describe("Phase 4 pilot evidence scenario", () => {
     );
     await expect(page.getByTestId("evidence-non-pilot")).toBeVisible();
     await expect(page.getByTestId("perf-sidecar-active")).toHaveCount(0);
+    await expect(page.getByTestId("build-result-summary")).toHaveAttribute(
+      "data-pilot",
+      "false",
+    );
 
     // Falls back to perf1 stub path
     await expect(page.getByTestId("perf-row-1440p")).toHaveAttribute(

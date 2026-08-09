@@ -21,9 +21,13 @@ async function waitForPhase3Ready(page: import("@playwright/test").Page) {
   await expect(page.getByTestId("case-select")).toBeVisible();
   await expect(page.getByTestId("physical-validation-panel")).toBeVisible();
   await expect(page.getByTestId("cooling-evidence-panel")).toBeVisible();
-  await expect(page.getByTestId("mount-controls")).toBeVisible();
   await expect(page.getByTestId("compatibility-panel")).toBeVisible();
   await expect(page.getByTestId("performance-panel")).toBeVisible();
+  const mountDetails = page.getByTestId("mount-details");
+  if (!(await mountDetails.getAttribute("open"))) {
+    await mountDetails.locator("summary").click();
+  }
+  await expect(page.getByTestId("mount-controls")).toBeVisible();
 }
 
 test.describe("Phase 3 physical validation scenario", () => {
@@ -65,6 +69,10 @@ test.describe("Phase 3 physical validation scenario", () => {
       "data-overall-status",
       "interference",
     );
+    const physicalDetails = page.getByTestId("physical-details");
+    if (!(await physicalDetails.getAttribute("open"))) {
+      await physicalDetails.locator("summary").click();
+    }
     await expect(
       page.locator('[data-testid^="physical-check-clearance:"][data-status="interference"]').first(),
     ).toBeVisible();

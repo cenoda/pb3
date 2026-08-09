@@ -5,7 +5,7 @@ charter phases, not roadmap expansions, and not architecture resets.
 
 | Work item | Path | Status |
 |-----------|------|--------|
-| Product UX M0 (builder surface) | [`product-ux-1/`](./product-ux-1/) | **Package owner-accepted (2026-08-09)**; implementation **not** authorized until separate start |
+| Product UX M0 (builder surface) | [`product-ux-1/`](./product-ux-1/) | **Implementation software-complete** — owner UX PASS pending; Phase 4 Step 9 unchanged |
 
 ## Rules
 

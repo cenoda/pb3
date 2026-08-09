@@ -108,9 +108,9 @@
 7. **Phase 4 M0** — Steps 1–8 software gate green (2026-08-09).
    **Evidence-quality closeout (Step 9) blocked until owner PASS** —
    [`docs/phases/phase-4/`](docs/phases/phase-4/)
-8. **Product UX corrective gate (`product-ux-1`)** — planning package
-   **owner-accepted (2026-08-09)** on baseline `e73602a`; **not** Phase 5;
-   implementation still **blocked** until a separate explicit start instruction —
+8. **Product UX corrective gate (`product-ux-1`)** — implementation software
+   path complete (2026-08-09); **owner UX walkthrough PASS** still open; **not**
+   Phase 5; Phase 4 Step 9 unchanged —
    [`docs/corrections/product-ux-1/`](docs/corrections/product-ux-1/)
 9. **Phase 5+** — not planned; requires separate M0 after the above gates
 
@@ -306,22 +306,22 @@
 
 ## Product UX corrective gate (`product-ux-1`, 2026-08-09)
 
-Bounded **docs-only** corrective planning package over the Phase 0–4 app surface.
-**Not** Phase 5, **not** an architecture reset, **not** implementation authorization.
+Bounded corrective **product surface** over the Phase 0–4 app.
+**Not** Phase 5, **not** an architecture reset. Contracts / inventory frozen.
 
 | 항목 | 상태 |
 |------|------|
 | Baseline commit | **`e73602a`** |
 | Home | [`docs/corrections/product-ux-1/`](docs/corrections/product-ux-1/) |
-| Audit | [`AUDIT.md`](docs/corrections/product-ux-1/AUDIT.md) — live 1280×720 verification |
-| Plan | [`corrective_plan.md`](docs/corrections/product-ux-1/corrective_plan.md) |
 | Package acceptance | **PASS (owner, 2026-08-09)** |
-| Implementation | **Blocked** — needs separate explicit start instruction |
-| O1–O5 defaults | A / A→B fallback / A then B if T3 fails / A / B — see plan §8 |
+| Implementation start | **Authorized (2026-08-09)** |
+| Implementation Steps 1–9 (software) | **Complete** — theme, builder shell, `BuildResultSummary`, sticky viewport, progressive disclosure, dedupe, product labels, E2E |
+| O1–O5 as shipped | A / A sticky / **B filters collapsed** (T3) / A FPS chips / B `app-shell.css` |
+| Verification | `pnpm test:all` **173 unit + 14 e2e PASS**; `pnpm build` PASS |
+| Owner UX walkthrough PASS | **Pending** |
 | Phase 4 Step 9 | **Unchanged** — still pending evidence-quality PASS |
-| Contracts / inventory | **Frozen** — presentation-only intent |
+| Contracts / inventory | **Unchanged** |
 
-**Audit headline (verified live):** engines/URL/pilot isolation OK; product
-surface not ready (transparent page bg + black text; ~6.3k px document height
-at 1280×720; evidence/physical dumps dominate; 3D viewport fixed 538×360 and
-not sticky).
+**Shipped headline:** owned light theme; at 1280×720 selectors + sticky 3D +
+compat/fit/FPS/price summary co-visible; evidence/physical diagnostics
+collapsed by default; pilot non-carry preserved.
