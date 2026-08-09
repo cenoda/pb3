@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 function fullVs2Query(overrides: Record<string, string> = {}): string {
   const p = new URLSearchParams({
@@ -17,27 +17,20 @@ function fullVs2Query(overrides: Record<string, string> = {}): string {
   return `?${p.toString()}`;
 }
 
-async function waitForPhase3Ready(page: import("@playwright/test").Page) {
-  await expect(page.getByTestId("case-select")).toBeVisible();
-  for (const testId of [
-    "compatibility-domain-details",
-    "physical-domain-details",
-    "cooling-domain-details",
-    "performance-domain-details",
-  ]) {
-    const details = page.getByTestId(testId);
-    if (!(await details.getAttribute("open"))) {
-      await details.locator(":scope > summary").click();
-    }
+async function openWhy(page: Page) {
+  const why = page.getByTestId("why-this-result");
+  // An open <details> reports open="" — check for null, not falsiness.
+  if ((await why.getAttribute("open")) === null) {
+    await why.locator(":scope > summary").click();
   }
+}
+
+async function waitForPhase3Ready(page: Page) {
+  await expect(page.getByTestId("case-select")).toBeVisible();
+  await openWhy(page);
   await expect(page.getByTestId("physical-validation-panel")).toBeVisible();
   await expect(page.getByTestId("cooling-evidence-panel")).toBeVisible();
   await expect(page.getByTestId("compatibility-panel")).toBeVisible();
-  await expect(page.getByTestId("performance-panel")).toBeVisible();
-  const mountDetails = page.getByTestId("mount-details");
-  if (!(await mountDetails.getAttribute("open"))) {
-    await mountDetails.locator("summary").click();
-  }
   await expect(page.getByTestId("mount-controls")).toBeVisible();
 }
 
@@ -66,27 +59,35 @@ test.describe("Phase 3 physical validation scenario", () => {
     expect(poses!).toContain("mb.atx-b650-01@0.000,20.000,-40.000");
     expect(poses!).toContain("cooler.air-twin-tower-01@");
 
-    // Logical compatibility remains a sibling result
+    // Logical compatibility remains a separate result
     await expect(page.getByTestId("compatibility-panel")).toHaveAttribute(
       "data-overall-status",
       "compatible",
     );
 
+    // Baseline numbers on the surface, recorded so a later regression is visible
+    const baseline1080p =
+      (await page.getByTestId("fps-1080p").textContent()) ?? "";
+    expect(baseline1080p).toContain("fps");
+
     // Cooler orientation change → interference
     await page
       .getByTestId("cooler-orientation-select")
       .selectOption("rotated-180");
+    await openWhy(page);
     await expect(page.getByTestId("physical-validation-panel")).toHaveAttribute(
       "data-overall-status",
       "interference",
     );
-    const physicalDetails = page.getByTestId("physical-details");
-    if (!(await physicalDetails.getAttribute("open"))) {
-      await physicalDetails.locator("summary").click();
-    }
     await expect(
-      page.locator('[data-testid^="physical-check-clearance:"][data-status="interference"]').first(),
+      page
+        .locator(
+          '[data-testid^="physical-check-clearance:"][data-status="interference"]',
+        )
+        .first(),
     ).toBeVisible();
+    // Phase 5 R1: a build that does not fit presents no performance result.
+    await expect(page.getByTestId("result-performance")).toHaveCount(0);
 
     // Reset orientation
     await page.getByTestId("mount-reset").click();
@@ -100,12 +101,13 @@ test.describe("Phase 3 physical validation scenario", () => {
 
     // Visual-only fallback → physical unavailable (not box-as-truth fit)
     await page.getByTestId("ram-part-select").selectOption("ram.ddr5-16gb-7200");
+    await openWhy(page);
     await expect(page.getByTestId("physical-validation-panel")).toHaveAttribute(
       "data-overall-status",
       "unavailable",
     );
 
-    // Runtime cooling unavailable; performance panel still present
+    // Runtime cooling unavailable, and the withheld correction is stated
     await expect(page.getByTestId("cooling-evidence-panel")).toHaveAttribute(
       "data-status",
       "unavailable",
@@ -113,11 +115,12 @@ test.describe("Phase 3 physical validation scenario", () => {
     await expect(page.getByTestId("cooling-reason")).toContainText(
       /missing_exact_evidence|physical_validation_incomplete/,
     );
-    await expect(page.getByTestId("performance-panel")).toBeVisible();
-    await expect(page.getByTestId("perf-range-1080p")).toBeVisible();
 
-    // Restore supported RAM and confirm fit + cooling unavailable (empty evidence)
+    // Restore supported RAM: fit returns, cooling stays unavailable (empty
+    // evidence), and the performance numbers come back unchanged — the proof
+    // that withholding them was a presentation rule, not an engine failure.
     await page.getByTestId("ram-part-select").selectOption("ram.ddr5-32gb-6000");
+    await openWhy(page);
     await expect(page.getByTestId("physical-validation-panel")).toHaveAttribute(
       "data-overall-status",
       "fit",
@@ -128,6 +131,9 @@ test.describe("Phase 3 physical validation scenario", () => {
     );
     await expect(page.getByTestId("cooling-reason")).toHaveText(
       "missing_exact_evidence",
+    );
+    expect(await page.getByTestId("fps-1080p").textContent()).toBe(
+      baseline1080p,
     );
   });
 });

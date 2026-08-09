@@ -8,11 +8,16 @@ const OTHER_CPU = "cpu.zen4-7800x3d";
 const OTHER_GPU = "gpu.rtx4080";
 
 const RANGES = {
-  default1440: "52–64 FPS",
-  otherCpu1440: "58–70 FPS",
-  otherGpu1440: "90–108 FPS",
-  both1440: "115–138 FPS",
+  default1440: "52–64",
+  otherCpu1440: "58–70",
+  otherGpu1440: "90–108",
+  both1440: "115–138",
 } as const;
+
+/** Phase 5: the FPS numbers are on the product surface, not in a panel. */
+function fps(page: Page, resolution: string) {
+  return page.getByTestId(`fps-${resolution}`);
+}
 
 function fullQuery(cpu: string, gpu: string): string {
   const p = new URLSearchParams({
@@ -33,11 +38,7 @@ function fullQuery(cpu: string, gpu: string): string {
 async function waitForReady(page: Page) {
   await expect(page.getByTestId("cpu-select")).toBeVisible();
   await expect(page.getByTestId("gpu-select")).toBeVisible();
-  const performanceDetails = page.getByTestId("performance-domain-details");
-  if (!(await performanceDetails.getAttribute("open"))) {
-    await performanceDetails.locator(":scope > summary").click();
-  }
-  await expect(page.getByTestId("performance-panel")).toBeVisible();
+  await expect(page.getByTestId("result-performance")).toBeVisible();
   await expect(page.getByTestId("build-viewport")).toBeVisible();
 }
 
@@ -53,28 +54,25 @@ test.describe("Phase 0 exit scenario (plan Step 8)", () => {
     await expect(page).toHaveURL(fullQuery(DEFAULT_CPU, DEFAULT_GPU));
 
     for (const res of ["1080p", "1440p", "4k"] as const) {
-      const row = page.getByTestId(`perf-row-${res}`);
+      const row = fps(page, res);
       await expect(row).toHaveAttribute("data-status", "ok");
-      await expect(page.getByTestId(`perf-range-${res}`)).toBeVisible();
-      await expect(page.getByTestId(`perf-unavailable-${res}`)).toHaveCount(0);
+      await expect(row).toContainText("fps");
     }
-    await expect(page.getByTestId("perf-range-1440p")).toHaveText(RANGES.default1440);
+    await expect(fps(page, "1440p")).toContainText(RANGES.default1440);
     await expect(page.getByTestId("build-viewport")).toHaveAttribute(
       "data-gpu-id",
       DEFAULT_GPU,
     );
-    const partsDetails = page.getByTestId("build-parts-details");
-    if (!(await partsDetails.getAttribute("open"))) {
-      await partsDetails.locator("summary").click();
-    }
-    await expect(page.getByTestId("build-summary")).toBeVisible();
+    // The dropped "Build parts list" panel is replaced by the parts rail: the
+    // chosen parts are readable without opening anything.
+    await expect(page.getByTestId("parts-rail")).toBeVisible();
+    await expect(page.getByTestId("ram-part-select")).toHaveValue(DEFAULT_RAM);
+    await expect(page.getByTestId("psu-select")).toHaveValue(DEFAULT_PSU);
 
     await page.getByTestId("cpu-select").selectOption(OTHER_CPU);
     await expect(page.getByTestId("cpu-select")).toHaveValue(OTHER_CPU);
     await expect(page).toHaveURL(fullQuery(OTHER_CPU, DEFAULT_GPU));
-    await expect(page.getByTestId("perf-range-1440p")).toHaveText(
-      RANGES.otherCpu1440,
-    );
+    await expect(fps(page, "1440p")).toContainText(RANGES.otherCpu1440);
     await expect(page.getByTestId("build-viewport")).toHaveAttribute(
       "data-gpu-id",
       DEFAULT_GPU,
@@ -91,14 +89,14 @@ test.describe("Phase 0 exit scenario (plan Step 8)", () => {
       "data-glb-path",
       "parts/gpu/gpu.rtx4080/model.glb",
     );
-    await expect(page.getByTestId("perf-range-1440p")).toHaveText(RANGES.both1440);
+    await expect(fps(page, "1440p")).toContainText(RANGES.both1440);
 
     await page.reload();
     await waitForReady(page);
     await expect(page.getByTestId("cpu-select")).toHaveValue(OTHER_CPU);
     await expect(page.getByTestId("gpu-select")).toHaveValue(OTHER_GPU);
     await expect(page).toHaveURL(fullQuery(OTHER_CPU, OTHER_GPU));
-    await expect(page.getByTestId("perf-range-1440p")).toHaveText(RANGES.both1440);
+    await expect(fps(page, "1440p")).toContainText(RANGES.both1440);
     await expect(page.getByTestId("build-viewport")).toHaveAttribute(
       "data-gpu-id",
       OTHER_GPU,
@@ -106,14 +104,10 @@ test.describe("Phase 0 exit scenario (plan Step 8)", () => {
 
     await page.getByTestId("cpu-select").selectOption(DEFAULT_CPU);
     await expect(page).toHaveURL(fullQuery(DEFAULT_CPU, OTHER_GPU));
-    await expect(page.getByTestId("perf-range-1440p")).toHaveText(
-      RANGES.otherGpu1440,
-    );
+    await expect(fps(page, "1440p")).toContainText(RANGES.otherGpu1440);
     await page.getByTestId("gpu-select").selectOption(DEFAULT_GPU);
     await expect(page).toHaveURL(fullQuery(DEFAULT_CPU, DEFAULT_GPU));
-    await expect(page.getByTestId("perf-range-1440p")).toHaveText(
-      RANGES.default1440,
-    );
+    await expect(fps(page, "1440p")).toContainText(RANGES.default1440);
     await expect(page.getByTestId("build-viewport")).toHaveAttribute(
       "data-gpu-id",
       DEFAULT_GPU,
@@ -129,7 +123,7 @@ test.describe("Phase 0 exit scenario (plan Step 8)", () => {
     await expect(page.getByTestId("cpu-select")).toHaveValue(OTHER_CPU);
     await expect(page.getByTestId("gpu-select")).toHaveValue(OTHER_GPU);
     await expect(page).toHaveURL(fullQuery(OTHER_CPU, OTHER_GPU));
-    await expect(page.getByTestId("perf-range-1440p")).toHaveText(RANGES.both1440);
+    await expect(fps(page, "1440p")).toContainText(RANGES.both1440);
   });
 
   test("invalid CPU id falls back to default BuildState", async ({ page }) => {

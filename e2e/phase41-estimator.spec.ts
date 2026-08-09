@@ -17,19 +17,18 @@ function fullVs2Query(overrides: Record<string, string> = {}): string {
   return `?${p.toString()}`;
 }
 
+async function openWhy(page: Page) {
+  const why = page.getByTestId("why-this-result");
+  // An open <details> reports open="" — check for null, not falsiness.
+  if ((await why.getAttribute("open")) === null) {
+    await why.locator(":scope > summary").click();
+  }
+}
+
 async function waitForPhase41Ready(page: Page) {
   await expect(page.getByTestId("case-select")).toBeVisible();
-  for (const testId of [
-    "evidence-domain-details",
-    "performance-domain-details",
-  ]) {
-    const details = page.getByTestId(testId);
-    if (!(await details.getAttribute("open"))) {
-      await details.locator(":scope > summary").click();
-    }
-  }
+  await openWhy(page);
   await expect(page.getByTestId("evidence-disclosure-panel")).toBeVisible();
-  await expect(page.getByTestId("performance-panel")).toBeVisible();
 }
 
 test.describe("Phase 4.1 combination estimator (est1)", () => {
@@ -39,57 +38,47 @@ test.describe("Phase 4.1 combination estimator (est1)", () => {
     await page.goto(fullVs2Query());
     await waitForPhase41Ready(page);
 
-    await expect(page.getByTestId("est1-draft-caveat")).toBeVisible();
-    await expect(page.getByTestId("est1-draft-caveat")).toContainText(
+    // Phase 5: the draft caveat lives with the est1 evidence it qualifies.
+    await expect(page.getByTestId("evidence-est1-caveat")).toBeVisible();
+    await expect(page.getByTestId("evidence-est1-caveat")).toContainText(
       "Temporary draft estimate",
     );
-    await expect(page.getByTestId("est1-draft-caveat")).toHaveAttribute(
+    await expect(page.getByTestId("evidence-est1-caveat")).toHaveAttribute(
       "data-draft-caveat",
       /Motherboard/,
     );
 
     for (const res of ["1080p", "1440p", "4k"] as const) {
-      await expect(page.getByTestId(`perf-row-${res}`)).toHaveAttribute(
-        "data-evidence-class",
-        "est1-unavailable",
-      );
-      await expect(page.getByTestId(`perf-evidence-class-${res}`)).toContainText(
-        "unavailable (est1)",
-      );
-      await expect(page.getByTestId(`perf-est1-unavailable-${res}`)).toBeVisible();
-      await expect(page.getByTestId(`perf-est1-caveat-${res}`)).toContainText(
-        "not modeled",
-      );
-      await expect(page.getByTestId(`perf-synthetic-label-${res}`)).toContainText(
-        "not an est1 estimate",
-      );
-    }
-
-    // Outer residual still shows perf1 stub range for 1080p
-    await expect(page.getByTestId("perf-range-1080p")).toHaveText("80–95 FPS");
-
-    const evidenceDetails = page.getByTestId("evidence-details");
-    if (!(await evidenceDetails.getAttribute("open"))) {
-      await evidenceDetails.locator(":scope > summary").click();
-    }
-
-    await expect(page.getByTestId("evidence-est1-caveat")).toBeVisible();
-    for (const res of ["1080p", "1440p", "4k"] as const) {
       await expect(page.getByTestId(`evidence-est1-${res}`)).toHaveAttribute(
         "data-status",
         "unavailable",
       );
+      // The reason is stated, never replaced by a number (Charter §2).
+      await expect(
+        page.getByTestId(`evidence-est1-unavailable-${res}`),
+      ).toContainText("unavailable (");
+      await expect(page.getByTestId(`evidence-external-${res}`)).toHaveAttribute(
+        "data-display-class",
+        "synthetic-perf1",
+      );
     }
+
+    // Outer residual still shows the perf1 stub range for 1080p, and the
+    // surface labels it as a demo estimate rather than an est1 one (spec R3).
+    await expect(page.getByTestId("fps-1080p")).toContainText("80–95");
+    await expect(page.getByTestId("result-trust")).toContainText(
+      "Demo estimate, not measured",
+    );
   });
 
   test("non-pilot build does not activate est1 overlay", async ({ page }) => {
     await page.goto(fullVs2Query({ gpu: "gpu.rtx4080" }));
     await waitForPhase41Ready(page);
 
-    await expect(page.getByTestId("est1-draft-caveat")).toHaveCount(0);
-    await expect(page.getByTestId("perf-row-1080p")).toHaveAttribute(
-      "data-sidecar",
-      "off",
+    await expect(page.getByTestId("evidence-est1-caveat")).toHaveCount(0);
+    await expect(page.getByTestId("evidence-disclosure-panel")).toHaveAttribute(
+      "data-pilot-active",
+      "false",
     );
   });
 });

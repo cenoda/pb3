@@ -24,9 +24,11 @@ function ViewportError({ message }: { message: string }) {
         alignItems: "center",
         justifyContent: "center",
         background: "#1a1a1a",
-        color: "#f87171",
-        padding: "1rem",
+        color: "#e5e7eb",
+        padding: "1.5rem",
         textAlign: "center",
+        fontSize: "0.95rem",
+        lineHeight: 1.5,
       }}
     >
       {message}
@@ -56,10 +58,10 @@ class GlbErrorBoundary extends Component<
 
   render() {
     if (this.state.error) {
+      // The technical cause is logged in componentDidCatch; the user gets a
+      // sentence they can act on (spec R4).
       return (
-        <ViewportError
-          message={`Failed to load assembly model: ${this.state.error.message}`}
-        />
+        <ViewportError message="The 3D view of this build could not be loaded. Reload the page to try again." />
       );
     }
     return this.props.children;
@@ -100,21 +102,24 @@ export function BuildViewport({
       data-assembly-poses={poseAttr(poses)}
       style={{
         width: "100%",
-        height: "min(52vh, 480px)",
-        minHeight: "380px",
+        height: "100%",
+        borderRadius: "0.5rem",
+        overflow: "hidden",
         background: "#111",
       }}
     >
       {poses.length === 0 ? (
-        <ViewportError message="Physical assembly unavailable — no mounted poses." />
+        <ViewportError message="These parts cannot be put together, so there is nothing to show here yet. Change a part to see the build." />
       ) : (
         <GlbErrorBoundary resetKey={resetKey}>
-          <Canvas camera={{ position: [560, 380, 680], fov: 42 }}>
+          {/* Framed for the full-height stage: the old [560,380,680]/42° pose
+              was tuned for a 480 px-tall panel and crops the case here. */}
+          <Canvas camera={{ position: [820, 560, 980], fov: 38, far: 6000 }}>
             <color attach="background" args={["#1a1a1a"]} />
             <ambientLight intensity={0.6} />
             <directionalLight position={[100, 200, 100]} intensity={1.2} />
             <AssemblyModel poses={poses} catalog={catalog} />
-            <OrbitControls makeDefault target={[0, 110, 0]} />
+            <OrbitControls makeDefault target={[0, 220, 0]} />
           </Canvas>
         </GlbErrorBoundary>
       )}

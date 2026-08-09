@@ -3,7 +3,8 @@
 Derived from [`specs/phase-5.md`](./specs/phase-5.md). Required by the
 "plan before code" rule in [`../README.md`](../README.md).
 
-Status: **Accepted 2026-08-09; implementation started.** Owner decisions
+Status: **Steps 1–8 complete 2026-08-09** — record and deviations in
+[`STEPS.md`](./STEPS.md). Step 9 (owner walkthrough) open. Owner decisions
 **D1–D4 locked** (spec §6).
 
 ---

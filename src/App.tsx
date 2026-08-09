@@ -1,18 +1,44 @@
+/*
+ * Phase 5 product surface.
+ *
+ * Layout: header / parts rail / dominant 3D stage / result bar.
+ * Regions not yet built are placeholders; see
+ * docs/phases/phase-5/implementation_plan.md.
+ */
+
 import { useEffect, useMemo, useState } from "react";
-import { loadCompat2Examples } from "./catalog/loadCompat2Fixtures";
 import { loadPartCatalog } from "./catalog/loadPartCatalog";
 import {
   loadPerf1Fixtures,
   type Perf1Fixtures,
 } from "./catalog/loadPerf1Fixtures";
 import { buildCompatibilityReport } from "./compat/buildCompatibilityReport";
-import { loadPriceFixtures } from "./price/loadPriceFixtures";
-import { buildPriceSummary } from "./price/buildPriceSummary";
 import type { PriceFixtureFile } from "./contract/compat2";
+import type {
+  WorkloadEstimateResult,
+  WorkloadId,
+  WorkloadMetric,
+} from "./contract/perf1";
 import type { CoolingEvidenceFile, PhysicalSpec } from "./contract/phys3";
+import { estimateWorkload } from "./perf/estimateWorkload";
+import { buildCoolingCorrectionInput } from "./physical/cooling/buildCoolingCorrectionInput";
+import { loadCoolingEvidence } from "./physical/cooling/loadCoolingEvidence";
+import { buildPilotDisclosureReport } from "./provenance/buildPilotDisclosureReport";
+import { PHASE0_GAME, PHASE0_PRESET } from "./contract/vs0";
+import type { BuildStateV2, PartCategoryV2 } from "./contract/vs2";
+import {
+  loadEst1Fixtures,
+  type Est1Fixtures,
+} from "./estimate/loadEst1Fixtures";
+import { buildAssemblyState } from "./physical/buildAssemblyState";
+import { buildPhysicalValidationReport } from "./physical/buildPhysicalValidationReport";
+import type { GlbPhysicalIndex } from "./physical/indexGlbPhysicalNodes";
+import { loadGlbPhysicalIndexes } from "./physical/loadGlbPhysicalIndexes";
+import { buildPriceSummary } from "./price/buildPriceSummary";
+import { loadPriceFixtures } from "./price/loadPriceFixtures";
+import { loadProv4Fixtures, type Prov4Fixtures } from "./provenance/loadProv4Fixtures";
 import { useAssemblyStore } from "./state/assemblyStore";
 import { useBuildStore } from "./state/buildStore";
-import { usePerfPanelStore } from "./state/perfPanelState";
 import {
   buildStateFromSearchParams,
   replaceUrlWithBuildState,
@@ -22,55 +48,46 @@ import {
   DEFAULT_BUILD_STATE,
   type PartCatalog,
 } from "./state/validateBuildState";
-import { buildAssemblyState } from "./physical/buildAssemblyState";
-import { buildPhysicalValidationReport } from "./physical/buildPhysicalValidationReport";
-import { buildCoolingCorrectionInput } from "./physical/cooling/buildCoolingCorrectionInput";
-import { loadCoolingEvidence } from "./physical/cooling/loadCoolingEvidence";
-import type { GlbPhysicalIndex } from "./physical/indexGlbPhysicalNodes";
-import { loadGlbPhysicalIndexes } from "./physical/loadGlbPhysicalIndexes";
-import { buildPilotDisclosureReport } from "./provenance/buildPilotDisclosureReport";
-import {
-  loadProv4Fixtures,
-  type Prov4Fixtures,
-} from "./provenance/loadProv4Fixtures";
-import {
-  loadEst1Fixtures,
-  type Est1Fixtures,
-} from "./estimate/loadEst1Fixtures";
-import { BuildResultSummary } from "./ui/BuildResultSummary";
-import { BuildSummary } from "./ui/BuildSummary";
-import { buildResultSummaryModel } from "./ui/buildResultSummaryModel";
-import { CompatibilityPanel } from "./ui/CompatibilityPanel";
-import { computeFpsSummaryChips } from "./ui/computeFpsSummaryChips";
-import { CoolingEvidencePanel } from "./ui/CoolingEvidencePanel";
-import { EvidenceDisclosurePanel } from "./ui/EvidenceDisclosurePanel";
-import { MountControls } from "./ui/MountControls";
-import { PartFilterControls } from "./ui/PartFilterControls";
-import { PartSelector } from "./ui/PartSelector";
-import { DEFAULT_PART_FILTERS, listFilteredParts } from "./ui/partFilters";
-import type { PartFilters } from "./ui/partFilters";
-import { PerformancePanel } from "./ui/PerformancePanel";
-import { PhysicalValidationPanel } from "./ui/PhysicalValidationPanel";
-import { PriceSummaryPanel } from "./ui/PriceSummaryPanel";
+import { BuildActions } from "./ui/BuildActions";
+import { buildVerdict } from "./ui/buildVerdict";
+import { PartPicker } from "./ui/PartPicker";
+import { computePerformanceRows } from "./ui/performanceRows";
+import { PerformanceSettings } from "./ui/PerformanceSettings";
+import { ResultBar } from "./ui/ResultBar";
+import { WhyThisResult } from "./ui/WhyThisResult";
 import { BuildViewport } from "./viewport/BuildViewport";
+import { usePerfPanelStore } from "./state/perfPanelState";
 
 type BootState =
   | { status: "loading" }
-  | { status: "error"; message: string }
+  | { status: "error" }
   | {
       status: "ready";
       catalog: PartCatalog;
+      glbIndexes: Map<string, GlbPhysicalIndex>;
       perf1Fixtures: Perf1Fixtures;
       priceFixtures: PriceFixtureFile;
-      glbIndexes: Map<string, GlbPhysicalIndex>;
       coolingEvidence: CoolingEvidenceFile;
       prov4Fixtures: Prov4Fixtures;
       est1Fixtures: Est1Fixtures;
     };
 
+const PART_SLOTS: {
+  category: PartCategoryV2;
+  label: string;
+  testId: string;
+}[] = [
+  { category: "case", label: "Case", testId: "case-select" },
+  { category: "motherboard", label: "Motherboard", testId: "motherboard-select" },
+  { category: "cpu", label: "Processor", testId: "cpu-select" },
+  { category: "gpu", label: "Graphics card", testId: "gpu-select" },
+  { category: "cooler", label: "CPU cooler", testId: "cooler-select" },
+  { category: "ram", label: "Memory", testId: "ram-part-select" },
+  { category: "psu", label: "Power supply", testId: "psu-select" },
+];
+
 export default function App() {
   const [boot, setBoot] = useState<BootState>({ status: "loading" });
-  const [filters, setFilters] = useState<PartFilters>(DEFAULT_PART_FILTERS);
   const buildState = useBuildStore((store) => store.buildState);
   const initialized = useBuildStore((store) => store.initialized);
   const init = useBuildStore((store) => store.init);
@@ -81,13 +98,25 @@ export default function App() {
   const setCooler = useBuildStore((store) => store.setCooler);
   const setRam = useBuildStore((store) => store.setRam);
   const setPsu = useBuildStore((store) => store.setPsu);
-
   const coolerOrientationId = useAssemblyStore((s) => s.coolerOrientationId);
   const setCoolerOrientation = useAssemblyStore((s) => s.setCoolerOrientation);
   const resetMounts = useAssemblyStore((s) => s.resetToAuto);
-
   const perfDimensions = usePerfPanelStore((s) => s.dimensions);
   const perfCorrection = usePerfPanelStore((s) => s.correction);
+  const setUpscaleId = usePerfPanelStore((s) => s.setUpscaleId);
+  const setFrameGenId = usePerfPanelStore((s) => s.setFrameGenId);
+  const setCorrection = usePerfPanelStore((s) => s.setCorrection);
+  const resetCorrection = usePerfPanelStore((s) => s.resetCorrection);
+
+  const setters: Record<PartCategoryV2, (partId: string) => void> = {
+    case: setCase,
+    motherboard: setMotherboard,
+    cpu: setCpu,
+    gpu: setGpu,
+    cooler: setCooler,
+    ram: setRam,
+    psu: setPsu,
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -109,15 +138,12 @@ export default function App() {
           loadProv4Fixtures(),
           loadEst1Fixtures(),
         ]);
-        await loadCompat2Examples();
         const glbIndexes = await loadGlbPhysicalIndexes(catalog);
-
         if (cancelled) return;
 
         const isValid = createBuildStateValidator(catalog);
-        const params = new URLSearchParams(window.location.search);
         const decoded = buildStateFromSearchParams(
-          params,
+          new URLSearchParams(window.location.search),
           DEFAULT_BUILD_STATE,
           isValid,
         );
@@ -128,18 +154,17 @@ export default function App() {
         setBoot({
           status: "ready",
           catalog,
+          glbIndexes,
           perf1Fixtures,
           priceFixtures,
-          glbIndexes,
           coolingEvidence,
           prov4Fixtures,
           est1Fixtures,
         });
       } catch (error) {
         if (cancelled) return;
-        const message =
-          error instanceof Error ? error.message : "Unknown boot error";
-        setBoot({ status: "error", message });
+        console.error("pb3 boot failed", error);
+        setBoot({ status: "error" });
       }
     }
 
@@ -150,6 +175,7 @@ export default function App() {
     };
   }, [init]);
 
+  // The URL is the share format (spec R6): every change is written back to it.
   useEffect(() => {
     if (!initialized) return;
 
@@ -163,16 +189,6 @@ export default function App() {
     });
   }, [initialized]);
 
-  const compatibilityReport = useMemo(() => {
-    if (boot.status !== "ready" || !buildState) return null;
-    return buildCompatibilityReport(buildState, boot.catalog);
-  }, [boot, buildState]);
-
-  const priceSummary = useMemo(() => {
-    if (boot.status !== "ready" || !buildState) return null;
-    return buildPriceSummary(buildState, boot.priceFixtures);
-  }, [boot, buildState]);
-
   const assembly = useMemo(() => {
     if (boot.status !== "ready" || !buildState) return null;
     return buildAssemblyState(buildState, boot.catalog, boot.glbIndexes, {
@@ -181,34 +197,60 @@ export default function App() {
   }, [boot, buildState, coolerOrientationId]);
 
   const physicalReport = useMemo(() => {
-    if (boot.status !== "ready" || !assembly || !buildState) return null;
+    if (boot.status !== "ready" || !assembly) return null;
     return buildPhysicalValidationReport({
       assembly,
       partsById: boot.catalog.byId,
       glbIndexes: boot.glbIndexes,
     });
-  }, [boot, assembly, buildState]);
+  }, [boot, assembly]);
 
-  const coolingResult = useMemo(() => {
-    if (
-      boot.status !== "ready" ||
-      !assembly ||
-      !physicalReport ||
-      !buildState
-    ) {
+  const compatibilityReport = useMemo(() => {
+    if (boot.status !== "ready" || !buildState) return null;
+    return buildCompatibilityReport(buildState, boot.catalog);
+  }, [boot, buildState]);
+
+  const verdict = useMemo(() => {
+    if (boot.status !== "ready" || !compatibilityReport || !physicalReport) {
       return null;
     }
-    const buildPartIds = [
-      buildState.caseId,
-      buildState.motherboardId,
-      buildState.cpuId,
-      buildState.gpuId,
-      buildState.coolerId,
-      buildState.ramId,
-      buildState.psuId,
-    ];
+    const catalog = boot.catalog;
+    return buildVerdict({
+      compatibility: compatibilityReport,
+      physical: physicalReport,
+      nameOf: (partId) => catalog.get(partId)?.displayName ?? partId,
+    });
+  }, [boot, compatibilityReport, physicalReport]);
+
+  /*
+   * Spec R1: an impossible build presents no performance and no price. The gate
+   * is here, before the numbers are computed, so nothing downstream can leak a
+   * result the build cannot achieve.
+   */
+  const performance = useMemo(() => {
+    if (boot.status !== "ready" || !buildState || !verdict?.showResults) {
+      return null;
+    }
+    return {
+      gameName: PHASE0_GAME.displayName,
+      presetName: PHASE0_PRESET.displayName,
+      rows: computePerformanceRows({
+        buildState,
+        perf1Fixtures: boot.perf1Fixtures,
+        dimensions: perfDimensions,
+        correction: perfCorrection,
+        prov4Fixtures: boot.prov4Fixtures,
+        est1Fixtures: boot.est1Fixtures,
+      }),
+    };
+  }, [boot, buildState, verdict, perfDimensions, perfCorrection]);
+
+  const coolingResult = useMemo(() => {
+    if (boot.status !== "ready" || !assembly || !physicalReport || !buildState) {
+      return null;
+    }
     return buildCoolingCorrectionInput({
-      buildPartIds,
+      buildPartIds: partIdsOf(buildState),
       mountSelections: assembly.assemblyState.mountSelections,
       geometryDataVersion: assembly.geometryDataVersion,
       physicalReport,
@@ -220,19 +262,8 @@ export default function App() {
   const disclosureReport = useMemo(() => {
     if (boot.status !== "ready" || !buildState) return null;
     const physicalSpecsByPartId = new Map<string, PhysicalSpec | undefined>();
-    for (const partId of [
-      buildState.caseId,
-      buildState.motherboardId,
-      buildState.cpuId,
-      buildState.gpuId,
-      buildState.coolerId,
-      buildState.ramId,
-      buildState.psuId,
-    ]) {
-      physicalSpecsByPartId.set(
-        partId,
-        boot.catalog.byId.get(partId)?.physicalSpec,
-      );
+    for (const partId of partIdsOf(buildState)) {
+      physicalSpecsByPartId.set(partId, boot.catalog.byId.get(partId)?.physicalSpec);
     }
     return buildPilotDisclosureReport({
       state: buildState,
@@ -249,264 +280,194 @@ export default function App() {
     });
   }, [boot, buildState]);
 
-  const resultSummary = useMemo(() => {
-    if (
-      boot.status !== "ready" ||
-      !buildState ||
-      !compatibilityReport ||
-      !physicalReport ||
-      !priceSummary ||
-      !disclosureReport
-    ) {
+  const workloads = useMemo(() => {
+    if (boot.status !== "ready" || !buildState) return [];
+    const rows: Array<{
+      workloadId: WorkloadId;
+      metric: WorkloadMetric;
+      result: WorkloadEstimateResult;
+    }> = [];
+    for (const workloadId of WORKLOAD_IDS) {
+      for (const metric of WORKLOAD_METRICS) {
+        rows.push({
+          workloadId,
+          metric,
+          result: estimateWorkload(
+            { cpuId: buildState.cpuId as never, workloadId, metric },
+            boot.perf1Fixtures.cinebench,
+          ),
+        });
+      }
+    }
+    return rows;
+  }, [boot, buildState]);
+
+  const price = useMemo(() => {
+    if (boot.status !== "ready" || !buildState || !verdict?.showResults) {
       return null;
     }
-    const fpsChips = computeFpsSummaryChips({
-      buildState,
-      perf1Fixtures: boot.perf1Fixtures,
-      dimensions: perfDimensions,
-      correction: perfCorrection,
-      prov4Fixtures: boot.prov4Fixtures,
-      est1Fixtures: boot.est1Fixtures,
-    });
-    return buildResultSummaryModel({
-      compatibility: compatibilityReport,
-      physical: physicalReport,
-      price: priceSummary,
-      fpsChips,
-      isPilotBuild: disclosureReport.isPilotBuild,
-    });
-  }, [
-    boot,
-    buildState,
-    compatibilityReport,
-    physicalReport,
-    priceSummary,
-    disclosureReport,
-    perfDimensions,
-    perfCorrection,
-  ]);
+    return buildPriceSummary(buildState, boot.priceFixtures);
+  }, [boot, buildState, verdict]);
 
-  if (boot.status === "loading") {
-    return <main className="app-shell">Loading fixtures…</main>;
-  }
-
-  if (boot.status === "error") {
-    return (
-      <main className="app-shell">
-        <h1>pb3 — PC Builder</h1>
-        <p style={{ color: "#b91c1c" }}>
-          Failed to load fixtures: {boot.message}
-        </p>
-      </main>
+  const railContent =
+    boot.status === "loading" ? (
+      <p className="rail-message" data-testid="rail-loading">
+        Getting the parts list ready…
+      </p>
+    ) : boot.status === "error" ? (
+      <p className="rail-message" data-testid="rail-error">
+        We could not load the parts list. Reload the page to try again.
+      </p>
+    ) : !buildState ? (
+      <p className="rail-message">Getting the parts list ready…</p>
+    ) : (
+      PART_SLOTS.map((slot) => (
+        <PartPicker
+          key={slot.category}
+          label={slot.label}
+          testId={slot.testId}
+          value={selectedPartId(buildState, slot.category)}
+          options={boot.catalog.getByCategory(slot.category)}
+          onChange={setters[slot.category]}
+        />
+      ))
     );
-  }
-
-  if (
-    !buildState ||
-    !compatibilityReport ||
-    !priceSummary ||
-    !assembly ||
-    !physicalReport ||
-    !coolingResult ||
-    !disclosureReport ||
-    !resultSummary
-  ) {
-    return <main className="app-shell">Initializing build state…</main>;
-  }
-
-  const catalog = boot.catalog;
-  const poses = assembly.parts
-    .filter((p) => p.transform)
-    .map((p) => ({ partId: p.partId, transform: p.transform! }));
-
-  const selectorProps = (
-    category: "case" | "motherboard" | "cpu" | "gpu" | "cooler" | "ram" | "psu",
-    label: string,
-    testId: string,
-    value: string,
-    onChange: (id: string) => void,
-  ) => ({
-    label,
-    testId,
-    value,
-    options: listFilteredParts(catalog, category, filters).map((part) => ({
-      id: part.id,
-      displayName: part.displayName,
-    })),
-    onChange,
-  });
 
   return (
-    <main className="app-shell" data-testid="app-shell">
-      <header className="app-header">
-        <h1>pb3 — PC Builder</h1>
+    <div className="app" data-testid="app">
+      <header className="app-header" data-testid="app-header">
+        <h1 className="app-title">pb3 — PC Builder</h1>
+        <BuildActions
+          disabled={boot.status !== "ready" || !buildState}
+          onReset={() => init(DEFAULT_BUILD_STATE)}
+        />
       </header>
 
-      <div className="builder-stage" data-testid="builder-stage">
-        <section className="builder-controls" data-testid="builder-controls">
-          <details className="panel" data-testid="filters-details">
-            <summary style={{ fontWeight: 600, fontSize: "0.95rem" }}>
-              Filters
-            </summary>
-            <PartFilterControls filters={filters} onChange={setFilters} />
-          </details>
+      <div className="app-body">
+        <aside className="parts-rail" data-testid="parts-rail">
+          <h2 className="rail-heading">Parts</h2>
+          {railContent}
+        </aside>
 
-          <div className="panel">
-            <h2 style={{ marginTop: 0, fontSize: "0.95rem" }}>Parts</h2>
-            <div className="selector-grid">
-              <PartSelector
-                {...selectorProps(
-                  "case",
-                  "Case",
-                  "case-select",
-                  buildState.caseId,
-                  setCase,
-                )}
+        <div className="stage">
+          <section className="viewport-area" data-testid="viewport-area">
+            {boot.status === "ready" &&
+            buildState &&
+            assembly &&
+            physicalReport ? (
+              <BuildViewport
+                gpuId={buildState.gpuId}
+                catalog={boot.catalog}
+                poses={assembly.parts
+                  .filter((part) => part.transform)
+                  .map((part) => ({
+                    partId: part.partId,
+                    transform: part.transform!,
+                  }))}
+                assemblyStatus={physicalReport.overallStatus}
               />
-              <PartSelector
-                {...selectorProps(
-                  "motherboard",
-                  "Motherboard",
-                  "motherboard-select",
-                  buildState.motherboardId,
-                  setMotherboard,
-                )}
-              />
-              <PartSelector
-                {...selectorProps(
-                  "cpu",
-                  "CPU",
-                  "cpu-select",
-                  buildState.cpuId,
-                  setCpu,
-                )}
-              />
-              <PartSelector
-                {...selectorProps(
-                  "gpu",
-                  "GPU",
-                  "gpu-select",
-                  buildState.gpuId,
-                  setGpu,
-                )}
-              />
-              <PartSelector
-                {...selectorProps(
-                  "cooler",
-                  "Cooler",
-                  "cooler-select",
-                  buildState.coolerId,
-                  setCooler,
-                )}
-              />
-              <PartSelector
-                {...selectorProps(
-                  "ram",
-                  "RAM",
-                  "ram-part-select",
-                  buildState.ramId,
-                  setRam,
-                )}
-              />
-              <PartSelector
-                {...selectorProps(
-                  "psu",
-                  "PSU",
-                  "psu-select",
-                  buildState.psuId,
-                  setPsu,
-                )}
-              />
-            </div>
-          </div>
+            ) : (
+              <div className="viewport-loading" data-testid="viewport-loading">
+                {boot.status === "error"
+                  ? "The 3D view is unavailable because the parts list did not load."
+                  : "Putting your build together…"}
+              </div>
+            )}
+          </section>
 
-          <BuildResultSummary model={resultSummary} />
-
-          <div className="details-stack" data-testid="builder-details">
-            <details className="panel-details" data-testid="mount-details">
-              <summary>Mount controls</summary>
-              <MountControls
-                coolerOrientationId={coolerOrientationId}
-                onCoolerOrientationChange={setCoolerOrientation}
-                onReset={resetMounts}
+          <section className="result-bar" data-testid="result-bar">
+            {verdict &&
+            boot.status === "ready" &&
+            compatibilityReport &&
+            physicalReport &&
+            coolingResult &&
+            disclosureReport ? (
+              <ResultBar
+                verdict={verdict}
+                performance={
+                  performance
+                    ? {
+                        ...performance,
+                        settings: (
+                          <PerformanceSettings
+                            dimensions={perfDimensions}
+                            onUpscaleChange={setUpscaleId}
+                            onFrameGenChange={setFrameGenId}
+                          />
+                        ),
+                      }
+                    : null
+                }
+                price={price}
+                why={
+                  <WhyThisResult
+                    compatibility={compatibilityReport}
+                    physical={physicalReport}
+                    cooling={coolingResult}
+                    price={price}
+                    disclosure={disclosureReport}
+                    prov4Fixtures={boot.prov4Fixtures}
+                    est1Fixtures={boot.est1Fixtures}
+                    workloads={workloads}
+                    coolerOrientationId={coolerOrientationId}
+                    onCoolerOrientationChange={setCoolerOrientation}
+                    onResetMounts={resetMounts}
+                    correction={perfCorrection}
+                    onCorrectionChange={setCorrection}
+                    onResetCorrection={resetCorrection}
+                  />
+                }
               />
-            </details>
-
-            <details
-              className="panel-details"
-              data-testid="build-parts-details"
-            >
-              <summary>Build parts list</summary>
-              <BuildSummary buildState={buildState} catalog={catalog} />
-            </details>
-
-            <details
-              className="panel-details domain-details"
-              data-testid="compatibility-domain-details"
-            >
-              <summary>Compatibility details</summary>
-              <CompatibilityPanel report={compatibilityReport} />
-            </details>
-            <details
-              className="panel-details domain-details"
-              data-testid="evidence-domain-details"
-            >
-              <summary>Evidence details</summary>
-              <EvidenceDisclosurePanel
-                report={disclosureReport}
-                est1Fixtures={boot.est1Fixtures}
-                prov4Fixtures={boot.prov4Fixtures}
-              />
-            </details>
-            <details
-              className="panel-details domain-details"
-              data-testid="physical-domain-details"
-            >
-              <summary>Fit details</summary>
-              <PhysicalValidationPanel report={physicalReport} />
-            </details>
-            <details
-              className="panel-details domain-details"
-              data-testid="cooling-domain-details"
-            >
-              <summary>Cooling details</summary>
-              <CoolingEvidencePanel result={coolingResult} mode="physical" />
-            </details>
-            <details
-              className="panel-details domain-details"
-              data-testid="price-domain-details"
-            >
-              <summary>Price details</summary>
-              <PriceSummaryPanel summary={priceSummary} />
-            </details>
-            <details
-              className="panel-details domain-details"
-              data-testid="performance-domain-details"
-            >
-              <summary>Performance details</summary>
-              <PerformancePanel
-                buildState={buildState}
-                perf1Fixtures={boot.perf1Fixtures}
-                prov4Fixtures={boot.prov4Fixtures}
-                est1Fixtures={boot.est1Fixtures}
-              />
-            </details>
-          </div>
-        </section>
-
-        <section
-          className="builder-viewport-column"
-          data-testid="viewport-section"
-        >
-          <h2>Assembly</h2>
-          <BuildViewport
-            gpuId={buildState.gpuId}
-            catalog={catalog}
-            poses={poses}
-            assemblyStatus={physicalReport.overallStatus}
-          />
-        </section>
+            ) : (
+              <p className="rail-message">
+                {boot.status === "error"
+                  ? "Results are unavailable because the parts list did not load."
+                  : "Checking your build…"}
+              </p>
+            )}
+          </section>
+        </div>
       </div>
-    </main>
+    </div>
   );
+}
+
+const WORKLOAD_IDS: WorkloadId[] = ["cinebench.r23", "cinebench.2024"];
+const WORKLOAD_METRICS: WorkloadMetric[] = [
+  "metric.single-core",
+  "metric.multi-core",
+];
+
+function partIdsOf(buildState: BuildStateV2): string[] {
+  return [
+    buildState.caseId,
+    buildState.motherboardId,
+    buildState.cpuId,
+    buildState.gpuId,
+    buildState.coolerId,
+    buildState.ramId,
+    buildState.psuId,
+  ];
+}
+
+function selectedPartId(
+  buildState: BuildStateV2,
+  category: PartCategoryV2,
+): string {
+  switch (category) {
+    case "case":
+      return buildState.caseId;
+    case "motherboard":
+      return buildState.motherboardId;
+    case "cpu":
+      return buildState.cpuId;
+    case "gpu":
+      return buildState.gpuId;
+    case "cooler":
+      return buildState.coolerId;
+    case "ram":
+      return buildState.ramId;
+    case "psu":
+      return buildState.psuId;
+  }
 }

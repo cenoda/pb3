@@ -10,7 +10,7 @@ Per-phase working areas (specs, TODO, fix log). Cross-cutting project docs stay 
 | Phase 3 — 3D assembly and physical validation | [`phase-3/`](./phase-3/) | Complete (2026-08-08); `phys3` closed out (`acd038b`) |
 | Phase 4 — Evidence-grade data and validation | [`phase-4/`](./phase-4/) | **Frozen** 2026-08-09 ([`FREEZE.md`](./phase-4/FREEZE.md)); prov4 + external evidence shipped; Step 9 not claimed |
 | Phase 4.1 — Combination performance estimator (sub-path) | [`phase-4.1/`](./phase-4.1/) | **Frozen** with Phase 4; `est1` M0 + AMD specs catalog spine shipped; full sim paused; not Phase 5 |
-| Phase 5 — Product surface | [`phase-5/`](./phase-5/) | **In implementation** — M0 accepted 2026-08-09. Presentation only; engines read-only |
+| Phase 5 — Product surface | [`phase-5/`](./phase-5/) | **Steps 1–8 built 2026-08-09**; owner walkthrough (Step 9) open. Presentation only; engines read-only |
 
 Fixture data remains at repo root: `parts/`, `benchmarks/` (not moved into phase folders).
 

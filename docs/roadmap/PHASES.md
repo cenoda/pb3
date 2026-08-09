@@ -57,7 +57,8 @@ silently break frozen `prov4`/`est1` contracts.
    - 새 계약 없음. 표시 계층만 교체하고 엔진은 읽기 전용.
    - 종료 조건은 헌장 0단계와 같은 문법 — 계약 준수가 아니라 **사용자 동작 5개**,
      오너가 브라우저에서 직접 수행해 판정한다.
-   - 상태: **M0 범위 오너 수락 (2026-08-09), 결정 D1–D4 확정, 구현 진행 중.**
+   - 상태: **구현 Steps 1–8 완료 (2026-08-09).** 기록: `docs/phases/phase-5/STEPS.md`.
+     Step 9(오너 브라우저 walkthrough)는 열려 있고, 그것이 통과 판정 기준이다.
 
 ### Corrective gate (closed — Phase 5로 흡수)
 

@@ -2,8 +2,8 @@
 
 The phase that turns the Phase 0–4 engines into something a stranger can use.
 
-**Status: M0 scope accepted by the owner 2026-08-09, decisions D1–D4 locked,
-implementation started.**
+**Status: Steps 1–8 implemented and verified 2026-08-09. Step 9 (owner
+walkthrough) is open — the phase is not passed until the owner performs it.**
 
 This phase changes **no engine, no contract, and no data** — the display layer
 only.
@@ -12,6 +12,8 @@ only.
 |----------|---------|
 | [`specs/phase-5.md`](./specs/phase-5.md) | Scope, exit conditions, screen composition, behaviour rules, out-of-scope list, owner decisions D1–D4 |
 | [`implementation_plan.md`](./implementation_plan.md) | Ordered build plan, deletion boundary, principal risk, verification |
+| [`STEPS.md`](./STEPS.md) | What was actually built, measurements, verification, deviations |
+| [`screenshots/`](./screenshots/) | One per step, plus the final surface at 1280 / 1440 / 1920 |
 | [`../../corrections/product-ux-2/AUDIT.md`](../../corrections/product-ux-2/AUDIT.md) | The evidence this phase answers (audit at `095f551`, verdict FAIL) |
 
 There is no separate contract document. This phase changes no contract.
@@ -32,8 +34,8 @@ on that alone. Green tests and accepted documents are inputs, not the gate.
 | M0 scope + plan drafted | **Done — 2026-08-09** |
 | Owner decisions D1–D4 | **Locked — 2026-08-09** |
 | Owner acceptance + explicit start instruction | **Done — 2026-08-09** |
-| Implementation Steps 1–8 | In progress |
-| Owner walkthrough (Step 9) | Not started |
+| Implementation Steps 1–8 | **Done — 2026-08-09** ([`STEPS.md`](./STEPS.md)) |
+| Owner walkthrough (Step 9) | **Open — the gate** |
 
 ## Relationship to other work
 

@@ -19,27 +19,17 @@ function fullVs2Query(overrides: Record<string, string> = {}): string {
 
 async function waitForPhase4Ready(page: Page) {
   await expect(page.getByTestId("case-select")).toBeVisible();
-  for (const testId of [
-    "evidence-domain-details",
-    "performance-domain-details",
-    "physical-domain-details",
-    "cooling-domain-details",
-  ]) {
-    const details = page.getByTestId(testId);
-    if (!(await details.getAttribute("open"))) {
-      await details.locator(":scope > summary").click();
-    }
-  }
+  await openWhy(page);
   await expect(page.getByTestId("evidence-disclosure-panel")).toBeVisible();
-  await expect(page.getByTestId("performance-panel")).toBeVisible();
   await expect(page.getByTestId("physical-validation-panel")).toBeVisible();
   await expect(page.getByTestId("cooling-evidence-panel")).toBeVisible();
 }
 
-async function openEvidenceDetails(page: Page) {
-  const details = page.getByTestId("evidence-details");
-  if (!(await details.getAttribute("open"))) {
-    await details.locator(":scope > summary").click();
+async function openWhy(page: Page) {
+  const why = page.getByTestId("why-this-result");
+  // An open <details> reports open="" — check for null, not falsiness.
+  if ((await why.getAttribute("open")) === null) {
+    await why.locator(":scope > summary").click();
   }
 }
 
@@ -54,20 +44,17 @@ test.describe("Phase 4 pilot evidence scenario", () => {
       "data-pilot-active",
       "true",
     );
-    await expect(page.getByTestId("perf-sidecar-active")).toBeVisible();
-
     for (const res of ["1080p", "1440p", "4k"] as const) {
-      // Phase 4.1: est1 primary path; empty corpus → unavailable + outer synthetic residual
-      await expect(page.getByTestId(`perf-row-${res}`)).toHaveAttribute(
-        "data-evidence-class",
-        "est1-unavailable",
+      // Phase 4.1: est1 primary path; empty corpus → unavailable + outer
+      // synthetic residual. Phase 5 states this inside the disclosure.
+      await expect(page.getByTestId(`evidence-est1-${res}`)).toHaveAttribute(
+        "data-status",
+        "unavailable",
       );
-      await expect(page.getByTestId(`perf-evidence-class-${res}`)).toContainText(
-        "unavailable (est1)",
-      );
+      await expect(
+        page.getByTestId(`evidence-est1-unavailable-${res}`),
+      ).toBeVisible();
     }
-
-    await openEvidenceDetails(page);
 
     for (const res of ["1080p", "1440p", "4k"] as const) {
       await expect(page.getByTestId(`evidence-external-${res}`)).toHaveAttribute(
@@ -82,12 +69,12 @@ test.describe("Phase 4 pilot evidence scenario", () => {
       ).toBeVisible();
     }
 
-    await expect(page.getByTestId("perf-range-1080p")).toHaveText("80–95 FPS");
-    await expect(page.getByTestId("perf-evidence-class-1080p")).toContainText(
-      "unavailable (est1)",
-    );
-    await expect(page.getByTestId("perf-synthetic-label-1080p")).toContainText(
-      "not an est1 estimate",
+    // The number shown to the user is the perf1 synthetic residual, and the
+    // surface says so in user language instead of "not an est1 estimate"
+    // (spec R3).
+    await expect(page.getByTestId("fps-1080p")).toContainText("80–95");
+    await expect(page.getByTestId("result-trust")).toContainText(
+      "Demo estimate, not measured",
     );
 
     await expect(page.getByTestId("cooling-evidence-panel")).toHaveAttribute(
@@ -107,13 +94,8 @@ test.describe("Phase 4 pilot evidence scenario", () => {
       "data-pilot-active",
       "false",
     );
-    await expect(page.getByTestId("perf-sidecar-active")).toHaveCount(0);
-
-    await expect(page.getByTestId("perf-row-1440p")).toHaveAttribute(
-      "data-sidecar",
-      "off",
-    );
-    await expect(page.getByTestId("perf-range-1440p")).toHaveText("90–108 FPS");
+    await expect(page.getByTestId("evidence-est1-1440p")).toHaveCount(0);
+    await expect(page.getByTestId("fps-1440p")).toContainText("90–108");
   });
 
   test("dist serves benchmarks/prov4 fixtures including external observations", async ({
