@@ -8,7 +8,8 @@ Per-phase working areas (specs, TODO, fix log). Cross-cutting project docs stay 
 | Phase 1 — Performance prediction engine | [`phase-1/`](./phase-1/) | Complete; `perf1` stub engine verified and closed out |
 | Phase 2 — Basic estimate service | [`phase-2/`](./phase-2/) | Complete (2026-08-08); `vs2`/`compat2` engine implemented and verified |
 | Phase 3 — 3D assembly and physical validation | [`phase-3/`](./phase-3/) | Complete (2026-08-08); `phys3` closed out (`acd038b`) |
-| Phase 4 — Evidence-grade data and validation | [`phase-4/`](./phase-4/) | Original software path invalidated by false first-party claim; safety correction applied; external-evidence corrective plan under review |
+| Phase 4 — Evidence-grade data and validation | [`phase-4/`](./phase-4/) | External-evidence pipeline shipped (`6f0a306`); exact product FPS empty by design; Step 9 open |
+| Phase 4.1 — Combination performance estimator (sub-path) | [`phase-4.1/`](./phase-4.1/) | **Discussion only** — manufacturer-primary prediction function; not accepted; not Phase 5 |
 
 Fixture data remains at repo root: `parts/`, `benchmarks/` (not moved into phase folders).
 

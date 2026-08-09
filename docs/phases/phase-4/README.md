@@ -14,6 +14,10 @@ empty by design until owner Step 9 path is chosen.
 Owner-selected pilot path: **single-build evidence pilot** (see
 [`BRIEF.md`](./BRIEF.md) and [`specs/phase-4.md`](./specs/phase-4.md)).
 
+**Sub-path (not a closeout substitute):** combination prediction beyond exact
+match is discussed under [`../phase-4.1/`](../phase-4.1/) (manufacturer-primary
+estimator; discussion only).
+
 ## Layout
 
 ```text

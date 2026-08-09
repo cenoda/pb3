@@ -26,9 +26,17 @@ synthetic stub으로 되돌렸다. **외부 벤치마크 교정 패키지
 [`../corrections/phase4-external-evidence-1/`](../corrections/phase4-external-evidence-1/)
 Steps 1–5 구현 완료 (2026-08-09)** — aggregation engine, source-rights record,
 audit-only observation fixtures, UI disclosure; exact-match product FPS는 여전히
-unavailable → perf1 synthetic fallback. Step 9은 독립 재감사 + 소유자 PASS
-전까지 blocked. 후속 phase는 아직 M0로 계획되지 않았으며, Phase 4 closeout
-후 별도 스코프·계약·구현 계획 수락이 필요하다.
+unavailable → perf1 synthetic fallback. Step 9은 소유자 PASS 전까지 blocked.
+
+### Phase 4.1 sub-path (not Phase 5)
+
+Exact-only 외부 집계만으로는 임의 조합 예측이 불가능하다는 제품 판정 하에,
+**조합 성능 추정 함수** 논의를 위한 서브 경로를 연다 (2026-08-09).
+
+- 홈: [`../phases/phase-4.1/`](../phases/phase-4.1/)
+- 알고리즘 논의: [`../phases/phase-4.1/ALGORITHM_DISCUSSION.md`](../phases/phase-4.1/ALGORITHM_DISCUSSION.md)
+- 방향 시드: 제조사 공개 성능 기반 **조합 예측이 primary**, 신뢰 리뷰 관측은
+  **auxiliary**. 구현·M0 수락 전. Phase 5 아님.
 
 ### Corrective gate (not a charter phase)
 
