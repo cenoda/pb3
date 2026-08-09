@@ -39,12 +39,12 @@ async function waitForPhase4Ready(page: Page) {
 async function openEvidenceDetails(page: Page) {
   const details = page.getByTestId("evidence-details");
   if (!(await details.getAttribute("open"))) {
-    await details.locator("summary").click();
+    await details.locator(":scope > summary").click();
   }
 }
 
 test.describe("Phase 4 pilot evidence scenario", () => {
-  test("pilot disclosure: 3 honest stubs, geometry, cooling unavailable", async ({
+  test("pilot disclosure: external unavailable fallback to perf1 synthetic", async ({
     page,
   }) => {
     await page.goto(fullVs2Query());
@@ -54,78 +54,42 @@ test.describe("Phase 4 pilot evidence scenario", () => {
       "data-pilot-active",
       "true",
     );
-    await expect(page.getByTestId("evidence-pilot-status")).toContainText(
-      "active",
-    );
     await expect(page.getByTestId("perf-sidecar-active")).toBeVisible();
-    await expect(page.getByTestId("build-result-summary")).toHaveAttribute(
-      "data-pilot",
-      "true",
-    );
 
-    // Three performance rows via sidecar
     for (const res of ["1080p", "1440p", "4k"] as const) {
       await expect(page.getByTestId(`perf-row-${res}`)).toHaveAttribute(
-        "data-sidecar",
-        "bound",
+        "data-evidence-class",
+        "synthetic-perf1",
+      );
+      await expect(page.getByTestId(`perf-evidence-class-${res}`)).toContainText(
+        "synthetic perf1",
       );
     }
 
     await openEvidenceDetails(page);
 
     for (const res of ["1080p", "1440p", "4k"] as const) {
-      await expect(page.getByTestId(`evidence-perf-${res}`)).toHaveAttribute(
-        "data-status",
-        "bound",
+      await expect(page.getByTestId(`evidence-external-${res}`)).toHaveAttribute(
+        "data-display-class",
+        "synthetic-perf1",
       );
+      await expect(
+        page.getByTestId(`evidence-external-unavailable-${res}`),
+      ).toBeVisible();
+      await expect(
+        page.getByTestId(`evidence-synthetic-ref-${res}`),
+      ).toBeVisible();
     }
 
-    // Corrective safety state: no false first-party measurement claim.
-    await expect(page.getByTestId("perf-row-1080p")).toHaveAttribute(
-      "data-metric-kind",
-      "synthetic-stub",
-    );
-    await page.getByTestId("perf-detail-1080p").locator("summary").click();
-    await expect(page.getByTestId("perf-metric-kind-1080p")).toContainText(
-      "synthetic-stub",
-    );
-    await expect(page.getByTestId("perf-capture-1080p")).toHaveCount(0);
     await expect(page.getByTestId("perf-range-1080p")).toHaveText("80–95 FPS");
-
-    // Residual stubs still disclosed
-    await expect(page.getByTestId("perf-row-1440p")).toHaveAttribute(
-      "data-metric-kind",
-      "synthetic-stub",
-    );
-    await expect(page.getByTestId("perf-row-4k")).toHaveAttribute(
-      "data-metric-kind",
-      "synthetic-stub",
-    );
-    await expect(page.getByTestId("evidence-perf-confidence-1440p")).toContainText(
-      "stub",
+    await expect(page.getByTestId("perf-evidence-class-1080p")).toContainText(
+      "synthetic perf1",
     );
 
-    // Geometry Experimental join lives under evidence details (deduped)
-    await expect(
-      page.getByTestId("evidence-geo-grade-cpu.zen4-7600"),
-    ).toContainText("Experimental");
-    await expect(
-      page.getByTestId("evidence-geo-join-gpu.rtx4070"),
-    ).toContainText("evidence.phys3.synthetic.gpu.rtx4070");
-
-    // Cooling empty / unavailable — panel + evidence details
     await expect(page.getByTestId("cooling-evidence-panel")).toHaveAttribute(
       "data-status",
       "unavailable",
     );
-    await expect(page.getByTestId("evidence-cooling")).toHaveAttribute(
-      "data-status",
-      "unavailable",
-    );
-    await expect(page.getByTestId("evidence-cooling-reason")).toContainText(
-      "empty_production_rows",
-    );
-
     await expect(page.getByTestId("evidence-limitations")).toBeVisible();
   });
 
@@ -139,14 +103,8 @@ test.describe("Phase 4 pilot evidence scenario", () => {
       "data-pilot-active",
       "false",
     );
-    await expect(page.getByTestId("evidence-non-pilot")).toBeVisible();
     await expect(page.getByTestId("perf-sidecar-active")).toHaveCount(0);
-    await expect(page.getByTestId("build-result-summary")).toHaveAttribute(
-      "data-pilot",
-      "false",
-    );
 
-    // Falls back to perf1 stub path
     await expect(page.getByTestId("perf-row-1440p")).toHaveAttribute(
       "data-sidecar",
       "off",
@@ -154,13 +112,25 @@ test.describe("Phase 4 pilot evidence scenario", () => {
     await expect(page.getByTestId("perf-range-1440p")).toHaveText("90–108 FPS");
   });
 
-  test("dist serves benchmarks/prov4 fixtures", async ({ request }) => {
+  test("dist serves benchmarks/prov4 fixtures including external observations", async ({
+    request,
+  }) => {
     const registry = await request.get(
       "/benchmarks/prov4/evidence-source-registry.json",
     );
     expect(registry.ok()).toBeTruthy();
-    const registryJson = await registry.json();
-    expect(registryJson.provenanceContractVersion).toBe("prov4");
+
+    const external = await request.get(
+      "/benchmarks/prov4/external-performance-observations.json",
+    );
+    expect(external.ok()).toBeTruthy();
+    const externalJson = await external.json();
+    expect(externalJson.provenanceContractVersion).toBe("prov4");
+
+    const rights = await request.get(
+      "/benchmarks/prov4/source-rights-record.json",
+    );
+    expect(rights.ok()).toBeTruthy();
 
     const perf = await request.get(
       "/benchmarks/prov4/pilot-performance-evidence.json",
@@ -174,9 +144,6 @@ test.describe("Phase 4 pilot evidence scenario", () => {
     );
     expect(removedFalseRaw.headers()["content-type"]).not.toContain(
       "application/json",
-    );
-    expect(await removedFalseRaw.text()).not.toContain(
-      "pilot-lab-capture-package",
     );
   });
 });

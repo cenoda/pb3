@@ -9,6 +9,8 @@ import {
   geometryEvidenceFileSchema,
   highGateDigestsIncludeCapture,
   humanVerificationFileSchema,
+  externalPerformanceObservationsFileSchema,
+  sourceRightsRecordFileSchema,
   performanceEvidenceFileSchema,
 } from "../contract/prov4.schema";
 import type { PerformanceEvidenceRecord } from "../contract/prov4";
@@ -35,6 +37,12 @@ describe("prov4 fixture integrity", () => {
   );
   const performance = performanceEvidenceFileSchema.parse(
     readJson(join(prov4Dir, "pilot-performance-evidence.json")),
+  );
+  const externalObservations = externalPerformanceObservationsFileSchema.parse(
+    readJson(join(prov4Dir, "external-performance-observations.json")),
+  );
+  const sourceRights = sourceRightsRecordFileSchema.parse(
+    readJson(join(prov4Dir, "source-rights-record.json")),
   );
   const geometry = geometryEvidenceFileSchema.parse(
     readJson(join(prov4Dir, "pilot-geometry-evidence.json")),
@@ -69,10 +77,67 @@ describe("prov4 fixture integrity", () => {
       (r) => r.measurement.metricKind === "first-party-measured",
     );
     expect(measured).toHaveLength(0);
-    expect(registry.sources.some((s) => s.sourceClass === "first-party")).toBe(false);
+    expect(registry.sources.some((s) => s.sourceClass === "first-party")).toBe(
+      false,
+    );
   });
 
-  it("marks all three cells as synthetic-stub with MetricUnavailable charter fields", () => {
+  it("parses external observations and source rights with registry-bound sourceIds", () => {
+    for (const observation of externalObservations.observations) {
+      expect(
+        registry.sources.some((s) => s.sourceId === observation.sourceId),
+      ).toBe(true);
+      const rights = sourceRights.decisions.find(
+        (d) => d.sourceId === observation.sourceId,
+      );
+      expect(rights).toBeDefined();
+      expect(["approved", "approved-metadata-only"]).toContain(
+        rights!.decision,
+      );
+      // Any observation that ships FPS numbers must be store-permitted.
+      const hasFps =
+        observation.fpsAverage !== undefined ||
+        (observation.fpsRangeMin !== undefined &&
+          observation.fpsRangeMax !== undefined);
+      if (hasFps) {
+        expect(rights!.decision).toBe("approved");
+        expect(rights!.storeExtractedObservation).toBe(true);
+      }
+    }
+    for (const decision of sourceRights.decisions) {
+      expect(
+        registry.sources.some((s) => s.sourceId === decision.sourceId),
+      ).toBe(true);
+    }
+  });
+
+  it("never ships invented constant raw-artifact digests on performance rows", () => {
+    const FAKE =
+      "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc";
+    for (const row of performance.rows) {
+      expect(row.captureConditions?.rawArtifact?.sha256).not.toBe(FAKE);
+      if (row.measurement.metricKind === "external-aggregated") {
+        expect(row.captureConditions?.rawArtifact).toBeUndefined();
+      }
+    }
+  });
+
+  it("ships audit-only external rows without product FPS for exact pilot key", () => {
+    const exactMatchWithFps = externalObservations.observations.filter(
+      (o) =>
+        o.cpuId === "cpu.zen4-7600" &&
+        o.gpuId === "gpu.rtx4070" &&
+        o.gameId === "game.cyberpunk-2077" &&
+        o.presetId === "preset.raster-ultra" &&
+        o.upscaleId === "upscale.off" &&
+        o.frameGenId === "framegen.off" &&
+        (o.fpsAverage !== undefined ||
+          (o.fpsRangeMin !== undefined && o.fpsRangeMax !== undefined)),
+    );
+    expect(exactMatchWithFps).toHaveLength(0);
+  });
+
+  it("marks all three pilot performance cells as synthetic-stub reference rows", () => {
     const stubs = performance.rows.filter(
       (r) => r.measurement.metricKind === "synthetic-stub",
     );
@@ -89,13 +154,13 @@ describe("prov4 fixture integrity", () => {
   });
 
   it("has no repo-file raw artifact claims while corrective evidence work is pending", () => {
-    expect(
-      existsSync(join(prov4Dir, "raw/pilot-1080p-capture.json")),
-    ).toBe(false);
+    expect(existsSync(join(prov4Dir, "raw/pilot-1080p-capture.json"))).toBe(
+      false,
+    );
     let artifactCount = 0;
     for (const row of performance.rows) {
       const artifacts = [];
-      if (row.captureConditions?.rawArtifact.kind === "repo-file") {
+      if (row.captureConditions?.rawArtifact?.kind === "repo-file") {
         artifacts.push(row.captureConditions.rawArtifact);
       }
       const ft = row.measurement.frametime;

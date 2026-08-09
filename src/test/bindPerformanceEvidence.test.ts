@@ -4,8 +4,12 @@ import type {
   HumanVerificationFile,
   PerformanceEvidenceFile,
   PerformanceEvidenceRecord,
+  SourceRightsRecordFile,
 } from "../contract/prov4";
-import { bindPerformanceEvidence } from "../provenance/bindPerformanceEvidence";
+import {
+  bindPerformanceEvidence,
+  bindPerformanceEvidenceDetailed,
+} from "../provenance/bindPerformanceEvidence";
 import { pilotBaselineKeyFor } from "../provenance/pilotBuild";
 
 const ARTIFACT_SHA =
@@ -36,6 +40,14 @@ const registry: EvidenceSourceRegistryFile = {
       title: "Review",
       origin: "https://example.com",
       citation: "https://example.com/review",
+    },
+    {
+      sourceId: "src.review.external.b",
+      sourceClass: "external-review",
+      rightsClass: "fair-use-citation",
+      title: "Review B",
+      origin: "https://example.com/b",
+      citation: "https://example.com/review-b",
     },
   ],
 };
@@ -378,7 +390,7 @@ describe("bindPerformanceEvidence", () => {
   });
 
   it("binds high when verification digests include capture sha256", () => {
-    const binding = bindPerformanceEvidence({
+    const binding = bindPerformanceEvidenceDetailed({
       key: pilotBaselineKeyFor("1080p"),
       isPilotBuild: true,
       evidenceFile: fileWith([
@@ -392,9 +404,176 @@ describe("bindPerformanceEvidence", () => {
       nowIso,
       verifiedArtifactDigests: new Set([ARTIFACT_SHA]),
     });
-    expect(binding.status).toBe("bound");
-    if (binding.status === "bound") {
-      expect(binding.verification?.verdict).toBe("pass");
+    expect(binding.binding.status).toBe("bound");
+    if (binding.binding.status === "bound") {
+      expect(binding.binding.verification?.verdict).toBe("pass");
     }
+  });
+
+  it("prefers external aggregate over synthetic stub when comparable observations exist", () => {
+    const externalObservations = {
+      provenanceContractVersion: "prov4" as const,
+      dataVersion: "test-ext",
+      observations: [
+        {
+          observationId: "o1",
+          sourceId: "src.review.external",
+          sourceUrl: "https://example.com/a",
+          publishedAt: "2024-01-01",
+          accessedAt: "2026-08-10",
+          cpuId: "cpu.zen4-7600",
+          gpuId: "gpu.rtx4070",
+          gameId: "game.cyberpunk-2077",
+          presetId: "preset.raster-ultra",
+          exactSettings: "Ultra RT off DLSS off FG off",
+          resolution: "1080p" as const,
+          upscaleId: "upscale.off",
+          frameGenId: "framegen.off",
+          rayTracingState: "off" as const,
+          fpsAverage: 82,
+          testSystem: "bench",
+          weighting: {
+            sourceMethodQuality: "tier-a-reviewed" as const,
+            conditionCompleteness: "full-disclosed" as const,
+            recencyClass: "recent" as const,
+          },
+        },
+        {
+          observationId: "o2",
+          sourceId: "src.review.external.b",
+          sourceUrl: "https://example.com/b",
+          publishedAt: "2024-01-02",
+          accessedAt: "2026-08-11",
+          cpuId: "cpu.zen4-7600",
+          gpuId: "gpu.rtx4070",
+          gameId: "game.cyberpunk-2077",
+          presetId: "preset.raster-ultra",
+          exactSettings: "Ultra RT off DLSS off FG off",
+          resolution: "1080p" as const,
+          upscaleId: "upscale.off",
+          frameGenId: "framegen.off",
+          rayTracingState: "off" as const,
+          fpsAverage: 91,
+          testSystem: "bench",
+          weighting: {
+            sourceMethodQuality: "tier-b-reviewed" as const,
+            conditionCompleteness: "full-disclosed" as const,
+            recencyClass: "recent" as const,
+          },
+        },
+      ],
+    };
+
+    const sourceRights: SourceRightsRecordFile = {
+      provenanceContractVersion: "prov4",
+      recordVersion: "test",
+      reviewedAt: "2026-08-09",
+      reviewerLabel: "test",
+      decisions: [
+        {
+          sourceId: "src.review.external",
+          publisher: "Review A",
+          canonicalUrl: "https://example.com/a",
+          accessFindings: "public",
+          robotsTermsFindings: "cite only",
+          citationRights: "fair-use-citation",
+          storeExtractedObservation: true,
+          decision: "approved",
+        },
+        {
+          sourceId: "src.review.external.b",
+          publisher: "Review B",
+          canonicalUrl: "https://example.com/b",
+          accessFindings: "public",
+          robotsTermsFindings: "cite only",
+          citationRights: "fair-use-citation",
+          storeExtractedObservation: true,
+          decision: "approved",
+        },
+      ],
+    };
+
+    const binding = bindPerformanceEvidenceDetailed({
+      key: pilotBaselineKeyFor("1080p"),
+      isPilotBuild: true,
+      evidenceFile: fileWith([
+        measuredRow(),
+        stubRow("1440p", "perf.1440p"),
+        stubRow("4k", "perf.4k"),
+      ]),
+      registry,
+      verifications,
+      nowIso,
+      externalObservations,
+      sourceRights,
+    });
+    expect(binding.displayClass).toBe("aggregated");
+    expect(binding.binding.status).toBe("bound");
+    if (binding.binding.status === "bound") {
+      expect(binding.binding.evidence.measurement.metricKind).toBe(
+        "external-aggregated",
+      );
+      expect(binding.binding.evidence.confidence).toBe("low");
+      expect(
+        binding.binding.evidence.captureConditions?.rawArtifact,
+      ).toBeUndefined();
+      expect(binding.binding.evidence.capturedAt).toBe(
+        "2026-08-11T00:00:00.000Z",
+      );
+      expect(binding.binding.evidence.capturedAt).not.toBe(
+        "2026-08-09T00:00:00.000Z",
+      );
+    }
+  });
+
+  it("fails closed when external observations lack sourceRights", () => {
+    const binding = bindPerformanceEvidenceDetailed({
+      key: pilotBaselineKeyFor("1080p"),
+      isPilotBuild: true,
+      evidenceFile: fileWith([stubRow("1080p", "perf.1080p")]),
+      registry,
+      verifications,
+      nowIso,
+      externalObservations: {
+        provenanceContractVersion: "prov4",
+        dataVersion: "test",
+        observations: [],
+      },
+    });
+    expect(binding.displayClass).toBe("synthetic-perf1");
+    expect(binding.binding.status).toBe("unavailable");
+    if (binding.binding.status === "unavailable") {
+      expect(binding.binding.reason).toBe("missing_source");
+    }
+  });
+
+  it("falls back to synthetic-perf1 when external aggregate is unavailable", () => {
+    const binding = bindPerformanceEvidenceDetailed({
+      key: pilotBaselineKeyFor("1080p"),
+      isPilotBuild: true,
+      evidenceFile: fileWith([
+        stubRow("1080p", "perf.1080p"),
+        stubRow("1440p", "perf.1440p"),
+        stubRow("4k", "perf.4k"),
+      ]),
+      registry,
+      verifications,
+      nowIso,
+      externalObservations: {
+        provenanceContractVersion: "prov4",
+        dataVersion: "empty",
+        observations: [],
+      },
+      sourceRights: {
+        provenanceContractVersion: "prov4",
+        recordVersion: "test",
+        reviewedAt: "2026-08-09",
+        reviewerLabel: "test",
+        decisions: [],
+      },
+    });
+    expect(binding.displayClass).toBe("synthetic-perf1");
+    expect(binding.binding.status).toBe("unavailable");
+    expect(binding.syntheticReference?.evidenceId).toBe("perf.1080p");
   });
 });

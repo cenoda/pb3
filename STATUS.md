@@ -105,11 +105,11 @@
 5. ~~**Phase 2 (기본 견적 서비스)** — M0 수락 → 구현·검증·closeout~~ → **구현 완료 (2026-08-08)** — [`docs/phases/phase-2/`](docs/phases/phase-2/)
 6. ~~**Phase 3 (3D 물리 검증)** — M0 수락 → 구현·검증·closeout~~ → **완료
    (2026-08-08)** — [`docs/phases/phase-3/`](docs/phases/phase-3/)
-7. **Phase 4 M0** — original Steps 1–8 software path was implemented, but the
-   invalid first-party pilot claim has now been removed. External-evidence
-   corrective plan is owner-accepted and Cursor implementation is authorized;
-   Step 9 remains blocked until implementation and re-audit —
-   [`docs/phases/phase-4/`](docs/phases/phase-4/)
+7. **Phase 4 M0** — original Steps 1–8 software path implemented; false
+   first-party claim removed; **external-evidence corrective Steps 1–5
+   implemented (2026-08-09)** — Step 9 blocked pending re-audit —
+   [`docs/phases/phase-4/`](docs/phases/phase-4/) ·
+   [`docs/corrections/phase4-external-evidence-1/`](docs/corrections/phase4-external-evidence-1/)
 8. ~~**Product UX corrective gate (`product-ux-1`)**~~ — implementation and
    **owner UX walkthrough PASS complete (2026-08-09)**; **not** Phase 5;
    Phase 4 Step 9 unchanged —
@@ -307,19 +307,25 @@
   evidence correction.
 - Do **not** treat green tests alone as Phase 4 PASS.
 
+### Phase 4 external evidence correction (`phase4-external-evidence-1`, 2026-08-09)
+
+| 항목 | 상태 |
+|------|------|
+| Package acceptance | **PASS (owner, 2026-08-09)** |
+| Corrective Steps 1–5 | **Implemented (2026-08-09)** — ADR-005, observation contract, aggregation engine, UI disclosure |
+| Source rights record | `benchmarks/prov4/source-rights-record.json` + ADR-005 |
+| Curated observations | `benchmarks/prov4/external-performance-observations.json` — audit-only near-miss rows; **no exact-match FPS ingested** |
+| Product pilot FPS | External aggregate **unavailable** → **perf1 synthetic fallback** (not sidecar synthetic-stub as product range) |
+| Verification | `pnpm test` **28 files / 184 tests PASS** · `pnpm test:e2e` **14/14 PASS** · `pnpm build` PASS · `dist/benchmarks/prov4/**` present |
+| Step 9 closeout | **BLOCKED** — independent re-audit + owner PASS required; no verified external aggregate ships yet |
+
 ### Phase 4 external evidence correction candidate (2026-08-09)
 
 - Home: [`docs/corrections/phase4-external-evidence-1/`](docs/corrections/phase4-external-evidence-1/)
 - False `first-party-measured` claim and derived PresentMon-labeled summary:
-  **removed**.
-- Candidate safety-state verification: `pnpm test` **26 files / 171 tests**,
-  `pnpm test:e2e` **14 tests**, and `pnpm build` **PASS**.
-- Independent plan/safety review: **GO — Lira, 2026-08-09**.
-- External source ingestion and aggregation: **not implemented**.
-- Owner package acceptance + Cursor implementation authorization:
-  **PASS (2026-08-09)**.
-- Next gate: Cursor implements accepted Steps 1–5, then independent re-audit
-  and explicit owner Phase 4 Step 9 closeout.
+  **removed** (prior safety correction).
+- Corrective implementation Steps 1–5: **complete (2026-08-09)**.
+- Next gate: independent re-audit and explicit owner Phase 4 Step 9 closeout.
 
 ## Product UX corrective gate (`product-ux-1`, 2026-08-09)
 

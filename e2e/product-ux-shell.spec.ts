@@ -142,7 +142,7 @@ test.describe("Product UX shell (product-ux-1)", () => {
     await evidenceDomain.locator(":scope > summary").click();
     const details = page.getByTestId("evidence-details");
     await expect(details).not.toHaveAttribute("open", "");
-    await details.locator("summary").click();
+    await details.locator(":scope > summary").click();
     await expect(page.getByTestId("evidence-performance-list")).toBeVisible();
   });
 });

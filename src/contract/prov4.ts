@@ -19,10 +19,7 @@ export const PROV4_DEFAULT_MAX_AGE_DAYS = 365 as const;
 // --- Source registry (§3) ---
 
 export type EvidenceSourceClass =
-  | "first-party"
-  | "project-synthetic"
-  | "external-review"
-  | "manufacturer-spec";
+  "first-party" | "project-synthetic" | "external-review" | "manufacturer-spec";
 
 export type EvidenceRightsClass =
   | "apache-2.0-project"
@@ -131,7 +128,152 @@ export type RangeDerivationMethod =
   | "repeated-run-min-max"
   | "repeated-run-mean-pm-band"
   | "imported-review-stated-range"
+  | "external-aggregated-weighted-percentiles"
+  | "external-aggregated-two-source-range"
   | "synthetic-fixture-range";
+
+/** Locked categorical weighting vocabulary (corrective plan §4.3). */
+export type SourceMethodQuality =
+  "tier-a-reviewed" | "tier-b-reviewed" | "manufacturer";
+
+export type ConditionCompleteness =
+  "full-disclosed" | "partial-disclosed" | "minimal";
+
+export type RecencyClass = "current" | "recent" | "aged";
+
+export interface ObservationWeighting {
+  sourceMethodQuality: SourceMethodQuality;
+  conditionCompleteness: ConditionCompleteness;
+  recencyClass: RecencyClass;
+}
+
+export type RayTracingState = "off" | "on" | "partial";
+
+/** Exact comparability fields for external observation grouping. */
+export interface PerformanceComparabilityKey {
+  cpuId: string;
+  gpuId: string;
+  gameId: string;
+  presetId: string;
+  resolution: string;
+  upscaleId: string;
+  frameGenId: string;
+  rayTracingState: RayTracingState;
+}
+
+export type ObservationExclusionReason =
+  | "cpu_mismatch"
+  | "gpu_mismatch"
+  | "game_mismatch"
+  | "preset_mismatch"
+  | "resolution_mismatch"
+  | "upscale_mismatch"
+  | "framegen_mismatch"
+  | "ray_tracing_mismatch"
+  | "settings_mismatch"
+  | "duplicate_source"
+  | "source_rights_denied";
+
+export interface ObservationExclusion {
+  observationId: string;
+  reason: ObservationExclusionReason;
+  detail: string;
+}
+
+/**
+ * Curated public benchmark observation (build-time fixture).
+ * Authority: ADR-005 + corrective plan §2.2.
+ */
+export interface ExternalPerformanceObservation {
+  observationId: string;
+  /** Registry EvidenceSource.sourceId; must pass source-rights-record approval. */
+  sourceId: string;
+  sourceUrl: string;
+  publishedAt: string;
+  accessedAt: string;
+  cpuId: string;
+  gpuId: string;
+  gameId: string;
+  gamePatchVersion?: string;
+  presetId: string;
+  exactSettings: string;
+  resolution: "1080p" | "1440p" | "4k";
+  upscaleId: string;
+  frameGenId: string;
+  rayTracingState: RayTracingState;
+  fpsAverage?: number;
+  /** Source-published range low (not inferred). */
+  fpsRangeMin?: number;
+  /** Source-published range high (not inferred). */
+  fpsRangeMax?: number;
+  fpsOnePercentLow?: number | MetricUnavailable;
+  frametime?: FrametimeEvidence;
+  testSystem: string;
+  driverVersion?: string;
+  sampleNotes?: string;
+  weighting: ObservationWeighting;
+}
+
+export interface ExternalPerformanceObservationsFile {
+  provenanceContractVersion: Prov4ContractVersion;
+  dataVersion: string;
+  observations: ExternalPerformanceObservation[];
+}
+
+export type ExternalAggregationMethod =
+  | "three-plus-weighted-percentiles"
+  | "two-observation-range"
+  | "published-range";
+
+export interface AggregatedPerformanceEvidence {
+  status: "aggregated";
+  fpsMin: number;
+  fpsMax: number;
+  fpsAverage: number;
+  confidence: "low" | "medium";
+  aggregationMethod: ExternalAggregationMethod;
+  contributingObservationIds: string[];
+  contributingSourceIds: string[];
+  exclusionReasons: ObservationExclusion[];
+  basis: string;
+}
+
+export type AggregatePerformanceResult =
+  | AggregatedPerformanceEvidence
+  | {
+      status: "unavailable";
+      reason:
+        | "no_observations"
+        | "no_comparable_observations"
+        | "single_average_only"
+        | "insufficient_independent_sources";
+      explanation: string;
+      referenceObservationIds?: string[];
+      exclusionReasons: ObservationExclusion[];
+    };
+
+export type SourceRightsDecision =
+  "approved" | "approved-metadata-only" | "excluded";
+
+export interface SourceRightsRecordEntry {
+  sourceId: string;
+  publisher: string;
+  canonicalUrl: string;
+  accessFindings: string;
+  robotsTermsFindings: string;
+  citationRights: EvidenceRightsClass;
+  storeExtractedObservation: boolean;
+  decision: SourceRightsDecision;
+  notes?: string;
+}
+
+export interface SourceRightsRecordFile {
+  provenanceContractVersion: Prov4ContractVersion;
+  recordVersion: string;
+  reviewedAt: string;
+  reviewerLabel: string;
+  decisions: SourceRightsRecordEntry[];
+}
 
 /** Explicit absence — never invent a number. */
 export interface MetricUnavailable {
@@ -218,6 +360,14 @@ export type PerformanceMeasurement =
       fpsAverage: number | MetricUnavailable;
       fpsOnePercentLow: number | MetricUnavailable;
       frametime: FrametimeEvidence;
+    }
+  | {
+      metricKind: "external-aggregated";
+      fpsMin: number;
+      fpsMax: number;
+      fpsAverage: number;
+      fpsOnePercentLow: MetricUnavailable;
+      frametime: MetricUnavailable;
     };
 
 /**
@@ -246,7 +396,11 @@ export interface PerformanceCaptureConditions {
     gpuPowerLimitId: "gpu-power.default" | "gpu-power.reduced";
     conditions: string;
   };
-  rawArtifact: RawArtifactReference;
+  /**
+   * Required for first-party measured / high-confidence capture rows.
+   * External aggregates omit this: there is no first-party raw capture to claim.
+   */
+  rawArtifact?: RawArtifactReference;
 }
 
 export interface PerformanceEvidenceRecord {
@@ -280,11 +434,7 @@ export interface PerformanceEvidenceRecord {
   verificationId?: string;
   limitingFactor?: {
     category:
-      | "GPU-bound"
-      | "CPU-bound"
-      | "VRAM pressure"
-      | "power limit"
-      | "RAM-bound";
+      "GPU-bound" | "CPU-bound" | "VRAM pressure" | "power limit" | "RAM-bound";
     explanation: string;
   };
 }
@@ -405,6 +555,16 @@ export interface CoolingProvenanceFile {
 
 // --- Aggregate disclosure (§9) ---
 
+/** Per-resolution external aggregation attempt (pilot overlay). */
+export interface ExternalPerformanceDisclosure {
+  resolution: "1080p" | "1440p" | "4k";
+  aggregation: AggregatePerformanceResult;
+  /** Residual synthetic-stub row from pilot-performance-evidence.json when present. */
+  syntheticReference?: PerformanceEvidenceRecord;
+  /** Product display class after external-first binding. */
+  displayClass: "aggregated" | "synthetic-perf1" | "unavailable";
+}
+
 export interface PilotDisclosureReport {
   provenanceContractVersion: Prov4ContractVersion;
   isPilotBuild: boolean;
@@ -413,6 +573,8 @@ export interface PilotDisclosureReport {
    * When isPilotBuild, length is always 3 (one binding attempt per resolution).
    */
   performance: PerformanceEvidenceBinding[];
+  /** External observation aggregation + synthetic reference (pilot only). */
+  externalPerformance?: ExternalPerformanceDisclosure[];
   /** When isPilotBuild, one entry per selected pilot part (7 for default). */
   geometry: GeometryEvidenceBinding[];
   cooling:

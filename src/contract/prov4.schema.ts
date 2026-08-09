@@ -87,7 +87,10 @@ export const frametimeEvidenceSchema = z.union([
   metricUnavailableSchema,
 ]);
 
-const numberOrUnavailable = z.union([z.number().finite(), metricUnavailableSchema]);
+const numberOrUnavailable = z.union([
+  z.number().finite(),
+  metricUnavailableSchema,
+]);
 
 export const performanceMeasurementSchema = z.discriminatedUnion("metricKind", [
   z.object({
@@ -114,14 +117,123 @@ export const performanceMeasurementSchema = z.discriminatedUnion("metricKind", [
     fpsOnePercentLow: numberOrUnavailable,
     frametime: frametimeEvidenceSchema,
   }),
+  z.object({
+    metricKind: z.literal("external-aggregated"),
+    fpsMin: z.number().finite(),
+    fpsMax: z.number().finite(),
+    fpsAverage: z.number().finite(),
+    fpsOnePercentLow: metricUnavailableSchema,
+    frametime: metricUnavailableSchema,
+  }),
 ]);
 
 export const rangeDerivationMethodSchema = z.enum([
   "repeated-run-min-max",
   "repeated-run-mean-pm-band",
   "imported-review-stated-range",
+  "external-aggregated-weighted-percentiles",
+  "external-aggregated-two-source-range",
   "synthetic-fixture-range",
 ]);
+
+export const sourceMethodQualitySchema = z.enum([
+  "tier-a-reviewed",
+  "tier-b-reviewed",
+  "manufacturer",
+]);
+
+export const conditionCompletenessSchema = z.enum([
+  "full-disclosed",
+  "partial-disclosed",
+  "minimal",
+]);
+
+export const recencyClassSchema = z.enum(["current", "recent", "aged"]);
+
+export const rayTracingStateSchema = z.enum(["off", "on", "partial"]);
+
+export const observationWeightingSchema = z.object({
+  sourceMethodQuality: sourceMethodQualitySchema,
+  conditionCompleteness: conditionCompletenessSchema,
+  recencyClass: recencyClassSchema,
+});
+
+export const observationExclusionReasonSchema = z.enum([
+  "cpu_mismatch",
+  "gpu_mismatch",
+  "game_mismatch",
+  "preset_mismatch",
+  "resolution_mismatch",
+  "upscale_mismatch",
+  "framegen_mismatch",
+  "ray_tracing_mismatch",
+  "settings_mismatch",
+  "duplicate_source",
+  "source_rights_denied",
+]);
+
+export const observationExclusionSchema = z.object({
+  observationId: nonEmptyString,
+  reason: observationExclusionReasonSchema,
+  detail: nonEmptyString,
+});
+
+export const externalPerformanceObservationSchema = z
+  .object({
+    observationId: nonEmptyString,
+    sourceId: nonEmptyString,
+    sourceUrl: nonEmptyString,
+    publishedAt: nonEmptyString,
+    accessedAt: nonEmptyString,
+    cpuId: nonEmptyString,
+    gpuId: nonEmptyString,
+    gameId: nonEmptyString,
+    gamePatchVersion: nonEmptyString.optional(),
+    presetId: nonEmptyString,
+    exactSettings: nonEmptyString,
+    resolution: z.enum(["1080p", "1440p", "4k"]),
+    upscaleId: nonEmptyString,
+    frameGenId: nonEmptyString,
+    rayTracingState: rayTracingStateSchema,
+    fpsAverage: z.number().finite().positive().optional(),
+    fpsRangeMin: z.number().finite().positive().optional(),
+    fpsRangeMax: z.number().finite().positive().optional(),
+    fpsOnePercentLow: numberOrUnavailable.optional(),
+    frametime: frametimeEvidenceSchema.optional(),
+    testSystem: nonEmptyString,
+    driverVersion: nonEmptyString.optional(),
+    sampleNotes: nonEmptyString.optional(),
+    weighting: observationWeightingSchema,
+  })
+  .superRefine((obs, ctx) => {
+    if (
+      obs.fpsRangeMin !== undefined &&
+      obs.fpsRangeMax !== undefined &&
+      !(obs.fpsRangeMin < obs.fpsRangeMax)
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "fpsRangeMin must be strictly less than fpsRangeMax",
+        path: ["fpsRangeMin"],
+      });
+    }
+  });
+
+export const externalPerformanceObservationsFileSchema = z
+  .object({
+    provenanceContractVersion: prov4ContractVersionSchema,
+    dataVersion: nonEmptyString,
+    observations: z.array(externalPerformanceObservationSchema),
+  })
+  .superRefine((file, ctx) => {
+    const ids = file.observations.map((o) => o.observationId);
+    if (new Set(ids).size !== ids.length) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "duplicate observationId in external observations file",
+      });
+    }
+  });
 
 export const performanceCaptureConditionsSchema = z.object({
   protocolId: nonEmptyString,
@@ -141,7 +253,11 @@ export const performanceCaptureConditionsSchema = z.object({
     gpuPowerLimitId: z.enum(["gpu-power.default", "gpu-power.reduced"]),
     conditions: nonEmptyString,
   }),
-  rawArtifact: rawArtifactReferenceSchema,
+  /**
+   * Optional: first-party / high rows must supply it (superRefine).
+   * External aggregates must omit it — no invented raw capture.
+   */
+  rawArtifact: rawArtifactReferenceSchema.optional(),
 });
 
 export const pilotBaselineKeySchema = z.object({
@@ -245,7 +361,11 @@ export const performanceEvidenceRecordSchema = z
     }
 
     // Non-stub confidence requires complete captureConditions
-    if (confidence === "low" || confidence === "medium" || confidence === "high") {
+    if (
+      confidence === "low" ||
+      confidence === "medium" ||
+      confidence === "high"
+    ) {
       if (!captureConditions) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -264,6 +384,13 @@ export const performanceEvidenceRecordSchema = z
             "first-party-measured requires captureConditions with runCount >= 2",
           path: ["captureConditions"],
         });
+      } else if (!captureConditions.rawArtifact) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message:
+            "first-party-measured requires captureConditions.rawArtifact",
+          path: ["captureConditions", "rawArtifact"],
+        });
       } else if (captureConditions.runCount < 2) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -273,12 +400,10 @@ export const performanceEvidenceRecordSchema = z
         });
       }
 
-      if (
-        !(
-          measurement.fpsMin <= measurement.fpsAverage &&
-          measurement.fpsAverage <= measurement.fpsMax
-        )
-      ) {
+      if (!(
+        measurement.fpsMin <= measurement.fpsAverage &&
+        measurement.fpsAverage <= measurement.fpsMax
+      )) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "first-party-measured requires fpsMin ≤ fpsAverage ≤ fpsMax",
@@ -305,12 +430,62 @@ export const performanceEvidenceRecordSchema = z
     }
 
     // external-review cannot claim high
-    if (measurement.metricKind === "external-review" && confidence === "high") {
+    if (
+      (measurement.metricKind === "external-review" ||
+        measurement.metricKind === "external-aggregated") &&
+      confidence === "high"
+    ) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: 'external-review cannot declare confidence "high"',
+        message:
+          'external-review and external-aggregated cannot declare confidence "high"',
         path: ["confidence"],
       });
+    }
+
+    if (measurement.metricKind === "external-aggregated") {
+      if (confidence !== "low" && confidence !== "medium") {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'external-aggregated requires confidence "low" or "medium"',
+          path: ["confidence"],
+        });
+      }
+      if (!(
+        measurement.fpsMin <= measurement.fpsAverage &&
+        measurement.fpsAverage <= measurement.fpsMax
+      )) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "external-aggregated requires fpsMin ≤ fpsAverage ≤ fpsMax",
+          path: ["measurement", "fpsAverage"],
+        });
+      }
+      if (measurement.fpsOnePercentLow.status !== "unavailable") {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message:
+            "external-aggregated charter 1% low must be explicit unavailable",
+          path: ["measurement", "fpsOnePercentLow"],
+        });
+      }
+      if (measurement.frametime.status !== "unavailable") {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message:
+            "external-aggregated charter frametime must be explicit unavailable",
+          path: ["measurement", "frametime"],
+        });
+      }
+      // External aggregates have no first-party raw capture; inventing one is forbidden.
+      if (captureConditions?.rawArtifact !== undefined) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message:
+            "external-aggregated must not claim captureConditions.rawArtifact",
+          path: ["captureConditions", "rawArtifact"],
+        });
+      }
     }
 
     // High gate (structural; registry/digest cross-checks are integrity/binding)
@@ -318,7 +493,8 @@ export const performanceEvidenceRecordSchema = z
       if (measurement.metricKind !== "first-party-measured") {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: 'confidence "high" requires metricKind "first-party-measured"',
+          message:
+            'confidence "high" requires metricKind "first-party-measured"',
           path: ["measurement", "metricKind"],
         });
       }
@@ -330,6 +506,13 @@ export const performanceEvidenceRecordSchema = z
         });
       }
       if (captureConditions) {
+        if (!captureConditions.rawArtifact) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'confidence "high" requires captureConditions.rawArtifact',
+            path: ["captureConditions", "rawArtifact"],
+          });
+        }
         if (!HIGH_RANGE_DERIVATIONS.has(captureConditions.rangeDerivation)) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
@@ -409,6 +592,42 @@ export const evidenceRightsClassSchema = z.enum([
   "licensed",
   "unavailable",
 ]);
+
+export const sourceRightsDecisionSchema = z.enum([
+  "approved",
+  "approved-metadata-only",
+  "excluded",
+]);
+
+export const sourceRightsRecordEntrySchema = z.object({
+  sourceId: nonEmptyString,
+  publisher: nonEmptyString,
+  canonicalUrl: nonEmptyString,
+  accessFindings: nonEmptyString,
+  robotsTermsFindings: nonEmptyString,
+  citationRights: evidenceRightsClassSchema,
+  storeExtractedObservation: z.boolean(),
+  decision: sourceRightsDecisionSchema,
+  notes: nonEmptyString.optional(),
+});
+
+export const sourceRightsRecordFileSchema = z
+  .object({
+    provenanceContractVersion: prov4ContractVersionSchema,
+    recordVersion: nonEmptyString,
+    reviewedAt: nonEmptyString,
+    reviewerLabel: nonEmptyString,
+    decisions: z.array(sourceRightsRecordEntrySchema),
+  })
+  .superRefine((file, ctx) => {
+    const ids = file.decisions.map((d) => d.sourceId);
+    if (new Set(ids).size !== ids.length) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "duplicate sourceId in source rights record",
+      });
+    }
+  });
 
 export const evidenceSourceSchema = z
   .object({
@@ -541,7 +760,7 @@ export function highGateDigestsIncludeCapture(
   verification: z.infer<typeof humanVerificationRecordSchema>,
 ): boolean {
   if (record.confidence !== "high") return true;
-  if (!record.captureConditions) return false;
+  if (!record.captureConditions?.rawArtifact) return false;
   if (verification.kind !== "performance-capture-attestation") return false;
   if (verification.verdict !== "pass") return false;
   const digests = new Set(verification.attestedArtifactDigests ?? []);

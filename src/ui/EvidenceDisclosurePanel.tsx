@@ -38,6 +38,71 @@ export function EvidenceDisclosurePanel({
         {report.isPilotBuild ? (
           <>
             <h3>Performance bindings</h3>
+            {report.externalPerformance ? (
+              <ul
+                data-testid="evidence-external-list"
+                style={{ listStyle: "none", margin: "0 0 0.75rem", padding: 0 }}
+              >
+                {report.externalPerformance.map((ext) => (
+                  <li
+                    key={`ext-${ext.resolution}`}
+                    data-testid={`evidence-external-${ext.resolution}`}
+                    data-display-class={ext.displayClass}
+                    data-aggregation-status={ext.aggregation.status}
+                    style={{
+                      border: "1px solid #dbeafe",
+                      borderRadius: "4px",
+                      padding: "0.5rem 0.75rem",
+                      marginBottom: "0.35rem",
+                      fontSize: "0.85rem",
+                    }}
+                  >
+                    <strong>{ext.resolution} external</strong>
+                    <div data-testid={`evidence-external-class-${ext.resolution}`}>
+                      display: {ext.displayClass}
+                    </div>
+                    {ext.aggregation.status === "aggregated" ? (
+                      <div data-testid={`evidence-external-range-${ext.resolution}`}>
+                        aggregated {ext.aggregation.fpsMin}–{ext.aggregation.fpsMax}{" "}
+                        FPS ({ext.aggregation.confidence})
+                      </div>
+                    ) : (
+                      <div
+                        data-testid={`evidence-external-unavailable-${ext.resolution}`}
+                      >
+                        aggregate unavailable ({ext.aggregation.reason}):{" "}
+                        {ext.aggregation.explanation}
+                      </div>
+                    )}
+                    {ext.aggregation.exclusionReasons.length > 0 ? (
+                      <details data-testid={`evidence-external-exclusions-${ext.resolution}`}>
+                        <summary>
+                          {ext.aggregation.exclusionReasons.length} excluded
+                          near-miss observation(s)
+                        </summary>
+                        <ul style={{ margin: "0.35rem 0 0", paddingLeft: "1.1rem" }}>
+                          {ext.aggregation.exclusionReasons.map((ex) => (
+                            <li key={ex.observationId}>
+                              {ex.observationId}: {ex.reason} — {ex.detail}
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
+                    ) : null}
+                    {ext.syntheticReference ? (
+                      <div
+                        data-testid={`evidence-synthetic-ref-${ext.resolution}`}
+                        className="muted"
+                      >
+                        synthetic reference: {ext.syntheticReference.evidenceId} (
+                        {ext.syntheticReference.measurement.fpsMin}–
+                        {ext.syntheticReference.measurement.fpsMax} illustrative)
+                      </div>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
             <ul
               data-testid="evidence-performance-list"
               style={{ listStyle: "none", margin: 0, padding: 0 }}

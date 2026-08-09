@@ -1,19 +1,26 @@
 /**
- * Pure aggregate pilot disclosure report (prov4 §9).
+ * Pure aggregate pilot disclosure report (prov4 §9 + external corrective overlay).
  */
 import type { BuildStateV2 } from "../contract/vs2";
 import type { PhysicalSpec } from "../contract/phys3";
 import type {
   CoolingProvenanceFile,
   EvidenceSourceRegistryFile,
+  ExternalPerformanceDisclosure,
+  ExternalPerformanceObservationsFile,
   GeometryEvidenceFile,
   HumanVerificationFile,
   PerformanceEvidenceFile,
   PilotDisclosureReport,
+  SourceRightsRecordFile,
 } from "../contract/prov4";
-import { PROV4_CONTRACT_VERSION, PROV4_DEFAULT_MAX_AGE_DAYS } from "../contract/prov4";
+import {
+  PROV4_CONTRACT_VERSION,
+  PROV4_DEFAULT_MAX_AGE_DAYS,
+} from "../contract/prov4";
+import { aggregateComparableObservations } from "./aggregatePerformanceEvidence";
+import { bindPerformanceEvidenceDetailed } from "./bindPerformanceEvidence";
 import { bindGeometryEvidence } from "./bindGeometryEvidence";
-import { bindPerformanceEvidence } from "./bindPerformanceEvidence";
 import { classifyFreshness } from "./classifyFreshness";
 import {
   buildPartIdsFromState,
@@ -34,13 +41,17 @@ export interface BuildPilotDisclosureReportInput {
   geometry: GeometryEvidenceFile;
   cooling: CoolingProvenanceFile;
   verifications: HumanVerificationFile;
+  externalObservations?: ExternalPerformanceObservationsFile;
+  sourceRights?: SourceRightsRecordFile;
   nowIso: string;
   verifiedArtifactDigests?: ReadonlySet<string>;
 }
 
 const DEFAULT_LIMITATIONS = [
   "Non-pilot catalog performance rows remain perf1 stub confidence",
-  "Pilot residual resolution cells may be synthetic-stub with MetricUnavailable charter fields",
+  "External aggregate requires exact comparability; near-miss observations are excluded with reasons",
+  "When external aggregate is unavailable, product FPS falls back to perf1 synthetic stub",
+  "Residual pilot-performance-evidence synthetic-stub rows are reference-only disclosure",
   "Geometry model grade is Experimental (synthetic fixtures; not manufacturer-verified)",
   "Production cooling evidence rows are empty → structured unavailable",
   "Fixture prices are static / non-live",
@@ -73,17 +84,58 @@ export function buildPilotDisclosureReport(
     };
   }
 
-  const performance = PILOT_RESOLUTIONS.map((resolution) =>
-    bindPerformanceEvidence({
-      key: pilotBaselineKeyFor(resolution),
+  const externalPerformance: ExternalPerformanceDisclosure[] =
+    PILOT_RESOLUTIONS.map((resolution) => {
+      const key = pilotBaselineKeyFor(resolution);
+      const aggregation =
+        input.externalObservations && input.sourceRights
+          ? aggregateComparableObservations(
+              key,
+              input.externalObservations.observations,
+              input.sourceRights,
+            )
+          : {
+              status: "unavailable" as const,
+              reason: "no_observations" as const,
+              explanation:
+                input.externalObservations && !input.sourceRights
+                  ? "Source-rights record not provided; external aggregation fail-closed"
+                  : "External observations fixture not loaded",
+              exclusionReasons: [],
+            };
+      const detailed = bindPerformanceEvidenceDetailed({
+        key,
+        isPilotBuild: true,
+        evidenceFile: input.performance,
+        registry: input.registry,
+        verifications: input.verifications,
+        nowIso: input.nowIso,
+        externalObservations: input.externalObservations,
+        sourceRights: input.sourceRights,
+        verifiedArtifactDigests: input.verifiedArtifactDigests,
+      });
+      return {
+        resolution,
+        aggregation,
+        syntheticReference: detailed.syntheticReference,
+        displayClass: detailed.displayClass,
+      };
+    });
+
+  const performance = externalPerformance.map((ext) => {
+    const detailed = bindPerformanceEvidenceDetailed({
+      key: pilotBaselineKeyFor(ext.resolution),
       isPilotBuild: true,
       evidenceFile: input.performance,
       registry: input.registry,
       verifications: input.verifications,
       nowIso: input.nowIso,
+      externalObservations: input.externalObservations,
+      sourceRights: input.sourceRights,
       verifiedArtifactDigests: input.verifiedArtifactDigests,
-    }),
-  );
+    });
+    return detailed.binding;
+  });
 
   const geometry = buildPartIds.map((partId) =>
     bindGeometryEvidence({
@@ -106,7 +158,6 @@ export function buildPilotDisclosureReport(
         "Phase 4 M0 cooling provenance production rows are empty; runtime cooling remains structured unavailable",
     };
   } else {
-    // M0 ships empty; if rows appear, expose first with freshness (still no derate).
     const row = input.cooling.rows[0]!;
     cooling = {
       status: "available",
@@ -119,16 +170,20 @@ export function buildPilotDisclosureReport(
     };
   }
 
-  const residualStub = performance.filter(
-    (b) =>
-      b.status === "bound" &&
-      b.evidence.measurement.metricKind === "synthetic-stub",
+  const aggregatedCount = externalPerformance.filter(
+    (ext) => ext.displayClass === "aggregated",
+  ).length;
+  const syntheticFallbackCount = externalPerformance.filter(
+    (ext) => ext.displayClass === "synthetic-perf1",
   ).length;
 
   const limitations = [
-    residualStub > 0
-      ? `${residualStub} of 3 pilot performance cells are residual synthetic-stub`
-      : "All three pilot performance cells are non-stub",
+    aggregatedCount > 0
+      ? `${aggregatedCount} of 3 pilot cells use external-aggregated sidecar`
+      : "No pilot cell has a product external aggregate (exact-match evidence insufficient)",
+    syntheticFallbackCount > 0
+      ? `${syntheticFallbackCount} of 3 pilot cells fall back to perf1 synthetic stub for product FPS`
+      : "No perf1 synthetic fallback active",
     ...DEFAULT_LIMITATIONS,
   ];
 
@@ -137,6 +192,7 @@ export function buildPilotDisclosureReport(
     isPilotBuild: true,
     buildPartIds,
     performance,
+    externalPerformance,
     geometry,
     cooling,
     limitations,

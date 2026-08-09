@@ -10,7 +10,7 @@ import type {
 import type { PerformanceEvidenceBinding } from "../contract/prov4";
 import type { Perf1Fixtures } from "../catalog/loadPerf1Fixtures";
 import type { Prov4Fixtures } from "../provenance/loadProv4Fixtures";
-import { bindPerformanceEvidence } from "../provenance/bindPerformanceEvidence";
+import { bindPerformanceEvidenceDetailed } from "../provenance/bindPerformanceEvidence";
 import {
   isPilotPerformanceOverlayActive,
   pilotBaselineKeyFor,
@@ -62,31 +62,35 @@ export function PerformancePanel({
   const queries = baselineQueriesForBuild(buildState, dimensions);
   const labelById = new Map(RESOLUTIONS.map((r) => [r.id, r.label]));
   const sidecarActive =
-    !!prov4Fixtures &&
-    isPilotPerformanceOverlayActive(buildState, dimensions);
+    !!prov4Fixtures && isPilotPerformanceOverlayActive(buildState, dimensions);
   const nowIso = new Date().toISOString();
 
   const rows = queries.map((query) => {
     const baseline = estimateBaseline(query, perf1Fixtures.baseline);
-    const correctionResult =
-      isPerformanceEstimate(baseline) ?
-        applyCorrection(query, baseline, correction)
+    const correctionResult = isPerformanceEstimate(baseline)
+      ? applyCorrection(query, baseline, correction)
       : null;
 
     let sidecar: PerformanceEvidenceBinding | null = null;
+    let evidenceDisplayClass:
+      "aggregated" | "synthetic-perf1" | "unavailable" | "off" = "off";
     if (sidecarActive && prov4Fixtures) {
-      sidecar = bindPerformanceEvidence({
+      const detailed = bindPerformanceEvidenceDetailed({
         key: pilotBaselineKeyFor(query.resolution),
         isPilotBuild: true,
         evidenceFile: prov4Fixtures.performance,
         registry: prov4Fixtures.registry,
         verifications: prov4Fixtures.verifications,
         nowIso,
+        externalObservations: prov4Fixtures.externalObservations,
+        sourceRights: prov4Fixtures.sourceRights,
         verifiedArtifactDigests: prov4Fixtures.verifiedArtifactDigests,
       });
+      sidecar = detailed.binding;
+      evidenceDisplayClass = detailed.displayClass;
     }
 
-    return { query, baseline, correctionResult, sidecar };
+    return { query, baseline, correctionResult, sidecar, evidenceDisplayClass };
   });
 
   const cinebenchRows = WORKLOAD_IDS.flatMap((workloadId) =>
@@ -178,9 +182,8 @@ export function PerformancePanel({
               value={correction.cpuPowerId ?? ""}
               onChange={(e) =>
                 updateCorrection({
-                  cpuPowerId:
-                    e.target.value ?
-                      (e.target.value as CorrectionInput["cpuPowerId"])
+                  cpuPowerId: e.target.value
+                    ? (e.target.value as CorrectionInput["cpuPowerId"])
                     : undefined,
                 })
               }
@@ -197,9 +200,8 @@ export function PerformancePanel({
               value={correction.gpuPowerId ?? ""}
               onChange={(e) =>
                 updateCorrection({
-                  gpuPowerId:
-                    e.target.value ?
-                      (e.target.value as CorrectionInput["gpuPowerId"])
+                  gpuPowerId: e.target.value
+                    ? (e.target.value as CorrectionInput["gpuPowerId"])
                     : undefined,
                 })
               }
@@ -216,9 +218,8 @@ export function PerformancePanel({
               value={correction.coolingBucketId ?? ""}
               onChange={(e) =>
                 updateCorrection({
-                  coolingBucketId:
-                    e.target.value ?
-                      (e.target.value as CorrectionInput["coolingBucketId"])
+                  coolingBucketId: e.target.value
+                    ? (e.target.value as CorrectionInput["coolingBucketId"])
                     : undefined,
                 })
               }
@@ -236,9 +237,8 @@ export function PerformancePanel({
               value={correction.loadProfileId ?? ""}
               onChange={(e) =>
                 updateCorrection({
-                  loadProfileId:
-                    e.target.value ?
-                      (e.target.value as CorrectionInput["loadProfileId"])
+                  loadProfileId: e.target.value
+                    ? (e.target.value as CorrectionInput["loadProfileId"])
                     : undefined,
                 })
               }
@@ -279,180 +279,262 @@ export function PerformancePanel({
       ) : null}
 
       <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-        {rows.map(({ query, baseline, correctionResult, sidecar }) => {
-          const resId = query.resolution as Perf1ResolutionId;
-          const label = labelById.get(resId) ?? resId;
+        {rows.map(
+          ({
+            query,
+            baseline,
+            correctionResult,
+            sidecar,
+            evidenceDisplayClass,
+          }) => {
+            const resId = query.resolution as Perf1ResolutionId;
+            const label = labelById.get(resId) ?? resId;
 
-          if (sidecar?.status === "bound") {
-            const ev = sidecar.evidence;
-            const m = ev.measurement;
+            if (
+              sidecar?.status === "bound" &&
+              evidenceDisplayClass === "aggregated"
+            ) {
+              const ev = sidecar.evidence;
+              const m = ev.measurement;
+              return (
+                <li
+                  key={resId}
+                  data-testid={`perf-row-${resId}`}
+                  data-status="ok"
+                  data-sidecar="bound"
+                  data-evidence-class="aggregated"
+                  data-metric-kind={m.metricKind}
+                  style={{
+                    border: "1px solid #16a34a",
+                    borderRadius: "4px",
+                    padding: "0.65rem",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  <div style={{ fontWeight: 600 }}>{label}</div>
+                  <div
+                    data-testid={`perf-evidence-class-${resId}`}
+                    className="muted"
+                    style={{ fontSize: "0.8rem" }}
+                  >
+                    evidence: aggregated external review
+                  </div>
+                  <div data-testid={`perf-range-${resId}`}>
+                    {m.fpsMin}–{m.fpsMax} FPS
+                  </div>
+                  <div
+                    data-testid={`perf-confidence-${resId}`}
+                    className="muted"
+                  >
+                    confidence: {ev.confidence}
+                  </div>
+                  <details data-testid={`perf-detail-${resId}`}>
+                    <summary>Evidence details</summary>
+                    <div
+                      data-testid={`perf-metric-kind-${resId}`}
+                      className="muted"
+                    >
+                      metricKind: {m.metricKind}
+                    </div>
+                    <div
+                      data-testid={`perf-freshness-${resId}`}
+                      className="muted"
+                    >
+                      freshness: {sidecar.freshness.state} —{" "}
+                      {sidecar.freshness.explanation}
+                    </div>
+                    <div
+                      data-testid={`perf-sources-${resId}`}
+                      className="muted"
+                    >
+                      sources:{" "}
+                      {sidecar.sources
+                        .map((s) => `${s.sourceClass} (${s.sourceId})`)
+                        .join("; ")}
+                    </div>
+                    {ev.captureConditions ? (
+                      <div
+                        data-testid={`perf-capture-${resId}`}
+                        className="muted"
+                      >
+                        capture: {ev.captureConditions.toolName}{" "}
+                        {ev.captureConditions.toolVersion} · runs{" "}
+                        {ev.captureConditions.runCount} ·{" "}
+                        {ev.captureConditions.rangeDerivation}
+                      </div>
+                    ) : null}
+                    {ev.limitingFactor ? (
+                      <div
+                        data-testid={`perf-limiting-${resId}`}
+                        className="muted"
+                      >
+                        {ev.limitingFactor.category}:{" "}
+                        {ev.limitingFactor.explanation}
+                      </div>
+                    ) : null}
+                    <div className="muted">
+                      {ev.dataVersion} · {ev.basis}
+                    </div>
+                  </details>
+                </li>
+              );
+            }
+
+            if (
+              sidecar?.status === "unavailable" &&
+              evidenceDisplayClass === "synthetic-perf1"
+            ) {
+              const unavailable = isUnavailable(baseline);
+              const displayEstimate =
+                correctionResult?.status === "ok"
+                  ? correctionResult
+                  : isPerformanceEstimate(baseline)
+                    ? baseline
+                    : null;
+              return (
+                <li
+                  key={resId}
+                  data-testid={`perf-row-${resId}`}
+                  data-status={unavailable ? "unavailable" : "ok"}
+                  data-sidecar="unavailable"
+                  data-evidence-class="synthetic-perf1"
+                  style={{
+                    border: "1px solid #fbbf24",
+                    borderRadius: "4px",
+                    padding: "0.65rem",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  <div style={{ fontWeight: 600 }}>{label}</div>
+                  <div
+                    data-testid={`perf-evidence-class-${resId}`}
+                    className="muted"
+                    style={{ fontSize: "0.8rem" }}
+                  >
+                    evidence: synthetic perf1 (external aggregate unavailable)
+                  </div>
+                  <div
+                    data-testid={`perf-external-unavailable-${resId}`}
+                    className="muted"
+                    style={{ fontSize: "0.8rem" }}
+                  >
+                    {sidecar.explanation}
+                  </div>
+                  {unavailable ? (
+                    <div
+                      data-testid={`perf-unavailable-${resId}`}
+                      className="muted"
+                    >
+                      {baseline.reason}
+                    </div>
+                  ) : displayEstimate ? (
+                    <>
+                      <div data-testid={`perf-range-${resId}`}>
+                        {displayEstimate.fpsMin}–{displayEstimate.fpsMax} FPS
+                      </div>
+                      <div className="muted">
+                        confidence: {displayEstimate.confidence} · perf1 stub
+                      </div>
+                    </>
+                  ) : null}
+                </li>
+              );
+            }
+
+            if (sidecar?.status === "unavailable") {
+              return (
+                <li
+                  key={resId}
+                  data-testid={`perf-row-${resId}`}
+                  data-status="unavailable"
+                  data-sidecar="unavailable"
+                  style={{
+                    border: "1px solid #fca5a5",
+                    borderRadius: "4px",
+                    padding: "0.65rem",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  <div style={{ fontWeight: 600 }}>{label}</div>
+                  <div
+                    data-testid={`perf-unavailable-${resId}`}
+                    className="muted"
+                  >
+                    Evidence overlay unavailable ({sidecar.reason}):{" "}
+                    {sidecar.explanation}
+                  </div>
+                </li>
+              );
+            }
+
+            const unavailable = isUnavailable(baseline);
+            const displayEstimate =
+              correctionResult?.status === "ok"
+                ? correctionResult
+                : isPerformanceEstimate(baseline)
+                  ? baseline
+                  : null;
+
             return (
               <li
                 key={resId}
                 data-testid={`perf-row-${resId}`}
-                data-status="ok"
-                data-sidecar="bound"
-                data-metric-kind={m.metricKind}
+                data-status={unavailable ? "unavailable" : "ok"}
+                data-sidecar="off"
                 style={{
-                  border: "1px solid #93c5fd",
+                  border: "1px solid #ddd",
                   borderRadius: "4px",
                   padding: "0.65rem",
                   marginBottom: "0.5rem",
                 }}
               >
                 <div style={{ fontWeight: 600 }}>{label}</div>
-                <div data-testid={`perf-range-${resId}`}>
-                  {m.fpsMin}–{m.fpsMax} FPS
-                </div>
-                <div
-                  data-testid={`perf-confidence-${resId}`}
-                  className="muted"
-                >
-                  confidence: {ev.confidence}
-                </div>
-                <details data-testid={`perf-detail-${resId}`}>
-                  <summary>Evidence details</summary>
+                {unavailable ? (
                   <div
-                    data-testid={`perf-metric-kind-${resId}`}
+                    data-testid={`perf-unavailable-${resId}`}
                     className="muted"
                   >
-                    metricKind: {m.metricKind}
+                    {baseline.reason}
                   </div>
-                  <div
-                    data-testid={`perf-freshness-${resId}`}
-                    className="muted"
-                  >
-                    freshness: {sidecar.freshness.state} —{" "}
-                    {sidecar.freshness.explanation}
-                  </div>
-                  <div
-                    data-testid={`perf-sources-${resId}`}
-                    className="muted"
-                  >
-                    sources:{" "}
-                    {sidecar.sources
-                      .map((s) => `${s.sourceClass} (${s.sourceId})`)
-                      .join("; ")}
-                  </div>
-                  {ev.captureConditions ? (
-                    <div
-                      data-testid={`perf-capture-${resId}`}
-                      className="muted"
-                    >
-                      capture: {ev.captureConditions.toolName}{" "}
-                      {ev.captureConditions.toolVersion} · runs{" "}
-                      {ev.captureConditions.runCount} ·{" "}
-                      {ev.captureConditions.rangeDerivation}
+                ) : displayEstimate ? (
+                  <>
+                    <div data-testid={`perf-range-${resId}`}>
+                      {displayEstimate.fpsMin}–{displayEstimate.fpsMax} FPS
                     </div>
-                  ) : null}
-                  {ev.limitingFactor ? (
                     <div
                       data-testid={`perf-limiting-${resId}`}
                       className="muted"
                     >
-                      {ev.limitingFactor.category}:{" "}
-                      {ev.limitingFactor.explanation}
+                      {displayEstimate.limitingFactor.category}:{" "}
+                      {displayEstimate.limitingFactor.explanation}
                     </div>
-                  ) : null}
-                  <div className="muted">
-                    {ev.dataVersion} · {ev.basis}
-                  </div>
-                </details>
+                    <div className="muted">
+                      confidence: {displayEstimate.confidence} ·{" "}
+                      {displayEstimate.dataVersion}
+                    </div>
+                    {correctionResult?.status === "ok" ? (
+                      <div
+                        data-testid={`perf-correction-reason-${resId}`}
+                        style={{ fontSize: "0.85rem", color: "#1d4ed8" }}
+                      >
+                        Correction: {correctionResult.reason}
+                      </div>
+                    ) : null}
+                    {correctionResult?.status === "withheld" ? (
+                      <div
+                        data-testid={`perf-withheld-${resId}`}
+                        className="status-warn"
+                        style={{ fontSize: "0.85rem" }}
+                      >
+                        {correctionResult.reason}
+                      </div>
+                    ) : null}
+                  </>
+                ) : null}
               </li>
             );
-          }
-
-          if (sidecar?.status === "unavailable") {
-            return (
-              <li
-                key={resId}
-                data-testid={`perf-row-${resId}`}
-                data-status="unavailable"
-                data-sidecar="unavailable"
-                style={{
-                  border: "1px solid #fca5a5",
-                  borderRadius: "4px",
-                  padding: "0.65rem",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                <div style={{ fontWeight: 600 }}>{label}</div>
-                <div
-                  data-testid={`perf-unavailable-${resId}`}
-                  className="muted"
-                >
-                  Evidence overlay unavailable ({sidecar.reason}):{" "}
-                  {sidecar.explanation}
-                </div>
-              </li>
-            );
-          }
-
-          const unavailable = isUnavailable(baseline);
-          const displayEstimate =
-            correctionResult?.status === "ok" ? correctionResult : (
-              isPerformanceEstimate(baseline) ? baseline : null
-            );
-
-          return (
-            <li
-              key={resId}
-              data-testid={`perf-row-${resId}`}
-              data-status={unavailable ? "unavailable" : "ok"}
-              data-sidecar="off"
-              style={{
-                border: "1px solid #ddd",
-                borderRadius: "4px",
-                padding: "0.65rem",
-                marginBottom: "0.5rem",
-              }}
-            >
-              <div style={{ fontWeight: 600 }}>{label}</div>
-              {unavailable ? (
-                <div
-                  data-testid={`perf-unavailable-${resId}`}
-                  className="muted"
-                >
-                  {baseline.reason}
-                </div>
-              ) : displayEstimate ? (
-                <>
-                  <div data-testid={`perf-range-${resId}`}>
-                    {displayEstimate.fpsMin}–{displayEstimate.fpsMax} FPS
-                  </div>
-                  <div
-                    data-testid={`perf-limiting-${resId}`}
-                    className="muted"
-                  >
-                    {displayEstimate.limitingFactor.category}:{" "}
-                    {displayEstimate.limitingFactor.explanation}
-                  </div>
-                  <div className="muted">
-                    confidence: {displayEstimate.confidence} ·{" "}
-                    {displayEstimate.dataVersion}
-                  </div>
-                  {correctionResult?.status === "ok" ? (
-                    <div
-                      data-testid={`perf-correction-reason-${resId}`}
-                      style={{ fontSize: "0.85rem", color: "#1d4ed8" }}
-                    >
-                      Correction: {correctionResult.reason}
-                    </div>
-                  ) : null}
-                  {correctionResult?.status === "withheld" ? (
-                    <div
-                      data-testid={`perf-withheld-${resId}`}
-                      className="status-warn"
-                      style={{ fontSize: "0.85rem" }}
-                    >
-                      {correctionResult.reason}
-                    </div>
-                  ) : null}
-                </>
-              ) : null}
-            </li>
-          );
-        })}
+          },
+        )}
       </ul>
 
       <details data-testid="cinebench-panel" style={{ marginTop: "0.75rem" }}>
@@ -476,14 +558,15 @@ export function PerformancePanel({
                 <strong>
                   {workloadId} · {metric}
                 </strong>
-                {"score" in result ?
+                {"score" in result ? (
                   <div data-testid={`cinebench-score-${key}`}>
                     {result.score} pts (confidence: {result.confidence})
                   </div>
-                : <div data-testid={`cinebench-unavailable-${key}`}>
+                ) : (
+                  <div data-testid={`cinebench-unavailable-${key}`}>
                     {result.reason}
                   </div>
-                }
+                )}
               </li>
             );
           })}

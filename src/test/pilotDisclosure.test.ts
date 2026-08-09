@@ -3,11 +3,13 @@ import { DEFAULT_BUILD_STATE_V2 } from "../contract/vs2";
 import { PHYS3_GEOMETRY_DATA_VERSION } from "../contract/phys3";
 import type { PhysicalSpec } from "../contract/phys3";
 import type {
+  ExternalPerformanceObservationsFile,
   CoolingProvenanceFile,
   EvidenceSourceRegistryFile,
   GeometryEvidenceFile,
   HumanVerificationFile,
   PerformanceEvidenceFile,
+  SourceRightsRecordFile,
 } from "../contract/prov4";
 import { buildPilotDisclosureReport } from "../provenance/buildPilotDisclosureReport";
 import {
@@ -191,6 +193,20 @@ const verifications: HumanVerificationFile = {
   records: [],
 };
 
+const emptyExternal: ExternalPerformanceObservationsFile = {
+  provenanceContractVersion: "prov4",
+  dataVersion: "test",
+  observations: [],
+};
+
+const emptySourceRights: SourceRightsRecordFile = {
+  provenanceContractVersion: "prov4",
+  recordVersion: "test",
+  reviewedAt: "2026-08-09",
+  reviewerLabel: "test",
+  decisions: [],
+};
+
 describe("pilotBuild + buildPilotDisclosureReport", () => {
   it("recognizes DEFAULT_BUILD_STATE_V2 as the pilot build", () => {
     expect(isPilotBuild(DEFAULT_BUILD_STATE_V2)).toBe(true);
@@ -211,20 +227,25 @@ describe("pilotBuild + buildPilotDisclosureReport", () => {
       geometry: geometryFile(),
       cooling: emptyCooling,
       verifications,
+      externalObservations: emptyExternal,
+      sourceRights: emptySourceRights,
       nowIso: "2026-08-09T00:00:00Z",
     });
     expect(report.isPilotBuild).toBe(true);
     expect(report.performance).toHaveLength(3);
+    expect(report.externalPerformance).toHaveLength(3);
     expect(report.geometry).toHaveLength(7);
-    expect(report.performance.every((b) => b.status === "bound")).toBe(true);
+    expect(report.performance.every((b) => b.status === "unavailable")).toBe(
+      true,
+    );
     expect(report.geometry.every((b) => b.status === "bound")).toBe(true);
     expect(report.cooling.status).toBe("unavailable");
     if (report.cooling.status === "unavailable") {
       expect(report.cooling.reason).toBe("empty_production_rows");
     }
-    expect(report.limitations.some((l) => /synthetic-stub/i.test(l))).toBe(
-      true,
-    );
+    expect(
+      report.limitations.some((l) => /perf1 synthetic stub/i.test(l)),
+    ).toBe(true);
   });
 
   it("marks non-pilot builds inactive without inventing overlay rows", () => {

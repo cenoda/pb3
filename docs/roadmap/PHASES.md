@@ -22,10 +22,13 @@ Phase 4 M0 계획 패키지(스코프·`prov4` 계약·`implementation_plan.md`�
 2026-08-09 소유자 수락됐고, 별도 승인 후 구현 Steps 1–8과 software gate까지
 완료됐으나, 2026-08-09 검토에서 first-party 주장의 근거가 없는 것으로 판정됐다.
 해당 측정 주장·source·파생 raw summary는 제거됐고 3개 성능 셀은 모두 명시적
-synthetic stub으로 되돌렸다. Step 9은 외부 공개 벤치마크 교정 패키지
+synthetic stub으로 되돌렸다. **외부 벤치마크 교정 패키지
 [`../corrections/phase4-external-evidence-1/`](../corrections/phase4-external-evidence-1/)
-수락·구현·재검수 전까지 blocked다. 후속 phase는 아직 M0로 계획되지
-않았으며, Phase 4 closeout 후 별도 스코프·계약·구현 계획 수락이 필요하다.
+Steps 1–5 구현 완료 (2026-08-09)** — aggregation engine, source-rights record,
+audit-only observation fixtures, UI disclosure; exact-match product FPS는 여전히
+unavailable → perf1 synthetic fallback. Step 9은 독립 재감사 + 소유자 PASS
+전까지 blocked. 후속 phase는 아직 M0로 계획되지 않았으며, Phase 4 closeout
+후 별도 스코프·계약·구현 계획 수락이 필요하다.
 
 ### Corrective gate (not a charter phase)
 

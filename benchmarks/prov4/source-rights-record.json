@@ -1,0 +1,74 @@
+{
+  "provenanceContractVersion": "prov4",
+  "recordVersion": "prov4-source-rights-20260809",
+  "reviewedAt": "2026-08-09",
+  "reviewerLabel": "pb3-curator-agent",
+  "decisions": [
+    {
+      "sourceId": "src.external-review.techpowerup-rtx4070",
+      "publisher": "TechPowerUp",
+      "canonicalUrl": "https://www.techpowerup.com/review/msi-geforce-rtx-4070-ventus-3x/45.html",
+      "accessFindings": "Public review HTML; automated fetch may hit bot challenge; manual citation acceptable.",
+      "robotsTermsFindings": "Standard site terms; cite URL + factual test conditions; do not redistribute charts or prose.",
+      "citationRights": "fair-use-citation",
+      "storeExtractedObservation": true,
+      "decision": "approved",
+      "notes": "Tier A candidate. Ingest only when exact pilot comparability is verified."
+    },
+    {
+      "sourceId": "src.external-review.toms-hardware-rtx4070",
+      "publisher": "Tom's Hardware",
+      "canonicalUrl": "https://www.tomshardware.com/reviews/nvidia-geforce-rtx-4070-review",
+      "accessFindings": "Public review HTML; methodology pages disclose game settings when present.",
+      "robotsTermsFindings": "Cite URL + disclosed settings; no chart or article body reproduction.",
+      "citationRights": "fair-use-citation",
+      "storeExtractedObservation": true,
+      "decision": "approved",
+      "notes": "Tier A cross-check source."
+    },
+    {
+      "sourceId": "src.external-review.computerbase-cp2077",
+      "publisher": "ComputerBase",
+      "canonicalUrl": "https://www.computerbase.de/",
+      "accessFindings": "Public articles; German language; settings tables sometimes explicit.",
+      "robotsTermsFindings": "Cite URL + factual settings; no article reproduction.",
+      "citationRights": "fair-use-citation",
+      "storeExtractedObservation": true,
+      "decision": "approved",
+      "notes": "Tier B candidate when exact settings are disclosed."
+    },
+    {
+      "sourceId": "src.external-review.hwunboxed-rtx4070",
+      "publisher": "Hardware Unboxed",
+      "canonicalUrl": "https://www.youtube.com/@HardwareUnboxed",
+      "accessFindings": "Video + companion materials; configuration must be recoverable and citable.",
+      "robotsTermsFindings": "No video or chart redistribution; metadata citation only unless published table is inspectable.",
+      "citationRights": "fair-use-citation",
+      "storeExtractedObservation": false,
+      "decision": "approved-metadata-only",
+      "notes": "FPS not ingested without inspectable published table tied to exact pilot key."
+    },
+    {
+      "sourceId": "src.manufacturer-spec.nvidia-rtx4070",
+      "publisher": "NVIDIA",
+      "canonicalUrl": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4070-4070ti/",
+      "accessFindings": "Public product pages.",
+      "robotsTermsFindings": "Hardware identity metadata only.",
+      "citationRights": "public-spec",
+      "storeExtractedObservation": false,
+      "decision": "approved-metadata-only",
+      "notes": "Not independent FPS truth."
+    },
+    {
+      "sourceId": "src.manufacturer-spec.cdpr-cp2077",
+      "publisher": "CD Projekt RED",
+      "canonicalUrl": "https://www.cyberpunk.net/",
+      "accessFindings": "Public patch notes and settings documentation.",
+      "robotsTermsFindings": "Game patch / preset naming metadata only.",
+      "citationRights": "public-spec",
+      "storeExtractedObservation": false,
+      "decision": "approved-metadata-only",
+      "notes": "Not independent FPS truth."
+    }
+  ]
+}

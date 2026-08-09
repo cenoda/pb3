@@ -5,6 +5,8 @@ import { loadGeometryEvidence } from "../provenance/loadGeometryEvidence";
 import { loadHumanVerification } from "../provenance/loadHumanVerification";
 import { loadPerformanceEvidence } from "../provenance/loadPerformanceEvidence";
 import { loadProv4Fixtures } from "../provenance/loadProv4Fixtures";
+import { loadExternalPerformanceObservations } from "../provenance/loadExternalPerformanceObservations";
+import { loadSourceRightsRecord } from "../provenance/loadSourceRightsRecord";
 
 describe("prov4 loaders", () => {
   it("loads registry", async () => {
@@ -33,9 +35,17 @@ describe("prov4 loaders", () => {
     expect(file.provenanceContractVersion).toBe("prov4");
   });
 
+  it("loads external observations and source rights record", async () => {
+    const external = await loadExternalPerformanceObservations();
+    expect(external.provenanceContractVersion).toBe("prov4");
+    const rights = await loadSourceRightsRecord();
+    expect(rights.decisions.length).toBeGreaterThanOrEqual(4);
+  });
+
   it("loads without verified raw digests after false first-party evidence removal", async () => {
     const fixtures = await loadProv4Fixtures();
     expect(fixtures.verifiedArtifactDigests.size).toBe(0);
+    expect(fixtures.externalObservations.observations.length).toBeGreaterThan(0);
     expect(
       fixtures.performance.rows.some(
         (r) => r.measurement.metricKind === "first-party-measured",

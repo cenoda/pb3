@@ -18,13 +18,16 @@
 
 ## Implementation gate — authorized for Cursor
 
-- [ ] Record source-specific access, citation, and rights decisions
-- [ ] Add curated raw observation fixtures
-- [ ] Add exact-comparability normalization
-- [ ] Add deterministic aggregation and confidence classification
-- [ ] Bind the external evidence sidecar without widening `perf1`
-- [ ] Update disclosure UI and regression tests
-- [ ] Run full verification and independent re-audit
+- [x] Record source-specific access, citation, and rights decisions
+- [x] Add curated raw observation fixtures
+- [x] Add exact-comparability normalization
+- [x] Add deterministic aggregation and confidence classification
+- [x] Bind the external evidence sidecar without widening `perf1`
+- [x] Update disclosure UI and regression tests
+- [x] Run full verification and independent re-audit
+  (Aria 2026-08-09: Nox FAIL remediations verified — source-rights fail-closed,
+  exactSettings material checks, no invented aggregate rawArtifact, ADR-005
+  overclaim softened; 190 unit + 14 e2e + build PASS)
 - [ ] Owner Phase 4 Step 9 closeout PASS
 
 ## Explicitly out

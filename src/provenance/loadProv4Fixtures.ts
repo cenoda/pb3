@@ -4,16 +4,20 @@
 import type {
   CoolingProvenanceFile,
   EvidenceSourceRegistryFile,
+  ExternalPerformanceObservationsFile,
   GeometryEvidenceFile,
   HumanVerificationFile,
   PerformanceEvidenceFile,
   RawArtifactReference,
+  SourceRightsRecordFile,
 } from "../contract/prov4";
 import { loadCoolingProvenance } from "./loadCoolingProvenance";
 import { loadEvidenceRegistry } from "./loadEvidenceRegistry";
+import { loadExternalPerformanceObservations } from "./loadExternalPerformanceObservations";
 import { loadGeometryEvidence } from "./loadGeometryEvidence";
 import { loadHumanVerification } from "./loadHumanVerification";
 import { loadPerformanceEvidence } from "./loadPerformanceEvidence";
+import { loadSourceRightsRecord } from "./loadSourceRightsRecord";
 
 export interface Prov4Fixtures {
   registry: EvidenceSourceRegistryFile;
@@ -21,6 +25,8 @@ export interface Prov4Fixtures {
   geometry: GeometryEvidenceFile;
   cooling: CoolingProvenanceFile;
   verifications: HumanVerificationFile;
+  externalObservations: ExternalPerformanceObservationsFile;
+  sourceRights: SourceRightsRecordFile;
   /** Digests that passed HTTP fetch + SHA-256 / byteLength checks. */
   verifiedArtifactDigests: ReadonlySet<string>;
 }
@@ -30,7 +36,7 @@ function collectRepoFileArtifacts(
 ): RawArtifactReference[] {
   const out: RawArtifactReference[] = [];
   for (const row of performance.rows) {
-    if (row.captureConditions?.rawArtifact.kind === "repo-file") {
+    if (row.captureConditions?.rawArtifact?.kind === "repo-file") {
       out.push(row.captureConditions.rawArtifact);
     }
     const ft = row.measurement.frametime;
@@ -97,14 +103,23 @@ export async function verifyRepoFileArtifacts(
 }
 
 export async function loadProv4Fixtures(): Promise<Prov4Fixtures> {
-  const [registry, performance, geometry, cooling, verifications] =
-    await Promise.all([
-      loadEvidenceRegistry(),
-      loadPerformanceEvidence(),
-      loadGeometryEvidence(),
-      loadCoolingProvenance(),
-      loadHumanVerification(),
-    ]);
+  const [
+    registry,
+    performance,
+    geometry,
+    cooling,
+    verifications,
+    externalObservations,
+    sourceRights,
+  ] = await Promise.all([
+    loadEvidenceRegistry(),
+    loadPerformanceEvidence(),
+    loadGeometryEvidence(),
+    loadCoolingProvenance(),
+    loadHumanVerification(),
+    loadExternalPerformanceObservations(),
+    loadSourceRightsRecord(),
+  ]);
 
   const verifiedArtifactDigests = await verifyRepoFileArtifacts(performance);
 
@@ -114,6 +129,8 @@ export async function loadProv4Fixtures(): Promise<Prov4Fixtures> {
     geometry,
     cooling,
     verifications,
+    externalObservations,
+    sourceRights,
     verifiedArtifactDigests,
   };
 }

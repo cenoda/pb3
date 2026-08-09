@@ -1,0 +1,54 @@
+{
+  "provenanceContractVersion": "prov4",
+  "dataVersion": "prov4-ext-obs-20260809",
+  "observations": [
+    {
+      "observationId": "obs.audit.tpu-4070.cp2077.1080p.cpu-mismatch",
+      "sourceId": "src.external-review.techpowerup-rtx4070",
+      "sourceUrl": "https://www.techpowerup.com/review/msi-geforce-rtx-4070-ventus-3x/45.html",
+      "publishedAt": "2023-04-12",
+      "accessedAt": "2026-08-09",
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "gamePatchVersion": "unknown-at-access",
+      "presetId": "preset.raster-ultra",
+      "exactSettings": "Ultra preset; ray tracing off; DLSS off; frame generation off (review bench; CPU not pilot)",
+      "resolution": "1080p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "rayTracingState": "off",
+      "testSystem": "TechPowerUp review test bench (high-end CPU class; not Ryzen 5 7600)",
+      "driverVersion": "review-era driver (not matched to pilot)",
+      "sampleNotes": "Audit-only near-miss retained for exclusion machinery. FPS not extracted because exact pilot CPU match is required and was not verified from this bench at curation time.",
+      "weighting": {
+        "sourceMethodQuality": "tier-a-reviewed",
+        "conditionCompleteness": "partial-disclosed",
+        "recencyClass": "aged"
+      }
+    },
+    {
+      "observationId": "obs.audit.toms-4070.cp2077.1440p.cpu-mismatch",
+      "sourceId": "src.external-review.toms-hardware-rtx4070",
+      "sourceUrl": "https://www.tomshardware.com/reviews/nvidia-geforce-rtx-4070-review",
+      "publishedAt": "2023-04-13",
+      "accessedAt": "2026-08-09",
+      "cpuId": "cpu.zen4-7800x3d",
+      "gpuId": "gpu.rtx4070",
+      "gameId": "game.cyberpunk-2077",
+      "presetId": "preset.raster-ultra",
+      "exactSettings": "Ultra; RT off; DLSS off; FG off (review bench; CPU not pilot)",
+      "resolution": "1440p",
+      "upscaleId": "upscale.off",
+      "frameGenId": "framegen.off",
+      "rayTracingState": "off",
+      "testSystem": "Tom's Hardware review test bench (not Ryzen 5 7600)",
+      "sampleNotes": "Excluded: cpuId mismatch vs pilot cpu.zen4-7600. No FPS ingested.",
+      "weighting": {
+        "sourceMethodQuality": "tier-a-reviewed",
+        "conditionCompleteness": "partial-disclosed",
+        "recencyClass": "aged"
+      }
+    }
+  ]
+}

@@ -1,18 +1,23 @@
 /**
- * Pure performance evidence binder (prov4 §6.7).
+ * Pure performance evidence binder (prov4 §6.7 + external corrective overlay).
  * Exact pilot key only; never invents FPS.
  */
 import type {
+  AggregatedPerformanceEvidence,
   EvidenceSource,
   EvidenceSourceRegistryFile,
+  ExternalPerformanceObservation,
+  ExternalPerformanceObservationsFile,
   HumanVerificationFile,
   HumanVerificationRecord,
   PerformanceEvidenceBinding,
   PerformanceEvidenceFile,
   PerformanceEvidenceRecord,
   PilotBaselineKey,
+  SourceRightsRecordFile,
 } from "../contract/prov4";
 import { highGateDigestsIncludeCapture } from "../contract/prov4.schema";
+import { aggregateComparableObservations } from "./aggregatePerformanceEvidence";
 import { classifyFreshness } from "./classifyFreshness";
 import { pilotKeyEquals } from "./pilotBuild";
 
@@ -24,6 +29,12 @@ export interface BindPerformanceEvidenceInput {
   registry: EvidenceSourceRegistryFile;
   verifications: HumanVerificationFile;
   nowIso: string;
+  externalObservations?: ExternalPerformanceObservationsFile;
+  /**
+   * Required when externalObservations is provided. Aggregation fails closed
+   * without storeExtractedObservation-approved rights decisions.
+   */
+  sourceRights?: SourceRightsRecordFile;
   /**
    * Digests verified OK by integrity (repo-file on-disk match, etc.).
    * When provided, every rawArtifact sha256 on the bound row must be present.
@@ -32,8 +43,18 @@ export interface BindPerformanceEvidenceInput {
   verifiedArtifactDigests?: ReadonlySet<string>;
 }
 
+export interface BindPerformanceEvidenceResult {
+  binding: PerformanceEvidenceBinding;
+  /** Residual synthetic-stub row when external aggregate is unavailable. */
+  syntheticReference?: PerformanceEvidenceRecord;
+  displayClass: "aggregated" | "synthetic-perf1" | "unavailable";
+}
+
 function unavailable(
-  reason: Extract<PerformanceEvidenceBinding, { status: "unavailable" }>["reason"],
+  reason: Extract<
+    PerformanceEvidenceBinding,
+    { status: "unavailable" }
+  >["reason"],
   explanation: string,
 ): PerformanceEvidenceBinding {
   return { status: "unavailable", reason, explanation };
@@ -52,13 +73,14 @@ function resolveSources(
   return { ok: true, sources };
 }
 
-function confidenceCeiling(sources: EvidenceSource[]): "stub" | "medium" | "high" | "none" {
+function confidenceCeiling(
+  sources: EvidenceSource[],
+): "stub" | "medium" | "high" | "none" {
   if (sources.length === 0) return "none";
   const classes = new Set(sources.map((s) => s.sourceClass));
   if (classes.has("first-party")) return "high";
   if (classes.has("external-review")) return "medium";
   if ([...classes].every((c) => c === "project-synthetic")) return "stub";
-  // manufacturer-spec alone does not raise performance confidence
   return "none";
 }
 
@@ -79,7 +101,7 @@ function exceedsCeiling(
 
 function collectArtifactDigests(row: PerformanceEvidenceRecord): string[] {
   const digests: string[] = [];
-  if (row.captureConditions) {
+  if (row.captureConditions?.rawArtifact) {
     digests.push(row.captureConditions.rawArtifact.sha256);
   }
   const ft = row.measurement.frametime;
@@ -91,6 +113,22 @@ function collectArtifactDigests(row: PerformanceEvidenceRecord): string[] {
     digests.push(ft.artifact.sha256);
   }
   return digests;
+}
+
+/** Latest accessedAt among contributing observations (ISO date or datetime). */
+function latestAccessedAt(
+  observations: readonly ExternalPerformanceObservation[],
+  contributingIds: readonly string[],
+): string | undefined {
+  const idSet = new Set(contributingIds);
+  let latest: string | undefined;
+  for (const obs of observations) {
+    if (!idSet.has(obs.observationId)) continue;
+    if (!latest || obs.accessedAt > latest) {
+      latest = obs.accessedAt;
+    }
+  }
+  return latest;
 }
 
 function hasCompleteCharterMetrics(row: PerformanceEvidenceRecord): boolean {
@@ -109,7 +147,12 @@ function hasCompleteCharterMetrics(row: PerformanceEvidenceRecord): boolean {
       m.frametime.status === "unavailable"
     );
   }
-  // external-review: each field present as number or unavailable (schema ensures)
+  if (m.metricKind === "external-aggregated") {
+    return (
+      m.fpsOnePercentLow.status === "unavailable" &&
+      m.frametime.status === "unavailable"
+    );
+  }
   return true;
 }
 
@@ -121,26 +164,107 @@ function findVerification(
   return file.records.find((r) => r.verificationId === verificationId);
 }
 
-export function bindPerformanceEvidence(
+function rangeDerivationForAggregate(
+  aggregate: AggregatedPerformanceEvidence,
+): PerformanceEvidenceRecord["captureConditions"] extends infer T
+  ? T extends { rangeDerivation: infer R }
+    ? R
+    : never
+  : never {
+  if (aggregate.aggregationMethod === "three-plus-weighted-percentiles") {
+    return "external-aggregated-weighted-percentiles";
+  }
+  return "external-aggregated-two-source-range";
+}
+
+function performanceRecordFromAggregate(
+  key: PilotBaselineKey,
+  aggregate: AggregatedPerformanceEvidence,
+  syntheticReference: PerformanceEvidenceRecord | undefined,
+  dataVersion: string,
+  sourceObservations: readonly ExternalPerformanceObservation[],
+): PerformanceEvidenceRecord {
+  const buildPartIds = syntheticReference?.buildPartIds ?? {
+    caseId: "case.mid-tower-atx-01" as const,
+    motherboardId: "mb.atx-b650-01" as const,
+    cpuId: "cpu.zen4-7600" as const,
+    gpuId: "gpu.rtx4070" as const,
+    coolerId: "cooler.air-twin-tower-01" as const,
+    ramId: "ram.ddr5-32gb-6000" as const,
+    psuId: "psu.750w-atx" as const,
+  };
+
+  const accessed =
+    latestAccessedAt(
+      sourceObservations,
+      aggregate.contributingObservationIds,
+    ) ?? dataVersion;
+  // Normalize date-only accessedAt to a stable ISO datetime for freshness.
+  const capturedAt = /^\d{4}-\d{2}-\d{2}$/.test(accessed)
+    ? `${accessed}T00:00:00.000Z`
+    : accessed;
+
+  return {
+    provenanceContractVersion: "prov4",
+    evidenceId: `perf.pilot.${key.resolution}.external-aggregated`,
+    key,
+    buildPartIds,
+    measurement: {
+      metricKind: "external-aggregated",
+      fpsMin: aggregate.fpsMin,
+      fpsMax: aggregate.fpsMax,
+      fpsAverage: aggregate.fpsAverage,
+      fpsOnePercentLow: {
+        status: "unavailable",
+        reason: "external aggregate; 1% low not published across sources",
+      },
+      frametime: {
+        status: "unavailable",
+        reason: "external aggregate; frametime not published across sources",
+      },
+    },
+    confidence: aggregate.confidence,
+    dataVersion,
+    basis: aggregate.basis,
+    sourceIds: aggregate.contributingSourceIds,
+    capturedAt,
+    freshnessPolicy: { maxAgeDays: 365 },
+    captureConditions: {
+      protocolId: "prov4.external-aggregate",
+      protocolVersion: "2026.08.1",
+      runCount: aggregate.contributingObservationIds.length,
+      rangeDerivation:
+        aggregate.aggregationMethod === "published-range"
+          ? "imported-review-stated-range"
+          : rangeDerivationForAggregate(aggregate),
+      gamePatchVersion: "varies-by-source",
+      gpuDriverVersion: "varies-by-source",
+      toolName: "curated-external-observations",
+      toolVersion: dataVersion,
+      graphicsSettings: {
+        presetId: "preset.raster-ultra",
+        exactSettings:
+          "Exact pilot comparability key; see contributing observation fixtures",
+      },
+      powerThermal: {
+        cpuPowerLimitId: "cpu-power.default",
+        gpuPowerLimitId: "gpu-power.default",
+        conditions: "review benches; not first-party capture",
+      },
+      // Intentionally omit rawArtifact: external aggregates are not lab captures.
+    },
+    limitingFactor: {
+      category: "GPU-bound",
+      explanation:
+        "External-review aggregate for pilot raster-ultra; not a measured bottleneck claim.",
+    },
+  };
+}
+
+function bindLegacyRow(
   input: BindPerformanceEvidenceInput,
+  row: PerformanceEvidenceRecord,
 ): PerformanceEvidenceBinding {
-  if (!input.isPilotBuild) {
-    return unavailable(
-      "not_pilot_key",
-      "Build is not the exact pilot part set; no prov4 performance overlay",
-    );
-  }
-
-  const row = input.evidenceFile.rows.find((r) =>
-    pilotKeyEquals(r.key, input.key),
-  );
-  if (!row) {
-    return unavailable(
-      "missing_evidence_row",
-      `No prov4 performance evidence row for resolution ${input.key.resolution}`,
-    );
-  }
-
   const resolved = resolveSources(row.sourceIds, input.registry);
   if (!resolved.ok) {
     return unavailable(
@@ -180,7 +304,10 @@ export function bindPerformanceEvidence(
     }
   }
 
-  if (input.verifiedArtifactDigests) {
+  if (
+    input.verifiedArtifactDigests &&
+    row.measurement.metricKind !== "external-aggregated"
+  ) {
     for (const digest of collectArtifactDigests(row)) {
       if (!input.verifiedArtifactDigests.has(digest)) {
         return unavailable(
@@ -234,12 +361,115 @@ export function bindPerformanceEvidence(
     nowIso: input.nowIso,
   });
 
-  // Default M0 presentation: bound + stale disclosure (do not withhold)
   return {
     status: "bound",
     evidence: row,
     freshness,
     sources,
     verification,
+  };
+}
+
+function findSyntheticReference(
+  input: BindPerformanceEvidenceInput,
+): PerformanceEvidenceRecord | undefined {
+  return input.evidenceFile.rows.find(
+    (row) =>
+      pilotKeyEquals(row.key, input.key) &&
+      row.measurement.metricKind === "synthetic-stub",
+  );
+}
+
+export function bindPerformanceEvidence(
+  input: BindPerformanceEvidenceInput,
+): PerformanceEvidenceBinding {
+  return bindPerformanceEvidenceDetailed(input).binding;
+}
+
+export function bindPerformanceEvidenceDetailed(
+  input: BindPerformanceEvidenceInput,
+): BindPerformanceEvidenceResult {
+  if (!input.isPilotBuild) {
+    return {
+      binding: unavailable(
+        "not_pilot_key",
+        "Build is not the exact pilot part set; no prov4 performance overlay",
+      ),
+      displayClass: "unavailable",
+    };
+  }
+
+  const syntheticReference = findSyntheticReference(input);
+
+  if (input.externalObservations) {
+    if (!input.sourceRights) {
+      return {
+        binding: unavailable(
+          "missing_source",
+          "External observations present but sourceRights record was not provided; fail closed",
+        ),
+        syntheticReference,
+        displayClass: "synthetic-perf1",
+      };
+    }
+
+    const aggregation = aggregateComparableObservations(
+      input.key,
+      input.externalObservations.observations,
+      input.sourceRights,
+    );
+
+    if (aggregation.status === "aggregated") {
+      const evidence = performanceRecordFromAggregate(
+        input.key,
+        aggregation,
+        syntheticReference,
+        input.externalObservations.dataVersion,
+        input.externalObservations.observations,
+      );
+      const binding = bindLegacyRow(input, evidence);
+      if (binding.status === "bound") {
+        return { binding, displayClass: "aggregated" };
+      }
+      return {
+        binding,
+        syntheticReference,
+        displayClass: "unavailable",
+      };
+    }
+
+    return {
+      binding: unavailable("missing_evidence_row", aggregation.explanation),
+      syntheticReference,
+      displayClass: "synthetic-perf1",
+    };
+  }
+
+  const row = input.evidenceFile.rows.find((r) =>
+    pilotKeyEquals(r.key, input.key),
+  );
+  if (!row) {
+    return {
+      binding: unavailable(
+        "missing_evidence_row",
+        `No prov4 performance evidence row for resolution ${input.key.resolution}`,
+      ),
+      displayClass: "unavailable",
+    };
+  }
+
+  const binding = bindLegacyRow(input, row);
+  const displayClass =
+    row.measurement.metricKind === "synthetic-stub"
+      ? "synthetic-perf1"
+      : binding.status === "bound"
+        ? "aggregated"
+        : "unavailable";
+
+  return {
+    binding,
+    syntheticReference:
+      row.measurement.metricKind === "synthetic-stub" ? row : undefined,
+    displayClass,
   };
 }

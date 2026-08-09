@@ -1,7 +1,63 @@
 {
   "provenanceContractVersion": "prov4",
-  "registryVersion": "prov4-registry-20260809",
+  "registryVersion": "prov4-registry-20260809-ext1",
   "sources": [
+    {
+      "sourceId": "src.external-review.techpowerup-rtx4070",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "TechPowerUp MSI GeForce RTX 4070 Ventus 3X review",
+      "origin": "TechPowerUp GPU review pages",
+      "citation": "https://www.techpowerup.com/review/msi-geforce-rtx-4070-ventus-3x/45.html",
+      "publishedAt": "2023-04-12",
+      "notes": "Tier A candidate; rights approved in ADR-005 / source-rights-record.json. No exact pilot-match FPS ingested yet."
+    },
+    {
+      "sourceId": "src.external-review.toms-hardware-rtx4070",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "Tom's Hardware NVIDIA GeForce RTX 4070 review",
+      "origin": "Tom's Hardware GPU review pages",
+      "citation": "https://www.tomshardware.com/reviews/nvidia-geforce-rtx-4070-review",
+      "publishedAt": "2023-04-13",
+      "notes": "Tier A cross-check; rights approved. No exact pilot-match FPS ingested yet."
+    },
+    {
+      "sourceId": "src.external-review.computerbase-cp2077",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "ComputerBase game/GPU benchmark articles",
+      "origin": "ComputerBase",
+      "citation": "https://www.computerbase.de/",
+      "notes": "Tier B candidate when exact settings disclosed; approved pending verified rows."
+    },
+    {
+      "sourceId": "src.external-review.hwunboxed-rtx4070",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "Hardware Unboxed RTX 4070 published materials",
+      "origin": "Hardware Unboxed YouTube / companion pages",
+      "citation": "https://www.youtube.com/@HardwareUnboxed",
+      "notes": "Metadata-only until inspectable published table for exact pilot key."
+    },
+    {
+      "sourceId": "src.manufacturer-spec.nvidia-rtx4070",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "NVIDIA GeForce RTX 4070 product specification",
+      "origin": "NVIDIA product pages",
+      "citation": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4070-4070ti/",
+      "notes": "Hardware identity metadata only; not FPS truth."
+    },
+    {
+      "sourceId": "src.manufacturer-spec.cdpr-cp2077",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "Cyberpunk 2077 patch and graphics settings documentation",
+      "origin": "CD Projekt RED",
+      "citation": "https://www.cyberpunk.net/",
+      "notes": "Game patch / preset naming metadata only."
+    },
     {
       "sourceId": "src.project-synthetic.pilot-perf",
       "sourceClass": "project-synthetic",

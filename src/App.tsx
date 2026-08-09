@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { loadCompat2Examples } from "./catalog/loadCompat2Fixtures";
 import { loadPartCatalog } from "./catalog/loadPartCatalog";
-import { loadPerf1Fixtures, type Perf1Fixtures } from "./catalog/loadPerf1Fixtures";
+import {
+  loadPerf1Fixtures,
+  type Perf1Fixtures,
+} from "./catalog/loadPerf1Fixtures";
 import { buildCompatibilityReport } from "./compat/buildCompatibilityReport";
 import { loadPriceFixtures } from "./price/loadPriceFixtures";
 import { buildPriceSummary } from "./price/buildPriceSummary";
@@ -179,7 +182,12 @@ export default function App() {
   }, [boot, assembly, buildState]);
 
   const coolingResult = useMemo(() => {
-    if (boot.status !== "ready" || !assembly || !physicalReport || !buildState) {
+    if (
+      boot.status !== "ready" ||
+      !assembly ||
+      !physicalReport ||
+      !buildState
+    ) {
       return null;
     }
     const buildPartIds = [
@@ -226,6 +234,8 @@ export default function App() {
       geometry: boot.prov4Fixtures.geometry,
       cooling: boot.prov4Fixtures.cooling,
       verifications: boot.prov4Fixtures.verifications,
+      externalObservations: boot.prov4Fixtures.externalObservations,
+      sourceRights: boot.prov4Fixtures.sourceRights,
       nowIso: new Date().toISOString(),
       verifiedArtifactDigests: boot.prov4Fixtures.verifiedArtifactDigests,
     });
@@ -275,7 +285,9 @@ export default function App() {
     return (
       <main className="app-shell">
         <h1>pb3 — PC Builder</h1>
-        <p style={{ color: "#b91c1c" }}>Failed to load fixtures: {boot.message}</p>
+        <p style={{ color: "#b91c1c" }}>
+          Failed to load fixtures: {boot.message}
+        </p>
       </main>
     );
   }
@@ -299,14 +311,7 @@ export default function App() {
     .map((p) => ({ partId: p.partId, transform: p.transform! }));
 
   const selectorProps = (
-    category:
-      | "case"
-      | "motherboard"
-      | "cpu"
-      | "gpu"
-      | "cooler"
-      | "ram"
-      | "psu",
+    category: "case" | "motherboard" | "cpu" | "gpu" | "cooler" | "ram" | "psu",
     label: string,
     testId: string,
     value: string,
@@ -418,7 +423,10 @@ export default function App() {
               />
             </details>
 
-            <details className="panel-details" data-testid="build-parts-details">
+            <details
+              className="panel-details"
+              data-testid="build-parts-details"
+            >
               <summary>Build parts list</summary>
               <BuildSummary buildState={buildState} catalog={catalog} />
             </details>

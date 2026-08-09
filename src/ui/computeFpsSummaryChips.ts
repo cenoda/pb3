@@ -5,12 +5,15 @@ import { RESOLUTIONS } from "../contract/vs0";
 import { applyCorrection } from "../perf/applyCorrection";
 import { baselineQueriesForBuild } from "../perf/baselineQuery";
 import { estimateBaseline } from "../perf/estimateBaseline";
-import { bindPerformanceEvidence } from "../provenance/bindPerformanceEvidence";
+import { bindPerformanceEvidenceDetailed } from "../provenance/bindPerformanceEvidence";
 import {
   isPilotPerformanceOverlayActive,
   pilotBaselineKeyFor,
 } from "../provenance/pilotBuild";
-import type { BaselineEstimateResult, PerfPanelDimensions } from "../contract/perf1";
+import type {
+  BaselineEstimateResult,
+  PerfPanelDimensions,
+} from "../contract/perf1";
 import type { CorrectionInput } from "../contract/perf1";
 import type { FpsSummaryChip } from "./buildResultSummaryModel";
 
@@ -36,38 +39,68 @@ export function computeFpsSummaryChips(input: {
   const queries = baselineQueriesForBuild(buildState, dimensions);
   const labelById = new Map(RESOLUTIONS.map((r) => [r.id, r.label]));
   const sidecarActive =
-    !!prov4Fixtures &&
-    isPilotPerformanceOverlayActive(buildState, dimensions);
+    !!prov4Fixtures && isPilotPerformanceOverlayActive(buildState, dimensions);
   const nowIso = new Date().toISOString();
 
   return queries.map((query) => {
     const label = labelById.get(query.resolution) ?? query.resolution;
 
     if (sidecarActive && prov4Fixtures) {
-      const sidecar = bindPerformanceEvidence({
+      const detailed = bindPerformanceEvidenceDetailed({
         key: pilotBaselineKeyFor(query.resolution),
         isPilotBuild: true,
         evidenceFile: prov4Fixtures.performance,
         registry: prov4Fixtures.registry,
         verifications: prov4Fixtures.verifications,
         nowIso,
+        externalObservations: prov4Fixtures.externalObservations,
+        sourceRights: prov4Fixtures.sourceRights,
         verifiedArtifactDigests: prov4Fixtures.verifiedArtifactDigests,
       });
-      if (sidecar.status === "bound") {
+      if (
+        detailed.binding.status === "bound" &&
+        detailed.displayClass === "aggregated"
+      ) {
         return {
           resolution: query.resolution,
           label,
           status: "ok" as const,
-          fpsMin: sidecar.evidence.measurement.fpsMin,
-          fpsMax: sidecar.evidence.measurement.fpsMax,
+          fpsMin: detailed.binding.evidence.measurement.fpsMin,
+          fpsMax: detailed.binding.evidence.measurement.fpsMax,
         };
       }
-      return {
-        resolution: query.resolution,
-        label,
-        status: "unavailable" as const,
-        reason: sidecar.explanation,
-      };
+      if (detailed.displayClass === "synthetic-perf1") {
+        const baseline = estimateBaseline(query, perf1Fixtures.baseline);
+        if (isUnavailable(baseline)) {
+          return {
+            resolution: query.resolution,
+            label,
+            status: "unavailable" as const,
+            reason:
+              detailed.binding.status === "unavailable"
+                ? detailed.binding.explanation
+                : baseline.reason,
+          };
+        }
+        const correctionResult = applyCorrection(query, baseline, correction);
+        const display =
+          correctionResult?.status === "ok" ? correctionResult : baseline;
+        return {
+          resolution: query.resolution,
+          label,
+          status: "ok" as const,
+          fpsMin: display.fpsMin,
+          fpsMax: display.fpsMax,
+        };
+      }
+      if (detailed.binding.status === "unavailable") {
+        return {
+          resolution: query.resolution,
+          label,
+          status: "unavailable" as const,
+          reason: detailed.binding.explanation,
+        };
+      }
     }
 
     const baseline = estimateBaseline(query, perf1Fixtures.baseline);
