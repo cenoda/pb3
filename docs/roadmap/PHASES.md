@@ -34,9 +34,11 @@ Exact-only 외부 집계만으로는 임의 조합 예측이 불가능하다는 
 **조합 성능 추정 함수** 논의를 위한 서브 경로를 연다 (2026-08-09).
 
 - 홈: [`../phases/phase-4.1/`](../phases/phase-4.1/)
-- 알고리즘 논의: [`../phases/phase-4.1/ALGORITHM_DISCUSSION.md`](../phases/phase-4.1/ALGORITHM_DISCUSSION.md)
-- 방향 시드: 제조사 공개 성능 기반 **조합 예측이 primary**, 신뢰 리뷰 관측은
-  **auxiliary**. 구현·M0 수락 전. Phase 5 아님.
+- 알고리즘: [`../phases/phase-4.1/ALGORITHM_DISCUSSION.md`](../phases/phase-4.1/ALGORITHM_DISCUSSION.md)
+  §0 — **O1–O9 소유자 잠금 (2026-08-09)**  
+  (comparability-first 제조사 수확, CPU ratio 없는 변환 금지, 비교 가능 리뷰 필수
+  검증, scaled≤low, est1 sidecar, pilot×3 + exact/scaled/unavailable 증명,
+  실패 시 unavailable). M0 스코프·계약·구현 계획은 미작성. Phase 5 아님.
 
 ### Corrective gate (not a charter phase)
 

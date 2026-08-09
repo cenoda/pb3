@@ -1,7 +1,82 @@
 # Algorithm discussion — combination performance estimator
 
-**Status:** open discussion (2026-08-09)  
-**Not accepted · not an implementation plan · not authorization to code**
+**Status:** algorithm direction **owner-locked (O1–O9, 2026-08-09)**  
+**M0 scope/contract/plan:** not yet written · **implementation:** not authorized
+
+Locked decisions live in **§0**. Earlier sections retain rationale; where they
+conflict with §0, **§0 wins**.
+
+---
+
+## 0. Owner-locked decisions (2026-08-09)
+
+| ID | Choice | Normative meaning |
+|----|--------|-------------------|
+| **O1** | **A + comparability-first** | Search manufacturer materials first, but **never prefer weaker evidence** over stronger comparable evidence. Comparability quality outranks “vendor vs review” brand when both apply. |
+| **O2** | **B** | At **1440p and 4K**, CPU mismatch may be transformed **only** if an evidenced CPU ratio edge exists. **No GPU-bound waiver** that skips the ratio. |
+| **O3** | **A** | At **1080p**, CPU impact **must not** be papered over with a GPU-bound waiver. Require comparable CPU or an evidenced scale edge; else unavailable for that path. |
+| **O4** | **A** | If **comparable** review observations exist, they **must** be used for validation (bound / cross-check). Optional bounding is not allowed when comparability holds. |
+| **O5** | **A** | M0 **`scaled-combination` confidence ceiling = `low`**. |
+| **O6** | **A** | Do **not** widen or rewrite `perf1` for this work. Estimator lives in a **sidecar**. |
+| **O7** | **A+** | M0 inventory: **single pilot build × 3 resolutions**, but the implementation must **prove all three paths**: `exact-aggregate`, `scaled-combination`, and `unavailable`. |
+| **O8** | **B** | New contract family **`est1`**: estimation responsibility. **`prov4` remains evidence**; est1 consumes evidence, does not replace it. |
+| **O9** | **A** | If the estimator cannot fire under policy → **`unavailable`**. **`synthetic-stub` is not an estimator output**; UI may still show perf1/prov4 synthetic **outside** the estimator. |
+
+### 0.1 Locked hybrid control flow (normative sketch)
+
+```text
+estimateCombinationPerformance(query, corpus_est1, evidence_prov4, policy) -> Estimate | Unavailable
+
+  # Strength order is comparability-first (O1), not "vendor always wins".
+  candidates = collect_anchors(query, vendor_fragments, review_fragments)
+  best = pick_best(candidates by comparability_rank then source_trust)
+
+  if best is exact-comparable multi-source aggregate:
+     est = exact_aggregate(best)
+     # O4: if additional comparable reviews exist, must validate/bound
+     est = must_validate_with_comparable_reviews(est, query)  # no-op if none
+     return Estimate(method=exact-aggregate, confidence≤medium, ...)
+
+  if best requires transforms (e.g. CPU scale):
+     if missing required scale edge:
+        # O2/O3: no waiver — including 1440p/4K without ratio
+        skip this candidate
+     else:
+        est = apply_scale_graph(best, query)   # O5: confidence ≤ low
+        est = must_validate_with_comparable_reviews(est, query)  # O4
+        return Estimate(method=scaled-combination, confidence≤low, ...)
+
+  if no candidate survives:
+     return Unavailable   # O9 — never synthetic-stub from estimator
+
+  # UI layer (outside est1): may still display perf1 synthetic residual
+  # for pilot continuity; that is not an est1 success path.
+```
+
+### 0.2 Comparability-first (O1) — ranking sketch
+
+When two fragments both claim relevance to the query:
+
+1. **Field match score** (cpu, gpu, game, preset, res, upscale, fg, rt, material settings)
+2. **Metric completeness** (range vs average-only; settings disclosed)
+3. **Source class** (lab > vendor-official table > external-review > marketing-thin)
+4. **Recency / rights** (approved store + freshness)
+
+A highly comparable review **outranks** a weakly comparable vendor marketing
+blob. “Manufacturer-primary” means **search and harvest vendor corpora first**,
+not “always pick vendor even when worse.”
+
+### 0.3 Consequences for rejected earlier drafts
+
+| Earlier draft idea | Status after O1–O9 |
+|--------------------|--------------------|
+| GPU-bound CPU waiver at 1440p/4K without ratio | **Rejected** (O2) |
+| 1080p waiver | **Rejected** (O3) |
+| Optional review bounding | **Rejected** when reviews are comparable (O4) |
+| scaled confidence medium in M0 | **Rejected** (O5) |
+| Write estimates into perf1 | **Rejected** (O6) |
+| Estimator returns synthetic-stub | **Rejected** (O9) |
+| Extend prov4 as the estimate contract | **Rejected** (O8 — est1 is estimate) |
 
 ---
 
@@ -278,35 +353,14 @@ Retrieve k nearest published points; fit local model; conformal intervals.
 
 ---
 
-## 6. Recommended hybrid for Phase 4.1 M0 (discussion proposal)
+## 6. M0 hybrid (locked by §0; historical proposal superseded)
 
-Not locked — proposal to argue against:
+The control flow in **§0.1** is normative. Family **C** (anchor + scale graph)
+remains the core; Family **A** is the exact fast path; Family **B** GPU-bound
+**waiver without ratio is out**. Reviews are auxiliary **inputs** but
+**mandatory validators** when comparable (O4).
 
-```text
-estimateCombinationPerformance(query):
-
-  # Path 0 — hard exact (best)
-  if exact_aggregate(query):
-     return tag exact-aggregate, confidence ≤ medium
-
-  # Path 1 — manufacturer primary
-  anchor = best_vendor_anchor(query)
-  if anchor:
-     est = scale_anchor_to_query(anchor, query)   # may be identity
-     est = optional_bound_with_reviews(est, query)
-     return tag vendor-anchor | scaled-combination
-
-  # Path 2 — review auxiliary promotion (only if no vendor)
-  if gpu_bound_or_exact_review(query):
-     return tag exact-aggregate | scaled-combination (review-primary), low
-
-  # Path 3 — residual
-  if pilot_synthetic_allowed(query):
-     return synthetic-stub
-  return unavailable
-```
-
-### 6.1 Uncertainty rule (draft)
+### 6.1 Uncertainty rule (draft for plan phase)
 
 Every transform multiplies an uncertainty factor:
 
@@ -314,8 +368,8 @@ Every transform multiplies an uncertainty factor:
 range_width := max(range_width * u_edge, absolute_floor)
 ```
 
-If final width exceeds policy max (e.g. > 40% of center) → **unavailable**
-or force `confidence: low` with UI warning — open decision.
+If final width exceeds policy max → **unavailable** (preferred under O9), not
+silent point estimate. Exact threshold is plan-phase detail.
 
 ### 6.2 What “manufacturer-published” means here
 
@@ -354,19 +408,18 @@ or review-only path with low confidence — do not invent 0.97.
 
 ---
 
-## 8. Open decisions (for owner)
+## 8. Open decisions
 
-| ID | Question | Options (sketch) |
-|----|----------|------------------|
-| **O1** | Primary corpus | **A)** Manufacturer-first (recommended) **B)** Review-first **C)** Equal hybrid |
-| **O2** | CPU mismatch at 1440p/4K | **A)** GPU-bound waiver with width inflate **B)** require CPU scale edge **C)** unavailable |
-| **O3** | CPU mismatch at 1080p CP2077 | **A)** require CPU scale **B)** unavailable **C)** wide low-confidence scale |
-| **O4** | Vendor-only optimism | **A)** always bound with reviews when present **B)** optional **C)** vendor trust tiers |
-| **O5** | Max confidence for scaled-combination | **A)** low only **B)** medium if multi-anchor + bounds |
-| **O6** | Relation to `perf1` | **A)** estimator writes sidecar only **B)** estimator fills perf1-shaped rows at build time **C)** runtime replaces estimateBaseline |
-| **O7** | Pilot scope for M0 | **A)** single pilot build × 3 resolutions **B)** full 2 CPU × 2 GPU × 3 res matrix **C)** catalog-wide |
-| **O8** | Contract bump | **A)** extend `prov4` **B)** new `est1` sidecar **C)** widen `perf1` |
-| **O9** | Unavailable vs synthetic-stub when model cannot fire | **A)** unavailable **B)** stub residual for UI continuity (pilot only) |
+**O1–O9 locked** — see **§0**. Remaining plan-phase details (not algorithm
+family choices):
+
+| ID | Still open for plan/contract |
+|----|------------------------------|
+| **P1** | Max range width before unavailable |
+| **P2** | Exact `est1` type shapes and dataVersion string |
+| **P3** | Where CPU scale edges are curated (fixture schema) |
+| **P4** | How UI composes est1 unavailable + outer synthetic residual |
+| **P5** | Test matrix that proves exact / scaled / unavailable on pilot × 3 |
 
 ---
 

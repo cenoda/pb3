@@ -1,6 +1,6 @@
 # Phase 4.1 — Combination performance estimator (sub-path)
 
-**Status: discussion / not owner-accepted / implementation not authorized**
+**Status: algorithm direction owner-locked (O1–O9, 2026-08-09) · M0 package not accepted · implementation not authorized**
 
 Work id: `phase-4.1-combo-estimator`
 
@@ -28,18 +28,21 @@ Phase 4.1 asks a different primary question:
 > **what pure function** predicts a range for a user-selected combination, with
 > explicit method, confidence, and provenance?
 
-## Owner direction (seed — 2026-08-09)
+## Owner direction (locked O1–O9 — 2026-08-09)
+
+Full table: [`ALGORITHM_DISCUSSION.md` §0](./ALGORITHM_DISCUSSION.md).
 
 | Priority | Role |
 |----------|------|
-| **Primary** | Predict the result of the **actual combination** from **manufacturer-published** (and similarly official) performance materials |
-| **Auxiliary** | Ingest trusted review-site observations when they exist — they calibrate, bound, or cross-check; they are **not** the only product path |
-| **Forbidden** | Silent fake first-party captures; chart eyeballing; unlabeled ±N% padding |
+| **Harvest order** | Manufacturer materials first, but **comparability-first** selection (weaker vendor blob loses to stronger comparable review) |
+| **Transforms** | CPU (and other) scales only with **evidenced ratio edges** — no GPU-bound waiver without ratio (including 1440p/4K) |
+| **Reviews** | Auxiliary corpus; **mandatory validation** when comparable |
+| **Scaled M0 ceiling** | `confidence ≤ low` |
+| **Contracts** | **`est1`** = estimation; **`prov4`** = evidence; **`perf1`** untouched |
+| **M0 surface** | Pilot × 3 resolutions; prove **exact / scaled / unavailable** |
+| **Failure** | Estimator returns **unavailable** only (synthetic stays outside est1) |
 
-This direction **tensions** with charter line “do not invent numbers.” Phase 4.1
-must resolve that tension by treating **modeled estimates** as first-class,
-labeled outputs (`modeled` / `scaled` / `aggregated` / `unavailable`), never as
-measured truth.
+Modeled estimates are first-class **labeled** outputs, never dressed as measurement.
 
 ## Layout
 
@@ -68,9 +71,10 @@ Later (only after discussion converges and owner accepts):
 
 ## Current gate
 
-1. Discuss and thin the algorithm options in [`ALGORITHM_DISCUSSION.md`](./ALGORITHM_DISCUSSION.md).
-2. Owner picks preferred family (or hybrid) + open decisions.
-3. Only then write scope + contract + implementation plan.
-4. Only then separate implementation-start authorization.
+1. [x] Algorithm options discussed
+2. [x] Owner locked O1–O9 (2026-08-09)
+3. [ ] Write scope + `est1` contract + implementation plan
+4. [ ] Peer review + owner M0 package accept
+5. [ ] Separate implementation-start authorization
 
 **No src/ or fixture changes under this folder’s authorization yet.**
