@@ -423,16 +423,52 @@ export default function App() {
               <BuildSummary buildState={buildState} catalog={catalog} />
             </details>
 
-            <CompatibilityPanel report={compatibilityReport} />
-            <EvidenceDisclosurePanel report={disclosureReport} />
-            <PhysicalValidationPanel report={physicalReport} />
-            <CoolingEvidencePanel result={coolingResult} mode="physical" />
-            <PriceSummaryPanel summary={priceSummary} />
-            <PerformancePanel
-              buildState={buildState}
-              perf1Fixtures={boot.perf1Fixtures}
-              prov4Fixtures={boot.prov4Fixtures}
-            />
+            <details
+              className="panel-details domain-details"
+              data-testid="compatibility-domain-details"
+            >
+              <summary>Compatibility details</summary>
+              <CompatibilityPanel report={compatibilityReport} />
+            </details>
+            <details
+              className="panel-details domain-details"
+              data-testid="evidence-domain-details"
+            >
+              <summary>Evidence details</summary>
+              <EvidenceDisclosurePanel report={disclosureReport} />
+            </details>
+            <details
+              className="panel-details domain-details"
+              data-testid="physical-domain-details"
+            >
+              <summary>Fit details</summary>
+              <PhysicalValidationPanel report={physicalReport} />
+            </details>
+            <details
+              className="panel-details domain-details"
+              data-testid="cooling-domain-details"
+            >
+              <summary>Cooling details</summary>
+              <CoolingEvidencePanel result={coolingResult} mode="physical" />
+            </details>
+            <details
+              className="panel-details domain-details"
+              data-testid="price-domain-details"
+            >
+              <summary>Price details</summary>
+              <PriceSummaryPanel summary={priceSummary} />
+            </details>
+            <details
+              className="panel-details domain-details"
+              data-testid="performance-domain-details"
+            >
+              <summary>Performance details</summary>
+              <PerformancePanel
+                buildState={buildState}
+                perf1Fixtures={boot.perf1Fixtures}
+                prov4Fixtures={boot.prov4Fixtures}
+              />
+            </details>
           </div>
         </section>
 

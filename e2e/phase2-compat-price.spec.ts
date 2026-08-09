@@ -25,8 +25,20 @@ async function waitForPhase2Ready(page: import("@playwright/test").Page) {
   await expect(page.getByTestId("motherboard-select")).toBeVisible();
   await expect(page.getByTestId("ram-part-select")).toBeVisible();
   await expect(page.getByTestId("psu-select")).toBeVisible();
+  await openDomainDetails(page, "compatibility-domain-details");
+  await openDomainDetails(page, "price-domain-details");
   await expect(page.getByTestId("compatibility-panel")).toBeVisible();
   await expect(page.getByTestId("price-summary-panel")).toBeVisible();
+}
+
+async function openDomainDetails(
+  page: import("@playwright/test").Page,
+  testId: string,
+) {
+  const details = page.getByTestId(testId);
+  if (!(await details.getAttribute("open"))) {
+    await details.locator(":scope > summary").click();
+  }
 }
 
 async function openFilters(page: import("@playwright/test").Page) {

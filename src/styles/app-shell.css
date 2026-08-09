@@ -215,6 +215,12 @@ body {
   list-style-position: outside;
 }
 
+.details-stack details.domain-details > .panel {
+  margin-top: 0.5rem;
+  border: 0;
+  padding: 0.35rem 0 0;
+}
+
 .muted {
   color: var(--app-muted);
   font-size: 0.85rem;

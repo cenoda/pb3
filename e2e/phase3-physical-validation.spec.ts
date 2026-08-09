@@ -19,6 +19,17 @@ function fullVs2Query(overrides: Record<string, string> = {}): string {
 
 async function waitForPhase3Ready(page: import("@playwright/test").Page) {
   await expect(page.getByTestId("case-select")).toBeVisible();
+  for (const testId of [
+    "compatibility-domain-details",
+    "physical-domain-details",
+    "cooling-domain-details",
+    "performance-domain-details",
+  ]) {
+    const details = page.getByTestId(testId);
+    if (!(await details.getAttribute("open"))) {
+      await details.locator(":scope > summary").click();
+    }
+  }
   await expect(page.getByTestId("physical-validation-panel")).toBeVisible();
   await expect(page.getByTestId("cooling-evidence-panel")).toBeVisible();
   await expect(page.getByTestId("compatibility-panel")).toBeVisible();

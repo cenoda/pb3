@@ -86,7 +86,8 @@ and verified.**
 |------|--------|
 | Package accepted (date) | **2026-08-09** (owner) |
 | Implementation start authorized (date) | **2026-08-09** (owner) |
-| Implementation complete commit | _pending owner commit / PASS_ |
+| Initial implementation commit | `c7d300e` |
+| Corrective review fixes commit | _pending owner commit_ |
 | `pnpm test:all` | **PASS** — unit 173 + e2e 14 (2026-08-09) |
 | 1280×720 walkthrough | **Software PASS** via `e2e/product-ux-shell.spec.ts` (T1–T7/T9/T10) |
 | Owner UX PASS | _pending_ |

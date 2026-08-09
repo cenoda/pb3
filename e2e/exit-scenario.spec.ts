@@ -33,6 +33,10 @@ function fullQuery(cpu: string, gpu: string): string {
 async function waitForReady(page: Page) {
   await expect(page.getByTestId("cpu-select")).toBeVisible();
   await expect(page.getByTestId("gpu-select")).toBeVisible();
+  const performanceDetails = page.getByTestId("performance-domain-details");
+  if (!(await performanceDetails.getAttribute("open"))) {
+    await performanceDetails.locator(":scope > summary").click();
+  }
   await expect(page.getByTestId("performance-panel")).toBeVisible();
   await expect(page.getByTestId("build-viewport")).toBeVisible();
 }

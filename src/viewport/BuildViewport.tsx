@@ -109,12 +109,12 @@ export function BuildViewport({
         <ViewportError message="Physical assembly unavailable — no mounted poses." />
       ) : (
         <GlbErrorBoundary resetKey={resetKey}>
-          <Canvas camera={{ position: [280, 220, 320], fov: 45 }}>
+          <Canvas camera={{ position: [560, 380, 680], fov: 42 }}>
             <color attach="background" args={["#1a1a1a"]} />
             <ambientLight intensity={0.6} />
             <directionalLight position={[100, 200, 100]} intensity={1.2} />
             <AssemblyModel poses={poses} catalog={catalog} />
-            <OrbitControls makeDefault target={[0, 120, 0]} />
+            <OrbitControls makeDefault target={[0, 110, 0]} />
           </Canvas>
         </GlbErrorBoundary>
       )}

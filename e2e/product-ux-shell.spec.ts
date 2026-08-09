@@ -114,12 +114,32 @@ test.describe("Product UX shell (product-ux-1)", () => {
     expect(position).toBe("sticky");
   });
 
-  test("T6/T7: evidence diagnostics collapsed by default but accessible", async ({
+  test("T6/T7: domain details are collapsed by default but accessible", async ({
     page,
   }) => {
     await page.goto(fullVs2Query());
     await waitForShell(page);
 
+    const domainIds = [
+      "compatibility-domain-details",
+      "evidence-domain-details",
+      "physical-domain-details",
+      "cooling-domain-details",
+      "price-domain-details",
+      "performance-domain-details",
+    ] as const;
+
+    for (const testId of domainIds) {
+      await expect(page.getByTestId(testId)).not.toHaveAttribute("open", "");
+    }
+    await expect(page.getByTestId("compatibility-panel")).not.toBeVisible();
+    await expect(page.getByTestId("physical-validation-panel")).not.toBeVisible();
+    await expect(page.getByTestId("cooling-evidence-panel")).not.toBeVisible();
+    await expect(page.getByTestId("price-summary-panel")).not.toBeVisible();
+    await expect(page.getByTestId("performance-panel")).not.toBeVisible();
+
+    const evidenceDomain = page.getByTestId("evidence-domain-details");
+    await evidenceDomain.locator(":scope > summary").click();
     const details = page.getByTestId("evidence-details");
     await expect(details).not.toHaveAttribute("open", "");
     await details.locator("summary").click();
