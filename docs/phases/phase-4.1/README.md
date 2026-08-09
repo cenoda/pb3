@@ -60,11 +60,13 @@ docs/phases/phase-4.1/
 
 ## Path A — data curation (active)
 
-Software M0 is green with **honest empty** `benchmarks/est1/*`. Product numbers
-require curated rows — see [`DATA_CURATION_CHECKLIST.md`](./DATA_CURATION_CHECKLIST.md).
+Primary harvest = **AMD manufacturer catalogs** (auto bulk specs), not review
+sites. See [`AMD_CATALOG_AUTOMATION.md`](./AMD_CATALOG_AUTOMATION.md) and
+[`DATA_CURATION_CHECKLIST.md`](./DATA_CURATION_CHECKLIST.md).
 
-Order: rights → exact (if any) → **CPU scale edges (critical)** → vendor anchors
-→ review FPS → verify. No invented ratios; no chart-only FPS.
+- Specs spine: `benchmarks/est1/vendor-catalog/` (curator script)
+- FPS / scale edges: still need official **performance** materials (not in specs table)
+- Reviews: O4 only
 
 ## Implementation note
 

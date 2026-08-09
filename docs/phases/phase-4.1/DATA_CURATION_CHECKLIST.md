@@ -281,25 +281,41 @@ estimator logic per CPU.
 
 ---
 
-## 8. Next action (AMD catalog first — owner direction)
+## 8. Automatable AMD catalog (done research)
 
-1. Map **AMD public catalog / performance surfaces** for Zen 4 desktop CPUs
-   (product pages, “gaming performance” / relative charts, downloadable briefs).
-2. Record which SKUs appear (7600, 7600X, 7700, …) and whether factors or
-   absolute FPS are citable for scale edges.
-3. Separately map **NVIDIA catalog** only for GPU×game anchors usable with pilot
-   settings (if none for raster-native, say so — do not force RT/DLSS rows).
-4. **Do not** start with TPU/Tom’s as the main queue.
-5. Encode fixtures only when G1–G7 pass; else document blocked fields.
+See **[`AMD_CATALOG_AUTOMATION.md`](./AMD_CATALOG_AUTOMATION.md)**.
 
-## 9. AMD catalog harvest worksheet (fill during P1)
+| Automatable now | Not in table |
+|-----------------|--------------|
+| Processor specs bulk JSON (742 → desktop Ryzen filter) | Game FPS |
+| Graphics specs bulk JSON (203) | Relative gaming % / scale factors |
+| Curator script `scripts/curate-amd-product-catalog.py` | Runtime SPA scrape |
 
-| Field | Notes |
-|-------|--------|
-| Canonical AMD URLs / series pages | |
-| Relative gaming chart present? | multi-SKU? resolutions? GPU fixed? |
-| Absolute game FPS tables? | which games / settings? |
-| Ryzen 5 7600 present? | |
-| Other catalog cpuIds present? | future graph nodes |
-| Rights notes for storeExtracted | fair-use citation / public-spec |
-| Extractable edges for M0 | fromCpu → cpu.zen4-7600 |
+Shipped spine (build-time snapshot):
+
+- `benchmarks/est1/vendor-catalog/amd-processors-desktop-ryzen.json`
+- `benchmarks/est1/vendor-catalog/amd-graphics.json`
+
+Refresh:
+
+```bash
+python3 scripts/curate-amd-product-catalog.py --kind both
+```
+
+## 9. Still needed for product est1 FPS (not auto from specs table)
+
+1. Official **performance** materials (relative gaming charts or game FPS with
+   settings) — separate from specs compare table.
+2. Map AMD catalog `name` → project `cpuId` / `gpuId`.
+3. Optional O4 reviews only after manufacturer spine is useful.
+
+## 10. AMD catalog harvest worksheet
+
+| Field | Status 2026-08-09 |
+|-------|-------------------|
+| Bulk processors URL | specs/processors.html — **auto** via `data-json` |
+| Bulk graphics URL | specs/graphics.html — **auto** via `data-json` |
+| Ryzen 5 7600 in dump | **Yes** (6C/12T, 3.8/5.1 GHz, 65 W, AM5) |
+| Desktop Ryzen count | ~484 in filtered dump |
+| Game FPS in dump | **No** |
+| Scale factor auto | **No** — needs performance charts |
