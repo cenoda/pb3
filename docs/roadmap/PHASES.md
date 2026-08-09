@@ -21,7 +21,9 @@ Phase 0–3은 모두 구현·검증·소유자 closeout까지 완료됐다 (202
 Phase 4 M0 계획 패키지(스코프·`prov4` 계약·`implementation_plan.md`·D1–D16/O1–O4)는
 2026-08-09 소유자 수락됐고, 별도 승인 후 구현 Steps 1–8과 software gate까지
 완료됐다. Step 9 evidence-quality closeout은 캡처 진위와 증거 품질에 대한
-명시적 owner PASS 전까지 미완료로 남는다. 후속 phase는 아직 M0로 계획되지
+명시적 owner PASS 전까지 미완료로 남는다. 2026-08-09 검토에서는 체크인된
+1,362-byte JSON이 구현 시 작성된 파생 요약이라 실제 PresentMon 원시 캡처의
+진위를 독립 검증할 수 없어 FAIL/blocked로 판정했다. 후속 phase는 아직 M0로 계획되지
 않았으며, Phase 4 closeout 후 별도 스코프·계약·구현 계획 수락이 필요하다.
 
 ### Corrective gate (not a charter phase)
@@ -31,5 +33,5 @@ Phase 0–4 앱 **제품 표면**에 대한 교정 게이트가 docs 패키지�
 
 - 홈: [`../corrections/product-ux-1/`](../corrections/product-ux-1/)
 - 인덱스: [`../corrections/README.md`](../corrections/README.md)
-- 상태: 구현 software path 완료 (2026-08-09) — 소유자 UX walkthrough PASS 전
-  formal closeout 대기; Phase 4 Step 9·Phase 5 변경 없음
+- 상태: 구현 software path + 소유자 UX walkthrough PASS, formal closeout 완료
+  (2026-08-09); Phase 4 Step 9·Phase 5 변경 없음

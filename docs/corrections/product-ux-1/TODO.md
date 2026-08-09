@@ -65,8 +65,8 @@ and verified.**
 - [x] Pilot evidence never carries into non-pilot builds
 - [x] Existing Phase 0–4 unit + E2E regression green (`pnpm test:all`)
 - [x] Deterministic UI/E2E coverage updated for new shell/summary/disclosure as needed
-- [ ] Owner UX walkthrough PASS
-- [ ] Final corrective closeout + status truth-sync
+- [x] Owner UX walkthrough PASS (2026-08-09)
+- [x] Final corrective closeout + status truth-sync (2026-08-09)
 
 ---
 
@@ -90,7 +90,9 @@ and verified.**
 | Corrective review fixes commit | `535c04e` |
 | `pnpm test:all` | **PASS** — unit 173 + e2e 14 (2026-08-09) |
 | 1280×720 walkthrough | **Software PASS** via `e2e/product-ux-shell.spec.ts` (T1–T7/T9/T10) |
-| Owner UX PASS | _pending_ |
+| Owner UX PASS | **PASS — owner, 2026-08-09** |
+| Formal closeout | **Complete — 2026-08-09** |
+| Closeout record | [`CLOSEOUT.md`](./CLOSEOUT.md) |
 
 ### Locked O1–O5 (as implemented)
 

@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|--------|
 | Work id | `product-ux-1` |
-| Status | **Implementation software-complete** — owner UX PASS pending |
+| Status | **Closed (2026-08-09)** — implementation complete and owner UX PASS recorded |
 | Baseline | **`e73602a`** (docs package on `5aea499`+) |
 | Authority | [`AUDIT.md`](./AUDIT.md), [`README.md`](./README.md) |
 | Stack | ADR-001–004 unchanged (static SPA, TS/React/R3F/Vite, pnpm/Zod/Zustand/Vitest, Apache-2.0) |
@@ -13,7 +13,7 @@ It is **not** Phase 5. It does **not** reopen Phase 0–4 architecture or
 contracts.
 
 **Package accepted and implementation started (2026-08-09).** Software steps
-complete; owner UX walkthrough PASS still required for formal closeout.
+complete; owner UX walkthrough PASS was recorded on 2026-08-09.
 
 ---
 
@@ -476,7 +476,7 @@ instruction overrides them.
 | Owner package acceptance | **Yes (2026-08-09)** |
 | Implementation authorized | **Yes (2026-08-09)** |
 | Software verification | **PASS** — unit 173 + e2e 14; T3 via O3-B filters collapsed |
-| Owner UX closeout | **Pending** |
+| Owner UX closeout | **PASS — owner, 2026-08-09** |
 
-**Current gate:** software path complete. Record owner UX PASS (or amendments)
-before formal closeout. Do **not** treat this as Phase 4 Step 9 or Phase 5.
+**Current gate:** closed after owner UX PASS on 2026-08-09. This does **not**
+close Phase 4 Step 9 or start Phase 5.

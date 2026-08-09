@@ -108,9 +108,9 @@
 7. **Phase 4 M0** — Steps 1–8 software gate green (2026-08-09).
    **Evidence-quality closeout (Step 9) blocked until owner PASS** —
    [`docs/phases/phase-4/`](docs/phases/phase-4/)
-8. **Product UX corrective gate (`product-ux-1`)** — implementation software
-   path complete (2026-08-09); **owner UX walkthrough PASS** still open; **not**
-   Phase 5; Phase 4 Step 9 unchanged —
+8. ~~**Product UX corrective gate (`product-ux-1`)**~~ — implementation and
+   **owner UX walkthrough PASS complete (2026-08-09)**; **not** Phase 5;
+   Phase 4 Step 9 unchanged —
    [`docs/corrections/product-ux-1/`](docs/corrections/product-ux-1/)
 9. **Phase 5+** — not planned; requires separate M0 after the above gates
 
@@ -318,10 +318,17 @@ Bounded corrective **product surface** over the Phase 0–4 app.
 | Implementation Steps 1–9 (software) | **Complete** — theme, builder shell, `BuildResultSummary`, sticky viewport, progressive disclosure, dedupe, product labels, E2E |
 | O1–O5 as shipped | A / A sticky / **B filters collapsed** (T3) / A FPS chips / B `app-shell.css` |
 | Verification | `pnpm test:all` **173 unit + 14 e2e PASS**; `pnpm build` PASS |
-| Owner UX walkthrough PASS | **Pending** |
-| Phase 4 Step 9 | **Unchanged** — still pending evidence-quality PASS |
+| Owner UX walkthrough PASS | **PASS (owner, 2026-08-09)** |
+| Formal corrective closeout | **Complete (2026-08-09)** |
+| Phase 4 Step 9 | **BLOCKED** — the digest is internally consistent, but the checked-in 1,362-byte JSON is a derived summary authored with the implementation, not independently verifiable PresentMon raw output |
 | Contracts / inventory | **Unchanged** |
 
 **Shipped headline:** owned light theme; at 1280×720 selectors + sticky 3D +
 compat/fit/FPS/price summary co-visible; evidence/physical diagnostics
 collapsed by default; pilot non-carry preserved.
+
+Phase 4 evidence review did **not** pass with this UX approval. Closeout needs
+an authentic raw capture export (or equivalent independently inspectable
+artifact) tied to the recorded runs and capture conditions; the current
+summary JSON and matching SHA-256 prove file integrity, not measurement
+authenticity.

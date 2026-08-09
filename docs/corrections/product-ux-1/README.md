@@ -10,7 +10,7 @@ This is **not Phase 5**, not a product pivot, and not an architecture rewrite.
 | Baseline commit | **`e73602a`** (`feat(provenance): implement Phase 4 evidence pilot`) |
 | Scope | Existing SPA UI only — engines, contracts, fixtures, inventory frozen |
 | Package status | **Owner-accepted (2026-08-09)** |
-| Implementation | **Software path complete (2026-08-09)** — owner UX walkthrough PASS pending |
+| Implementation | **Closed (2026-08-09)** — software path complete and owner UX walkthrough PASS |
 | Phase 4 Step 9 | **Unchanged / still pending** owner evidence-quality PASS |
 | Phase 5 | **Not started**, not planned by this package |
 
@@ -44,6 +44,7 @@ reopening Phase 0–4 architecture.
 | [`AUDIT.md`](./AUDIT.md) | Verified product UX audit (severity-ranked findings + evidence) |
 | [`TODO.md`](./TODO.md) | Gate checklist (docs acceptance → implementation → closeout) |
 | [`corrective_plan.md`](./corrective_plan.md) | Ordered, file-level implementation plan |
+| [`CLOSEOUT.md`](./CLOSEOUT.md) | Owner UX PASS and final corrective boundary record |
 
 ## Current gate state
 
@@ -53,7 +54,7 @@ reopening Phase 0–4 architecture.
 [x] Owner accepts this planning package (2026-08-09)
 [x] Separate explicit implementation-start instruction (2026-08-09)
 [x] Implementation steps (corrective_plan.md) — software path
-[ ] Owner UX walkthrough PASS + formal closeout
+[x] Owner UX walkthrough PASS + formal closeout (2026-08-09)
 ```
 
 ## Hard boundaries
@@ -76,5 +77,5 @@ reopening Phase 0–4 architecture.
 ## Implementation authorization
 
 Package accepted and implementation-start authorized (2026-08-09).
-Software path for `corrective_plan.md` Steps 1–9 is complete; **owner UX
-walkthrough PASS** remains before formal corrective closeout.
+Software path for `corrective_plan.md` Steps 1–9 and the **owner UX
+walkthrough PASS** are complete (2026-08-09). The corrective gate is closed.
