@@ -20,9 +20,10 @@ mid-range combos (review benches use flagship CPUs). Phase 4.1 adds a pure
 **estimation** function (`est1`) that may scale manufacturer / strong anchors with
 **evidenced** transforms, while keeping `prov4` as evidence and `perf1` untouched.
 
-**Owner corpus strategy:** manufacturer-centric. M0 only ships the **7600
-pilot**, but the design must support investigating **most catalog CPUs** later
-via vendor anchors + a reusable CPU scale graph — not a review-exact-only model.
+**Owner corpus strategy:** manufacturer-centric = **AMD / NVIDIA (etc.) product
+catalogs and official performance materials**, not third-party review sites.
+M0 only ships the **7600 pilot**, but the design must support **most catalog
+CPUs** later via catalog harvest + a reusable scale graph. Reviews are O4-only.
 
 ## Owner locks (O1–O9)
 

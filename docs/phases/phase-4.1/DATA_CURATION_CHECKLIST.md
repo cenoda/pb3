@@ -7,8 +7,13 @@ invented FPS.
 
 **Long-term goal (owner):** The same pipeline must support investigation and
 estimation for **most catalog CPUs**, not only `cpu.zen4-7600`. That is why
-curation is **manufacturer-centric**: official GPU/game (and relative CPU)
-materials are the scalable spine; reviews validate and fill gaps.
+curation is **manufacturer-centric**:
+
+> **Primary source = manufacturer catalogs** (e.g. **AMD product/performance
+> catalog**, NVIDIA GeForce materials) — **not** third-party review sites.
+
+Reviews are secondary validators (O4) only. Do not burn curation cycles on
+TPU/Tom’s as the main path.
 
 Related:
 
@@ -44,9 +49,10 @@ Related:
 | **Pilot is first instance** | Ship 7600+4070 cells first; do not hard-code 7600-only logic |
 | **Opaque CPU ids** | New bench CPUs enter as ids (`cpu.intel-13900k`, …) usable as `fromCpuId` for *all* future `toCpuId`s |
 | **Edges are reusable** | One 13900K→7600 edge helps pilot; later 13900K→7800X3D is another edge, same graph |
-| **Manufacturer harvest first** | Prefer official tables for anchors and, when honest, for relative factors |
-| **Reviews do not define coverage** | They cannot be the only strategy if “most CPUs” is the product goal |
+| **Manufacturer catalog harvest** | **AMD / NVIDIA / … product catalogs** are the spine (relative CPU charts, game FPS tables) |
+| **Not review-site harvest** | TPU/Tom’s/etc. are not the primary queue |
 | **No silent fan-out** | Adding a CPU to the catalog does **not** invent estimates; it only becomes estimable when anchors+edges exist |
+| **No runtime scrape in SPA** | Curator/build-time extraction into JSON fixtures only (ADR-001 static SPA) |
 
 M0 still proves paths on **one** pilot CPU. Schema/process must stay multi-CPU ready.
 
@@ -75,23 +81,25 @@ that fire those paths for the real pilot.
 
 ---
 
-## 2. Priority order (manufacturer-centric sequence)
+## 2. Priority order (manufacturer catalog sequence)
 
 ```text
-P0  Rights + registry (multi-source, reusable sourceIds)
-P1  Manufacturer / official harvest (GPU game FPS + any CPU-relative materials)
-P2  CPU scale edges from evidenced sources (prefer vendor relative charts;
-    third-party CPU sheets only when stronger/more comparable)
-P3  Exact path if any real 7600 (or later any-cpu) rows exist — rare but best
-P4  Review observations with FPS (auxiliary + mandatory O4 when comparable)
+P0  Rights + registry for AMD / NVIDIA / other official sourceIds
+P1  AMD catalog harvest (CPU relative performance, product pages, tech docs)
+    — multi-SKU spine for most catalog cpuIds over time
+P2  NVIDIA (and other GPU vendors) official game/FPS tables for anchors
+P3  Encode CpuScaleEdge + VendorPerformanceAnchor from those catalogs only
+    when G1–G7 pass (no invented factors)
+P4  Optional: third-party reviews for O4 validation only
 P5  Wire + verify + integrity + e2e
 ```
 
-**Why not “reviews first”:** flagship-only benches do not generalize to most
-catalog CPUs. Manufacturer tables + a growing scale graph do.
+**Owner intent (plain language):** “긁자” = **curate/extract from AMD (and
+peer vendor) catalogs into fixtures**, not scrape review sites, and not
+runtime network from the SPA.
 
-Do **not** store CPU-unknown marketing blobs as if they were exact anchors —
-without `cpuId` or a legal scale path they stay non-productive (O1/O2).
+Do **not** store CPU-unknown marketing blobs as exact anchors — without
+`cpuId` or a legal scale path they stay non-productive (O1/O2).
 
 ---
 
@@ -255,8 +263,9 @@ estimator logic per CPU.
 | | TPU/Tom’s CPU | 13900K class — not 7600 | SOURCE_INGESTION_INVESTIGATION |
 | | est1 on-disk corpus | empty edges/anchors | benchmarks/est1/* |
 | 2026-08-09 | Multi-CPU manufacturer-centric strategy | locked in docs | ALGORITHM / checklist §0 |
-| 2026-08-09 | **P1 spot-check NVIDIA CP2077** | **No usable pilot raster-native anchor** | Official pages emphasize **RT Overdrive / DLSS 3.5 / FG** (e.g. geforce campaigns / DLSS 3.5 news). Recommend 4070 @ 1440p for that stack — **not** RT-off + DLSS-off + FG-off. No honest `vendor-anchor` for pilot cell yet. |
-| 2026-08-09 | **P2 scale leads** | Candidates only, **not encoded** | Tom’s Ryzen 5 7600 CPU review (gaming relative %); need extractable same-GPU, stated-res factors before any `CpuScaleEdge`. No invented factor. |
+| 2026-08-09 | **P1 spot-check NVIDIA CP2077** | **No usable pilot raster-native anchor** | Official pages emphasize **RT Overdrive / DLSS 3.5 / FG**. Not pilot raster-native. |
+| 2026-08-09 | Owner correction | **Primary = AMD (manufacturer) catalog**, not review harvest | Path A queue reordered; TPU/Tom’s demoted to optional O4 |
+| 2026-08-09 | Next | Map AMD Zen4 desktop catalog / relative performance surfaces | §9 worksheet |
 | | | | |
 
 ---
@@ -272,12 +281,25 @@ estimator logic per CPU.
 
 ---
 
-## 8. Next action (recommended first hour)
+## 8. Next action (AMD catalog first — owner direction)
 
-1. **Manufacturer first:** NVIDIA (and relevant OEM) RTX 4070 + CP2077 materials —
-   list any textual FPS with settings; note whether CPU is stated.
-2. **Scale spine:** official or high-grade **CPU relative** sources that can
-   connect a stated bench CPU → `cpu.zen4-7600` (and later other catalog CPUs).
-3. **Reviews second:** TPU/Tom’s written CP2077 FPS + settings for O4 / fallback.
-4. If scale source missing → stop and report **blocked on scale graph**, do not
-   ship fake edges. Pilot 7600 is only the first `toCpuId`, not the end state.
+1. Map **AMD public catalog / performance surfaces** for Zen 4 desktop CPUs
+   (product pages, “gaming performance” / relative charts, downloadable briefs).
+2. Record which SKUs appear (7600, 7600X, 7700, …) and whether factors or
+   absolute FPS are citable for scale edges.
+3. Separately map **NVIDIA catalog** only for GPU×game anchors usable with pilot
+   settings (if none for raster-native, say so — do not force RT/DLSS rows).
+4. **Do not** start with TPU/Tom’s as the main queue.
+5. Encode fixtures only when G1–G7 pass; else document blocked fields.
+
+## 9. AMD catalog harvest worksheet (fill during P1)
+
+| Field | Notes |
+|-------|--------|
+| Canonical AMD URLs / series pages | |
+| Relative gaming chart present? | multi-SKU? resolutions? GPU fixed? |
+| Absolute game FPS tables? | which games / settings? |
+| Ryzen 5 7600 present? | |
+| Other catalog cpuIds present? | future graph nodes |
+| Rights notes for storeExtracted | fair-use citation / public-spec |
+| Extractable edges for M0 | fromCpu → cpu.zen4-7600 |

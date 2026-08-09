@@ -20,24 +20,33 @@ explicit `draftCaveat` on every result (see estimator-data-contract.md).
 **M0 inventory is pilot-only (`cpu.zen4-7600`), but the design target is
 coverage of most catalog CPUs over time.**
 
-That is why the owner recommends **manufacturer-centric** corpus building:
+Owner clarification: **manufacturer-centric means manufacturer product
+catalogs and official performance materials** (e.g. **AMD** CPU/GPU product
+pages, relative charts, tech marketing tables; similarly **NVIDIA** / other
+vendors) — **not** “use TechPowerUp / Tom’s as the main harvest.”
+
+Third-party review sites remain **optional O4 validators** when comparable.
+They are **not** the primary corpus strategy and must not dominate curation
+effort.
 
 | Approach | Scales to many CPUs? | Notes |
 |----------|----------------------|--------|
-| Exact review match only | **No** | Public GPU benches almost always use flagship CPUs |
-| Review-first + endless near-misses | Poor | High curation cost; still CPU-skewed |
-| **Manufacturer-primary anchors + evidenced scale graph** | **Yes** | GPU/game FPS tables + official relative CPU/GPU materials become reusable nodes; any catalog `cpuId` is a path through the graph when edges exist |
+| Exact third-party review match only | **No** | Flagship bench CPUs; wrong primary |
+| Review-first curation | **No** (owner rejects as main path) | High cost; not multi-CPU spine |
+| **Manufacturer catalog harvest + scale graph** | **Yes** | AMD/NVIDIA/… official catalogs as first-class nodes; any catalog `cpuId` when edges exist |
 
 Manufacturer-centric means:
 
-1. **Harvest and store** official/OEM performance fragments as first-class
-   anchors (with full settings when possible).
-2. Prefer **vendor relative-performance / product-brief series** as scale-edge
-   sources when they state enough conditions to be honest.
-3. Keep reviews as **comparability-first validators (O4)** and occasional
-   primary only when they beat weak vendor blobs (O1).
-4. Never encode a one-off “7600 hack”; pilot rows are the first **instances**
-   of a multi-CPU graph, not a special code path.
+1. **Primary harvest:** official **vendor catalogs** and performance briefs
+   (AMD first for Zen4 CPUs in pilot; NVIDIA for GPU game FPS when usable;
+   other OEMs only when clearly official).
+2. Build-time **curated** ingestion into fixtures (static SPA — **no runtime
+   scraping** of vendor sites from the app). Offline/curator fetch OK.
+3. Scale edges preferably from **vendor relative-performance series** that
+   cover many SKUs (one graph, many `cpuId`s).
+4. Reviews: O4 bound / rare primary only if more comparable than a weak vendor
+   row (O1) — never the default queue.
+5. No 7600-only hack; pilot is the first graph instance.
 
 M0 still only **ships** pilot query coverage proof; schema and curation process
 must not assume a single mid-range CPU forever.
