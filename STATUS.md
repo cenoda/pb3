@@ -105,6 +105,9 @@
 5. ~~**Phase 2 (기본 견적 서비스)** — M0 수락 → 구현·검증·closeout~~ → **구현 완료 (2026-08-08)** — [`docs/phases/phase-2/`](docs/phases/phase-2/)
 6. ~~**Phase 3 (3D 물리 검증)** — M0 수락 → 구현·검증·closeout~~ → **완료
    (2026-08-08)** — [`docs/phases/phase-3/`](docs/phases/phase-3/)
+7. **Phase 4 M0 owner-accepted (2026-08-09)** — single-build evidence pilot
+   스코프·`prov4` 계약·구현 계획·D1–D16/O1–O4 수락. **구현은 별도 start 지시
+   전까지 미착수** — [`docs/phases/phase-4/`](docs/phases/phase-4/)
 
 ## Phase 0 종료 승인 (2026-08-08)
 
@@ -238,3 +241,24 @@
 - Mount choices not URL-persisted
 - Box OBB only (no triangle-mesh / physics engine)
 - No inventory expansion beyond the existing 13-part catalog
+
+## Phase 4 M0 owner acceptance (2026-08-09)
+
+| 항목 | 상태 |
+|------|------|
+| Direction / title | Evidence-grade data and validation |
+| Pilot path | **Single-build evidence pilot** |
+| Scope spec | **Owner-accepted** — [`specs/phase-4.md`](docs/phases/phase-4/specs/phase-4.md) |
+| Provenance contract | **Owner-accepted** `prov4` — [`provenance-data-contract.md`](docs/phases/phase-4/specs/provenance-data-contract.md) |
+| Implementation plan | **Owner-accepted** — [`implementation_plan.md`](docs/phases/phase-4/implementation_plan.md) |
+| D1–D16 | **Accepted** (phase-4.md §11) |
+| O1 | **A** — ≥1 first-party measured cell; `runCount >= 2`; all 3 cells registry-bound |
+| O2 | **A** — Experimental only |
+| O3 | **A** — 365 days |
+| O4 | **A** — `benchmarks/prov4/` |
+| Cinebench / cooling | Out / empty unavailable |
+| Audit remediations retained | high gate · geometry join · 3-cell · sidecar · asOf · charter metrics · RawArtifactReference · first-party runCount≥2 |
+| Pilot build | `DEFAULT_BUILD_STATE_V2` (7600 + 4070 ATX set) |
+| Owner M0 acceptance | **PASS (2026-08-09)** |
+| Implementation start | **Not given** — blocked until separate explicit instruction |
+| Implementation / fixtures / deps | **Not started** |
