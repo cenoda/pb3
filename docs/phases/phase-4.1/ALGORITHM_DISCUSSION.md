@@ -1,10 +1,19 @@
 # Algorithm discussion — combination performance estimator
 
 **Status:** algorithm direction **owner-locked (O1–O9, 2026-08-09)**  
-**M0 scope/contract/plan:** not yet written · **implementation:** not authorized
+**M0 scope/contract/plan:** drafted under `specs/` + `implementation_plan.md` ·  
+**implementation:** not authorized until separate start instruction
 
 Locked decisions live in **§0**. Earlier sections retain rationale; where they
 conflict with §0, **§0 wins**.
+
+### Temporary draft function
+
+This estimator is a **temporary draft pure function**. It does **not** yet
+account for motherboard/platform, cooling/thermal limits, case airflow, or
+non-default power limits. Those factors are expected to revise or gate results
+in a later accepted revision (`est1` bump or successor). M0 must surface an
+explicit `draftCaveat` on every result (see estimator-data-contract.md).
 
 ---
 
@@ -434,25 +443,23 @@ family choices):
 
 ---
 
-## 10. Discussion prompts (for next turn)
+## 10. Next discussion / planning prompts
 
-1. Is **Family C (manufacturer anchor + scale graph)** the right core, with A/B as layers?
-2. Should manufacturer anchors without stated CPU be treated as **GPU-bound class** by default, or **unusable** until CPU is known?
-3. For M0, is pilot-only (O7-A) enough to prove the function, or do we need the 2×2×3 matrix?
-4. Prefer new `est1` contract (O8-B) vs loading more into `prov4`?
-5. How hard should we **bound** vendor optimism with reviews (O4)?
+1. Vendor anchor **without stated CPU**: unusable until CPU known, or attach only
+   with an explicit “CPU unknown” scale class that still needs a ratio edge? (O2/O3 lean unusable / require edge.)
+2. What corpus supplies M0 **CPU ratio edges** for 7600 vs flagship without inventing them?
+3. P1–P5 defaults for the first `est1` contract draft?
 
 ---
 
-## 11. Suggested convergence path
+## 11. Convergence path (current)
 
 ```text
-Owner picks O1–O9 leanings
-  → thin ALGORITHM_DISCUSSION to “Accepted direction”
-  → specs/phase-4.1.md + estimator contract
+O1–O9 locked (this section 0)          ← done 2026-08-09
+  → specs/phase-4.1.md + est1 contract
   → implementation_plan.md
   → peer review
-  → owner M0 accept
+  → owner M0 package accept
   → separate implementation start
 ```
 

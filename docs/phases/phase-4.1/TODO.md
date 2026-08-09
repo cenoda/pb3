@@ -3,21 +3,30 @@
 ## Discussion gate
 
 - [x] Create `docs/phases/phase-4.1/` sub-path
-- [x] Draft algorithm discussion from owner seed (manufacturer-primary, reviews auxiliary)
-- [x] Owner locks O1–O9 (2026-08-09) — see ALGORITHM_DISCUSSION.md §0
-- [ ] Independent peer review of locked direction (optional: Nox / Lira)
+- [x] Algorithm discussion + O1–O9 owner lock
+- [x] Temporary draft function caveat (motherboard/cooling out of M0)
 
-## Planning gate (after algorithm direction)
+## Planning gate
 
-- [ ] Write `specs/phase-4.1.md` (scope, non-goals, exit criteria; O7 A+ paths)
-- [ ] Write `est1` estimator data contract + dataVersion convention (O8-B)
-- [ ] Write `implementation_plan.md` (ordered, file-level; perf1 untouched O6)
-- [ ] Owner accepts M0 package
+- [x] Write `specs/phase-4.1.md`
+- [x] Write `specs/estimator-data-contract.md` (`est1`)
+- [x] Write `implementation_plan.md`
+- [ ] Owner M0 package accept (or accept via implementation-start prompt)
 - [ ] Separate implementation-start authorization
 
-## Explicitly out (until accepted)
+## Implementation gate (after start)
 
-- Implementation under `src/`
-- Filling product FPS by silent scale of review benches
-- Phase 5 planning
-- Arbitrary ML training pipeline
+- [ ] Step 1 — est1 types + Zod
+- [ ] Step 2 — benchmarks/est1 fixtures
+- [ ] Step 3 — pure estimator + unit matrix (exact/scaled/unavailable)
+- [ ] Step 4 — loaders + boot
+- [ ] Step 5 — UI binding + draftCaveat
+- [ ] Step 6 — e2e + full verification
+- [ ] Step 7 — stop (no Phase 5 / no perf1 rewrite)
+
+## Explicitly out
+
+- Runtime scraping
+- GPU-bound waiver without CPU ratio
+- Motherboard/cooling transforms in M0
+- Estimator returning synthetic-stub
