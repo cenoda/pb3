@@ -8,8 +8,12 @@ import type {
   WorkloadMetric,
 } from "../contract/perf1";
 import type { PerformanceEvidenceBinding } from "../contract/prov4";
+import type { CombinationEstimateResult } from "../contract/est1";
+import { EST1_DRAFT_CAVEAT } from "../contract/est1";
 import type { Perf1Fixtures } from "../catalog/loadPerf1Fixtures";
 import type { Prov4Fixtures } from "../provenance/loadProv4Fixtures";
+import type { Est1Fixtures } from "../estimate/loadEst1Fixtures";
+import { estimatePilotResolution } from "../estimate/estimatePilotResolution";
 import { bindPerformanceEvidenceDetailed } from "../provenance/bindPerformanceEvidence";
 import {
   isPilotPerformanceOverlayActive,
@@ -26,6 +30,8 @@ interface PerformancePanelProps {
   perf1Fixtures: Perf1Fixtures;
   /** When present, exact pilot keys overlay sidecar evidence (perf1 unchanged). */
   prov4Fixtures?: Prov4Fixtures;
+  /** Phase 4.1 est1 combination estimator sidecar. */
+  est1Fixtures?: Est1Fixtures;
 }
 
 const WORKLOAD_IDS: WorkloadId[] = ["cinebench.r23", "cinebench.2024"];
@@ -50,6 +56,7 @@ export function PerformancePanel({
   buildState,
   perf1Fixtures,
   prov4Fixtures,
+  est1Fixtures,
 }: PerformancePanelProps) {
   const dimensions = usePerfPanelStore((s) => s.dimensions);
   const correction = usePerfPanelStore((s) => s.correction);
@@ -63,6 +70,7 @@ export function PerformancePanel({
   const labelById = new Map(RESOLUTIONS.map((r) => [r.id, r.label]));
   const sidecarActive =
     !!prov4Fixtures && isPilotPerformanceOverlayActive(buildState, dimensions);
+  const est1Active = sidecarActive && !!est1Fixtures;
   const nowIso = new Date().toISOString();
 
   const rows = queries.map((query) => {
@@ -73,8 +81,26 @@ export function PerformancePanel({
 
     let sidecar: PerformanceEvidenceBinding | null = null;
     let evidenceDisplayClass:
-      "aggregated" | "synthetic-perf1" | "unavailable" | "off" = "off";
-    if (sidecarActive && prov4Fixtures) {
+      | "aggregated"
+      | "est1-estimated"
+      | "est1-unavailable"
+      | "synthetic-perf1"
+      | "unavailable"
+      | "off" = "off";
+    let est1Result: CombinationEstimateResult | null = null;
+
+    if (est1Active && est1Fixtures && prov4Fixtures) {
+      est1Result = estimatePilotResolution({
+        resolution: query.resolution,
+        est1Fixtures,
+        prov4Fixtures,
+      });
+      if (est1Result.status === "estimated") {
+        evidenceDisplayClass = "est1-estimated";
+      } else {
+        evidenceDisplayClass = "est1-unavailable";
+      }
+    } else if (sidecarActive && prov4Fixtures) {
       const detailed = bindPerformanceEvidenceDetailed({
         key: pilotBaselineKeyFor(query.resolution),
         isPilotBuild: true,
@@ -90,7 +116,14 @@ export function PerformancePanel({
       evidenceDisplayClass = detailed.displayClass;
     }
 
-    return { query, baseline, correctionResult, sidecar, evidenceDisplayClass };
+    return {
+      query,
+      baseline,
+      correctionResult,
+      sidecar,
+      evidenceDisplayClass,
+      est1Result,
+    };
   });
 
   const cinebenchRows = WORKLOAD_IDS.flatMap((workloadId) =>
@@ -275,6 +308,18 @@ export function PerformancePanel({
           style={{ marginTop: 0 }}
         >
           Pilot evidence overlay active
+          {est1Active ? " · est1 combination estimator" : ""}
+        </p>
+      ) : null}
+
+      {est1Active ? (
+        <p
+          data-testid="est1-draft-caveat"
+          className="muted"
+          style={{ marginTop: 0, fontSize: "0.8rem" }}
+          data-draft-caveat={EST1_DRAFT_CAVEAT}
+        >
+          {EST1_DRAFT_CAVEAT}
         </p>
       ) : null}
 
@@ -286,9 +331,135 @@ export function PerformancePanel({
             correctionResult,
             sidecar,
             evidenceDisplayClass,
+            est1Result,
           }) => {
             const resId = query.resolution as Perf1ResolutionId;
             const label = labelById.get(resId) ?? resId;
+
+            if (
+              est1Result?.status === "estimated" &&
+              evidenceDisplayClass === "est1-estimated"
+            ) {
+              return (
+                <li
+                  key={resId}
+                  data-testid={`perf-row-${resId}`}
+                  data-status="ok"
+                  data-sidecar="est1"
+                  data-evidence-class="est1-estimated"
+                  data-est1-method={est1Result.method}
+                  style={{
+                    border: "1px solid #2563eb",
+                    borderRadius: "4px",
+                    padding: "0.65rem",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  <div style={{ fontWeight: 600 }}>{label}</div>
+                  <div
+                    data-testid={`perf-evidence-class-${resId}`}
+                    className="muted"
+                    style={{ fontSize: "0.8rem" }}
+                  >
+                    estimate: {est1Result.method} (est1 draft)
+                  </div>
+                  <div data-testid={`perf-range-${resId}`}>
+                    {Math.round(est1Result.fpsMin)}–
+                    {Math.round(est1Result.fpsMax)} FPS
+                  </div>
+                  <div
+                    data-testid={`perf-confidence-${resId}`}
+                    className="muted"
+                  >
+                    confidence: {est1Result.confidence}
+                  </div>
+                  <details data-testid={`perf-detail-${resId}`}>
+                    <summary>Estimate details</summary>
+                    <div className="muted">{est1Result.basis}</div>
+                    <div
+                      data-testid={`perf-est1-caveat-${resId}`}
+                      className="muted"
+                    >
+                      {est1Result.draftCaveat}
+                    </div>
+                  </details>
+                </li>
+              );
+            }
+
+            if (
+              est1Result?.status === "unavailable" &&
+              evidenceDisplayClass === "est1-unavailable"
+            ) {
+              const unavailable = isUnavailable(baseline);
+              const displayEstimate =
+                correctionResult?.status === "ok"
+                  ? correctionResult
+                  : isPerformanceEstimate(baseline)
+                    ? baseline
+                    : null;
+              return (
+                <li
+                  key={resId}
+                  data-testid={`perf-row-${resId}`}
+                  data-status={unavailable ? "unavailable" : "ok"}
+                  data-sidecar="est1"
+                  data-evidence-class="est1-unavailable"
+                  data-est1-reason={est1Result.reason}
+                  style={{
+                    border: "1px solid #fbbf24",
+                    borderRadius: "4px",
+                    padding: "0.65rem",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  <div style={{ fontWeight: 600 }}>{label}</div>
+                  <div
+                    data-testid={`perf-evidence-class-${resId}`}
+                    className="muted"
+                    style={{ fontSize: "0.8rem" }}
+                  >
+                    estimate: unavailable (est1) · outer synthetic residual
+                    (non-estimate)
+                  </div>
+                  <div
+                    data-testid={`perf-est1-unavailable-${resId}`}
+                    className="muted"
+                    style={{ fontSize: "0.8rem" }}
+                  >
+                    {est1Result.reason}: {est1Result.explanation}
+                  </div>
+                  <div
+                    data-testid={`perf-est1-caveat-${resId}`}
+                    className="muted"
+                    style={{ fontSize: "0.75rem" }}
+                  >
+                    {est1Result.draftCaveat}
+                  </div>
+                  {unavailable ? (
+                    <div
+                      data-testid={`perf-unavailable-${resId}`}
+                      className="muted"
+                    >
+                      {baseline.reason}
+                    </div>
+                  ) : displayEstimate ? (
+                    <>
+                      <div data-testid={`perf-range-${resId}`}>
+                        {displayEstimate.fpsMin}–{displayEstimate.fpsMax} FPS
+                      </div>
+                      <div
+                        data-testid={`perf-synthetic-label-${resId}`}
+                        className="muted"
+                      >
+                        confidence: {displayEstimate.confidence} · perf1 stub
+                        (not an est1 estimate)
+                      </div>
+                    </>
+                  ) : null}
+                </li>
+              );
+            }
 
             if (
               sidecar?.status === "bound" &&

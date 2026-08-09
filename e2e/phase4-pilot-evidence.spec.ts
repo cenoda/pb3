@@ -57,12 +57,13 @@ test.describe("Phase 4 pilot evidence scenario", () => {
     await expect(page.getByTestId("perf-sidecar-active")).toBeVisible();
 
     for (const res of ["1080p", "1440p", "4k"] as const) {
+      // Phase 4.1: est1 primary path; empty corpus → unavailable + outer synthetic residual
       await expect(page.getByTestId(`perf-row-${res}`)).toHaveAttribute(
         "data-evidence-class",
-        "synthetic-perf1",
+        "est1-unavailable",
       );
       await expect(page.getByTestId(`perf-evidence-class-${res}`)).toContainText(
-        "synthetic perf1",
+        "unavailable (est1)",
       );
     }
 
@@ -83,7 +84,10 @@ test.describe("Phase 4 pilot evidence scenario", () => {
 
     await expect(page.getByTestId("perf-range-1080p")).toHaveText("80–95 FPS");
     await expect(page.getByTestId("perf-evidence-class-1080p")).toContainText(
-      "synthetic perf1",
+      "unavailable (est1)",
+    );
+    await expect(page.getByTestId("perf-synthetic-label-1080p")).toContainText(
+      "not an est1 estimate",
     );
 
     await expect(page.getByTestId("cooling-evidence-panel")).toHaveAttribute(

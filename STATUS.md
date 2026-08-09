@@ -114,7 +114,10 @@
    **owner UX walkthrough PASS complete (2026-08-09)**; **not** Phase 5;
    Phase 4 Step 9 unchanged —
    [`docs/corrections/product-ux-1/`](docs/corrections/product-ux-1/)
-9. **Phase 5+** — not planned; requires separate M0 after the above gates
+9. **Phase 4.1 (`est1`)** — M0 combination estimator **implemented
+   (2026-08-09)** — O1–O9 locked; sidecar only; temporary draft caveat —
+   [`docs/phases/phase-4.1/`](docs/phases/phase-4.1/)
+10. **Phase 5+** — not planned; requires separate M0 after the above gates
 
 ## Phase 0 종료 승인 (2026-08-08)
 
@@ -355,3 +358,21 @@ an authentic raw capture export (or equivalent independently inspectable
 artifact) tied to the recorded runs and capture conditions; the current
 summary JSON and matching SHA-256 prove file integrity, not measurement
 authenticity.
+
+## Phase 4.1 combination estimator (`est1`, 2026-08-09)
+
+Sub-path of Phase 4 — **not** Phase 5. Temporary draft combination function.
+
+| 항목 | 상태 |
+|------|------|
+| Algorithm O1–O9 | **Locked** |
+| M0 package + implementation start | **Authorized / implemented** (2026-08-09) |
+| Contract | `est1` sidecar — `src/contract/est1.ts` + Zod; does **not** rewrite `perf1` |
+| Fixtures | `benchmarks/est1/` — honest empty edges/anchors (path proofs in unit tests) |
+| Pure estimator | `estimateCombinationPerformance` + scale/rank/validate helpers |
+| UI | Pilot panel/disclosure/chips: `est1-estimated` / `est1-unavailable` + outer synthetic residual labeled non-estimate; `draftCaveat` visible |
+| Verification | `pnpm test` **211** · `pnpm test:e2e` **16** · `pnpm build` PASS · `dist/benchmarks/est1/**` present |
+| Out of M0 | Motherboard/cooling/case airflow/non-default power; scraping; GPU-bound waiver |
+
+Owner evidence-quality PASS for est1 numbers is **separate** from the software gate.
+

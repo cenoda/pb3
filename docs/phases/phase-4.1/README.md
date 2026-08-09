@@ -1,6 +1,6 @@
 # Phase 4.1 — Combination performance estimator (sub-path)
 
-**Status: M0 planning package complete (2026-08-09) · algorithm O1–O9 locked · implementation not started**
+**Status: M0 implemented (2026-08-09) · algorithm O1–O9 locked · software gate green**
 
 Work id: `phase-4.1-combo-estimator`
 
@@ -46,13 +46,12 @@ docs/phases/phase-4.1/
 | Gate | State |
 |------|--------|
 | Algorithm O1–O9 | **Locked** 2026-08-09 |
-| M0 scope + est1 contract + plan | **Drafted** 2026-08-09 |
-| Owner M0 package accept | Pending (may be granted with start prompt) |
-| Implementation start | **Separate instruction required** |
-| Implementation | Not started |
+| M0 scope + est1 contract + plan | **Accepted** 2026-08-09 (via start prompt) |
+| Owner M0 package accept | **PASS** (implementation-start) |
+| Implementation start | **Authorized** 2026-08-09 |
+| Implementation Steps 1–6 | **Done** 2026-08-09 |
 
 ## Implementation start
 
-Do **not** write `src/` or `benchmarks/est1/` until the owner issues an explicit
-implementation-start instruction (handoff prompt in the session that ships this
-package, or a later message).
+Implementation authorized and shipped under `est1` sidecar (`src/contract/est1*`,
+`src/estimate/*`, `benchmarks/est1/`). Do **not** start Phase 5 from this path.

@@ -11,18 +11,18 @@
 - [x] Write `specs/phase-4.1.md`
 - [x] Write `specs/estimator-data-contract.md` (`est1`)
 - [x] Write `implementation_plan.md`
-- [ ] Owner M0 package accept (or accept via implementation-start prompt)
-- [ ] Separate implementation-start authorization
+- [x] Owner M0 package accept (via implementation-start prompt, 2026-08-09)
+- [x] Separate implementation-start authorization (2026-08-09)
 
 ## Implementation gate (after start)
 
-- [ ] Step 1 — est1 types + Zod
-- [ ] Step 2 — benchmarks/est1 fixtures
-- [ ] Step 3 — pure estimator + unit matrix (exact/scaled/unavailable)
-- [ ] Step 4 — loaders + boot
-- [ ] Step 5 — UI binding + draftCaveat
-- [ ] Step 6 — e2e + full verification
-- [ ] Step 7 — stop (no Phase 5 / no perf1 rewrite)
+- [x] Step 1 — est1 types + Zod
+- [x] Step 2 — benchmarks/est1 fixtures
+- [x] Step 3 — pure estimator + unit matrix (exact/scaled/unavailable)
+- [x] Step 4 — loaders + boot
+- [x] Step 5 — UI binding + draftCaveat
+- [x] Step 6 — e2e + full verification
+- [x] Step 7 — stop (no Phase 5 / no perf1 rewrite)
 
 ## Explicitly out
 

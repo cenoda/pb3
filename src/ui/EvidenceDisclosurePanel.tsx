@@ -1,12 +1,39 @@
 import type { PilotDisclosureReport } from "../contract/prov4";
+import {
+  EST1_DRAFT_CAVEAT,
+  type CombinationEstimateResult,
+} from "../contract/est1";
+import type { Est1Fixtures } from "../estimate/loadEst1Fixtures";
+import type { Prov4Fixtures } from "../provenance/loadProv4Fixtures";
+import { estimatePilotResolution } from "../estimate/estimatePilotResolution";
+import { PILOT_RESOLUTIONS } from "../provenance/pilotBuild";
 
 interface EvidenceDisclosurePanelProps {
   report: PilotDisclosureReport;
+  est1Fixtures?: Est1Fixtures;
+  prov4Fixtures?: Prov4Fixtures;
 }
 
 export function EvidenceDisclosurePanel({
   report,
+  est1Fixtures,
+  prov4Fixtures,
 }: EvidenceDisclosurePanelProps) {
+  const est1Results: Array<{
+    resolution: (typeof PILOT_RESOLUTIONS)[number];
+    result: CombinationEstimateResult;
+  }> =
+    report.isPilotBuild && est1Fixtures && prov4Fixtures
+      ? PILOT_RESOLUTIONS.map((resolution) => ({
+          resolution,
+          result: estimatePilotResolution({
+            resolution,
+            est1Fixtures,
+            prov4Fixtures,
+          }),
+        }))
+      : [];
+
   return (
     <section
       className="panel"
@@ -14,12 +41,20 @@ export function EvidenceDisclosurePanel({
       data-pilot-active={report.isPilotBuild ? "true" : "false"}
     >
       <h2 style={{ marginTop: 0 }}>Evidence details</h2>
-      <p data-testid="evidence-pilot-status" className="muted" style={{ marginTop: 0 }}>
+      <p
+        data-testid="evidence-pilot-status"
+        className="muted"
+        style={{ marginTop: 0 }}
+      >
         Pilot evidence:{" "}
         <strong>{report.isPilotBuild ? "active" : "inactive"}</strong>
       </p>
       {!report.isPilotBuild ? (
-        <p data-testid="evidence-non-pilot" className="muted" style={{ marginTop: 0 }}>
+        <p
+          data-testid="evidence-non-pilot"
+          className="muted"
+          style={{ marginTop: 0 }}
+        >
           Non-pilot build: existing performance stub / Experimental /
           unavailable paths remain; pilot evidence does not carry over.
         </p>
@@ -37,11 +72,93 @@ export function EvidenceDisclosurePanel({
 
         {report.isPilotBuild ? (
           <>
-            <h3>Performance bindings</h3>
+            {est1Results.length > 0 ? (
+              <>
+                <h3>Combination estimates (est1)</h3>
+                <p
+                  data-testid="evidence-est1-caveat"
+                  className="muted"
+                  style={{ fontSize: "0.8rem" }}
+                  data-draft-caveat={EST1_DRAFT_CAVEAT}
+                >
+                  {EST1_DRAFT_CAVEAT}
+                </p>
+                <ul
+                  data-testid="evidence-est1-list"
+                  style={{
+                    listStyle: "none",
+                    margin: "0 0 0.75rem",
+                    padding: 0,
+                  }}
+                >
+                  {est1Results.map(({ resolution, result }) => (
+                    <li
+                      key={`est1-${resolution}`}
+                      data-testid={`evidence-est1-${resolution}`}
+                      data-status={result.status}
+                      data-method={
+                        result.status === "estimated"
+                          ? result.method
+                          : undefined
+                      }
+                      data-reason={
+                        result.status === "unavailable"
+                          ? result.reason
+                          : undefined
+                      }
+                      style={{
+                        border: "1px solid #bfdbfe",
+                        borderRadius: "4px",
+                        padding: "0.5rem 0.75rem",
+                        marginBottom: "0.35rem",
+                        fontSize: "0.85rem",
+                      }}
+                    >
+                      <strong>{resolution} est1</strong>
+                      {result.status === "estimated" ? (
+                        <>
+                          <div
+                            data-testid={`evidence-est1-method-${resolution}`}
+                          >
+                            method: {result.method} · confidence:{" "}
+                            {result.confidence}
+                          </div>
+                          <div data-testid={`evidence-est1-range-${resolution}`}>
+                            {Math.round(result.fpsMin)}–
+                            {Math.round(result.fpsMax)} FPS
+                          </div>
+                          <div className="muted">{result.basis}</div>
+                          <div
+                            data-testid={`evidence-est1-contributors-${resolution}`}
+                            className="muted"
+                          >
+                            contributors:{" "}
+                            {result.contributors
+                              .map((c) => `${c.role}:${c.refId}`)
+                              .join("; ")}
+                          </div>
+                        </>
+                      ) : (
+                        <div
+                          data-testid={`evidence-est1-unavailable-${resolution}`}
+                        >
+                          unavailable ({result.reason}): {result.explanation}
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+
             {report.externalPerformance ? (
               <ul
                 data-testid="evidence-external-list"
-                style={{ listStyle: "none", margin: "0 0 0.75rem", padding: 0 }}
+                style={{
+                  listStyle: "none",
+                  margin: "0 0 0.75rem",
+                  padding: 0,
+                }}
               >
                 {report.externalPerformance.map((ext) => (
                   <li
@@ -58,13 +175,18 @@ export function EvidenceDisclosurePanel({
                     }}
                   >
                     <strong>{ext.resolution} external</strong>
-                    <div data-testid={`evidence-external-class-${ext.resolution}`}>
+                    <div
+                      data-testid={`evidence-external-class-${ext.resolution}`}
+                    >
                       display: {ext.displayClass}
                     </div>
                     {ext.aggregation.status === "aggregated" ? (
-                      <div data-testid={`evidence-external-range-${ext.resolution}`}>
-                        aggregated {ext.aggregation.fpsMin}–{ext.aggregation.fpsMax}{" "}
-                        FPS ({ext.aggregation.confidence})
+                      <div
+                        data-testid={`evidence-external-range-${ext.resolution}`}
+                      >
+                        aggregated {ext.aggregation.fpsMin}–
+                        {ext.aggregation.fpsMax} FPS (
+                        {ext.aggregation.confidence})
                       </div>
                     ) : (
                       <div
@@ -75,12 +197,19 @@ export function EvidenceDisclosurePanel({
                       </div>
                     )}
                     {ext.aggregation.exclusionReasons.length > 0 ? (
-                      <details data-testid={`evidence-external-exclusions-${ext.resolution}`}>
+                      <details
+                        data-testid={`evidence-external-exclusions-${ext.resolution}`}
+                      >
                         <summary>
                           {ext.aggregation.exclusionReasons.length} excluded
                           near-miss observation(s)
                         </summary>
-                        <ul style={{ margin: "0.35rem 0 0", paddingLeft: "1.1rem" }}>
+                        <ul
+                          style={{
+                            margin: "0.35rem 0 0",
+                            paddingLeft: "1.1rem",
+                          }}
+                        >
                           {ext.aggregation.exclusionReasons.map((ex) => (
                             <li key={ex.observationId}>
                               {ex.observationId}: {ex.reason} — {ex.detail}
@@ -94,9 +223,10 @@ export function EvidenceDisclosurePanel({
                         data-testid={`evidence-synthetic-ref-${ext.resolution}`}
                         className="muted"
                       >
-                        synthetic reference: {ext.syntheticReference.evidenceId} (
-                        {ext.syntheticReference.measurement.fpsMin}–
-                        {ext.syntheticReference.measurement.fpsMax} illustrative)
+                        synthetic reference: {ext.syntheticReference.evidenceId}{" "}
+                        ({ext.syntheticReference.measurement.fpsMin}–
+                        {ext.syntheticReference.measurement.fpsMax}{" "}
+                        illustrative)
                       </div>
                     ) : null}
                   </li>
@@ -109,9 +239,10 @@ export function EvidenceDisclosurePanel({
             >
               {report.performance.map((binding, index) => {
                 const resolution =
-                  binding.status === "bound" ?
-                    binding.evidence.key.resolution
-                  : (["1080p", "1440p", "4k"] as const)[index] ?? `row-${index}`;
+                  binding.status === "bound"
+                    ? binding.evidence.key.resolution
+                    : (["1080p", "1440p", "4k"] as const)[index] ??
+                      `row-${index}`;
                 return (
                   <li
                     key={resolution}
@@ -128,7 +259,9 @@ export function EvidenceDisclosurePanel({
                     <strong>{resolution}</strong>
                     {binding.status === "bound" ? (
                       <div>
-                        <div data-testid={`evidence-perf-confidence-${resolution}`}>
+                        <div
+                          data-testid={`evidence-perf-confidence-${resolution}`}
+                        >
                           confidence: {binding.evidence.confidence} ·{" "}
                           {binding.evidence.measurement.metricKind}
                         </div>
@@ -136,7 +269,9 @@ export function EvidenceDisclosurePanel({
                           {binding.evidence.measurement.fpsMin}–
                           {binding.evidence.measurement.fpsMax} FPS
                         </div>
-                        <div data-testid={`evidence-perf-freshness-${resolution}`}>
+                        <div
+                          data-testid={`evidence-perf-freshness-${resolution}`}
+                        >
                           freshness: {binding.freshness.state}
                         </div>
                         <div data-testid={`evidence-perf-sources-${resolution}`}>
@@ -146,7 +281,9 @@ export function EvidenceDisclosurePanel({
                         <div className="muted">{binding.evidence.basis}</div>
                       </div>
                     ) : (
-                      <div data-testid={`evidence-perf-unavailable-${resolution}`}>
+                      <div
+                        data-testid={`evidence-perf-unavailable-${resolution}`}
+                      >
                         unavailable ({binding.reason}): {binding.explanation}
                       </div>
                     )}
@@ -162,7 +299,9 @@ export function EvidenceDisclosurePanel({
             >
               {report.geometry.map((binding) => {
                 const partId =
-                  binding.status === "bound" ? binding.evidence.partId : binding.partId;
+                  binding.status === "bound"
+                    ? binding.evidence.partId
+                    : binding.partId;
                 return (
                   <li
                     key={partId}

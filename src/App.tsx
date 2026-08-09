@@ -33,6 +33,10 @@ import {
   loadProv4Fixtures,
   type Prov4Fixtures,
 } from "./provenance/loadProv4Fixtures";
+import {
+  loadEst1Fixtures,
+  type Est1Fixtures,
+} from "./estimate/loadEst1Fixtures";
 import { BuildResultSummary } from "./ui/BuildResultSummary";
 import { BuildSummary } from "./ui/BuildSummary";
 import { buildResultSummaryModel } from "./ui/buildResultSummaryModel";
@@ -61,6 +65,7 @@ type BootState =
       glbIndexes: Map<string, GlbPhysicalIndex>;
       coolingEvidence: CoolingEvidenceFile;
       prov4Fixtures: Prov4Fixtures;
+      est1Fixtures: Est1Fixtures;
     };
 
 export default function App() {
@@ -95,12 +100,14 @@ export default function App() {
           priceFixtures,
           coolingEvidence,
           prov4Fixtures,
+          est1Fixtures,
         ] = await Promise.all([
           loadPartCatalog(),
           loadPerf1Fixtures(),
           loadPriceFixtures(),
           loadCoolingEvidence(),
           loadProv4Fixtures(),
+          loadEst1Fixtures(),
         ]);
         await loadCompat2Examples();
         const glbIndexes = await loadGlbPhysicalIndexes(catalog);
@@ -126,6 +133,7 @@ export default function App() {
           glbIndexes,
           coolingEvidence,
           prov4Fixtures,
+          est1Fixtures,
         });
       } catch (error) {
         if (cancelled) return;
@@ -258,6 +266,7 @@ export default function App() {
       dimensions: perfDimensions,
       correction: perfCorrection,
       prov4Fixtures: boot.prov4Fixtures,
+      est1Fixtures: boot.est1Fixtures,
     });
     return buildResultSummaryModel({
       compatibility: compatibilityReport,
@@ -443,7 +452,11 @@ export default function App() {
               data-testid="evidence-domain-details"
             >
               <summary>Evidence details</summary>
-              <EvidenceDisclosurePanel report={disclosureReport} />
+              <EvidenceDisclosurePanel
+                report={disclosureReport}
+                est1Fixtures={boot.est1Fixtures}
+                prov4Fixtures={boot.prov4Fixtures}
+              />
             </details>
             <details
               className="panel-details domain-details"
@@ -475,6 +488,7 @@ export default function App() {
                 buildState={buildState}
                 perf1Fixtures={boot.perf1Fixtures}
                 prov4Fixtures={boot.prov4Fixtures}
+                est1Fixtures={boot.est1Fixtures}
               />
             </details>
           </div>

@@ -150,9 +150,9 @@ Vite already serves `/benchmarks/**` (ADR-003).
 
 ## 7. Done definition (implementer)
 
-- [ ] Steps 1–6 complete
-- [ ] O1–O9 encoded in tests
-- [ ] Temporary draft caveat user-visible on pilot performance surface
-- [ ] Green verification commands
-- [ ] Short STATUS / phase-4.1 TODO update
-- [ ] No commit/push unless owner asks (owner may authorize in start prompt)
+- [x] Steps 1–6 complete
+- [x] O1–O9 encoded in tests
+- [x] Temporary draft caveat user-visible on pilot performance surface
+- [x] Green verification commands
+- [x] Short STATUS / phase-4.1 TODO update
+- [ ] Commit/push — owner may authorize in start prompt (commit requested)
