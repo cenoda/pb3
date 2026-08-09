@@ -35,6 +35,7 @@ docs/phases/phase-4.1/
   README.md
   TODO.md
   ALGORITHM_DISCUSSION.md
+  DATA_CURATION_CHECKLIST.md   ← Path A (active product work)
   implementation_plan.md
   specs/
     phase-4.1.md
@@ -50,8 +51,17 @@ docs/phases/phase-4.1/
 | Owner M0 package accept | **PASS** (implementation-start) |
 | Implementation start | **Authorized** 2026-08-09 |
 | Implementation Steps 1–6 | **Done** 2026-08-09 |
+| Path A data curation | **Active** — empty shipped corpus; fill per checklist |
 
-## Implementation start
+## Path A — data curation (active)
 
-Implementation authorized and shipped under `est1` sidecar (`src/contract/est1*`,
-`src/estimate/*`, `benchmarks/est1/`). Do **not** start Phase 5 from this path.
+Software M0 is green with **honest empty** `benchmarks/est1/*`. Product numbers
+require curated rows — see [`DATA_CURATION_CHECKLIST.md`](./DATA_CURATION_CHECKLIST.md).
+
+Order: rights → exact (if any) → **CPU scale edges (critical)** → vendor anchors
+→ review FPS → verify. No invented ratios; no chart-only FPS.
+
+## Implementation note
+
+Shipped under `est1` sidecar (`src/contract/est1*`, `src/estimate/*`,
+`benchmarks/est1/`). Do **not** start Phase 5 from this path.
