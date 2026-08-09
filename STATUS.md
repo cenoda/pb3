@@ -105,8 +105,10 @@
 5. ~~**Phase 2 (기본 견적 서비스)** — M0 수락 → 구현·검증·closeout~~ → **구현 완료 (2026-08-08)** — [`docs/phases/phase-2/`](docs/phases/phase-2/)
 6. ~~**Phase 3 (3D 물리 검증)** — M0 수락 → 구현·검증·closeout~~ → **완료
    (2026-08-08)** — [`docs/phases/phase-3/`](docs/phases/phase-3/)
-7. **Phase 4 M0** — Steps 1–8 software gate green (2026-08-09).
-   **Evidence-quality closeout (Step 9) blocked until owner PASS** —
+7. **Phase 4 M0** — original Steps 1–8 software path was implemented, but the
+   invalid first-party pilot claim has now been removed. External-evidence
+   corrective plan is owner-accepted and Cursor implementation is authorized;
+   Step 9 remains blocked until implementation and re-audit —
    [`docs/phases/phase-4/`](docs/phases/phase-4/)
 8. ~~**Product UX corrective gate (`product-ux-1`)**~~ — implementation and
    **owner UX walkthrough PASS complete (2026-08-09)**; **not** Phase 5;
@@ -266,7 +268,7 @@
 | Pilot build | `DEFAULT_BUILD_STATE_V2` (7600 + 4070 ATX set) |
 | Owner M0 acceptance | **PASS (2026-08-09)** |
 | Implementation start | **Authorized (2026-08-09)** — explicit start instruction |
-| Implementation / fixtures / deps | **Steps 1–8 complete** (software gate); Step 9 pending owner PASS |
+| Implementation / fixtures / deps | Original Steps 1–8 implemented; evidence fixture safety-corrected after invalid first-party claim; Step 9 blocked |
 
 ## Phase 4 implementation progress (2026-08-09)
 
@@ -290,7 +292,7 @@
 | `pnpm test:e2e` | **9 tests PASS** (Phase 0+2+3 + new Phase 4) |
 | `pnpm test:all` | PASS |
 | `pnpm build` | PASS; `dist/benchmarks/prov4/**` copied |
-| Pilot 1080p | `first-party-measured`, `confidence: "medium"`, `runCount: 2` |
+| Pilot 1080p | `synthetic-stub`; false first-party metrics, capture conditions, source, and raw-summary artifact removed |
 | Pilot 1440p / 4k | `synthetic-stub` + MetricUnavailable charter fields |
 | Geometry | 7× Experimental; join on `phys3EvidenceSourceId` |
 | Cooling | empty rows → unavailable |
@@ -300,9 +302,24 @@
 ### Phase 4 evidence-quality gate (not closed)
 
 - Owner has **not** yet accepted evidence-quality closeout.
-- 1080p first-party package is present for the software path; closeout still
-  requires explicit owner review of capture authenticity / attestation.
+- No first-party performance package is currently shipped. All three pilot
+  performance rows are explicit synthetic stubs pending an accepted external
+  evidence correction.
 - Do **not** treat green tests alone as Phase 4 PASS.
+
+### Phase 4 external evidence correction candidate (2026-08-09)
+
+- Home: [`docs/corrections/phase4-external-evidence-1/`](docs/corrections/phase4-external-evidence-1/)
+- False `first-party-measured` claim and derived PresentMon-labeled summary:
+  **removed**.
+- Candidate safety-state verification: `pnpm test` **26 files / 171 tests**,
+  `pnpm test:e2e` **14 tests**, and `pnpm build` **PASS**.
+- Independent plan/safety review: **GO — Lira, 2026-08-09**.
+- External source ingestion and aggregation: **not implemented**.
+- Owner package acceptance + Cursor implementation authorization:
+  **PASS (2026-08-09)**.
+- Next gate: Cursor implements accepted Steps 1–5, then independent re-audit
+  and explicit owner Phase 4 Step 9 closeout.
 
 ## Product UX corrective gate (`product-ux-1`, 2026-08-09)
 

@@ -3,15 +3,6 @@
   "registryVersion": "prov4-registry-20260809",
   "sources": [
     {
-      "sourceId": "src.first-party.lab-cp2077-pilot",
-      "sourceClass": "first-party",
-      "rightsClass": "apache-2.0-project",
-      "title": "pb3 pilot lab — Cyberpunk 2077 raster ultra baseline",
-      "origin": "benchmarks/prov4/raw/pilot-1080p-capture.json",
-      "publishedAt": "2026-08-08",
-      "notes": "Phase 4 M0 pilot first-party capture package. Evidence-quality closeout requires owner PASS."
-    },
-    {
       "sourceId": "src.project-synthetic.pilot-perf",
       "sourceClass": "project-synthetic",
       "rightsClass": "apache-2.0-project",

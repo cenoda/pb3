@@ -84,7 +84,7 @@ test.describe("Product UX shell (product-ux-1)", () => {
       "data-pilot",
       "true",
     );
-    await expect(page.getByTestId("summary-fps-1080p")).toContainText("84–91");
+    await expect(page.getByTestId("summary-fps-1080p")).toContainText("80–95");
 
     await page.getByTestId("gpu-select").selectOption("gpu.rtx4080");
 

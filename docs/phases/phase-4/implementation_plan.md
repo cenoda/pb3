@@ -1,7 +1,10 @@
 # Phase 4 — Implementation Plan
 
-Status: **M0 owner-accepted (2026-08-09)** — implementation **authorized**;
-Steps 1–8 complete; Step 9 evidence-quality closeout pending owner PASS
+Status: **Historical accepted plan. Corrective gate reopened (2026-08-09).**
+Steps 1–8 were implemented, but the invalid first-party fixture was removed.
+External-evidence replacement is governed by
+[`../../corrections/phase4-external-evidence-1/`](../../corrections/phase4-external-evidence-1/)
+and was separately owner-accepted and authorized for Cursor on 2026-08-09.
 
 Scope authority: [`specs/phase-4.md`](./specs/phase-4.md)
 

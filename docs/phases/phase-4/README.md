@@ -2,9 +2,11 @@
 
 Working area for the first phase after the Phase 0–3 technical baseline.
 
-**Status: M0 accepted + implementation Steps 1–8 complete (2026-08-09).**
-Step 9 evidence-quality closeout awaits **owner PASS** (software green alone
-is insufficient).
+**Status: corrective gate reopened (2026-08-09).** Original Steps 1–8 were
+implemented, but the invalid first-party pilot claim was removed. Step 9 is
+blocked while the owner-accepted
+[`../../corrections/phase4-external-evidence-1/`](../../corrections/phase4-external-evidence-1/)
+package awaits Cursor implementation and re-audit.
 
 Owner-selected pilot path: **single-build evidence pilot** (see
 [`BRIEF.md`](./BRIEF.md) and [`specs/phase-4.md`](./specs/phase-4.md)).
@@ -46,7 +48,7 @@ docs/phases/phase-4/
 ### Implementation
 
 - [x] Steps 1–8 (software gate) — unit 171 / e2e 9 / build green
-- [ ] Step 9 evidence-quality closeout — **owner PASS required**
+- [ ] Step 9 evidence-quality closeout — **blocked; no measured/external evidence currently ships**
 
 ## Accepted decisions (2026-08-09)
 

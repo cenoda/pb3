@@ -6,6 +6,7 @@ charter phases, not roadmap expansions, and not architecture resets.
 | Work item | Path | Status |
 |-----------|------|--------|
 | Product UX M0 (builder surface) | [`product-ux-1/`](./product-ux-1/) | **Closed — owner UX PASS (2026-08-09)**; Phase 4 Step 9 unchanged |
+| Phase 4 external evidence correction | [`phase4-external-evidence-1/`](./phase4-external-evidence-1/) | **Owner-accepted; Cursor implementation authorized (2026-08-09)**; false first-party claim removed |
 
 ## Rules
 

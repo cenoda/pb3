@@ -33,18 +33,14 @@ describe("prov4 loaders", () => {
     expect(file.provenanceContractVersion).toBe("prov4");
   });
 
-  it("loadProv4Fixtures verifies repo-file digests", async () => {
+  it("loads without verified raw digests after false first-party evidence removal", async () => {
     const fixtures = await loadProv4Fixtures();
-    expect(fixtures.verifiedArtifactDigests.size).toBeGreaterThan(0);
-    const measured = fixtures.performance.rows.find(
-      (r) => r.measurement.metricKind === "first-party-measured",
-    );
-    expect(measured?.captureConditions).toBeDefined();
+    expect(fixtures.verifiedArtifactDigests.size).toBe(0);
     expect(
-      fixtures.verifiedArtifactDigests.has(
-        measured!.captureConditions!.rawArtifact.sha256,
+      fixtures.performance.rows.some(
+        (r) => r.measurement.metricKind === "first-party-measured",
       ),
-    ).toBe(true);
+    ).toBe(false);
   });
 
   it("fails closed on HTTP error", async () => {

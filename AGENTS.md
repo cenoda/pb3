@@ -9,8 +9,8 @@ This file is the **repository-level agent brief**. Aria (Grok Build), Lira (Clau
 | Fact | State |
 |------|--------|
 | Repository contents | **Phase 0–3 app, docs, and fixtures** — Vite/React/R3F SPA under `src/`, 13-part catalog and fixtures at repo-root `parts/` + `benchmarks/` |
-| Implementation | **Phase 0–3 complete**; **Phase 4 M0 Steps 1–8 software path complete** (closeout pending owner evidence-quality PASS) |
-| Current planning gate | **Phase 4 M0 implementation Steps 1–8 complete (2026-08-09)**; evidence-quality closeout (Step 9) awaits owner PASS under `docs/phases/phase-4/` |
+| Implementation | **Phase 0–3 complete**; Phase 4 false first-party pilot claim removed; corrective external-evidence implementation authorized for Cursor but not yet implemented |
+| Current planning gate | **`phase4-external-evidence-1` owner-accepted; Cursor implementation authorized (2026-08-09)**; no Phase 5 planning before corrective implementation, re-audit, and owner Step 9 PASS |
 | Stack / runtime / tooling | **Locked** (ADR-001–003) + **Playwright** for exit-scenario E2E |
 | License | Code + data + project-authored synthetic fixture GLBs: **Apache-2.0** (ADR-004); third-party/manufacturer-derived real-hardware GLBs still require a separate source-specific decision |
 | Tag `vertical-slice-v0` | **Created and pushed** after owner-authorized Phase 0 PASS |

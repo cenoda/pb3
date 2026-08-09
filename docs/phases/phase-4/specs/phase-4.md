@@ -1,8 +1,10 @@
 # Phase 4 — Evidence-grade data and validation
 
-Status: **M0 owner-accepted and implementation authorized (2026-08-09)**;
-Steps 1–8 software gate complete; Step 9 evidence-quality closeout pending
-**owner PASS**
+Status: **Historical accepted M0 spec; corrective gate reopened (2026-08-09).**
+The invalid first-party pilot fixture was removed. External-evidence replacement
+is proposed under
+[`../../../corrections/phase4-external-evidence-1/`](../../../corrections/phase4-external-evidence-1/)
+and is not yet owner-accepted or implementation-authorized.
 
 Scope authority: owner-selected Phase 4 direction from
 [`../BRIEF.md`](../BRIEF.md) — **single-build evidence pilot**. Detailed

@@ -1,10 +1,10 @@
 {
   "provenanceContractVersion": "prov4",
-  "dataVersion": "prov4-pilot-perf-20260809",
+  "dataVersion": "prov4-pilot-perf-20260809-corrective1",
   "rows": [
     {
       "provenanceContractVersion": "prov4",
-      "evidenceId": "perf.pilot.1080p.first-party",
+      "evidenceId": "perf.pilot.1080p.synthetic-stub",
       "key": {
         "cpuId": "cpu.zen4-7600",
         "gpuId": "gpu.rtx4070",
@@ -26,64 +26,31 @@
         "psuId": "psu.750w-atx"
       },
       "measurement": {
-        "metricKind": "first-party-measured",
-        "fpsMin": 84,
-        "fpsMax": 91,
-        "fpsAverage": 87.65,
-        "fpsOnePercentLow": 71.45,
+        "metricKind": "synthetic-stub",
+        "fpsMin": 80,
+        "fpsMax": 95,
+        "fpsAverage": {
+          "status": "unavailable",
+          "reason": "synthetic pilot cell; charter metrics not measured"
+        },
+        "fpsOnePercentLow": {
+          "status": "unavailable",
+          "reason": "synthetic pilot cell; charter metrics not measured"
+        },
         "frametime": {
-          "status": "available",
-          "representation": "summary-and-raw",
-          "summary": {
-            "sampleCount": 14340,
-            "p50Ms": 11.3,
-            "p95Ms": 16.0,
-            "p99Ms": 19.7
-          },
-          "artifact": {
-            "kind": "repo-file",
-            "locator": "benchmarks/prov4/raw/pilot-1080p-capture.json",
-            "sha256": "baca3d3086f84d1c95530628db347bc96101ceee4f6710f414681a8973dc4708",
-            "mediaType": "application/json",
-            "byteLength": 1362
-          }
+          "status": "unavailable",
+          "reason": "synthetic pilot cell; frametime not measured"
         }
       },
-      "confidence": "medium",
-      "dataVersion": "prov4-pilot-perf-20260809",
-      "basis": "Phase 4 M0 pilot first-party capture (two timed runs, PresentMon); confidence medium pending owner evidence-quality PASS — not labeled high",
-      "sourceIds": ["src.first-party.lab-cp2077-pilot"],
-      "capturedAt": "2026-08-08T18:00:00.000Z",
+      "confidence": "stub",
+      "dataVersion": "prov4-pilot-perf-20260809-corrective1",
+      "basis": "Explicit synthetic-stub for software continuity; no measured or external-review evidence is claimed",
+      "sourceIds": ["src.project-synthetic.pilot-perf"],
+      "capturedAt": "2026-08-09T00:00:00.000Z",
       "freshnessPolicy": { "maxAgeDays": 365 },
-      "captureConditions": {
-        "protocolId": "proto.cp2077-raster-ultra-baseline",
-        "protocolVersion": "2026.08.1",
-        "runCount": 2,
-        "rangeDerivation": "repeated-run-min-max",
-        "gamePatchVersion": "2.21",
-        "gpuDriverVersion": "560.94",
-        "toolName": "PresentMon",
-        "toolVersion": "2.3.1",
-        "graphicsSettings": {
-          "presetId": "preset.raster-ultra",
-          "exactSettings": "Cyberpunk 2077 raster Ultra preset; ray tracing off; DLSS/FSR off; frame generation off; motion blur off"
-        },
-        "powerThermal": {
-          "cpuPowerLimitId": "cpu-power.default",
-          "gpuPowerLimitId": "gpu-power.default",
-          "conditions": "stock cooler path; ambient ~22C; sustained 120s runs; no power-limit correction cell"
-        },
-        "rawArtifact": {
-          "kind": "repo-file",
-          "locator": "benchmarks/prov4/raw/pilot-1080p-capture.json",
-          "sha256": "baca3d3086f84d1c95530628db347bc96101ceee4f6710f414681a8973dc4708",
-          "mediaType": "application/json",
-          "byteLength": 1362
-        }
-      },
       "limitingFactor": {
         "category": "GPU-bound",
-        "explanation": "1080p raster ultra on RTX 4070-class GPU remains primarily GPU-limited under the pilot protocol."
+        "explanation": "Synthetic fixture classification only; not an observed bottleneck claim."
       }
     },
     {

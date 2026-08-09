@@ -10,7 +10,6 @@ import {
   highGateDigestsIncludeCapture,
   humanVerificationFileSchema,
   performanceEvidenceFileSchema,
-  performanceEvidenceRecordSchema,
 } from "../contract/prov4.schema";
 import type { PerformanceEvidenceRecord } from "../contract/prov4";
 import { PILOT_PART_IDS } from "../provenance/pilotBuild";
@@ -65,26 +64,19 @@ describe("prov4 fixture integrity", () => {
     }
   });
 
-  it("includes ≥1 first-party-measured cell with runCount >= 2 (O1-A)", () => {
+  it("ships no first-party-measured cell while corrective evidence work is pending", () => {
     const measured = performance.rows.filter(
       (r) => r.measurement.metricKind === "first-party-measured",
     );
-    expect(measured.length).toBeGreaterThanOrEqual(1);
-    for (const row of measured) {
-      expect(row.captureConditions).toBeDefined();
-      expect(row.captureConditions!.runCount).toBeGreaterThanOrEqual(2);
-      expect(typeof row.measurement.fpsAverage).toBe("number");
-      expect(typeof row.measurement.fpsOnePercentLow).toBe("number");
-      expect(row.measurement.frametime.status).toBe("available");
-      expect(["medium", "high"]).toContain(row.confidence);
-    }
+    expect(measured).toHaveLength(0);
+    expect(registry.sources.some((s) => s.sourceClass === "first-party")).toBe(false);
   });
 
-  it("marks residual cells as synthetic-stub with MetricUnavailable charter fields", () => {
+  it("marks all three cells as synthetic-stub with MetricUnavailable charter fields", () => {
     const stubs = performance.rows.filter(
       (r) => r.measurement.metricKind === "synthetic-stub",
     );
-    expect(stubs.length).toBe(2);
+    expect(stubs.length).toBe(3);
     for (const row of stubs) {
       expect(row.confidence).toBe("stub");
       const m = row.measurement;
@@ -96,39 +88,11 @@ describe("prov4 fixture integrity", () => {
     }
   });
 
-  it("rejects high gate on fps-only / bare-string artifact (negative)", () => {
-    const base = performance.rows.find(
-      (r) => r.measurement.metricKind === "first-party-measured",
-    )!;
+  it("has no repo-file raw artifact claims while corrective evidence work is pending", () => {
     expect(
-      performanceEvidenceRecordSchema.safeParse({
-        ...base,
-        confidence: "high",
-        verificationId: "missing",
-        captureConditions: {
-          ...base.captureConditions!,
-          rawArtifact: "trust-me-run-1",
-        },
-      }).success,
+      existsSync(join(prov4Dir, "raw/pilot-1080p-capture.json")),
     ).toBe(false);
-  });
-
-  it("rejects first-party runCount 0 and 1 at any confidence", () => {
-    const base = performance.rows.find(
-      (r) => r.measurement.metricKind === "first-party-measured",
-    )!;
-    for (const runCount of [0, 1]) {
-      expect(
-        performanceEvidenceRecordSchema.safeParse({
-          ...base,
-          confidence: "medium",
-          captureConditions: { ...base.captureConditions!, runCount },
-        }).success,
-      ).toBe(false);
-    }
-  });
-
-  it("verifies repo-file raw artifacts exist and match sha256/byteLength", () => {
+    let artifactCount = 0;
     for (const row of performance.rows) {
       const artifacts = [];
       if (row.captureConditions?.rawArtifact.kind === "repo-file") {
@@ -144,6 +108,7 @@ describe("prov4 fixture integrity", () => {
         artifacts.push(ft.artifact);
       }
       for (const art of artifacts) {
+        artifactCount += 1;
         const abs = join(repoRoot, art.locator);
         expect(existsSync(abs)).toBe(true);
         const onDisk = sha256File(abs);
@@ -151,6 +116,7 @@ describe("prov4 fixture integrity", () => {
         expect(onDisk.byteLength).toBe(art.byteLength);
       }
     }
+    expect(artifactCount).toBe(0);
   });
 
   it("when high claims exist, verification digests include capture sha256", () => {

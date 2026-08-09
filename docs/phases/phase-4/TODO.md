@@ -39,18 +39,17 @@ Owner authorized implementation start (2026-08-09). Follow
 - `pnpm test` — **25 files, 171 tests PASS**
 - `pnpm test:e2e` — **9 tests PASS** (Phase 0+2+3+4)
 - `pnpm test:all` + `pnpm build` — PASS; `dist/benchmarks/prov4` present
-- Pilot performance: 1080p `first-party-measured` medium (`runCount: 2`);
-  1440p/4k `synthetic-stub`; no `"high"` claim yet (verification empty)
+- Pilot performance safety state: 1080p/1440p/4k are all
+  `synthetic-stub`; no measured or external-review claim ships
 - Geometry: 7 Experimental joins via `phys3EvidenceSourceId`
 - Cooling: empty production rows → structured unavailable
 - Evidence review: the recorded SHA-256 and byte length match, but
   `raw/pilot-1080p-capture.json` is a 1,362-byte derived summary introduced in
   the implementation commit, not independently inspectable PresentMon raw
   output. File integrity alone does not establish capture authenticity.
-- Closeout remediation: retain the honest `medium` claim, but provide an
-  authentic raw capture export (or equivalent independently inspectable run
-  artifact) tied to the two runs and documented capture conditions, then
-  repeat owner evidence-quality review.
+- Closeout remediation: implement an accepted external-review evidence path;
+  no `medium` claim currently ships. The new planning package is
+  [`../../corrections/phase4-external-evidence-1/`](../../corrections/phase4-external-evidence-1/).
 
 ## Explicitly not started / out of M0
 

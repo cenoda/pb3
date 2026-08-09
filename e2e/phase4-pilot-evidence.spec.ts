@@ -44,7 +44,7 @@ async function openEvidenceDetails(page: Page) {
 }
 
 test.describe("Phase 4 pilot evidence scenario", () => {
-  test("pilot disclosure: 3 perf bindings, measured cell, geometry, cooling unavailable", async ({
+  test("pilot disclosure: 3 honest stubs, geometry, cooling unavailable", async ({
     page,
   }) => {
     await page.goto(fullVs2Query());
@@ -80,17 +80,17 @@ test.describe("Phase 4 pilot evidence scenario", () => {
       );
     }
 
-    // O1-A: at least one first-party measured cell (1080p)
+    // Corrective safety state: no false first-party measurement claim.
     await expect(page.getByTestId("perf-row-1080p")).toHaveAttribute(
       "data-metric-kind",
-      "first-party-measured",
+      "synthetic-stub",
     );
     await page.getByTestId("perf-detail-1080p").locator("summary").click();
     await expect(page.getByTestId("perf-metric-kind-1080p")).toContainText(
-      "first-party-measured",
+      "synthetic-stub",
     );
-    await expect(page.getByTestId("perf-capture-1080p")).toBeVisible();
-    await expect(page.getByTestId("perf-range-1080p")).toHaveText("84–91 FPS");
+    await expect(page.getByTestId("perf-capture-1080p")).toHaveCount(0);
+    await expect(page.getByTestId("perf-range-1080p")).toHaveText("80–95 FPS");
 
     // Residual stubs still disclosed
     await expect(page.getByTestId("perf-row-1440p")).toHaveAttribute(
@@ -169,9 +169,14 @@ test.describe("Phase 4 pilot evidence scenario", () => {
     const perfJson = await perf.json();
     expect(perfJson.rows).toHaveLength(3);
 
-    const raw = await request.get(
+    const removedFalseRaw = await request.get(
       "/benchmarks/prov4/raw/pilot-1080p-capture.json",
     );
-    expect(raw.ok()).toBeTruthy();
+    expect(removedFalseRaw.headers()["content-type"]).not.toContain(
+      "application/json",
+    );
+    expect(await removedFalseRaw.text()).not.toContain(
+      "pilot-lab-capture-package",
+    );
   });
 });
