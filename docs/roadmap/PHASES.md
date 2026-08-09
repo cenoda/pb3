@@ -57,8 +57,10 @@ silently break frozen `prov4`/`est1` contracts.
    - 새 계약 없음. 표시 계층만 교체하고 엔진은 읽기 전용.
    - 종료 조건은 헌장 0단계와 같은 문법 — 계약 준수가 아니라 **사용자 동작 5개**,
      오너가 브라우저에서 직접 수행해 판정한다.
-   - 상태: **구현 Steps 1–8 완료 (2026-08-09).** 기록: `docs/phases/phase-5/STEPS.md`.
-     Step 9(오너 브라우저 walkthrough)는 열려 있고, 그것이 통과 판정 기준이다.
+   - 상태: **완료 — 오너 승인 (2026-08-09).**
+     기록: `docs/phases/phase-5/STEPS.md`, closeout: `docs/phases/phase-5/CLOSEOUT.md`.
+   - 이월된 공백(범위 밖으로 판단한 것): 부품 사진 없음, 선택이 드롭다운, 3D가 단순 상자.
+     셋 다 **실제 카탈로그**가 공통 선행 조건이며 이번 세션에서는 착수하지 않는다.
 
 ### Corrective gate (closed — Phase 5로 흡수)
 

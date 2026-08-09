@@ -388,3 +388,22 @@ Owner evidence-quality PASS for est1 numbers is **separate** from the software g
 | Parallel | **Phase 5 may start** as separate M0 (must not silently break `prov4`/`est1`) |
 | Resume | Explicit owner unfreeze only |
 
+
+## Phase 5 — Product surface (complete, owner-approved 2026-08-09)
+
+| 항목 | 상태 |
+|------|------|
+| Home | [`docs/phases/phase-5/`](docs/phases/phase-5/) |
+| Scope | [`specs/phase-5.md`](docs/phases/phase-5/specs/phase-5.md) — display layer only; D1–D4 locked |
+| Record | [`STEPS.md`](docs/phases/phase-5/STEPS.md) · [`CLOSEOUT.md`](docs/phases/phase-5/CLOSEOUT.md) · [`screenshots/`](docs/phases/phase-5/screenshots/) |
+| Commits | `e04a960` (phase opened, corrective track closed) · `dfb395f` (display layer replaced) |
+| Changed | `src/App.tsx`, `src/ui/**`, `src/styles/**` replaced; `BuildViewport` framing only; e2e re-anchored |
+| Unchanged | All engines, all contracts (`vs0` `perf1` `vs2` `compat2` `phys3` `prov4` `est1`), `parts/**`, `benchmarks/**` |
+| Behaviour | Impossible builds present **no FPS and no price**; rejection sentence in product names; performance always with game + preset + confidence; canonical URL copyable; provenance retained in full behind one *Why this result?* disclosure |
+| Verification | `pnpm test` **215** · `pnpm test:e2e` **17** · `pnpm build` PASS |
+| Corrective track | **Closed** — absorbed into Phase 5; do not open new product-surface correctives |
+
+Carried out of the phase (judged out of scope, not overlooked): no part photos
+(no image field in the part contract), selection is a dropdown rather than a
+browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
+**real parts catalog**, which is not started in this session.
