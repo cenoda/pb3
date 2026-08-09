@@ -254,6 +254,9 @@ estimator logic per CPU.
 | 2026-08-09 | Path A checklist created | open | this file |
 | | TPU/Tom’s CPU | 13900K class — not 7600 | SOURCE_INGESTION_INVESTIGATION |
 | | est1 on-disk corpus | empty edges/anchors | benchmarks/est1/* |
+| 2026-08-09 | Multi-CPU manufacturer-centric strategy | locked in docs | ALGORITHM / checklist §0 |
+| 2026-08-09 | **P1 spot-check NVIDIA CP2077** | **No usable pilot raster-native anchor** | Official pages emphasize **RT Overdrive / DLSS 3.5 / FG** (e.g. geforce campaigns / DLSS 3.5 news). Recommend 4070 @ 1440p for that stack — **not** RT-off + DLSS-off + FG-off. No honest `vendor-anchor` for pilot cell yet. |
+| 2026-08-09 | **P2 scale leads** | Candidates only, **not encoded** | Tom’s Ryzen 5 7600 CPU review (gaming relative %); need extractable same-GPU, stated-res factors before any `CpuScaleEdge`. No invented factor. |
 | | | | |
 
 ---
