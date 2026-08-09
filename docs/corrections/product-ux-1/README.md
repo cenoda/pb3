@@ -10,8 +10,8 @@ architecture rewrite.
 | Kind | Corrective product-UX gate (presentation / information architecture) |
 | Baseline commit | **`e73602a`** (`feat(provenance): implement Phase 4 evidence pilot`) |
 | Scope | Existing SPA UI only — engines, contracts, fixtures, inventory frozen |
-| Package status | **Drafted for owner review (2026-08-09)** — not accepted |
-| Implementation | **Blocked** until (1) owner accepts this package and (2) owner gives a separate explicit start instruction |
+| Package status | **Owner-accepted (2026-08-09)** — planning package GO |
+| Implementation | **Blocked** until owner gives a **separate** explicit start instruction (package acceptance alone is not start) |
 | Phase 4 Step 9 | **Unchanged / still pending** owner evidence-quality PASS |
 | Phase 5 | **Not started**, not planned by this package |
 
@@ -63,7 +63,7 @@ reopening Phase 0–4 architecture.
 ```text
 [x] Live inspection of checkout at e73602a
 [x] Docs package drafted (README, AUDIT, TODO, corrective_plan)
-[ ] Owner accepts this planning package
+[x] Owner accepts this planning package (2026-08-09)
 [ ] Separate explicit implementation-start instruction
 [ ] Implementation steps (see corrective_plan.md)
 [ ] Regression + desktop walkthrough + owner UX closeout
@@ -92,6 +92,6 @@ reopening Phase 0–4 architecture.
 
 **Implementation remains blocked.**
 
-Acceptance of this documentation package alone does **not** authorize code
-changes. After package acceptance, the owner must still issue a separate
+Owner accepted this documentation package on **2026-08-09**. Acceptance alone
+does **not** authorize code changes. The owner must still issue a separate
 explicit instruction to start implementation of `corrective_plan.md`.

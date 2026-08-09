@@ -17,8 +17,10 @@ and verified.**
 - [x] Corrective plan drafted (`corrective_plan.md`)
 - [x] This gate checklist created
 - [x] Minimal status/index pointers updated (`STATUS.md`, roadmap, corrections index)
-- [ ] **Owner accepts** this planning package (README + AUDIT + TODO + plan)
-- [ ] Open decisions in `corrective_plan.md` § Open decisions resolved or deferred in writing by owner
+- [x] **Owner accepts** this planning package (README + AUDIT + TODO + plan)
+      (2026-08-09)
+- [x] Open decisions O1–O5: owner-preferred defaults recorded for start
+      (A / A-with-B-fallback / conditional B / A / B) — see plan §8
 
 ## Authorization (separate from package acceptance)
 
@@ -81,7 +83,7 @@ and verified.**
 
 | Item | Value |
 |------|--------|
-| Package accepted (date) | _pending_ |
+| Package accepted (date) | **2026-08-09** (owner) |
 | Implementation start authorized (date) | _pending_ |
 | Implementation complete commit | _pending_ |
 | `pnpm test:all` | _pending_ |

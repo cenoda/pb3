@@ -31,4 +31,4 @@ Phase 0–4 앱 **제품 표면**에 대한 교정 게이트가 docs 패키지�
 
 - 홈: [`../corrections/product-ux-1/`](../corrections/product-ux-1/)
 - 인덱스: [`../corrections/README.md`](../corrections/README.md)
-- 상태: 계획 패키지 draft (2026-08-09) — 소유자 수락·구현 시작 지시 전 **코드 변경 금지**
+- 상태: 계획 패키지 **소유자 수락 (2026-08-09)** — 구현은 **별도 start 지시** 전까지 금지

@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|--------|
 | Work id | `product-ux-1` |
-| Status | **Draft — not owner-accepted; implementation not authorized** |
-| Baseline | **`e73602a`** |
+| Status | **Owner-accepted (2026-08-09)** — implementation **not** authorized |
+| Baseline | **`e73602a`** (docs package on `5aea499`+) |
 | Authority | [`AUDIT.md`](./AUDIT.md), [`README.md`](./README.md) |
 | Stack | ADR-001–004 unchanged (static SPA, TS/React/R3F/Vite, pnpm/Zod/Zustand/Vitest, Apache-2.0) |
 
@@ -12,10 +12,8 @@ This is the ordered, file-level plan required before any corrective UI code.
 It is **not** Phase 5. It does **not** reopen Phase 0–4 architecture or
 contracts.
 
-**Implementation remains blocked** until:
-
-1. Owner accepts this package, and  
-2. Owner gives a **separate** explicit implementation-start instruction.
+**Package accepted (2026-08-09).** Implementation remains blocked until the
+owner gives a **separate** explicit implementation-start instruction.
 
 ---
 
@@ -29,7 +27,7 @@ contracts.
 | Contracts `vs0`…`prov4` | **Frozen** (no public shape changes) |
 | Inventory | **Frozen** (13 parts; phase constants for game/preset) |
 | New dependencies / design system | **Forbidden** unless a later written amendment |
-| This plan owner-accepted | **No** (draft) |
+| This plan owner-accepted | **Yes (2026-08-09)** |
 | Explicit start instruction | **No** |
 
 ---
@@ -442,16 +440,17 @@ New UI (proposed names — implementer may adjust to local style):
 
 ## 8. Open decisions (owner)
 
-These do not block **package review**, but should be resolved before or at
-implementation start:
+Package acceptance (2026-08-09) recorded the following **owner-preferred
+defaults for implementation start**. Treat them as locked unless the start
+instruction overrides them.
 
-| ID | Decision | Options | Recommendation |
-|----|----------|---------|----------------|
-| O1 | Theme strategy | **A.** Fixed light app surface (readable under dark OS) · **B.** Explicit light/dark toggle · **C.** `prefers-color-scheme` auto | **A** for M0 (smallest) |
-| O2 | Viewport persistence | **A.** CSS `position: sticky` on right column · **B.** Non-scrolling stage with internal scroll on controls only | **A**, fall back to **B** if Canvas issues |
-| O3 | Filters on first screen | **A.** Always visible · **B.** Collapsed `<details>` to free vertical space for T3 | **B** if T3 fails with A |
-| O4 | FPS in summary | **A.** Three resolution chips · **B.** Single “primary” resolution (e.g. 1440p) + link to detail | **A** (matches current product data) |
-| O5 | Global CSS file | **A.** Inline only · **B.** One small `app-shell.css` | **B** if theme tokens need one place; still no design system |
+| ID | Decision | Owner-preferred | Notes |
+|----|----------|-----------------|-------|
+| O1 | Theme strategy | **A** — fixed light app surface | Readable under dark host chrome; no toggle in M0 |
+| O2 | Viewport persistence | **A** sticky, fall back to **B** | B = non-scrolling stage + internal controls scroll if Canvas/sticky fails |
+| O3 | Filters on first screen | **A**, collapse to **B** if T3 fails | Prefer always-visible filters until density breaks 1280×720 |
+| O4 | FPS in summary | **A** — three resolution chips | 1080p / 1440p / 4k |
+| O5 | Global CSS file | **B** when needed — small `app-shell.css` | No design-system package |
 
 ---
 
@@ -474,8 +473,8 @@ implementation start:
 | Audit evidence-based at `e73602a` | Yes |
 | Scope bounded to product surface | Yes |
 | Engines/contracts preserved by design | Yes |
-| Implementation authorized | **No** |
-| Owner package acceptance | **Pending** |
+| Owner package acceptance | **Yes (2026-08-09)** |
+| Implementation authorized | **No** — needs separate explicit start |
 
-**Recommendation to owner:** **GO for review and acceptance of this planning
-package.** **NO-GO for implementation** until acceptance + explicit start.
+**Current gate:** planning package **accepted**. **NO-GO for implementation**
+until a separate explicit start instruction.

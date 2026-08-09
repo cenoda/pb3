@@ -108,9 +108,9 @@
 7. **Phase 4 M0** — Steps 1–8 software gate green (2026-08-09).
    **Evidence-quality closeout (Step 9) blocked until owner PASS** —
    [`docs/phases/phase-4/`](docs/phases/phase-4/)
-8. **Product UX corrective gate (`product-ux-1`)** — docs package drafted
-   (2026-08-09) on baseline `e73602a`; **not** Phase 5; **not** implementation-
-   authorized. Awaits owner package acceptance + separate start instruction —
+8. **Product UX corrective gate (`product-ux-1`)** — planning package
+   **owner-accepted (2026-08-09)** on baseline `e73602a`; **not** Phase 5;
+   implementation still **blocked** until a separate explicit start instruction —
    [`docs/corrections/product-ux-1/`](docs/corrections/product-ux-1/)
 9. **Phase 5+** — not planned; requires separate M0 after the above gates
 
@@ -315,8 +315,9 @@ Bounded **docs-only** corrective planning package over the Phase 0–4 app surfa
 | Home | [`docs/corrections/product-ux-1/`](docs/corrections/product-ux-1/) |
 | Audit | [`AUDIT.md`](docs/corrections/product-ux-1/AUDIT.md) — live 1280×720 verification |
 | Plan | [`corrective_plan.md`](docs/corrections/product-ux-1/corrective_plan.md) |
-| Package acceptance | **Pending owner review** |
-| Implementation | **Blocked** (needs package acceptance + separate start instruction) |
+| Package acceptance | **PASS (owner, 2026-08-09)** |
+| Implementation | **Blocked** — needs separate explicit start instruction |
+| O1–O5 defaults | A / A→B fallback / A then B if T3 fails / A / B — see plan §8 |
 | Phase 4 Step 9 | **Unchanged** — still pending evidence-quality PASS |
 | Contracts / inventory | **Frozen** — presentation-only intent |
 
