@@ -26,11 +26,13 @@
 
 ## Path A — data curation (product numbers)
 
+**Paused at Phase 4/4.1 freeze (2026-08-09).** Resume only after unfreeze.
+
 - [ ] Follow [`DATA_CURATION_CHECKLIST.md`](./DATA_CURATION_CHECKLIST.md)
-- [ ] P0 rights/registry hygiene (TPU URL fix if needed)
-- [ ] P2 at least one evidenced CPU scale edge (or document blocked)
-- [ ] P3/P4 vendor and/or review FPS for pilot material match
-- [ ] P5 verify: ≥1 resolution `est1-estimated` if data allows; else honest unavailable
+- [x] AMD specs catalog auto-harvest spine (`vendor-catalog/`)
+- [ ] Map catalog names → `cpuId` / `gpuId`
+- [ ] Spec-driven sim beyond M0 anchor/scale (separate package when unfrozen)
+- [ ] Optional calibration / O4 reviews
 
 ## Explicitly out
 

@@ -26,23 +26,28 @@ synthetic stub으로 되돌렸다. **외부 벤치마크 교정 패키지
 [`../corrections/phase4-external-evidence-1/`](../corrections/phase4-external-evidence-1/)
 Steps 1–5 구현 완료 (2026-08-09)** — aggregation engine, source-rights record,
 audit-only observation fixtures, UI disclosure; exact-match product FPS는 여전히
-unavailable → perf1 synthetic fallback. Step 9은 소유자 PASS 전까지 blocked.
+unavailable → perf1 synthetic fallback.
 
-### Phase 4.1 sub-path (not Phase 5)
+### Freeze (owner, 2026-08-09)
 
-Exact-only 외부 집계만으로는 임의 조합 예측이 불가능하다는 제품 판정 하에,
-**조합 성능 추정 함수** 논의를 위한 서브 경로를 연다 (2026-08-09).
+**Phase 4 + 4.1 active product work is frozen.**  
+Record: [`../phases/phase-4/FREEZE.md`](../phases/phase-4/FREEZE.md).
+
+Shipped and agreed as baseline: evidence discipline (`prov4`), honest empty
+external FPS, `est1` temporary draft estimator software, AMD manufacturer
+**specs** catalog auto-harvest as multi-CPU **sim inputs** (not game FPS tables).
+Full spec→FPS simulation and Step 9 owner evidence PASS are **not** claimed;
+resume only with explicit unfreeze.
+
+**Phase 5 may proceed in parallel** (separate M0 package). Phase 5 must not
+silently break frozen `prov4`/`est1` contracts.
+
+### Phase 4.1 sub-path (frozen with Phase 4)
 
 - 홈: [`../phases/phase-4.1/`](../phases/phase-4.1/)
-- 알고리즘: [`../phases/phase-4.1/ALGORITHM_DISCUSSION.md`](../phases/phase-4.1/ALGORITHM_DISCUSSION.md)
-  §0 — **O1–O9 소유자 잠금 (2026-08-09)**
-- M0 패키지 초안: [`specs/phase-4.1.md`](../phases/phase-4.1/specs/phase-4.1.md),
-  [`est1` 계약](../phases/phase-4.1/specs/estimator-data-contract.md),
-  [`implementation_plan.md`](../phases/phase-4.1/implementation_plan.md)
-- **임시 초안 함수**: 메인보드·냉각·케이스 공랭·비기본 전력 한도는 미모델;
-  후속 보정 예정. `est1` M0 software는 구현됨; **Path A 데이터 큐레이션**
-  ([`DATA_CURATION_CHECKLIST.md`](../phases/phase-4.1/DATA_CURATION_CHECKLIST.md))
-  이 다음 작업. Phase 5 아님.
+- Freeze: [`../phases/phase-4.1/FREEZE.md`](../phases/phase-4.1/FREEZE.md)
+- `est1` M0 software + AMD vendor-catalog spine: shipped; further Path A / sim
+  expansion **paused**
 
 ### Corrective gate (not a charter phase)
 

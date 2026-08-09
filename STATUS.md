@@ -369,10 +369,22 @@ Sub-path of Phase 4 — **not** Phase 5. Temporary draft combination function.
 | M0 package + implementation start | **Authorized / implemented** (2026-08-09) |
 | Contract | `est1` sidecar — `src/contract/est1.ts` + Zod; does **not** rewrite `perf1` |
 | Fixtures | `benchmarks/est1/` — honest empty edges/anchors (path proofs in unit tests) |
+| AMD manufacturer specs catalog | **Auto-harvest** — `benchmarks/est1/vendor-catalog/` + `scripts/curate-amd-product-catalog.py` (specs **inputs**, not game FPS) |
 | Pure estimator | `estimateCombinationPerformance` + scale/rank/validate helpers |
 | UI | Pilot panel/disclosure/chips: `est1-estimated` / `est1-unavailable` + outer synthetic residual labeled non-estimate; `draftCaveat` visible |
 | Verification | `pnpm test` **211** · `pnpm test:e2e` **16** · `pnpm build` PASS · `dist/benchmarks/est1/**` present |
-| Out of M0 | Motherboard/cooling/case airflow/non-default power; scraping; GPU-bound waiver |
+| Out of M0 | Motherboard/cooling/case airflow/non-default power; SPA runtime scrape; GPU-bound waiver |
 
 Owner evidence-quality PASS for est1 numbers is **separate** from the software gate.
+
+## Phase 4 + 4.1 freeze (owner, 2026-08-09)
+
+| 항목 | 상태 |
+|------|------|
+| Decision | **Freeze** further Phase 4 / 4.1 product work |
+| Record | [`docs/phases/phase-4/FREEZE.md`](docs/phases/phase-4/FREEZE.md) |
+| Agreed baseline | Evidence discipline + honest empty external FPS + `est1` draft software + AMD specs spine |
+| Not claimed | Step 9 PASS; full spec→FPS simulation; multi-CPU product FPS coverage |
+| Parallel | **Phase 5 may start** as separate M0 (must not silently break `prov4`/`est1`) |
+| Resume | Explicit owner unfreeze only |
 

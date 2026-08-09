@@ -1,10 +1,12 @@
 # Phase 4.1 — Combination performance estimator (sub-path)
 
-**Status: M0 implemented (2026-08-09) · algorithm O1–O9 locked · software gate green**
+**Status: FROZEN with Phase 4 (owner, 2026-08-09)** — [`FREEZE.md`](./FREEZE.md)
 
 Work id: `phase-4.1-combo-estimator`
 
-This is a **sub-path of Phase 4**, not Phase 5 and not a charter renumber.
+M0 software + AMD specs catalog spine shipped; further Path A / full sim
+**paused**. Phase 5 may run **in parallel**. This is a **sub-path of Phase 4**,
+not Phase 5.
 
 ## Temporary draft function
 
