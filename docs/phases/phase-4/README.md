@@ -2,27 +2,25 @@
 
 Working area for the first phase after the Phase 0–3 technical baseline.
 
-**Status: external-evidence pipeline shipped; Step 9 still open (2026-08-09).**
-Original Steps 1–8 ran; invalid first-party claim was removed; corrective
-[`../../corrections/phase4-external-evidence-1/`](../../corrections/phase4-external-evidence-1/)
-Steps 1–5 are on `main` (`6f0a306`). Independent source investigation
-([`SOURCE_INGESTION_INVESTIGATION.md`](./SOURCE_INGESTION_INVESTIGATION.md))
-found **no defensible exact-match public FPS** for pilot `cpu.zen4-7600` from
-Tier A/B review benches (flagship CPUs only). Product external FPS remains
-empty by design until owner Step 9 path is chosen.
+**Status: FROZEN (owner, 2026-08-09).** See [`FREEZE.md`](./FREEZE.md).
 
-Owner-selected pilot path: **single-build evidence pilot** (see
+External-evidence pipeline and Phase 4.1 `est1` M0 + AMD specs catalog spine
+are shipped. Full product FPS simulation and Step 9 evidence PASS are **not**
+claimed. **Phase 5 may proceed in parallel.** Unfreeze Phase 4/4.1 only with
+explicit owner instruction.
+
+Owner-selected pilot path (historical): **single-build evidence pilot** (see
 [`BRIEF.md`](./BRIEF.md) and [`specs/phase-4.md`](./specs/phase-4.md)).
 
-**Sub-path (not a closeout substitute):** combination prediction beyond exact
-match is discussed under [`../phase-4.1/`](../phase-4.1/) (manufacturer-primary
-estimator; discussion only).
+Sub-path: [`../phase-4.1/`](../phase-4.1/) (also frozen). Investigation notes:
+[`SOURCE_INGESTION_INVESTIGATION.md`](./SOURCE_INGESTION_INVESTIGATION.md).
 
 ## Layout
 
 ```text
 docs/phases/phase-4/
   README.md                 ← phase entry point and gate status
+  FREEZE.md                 ← owner freeze record (2026-08-09)
   BRIEF.md                  ← direction brief (pilot path selected)
   TODO.md                   ← planning / acceptance checklist
   implementation_plan.md    ← ordered file-level plan (accepted)
