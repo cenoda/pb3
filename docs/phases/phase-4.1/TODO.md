@@ -24,9 +24,18 @@
 - [x] Step 6 — e2e + full verification
 - [x] Step 7 — stop (no Phase 5 / no perf1 rewrite)
 
+## Path A — data curation (product numbers)
+
+- [ ] Follow [`DATA_CURATION_CHECKLIST.md`](./DATA_CURATION_CHECKLIST.md)
+- [ ] P0 rights/registry hygiene (TPU URL fix if needed)
+- [ ] P2 at least one evidenced CPU scale edge (or document blocked)
+- [ ] P3/P4 vendor and/or review FPS for pilot material match
+- [ ] P5 verify: ≥1 resolution `est1-estimated` if data allows; else honest unavailable
+
 ## Explicitly out
 
 - Runtime scraping
 - GPU-bound waiver without CPU ratio
 - Motherboard/cooling transforms in M0
 - Estimator returning synthetic-stub
+- Invented scale factors / chart-only FPS

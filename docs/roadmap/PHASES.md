@@ -40,7 +40,9 @@ Exact-only 외부 집계만으로는 임의 조합 예측이 불가능하다는 
   [`est1` 계약](../phases/phase-4.1/specs/estimator-data-contract.md),
   [`implementation_plan.md`](../phases/phase-4.1/implementation_plan.md)
 - **임시 초안 함수**: 메인보드·냉각·케이스 공랭·비기본 전력 한도는 미모델;
-  후속 보정 예정. 구현은 별도 start 지시 전 금지. Phase 5 아님.
+  후속 보정 예정. `est1` M0 software는 구현됨; **Path A 데이터 큐레이션**
+  ([`DATA_CURATION_CHECKLIST.md`](../phases/phase-4.1/DATA_CURATION_CHECKLIST.md))
+  이 다음 작업. Phase 5 아님.
 
 ### Corrective gate (not a charter phase)
 
