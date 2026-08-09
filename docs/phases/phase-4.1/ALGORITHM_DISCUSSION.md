@@ -15,6 +15,33 @@ non-default power limits. Those factors are expected to revise or gate results
 in a later accepted revision (`est1` bump or successor). M0 must surface an
 explicit `draftCaveat` on every result (see estimator-data-contract.md).
 
+### Strategic corpus stance (owner — 2026-08-09)
+
+**M0 inventory is pilot-only (`cpu.zen4-7600`), but the design target is
+coverage of most catalog CPUs over time.**
+
+That is why the owner recommends **manufacturer-centric** corpus building:
+
+| Approach | Scales to many CPUs? | Notes |
+|----------|----------------------|--------|
+| Exact review match only | **No** | Public GPU benches almost always use flagship CPUs |
+| Review-first + endless near-misses | Poor | High curation cost; still CPU-skewed |
+| **Manufacturer-primary anchors + evidenced scale graph** | **Yes** | GPU/game FPS tables + official relative CPU/GPU materials become reusable nodes; any catalog `cpuId` is a path through the graph when edges exist |
+
+Manufacturer-centric means:
+
+1. **Harvest and store** official/OEM performance fragments as first-class
+   anchors (with full settings when possible).
+2. Prefer **vendor relative-performance / product-brief series** as scale-edge
+   sources when they state enough conditions to be honest.
+3. Keep reviews as **comparability-first validators (O4)** and occasional
+   primary only when they beat weak vendor blobs (O1).
+4. Never encode a one-off “7600 hack”; pilot rows are the first **instances**
+   of a multi-CPU graph, not a special code path.
+
+M0 still only **ships** pilot query coverage proof; schema and curation process
+must not assume a single mid-range CPU forever.
+
 ---
 
 ## 0. Owner-locked decisions (2026-08-09)

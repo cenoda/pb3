@@ -55,6 +55,14 @@ Prove a pure, explainable **combination estimator** for the pilot build that:
 
 ## 2. Inventory (M0)
 
+### 2.0 Multi-CPU product intent (not M0 inventory expansion)
+
+M0 **query surface** is pilot-only. The **product intent** is that the same
+`est1` function and manufacturer-centric corpus can later cover most catalog
+CPUs by adding anchors and scale edges — without a per-CPU code fork. Review
+sites alone cannot provide that coverage. See ALGORITHM_DISCUSSION “Strategic
+corpus stance” and DATA_CURATION_CHECKLIST §0.
+
 ### 2.1 Query surface (pilot only)
 
 Same controlled baseline as Phase 4 pilot performance cells:

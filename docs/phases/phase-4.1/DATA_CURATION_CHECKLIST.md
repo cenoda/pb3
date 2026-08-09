@@ -1,19 +1,58 @@
 # Data curation checklist — fill `est1` / `prov4` for product paths (Path A)
 
 **Status:** active work queue (2026-08-09)  
-**Goal:** Make pilot × 3 resolutions leave pure `est1-unavailable` by curating
-**honest** anchors, scale edges, and/or exact observations — not invented FPS.
+**Near-term goal:** Make pilot × 3 resolutions leave pure `est1-unavailable` by
+curating **honest** anchors, scale edges, and/or exact observations — not
+invented FPS.
+
+**Long-term goal (owner):** The same pipeline must support investigation and
+estimation for **most catalog CPUs**, not only `cpu.zen4-7600`. That is why
+curation is **manufacturer-centric**: official GPU/game (and relative CPU)
+materials are the scalable spine; reviews validate and fill gaps.
 
 Related:
 
 - Algorithm locks: [`ALGORITHM_DISCUSSION.md`](./ALGORITHM_DISCUSSION.md) §0 (O1–O9)
+- Strategic stance: manufacturer-primary multi-CPU graph (same doc, “Strategic corpus stance”)
 - Contract: [`specs/estimator-data-contract.md`](./specs/estimator-data-contract.md)
 - Prior source investigation: [`../phase-4/SOURCE_INGESTION_INVESTIGATION.md`](../phase-4/SOURCE_INGESTION_INVESTIGATION.md)
 - Empty shipped corpus: `benchmarks/est1/*`, audit-only near-misses in `benchmarks/prov4/external-performance-observations.json`
 
 ---
 
-## 1. What “done” looks like for Path A
+## 0. Manufacturer-centric multi-CPU model
+
+```text
+                    ┌─────────────────────────┐
+  NVIDIA/AMD/…      │ Vendor anchors          │  GPU × game × settings × res
+  product briefs ──►│ (manufacturer-primary)  │  cpuId when stated
+                    └───────────┬─────────────┘
+                                │ scale edges (evidenced only)
+                    ┌───────────▼─────────────┐
+  Official CPU      │ CpuScaleEdge graph      │  fromCpu → toCpu
+  relative charts ─►│ (any catalog cpuId)     │  resolution/game scoped
+                    └───────────┬─────────────┘
+                                │ O4 when comparable
+                    ┌───────────▼─────────────┐
+  TPU / Tom’s / …   │ Review observations     │  auxiliary validation
+                    │ (comparability-first)   │  never weaker-than-vendor win
+                    └─────────────────────────┘
+```
+
+| Principle | Practice |
+|-----------|----------|
+| **Pilot is first instance** | Ship 7600+4070 cells first; do not hard-code 7600-only logic |
+| **Opaque CPU ids** | New bench CPUs enter as ids (`cpu.intel-13900k`, …) usable as `fromCpuId` for *all* future `toCpuId`s |
+| **Edges are reusable** | One 13900K→7600 edge helps pilot; later 13900K→7800X3D is another edge, same graph |
+| **Manufacturer harvest first** | Prefer official tables for anchors and, when honest, for relative factors |
+| **Reviews do not define coverage** | They cannot be the only strategy if “most CPUs” is the product goal |
+| **No silent fan-out** | Adding a CPU to the catalog does **not** invent estimates; it only becomes estimable when anchors+edges exist |
+
+M0 still proves paths on **one** pilot CPU. Schema/process must stay multi-CPU ready.
+
+---
+
+## 1. What “done” looks like for Path A (pilot slice)
 
 For pilot query  
 `cpu.zen4-7600 + gpu.rtx4070 + game.cyberpunk-2077 + preset.raster-ultra + upscale.off + framegen.off + RT off`:
@@ -36,19 +75,23 @@ that fire those paths for the real pilot.
 
 ---
 
-## 2. Priority order (do in this sequence)
+## 2. Priority order (manufacturer-centric sequence)
 
 ```text
-P0  Rights + registry
-P1  Exact path materials (hardest; best confidence)
-P2  CPU scale edges (unlocks flagship-bench → 7600)
-P3  Vendor anchors (manufacturer-primary harvest)
-P4  Review observations with FPS (auxiliary + O4 validation)
+P0  Rights + registry (multi-source, reusable sourceIds)
+P1  Manufacturer / official harvest (GPU game FPS + any CPU-relative materials)
+P2  CPU scale edges from evidenced sources (prefer vendor relative charts;
+    third-party CPU sheets only when stronger/more comparable)
+P3  Exact path if any real 7600 (or later any-cpu) rows exist — rare but best
+P4  Review observations with FPS (auxiliary + mandatory O4 when comparable)
 P5  Wire + verify + integrity + e2e
 ```
 
-Do **not** start at P3 with CPU-unknown marketing blobs — O1 comparability-first
-and missing `cpuId` make them dead without P2.
+**Why not “reviews first”:** flagship-only benches do not generalize to most
+catalog CPUs. Manufacturer tables + a growing scale graph do.
+
+Do **not** store CPU-unknown marketing blobs as if they were exact anchors —
+without `cpuId` or a legal scale path they stay non-productive (O1/O2).
 
 ---
 
@@ -185,19 +228,22 @@ pnpm build
 
 ---
 
-## 5. Suggested M0 “minimum product” (realistic)
+## 5. Suggested M0 “minimum product” (realistic) + multi-CPU seed
 
 Given exact 7600 rows are scarce:
 
-| Piece | Minimum |
-|-------|---------|
-| 1 | Introduce opaque from-CPU id for review benches (`cpu.intel-13900k`) in scale edges + observation cpuId |
-| 2 | **One** CP2077-scoped scale edge 13900K→7600 at **1440p** with cited factor + uncertainty |
-| 3 | **One** review observation (TPU or Tom’s) 4070+CP2077+1440p raster native **with FPS**, cpuId=13900K |
-| 4 | Optional second review for O4 strength / exact-aggregate on from-CPU side before scale |
-| 5 | Run estimator → expect `scaled-combination` @ 1440p, confidence `low` |
+| Piece | Minimum | Multi-CPU note |
+|-------|---------|----------------|
+| 1 | Opaque from-CPU id (`cpu.intel-13900k`) in edges + observation `cpuId` | Reusable hub node for later `toCpuId`s |
+| 2 | Prefer **manufacturer** 4070+CP2077 raster-native anchor if CPU known; else review FPS @ 13900K | Vendor-first harvest |
+| 3 | **One** evidenced scale edge → `cpu.zen4-7600` @ **1440p** (vendor relative or cited CPU sheet) | Same pattern later for other catalog CPUs |
+| 4 | Comparable review for O4 bound when present | Validates any target CPU path |
+| 5 | Estimator → `scaled-combination` @ 1440p, confidence `low` | Template for N CPUs, not a 7600 exception |
 
 1080p / 4k: add edges only when separately evidenced; else leave unavailable.
+
+**After pilot:** extend graph by new `toCpuId` edges and anchors — do not fork
+estimator logic per CPU.
 
 ---
 
@@ -225,7 +271,10 @@ Given exact 7600 rows are scarce:
 
 ## 8. Next action (recommended first hour)
 
-1. Open TPU 4070 FE game pages + Tom’s 1440p page; list **written** CP2077 FPS + settings (RT/DLSS/FG).
-2. Search one **CPU comparison** source that includes 7600 and 13900K (or 7600X) for CP2077 or multi-game gaming mean at 1080p and 1440p.
-3. If both exist → draft one `CpuScaleEdge` + one `ExternalPerformanceObservation` JSON in a branch; run tests.
-4. If scale source missing → stop and report **blocked on P2**, do not ship fake edges.
+1. **Manufacturer first:** NVIDIA (and relevant OEM) RTX 4070 + CP2077 materials —
+   list any textual FPS with settings; note whether CPU is stated.
+2. **Scale spine:** official or high-grade **CPU relative** sources that can
+   connect a stated bench CPU → `cpu.zen4-7600` (and later other catalog CPUs).
+3. **Reviews second:** TPU/Tom’s written CP2077 FPS + settings for O4 / fallback.
+4. If scale source missing → stop and report **blocked on scale graph**, do not
+   ship fake edges. Pilot 7600 is only the first `toCpuId`, not the end state.
