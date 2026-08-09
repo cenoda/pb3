@@ -64,20 +64,40 @@ Including: `name`, `computeUnits`, `baseFrequency`, `boostFrequency`,
 
 ---
 
-## 2. What is NOT in the automatable catalog
+## 2. What this catalog *is* (and is not)
 
-| Desired for est1 | In AMD specs JSON? |
-|------------------|--------------------|
-| Identity / cores / clocks / TDP / socket | **Yes** |
-| Opaque mapping helpers for multi-CPU graph nodes | **Yes** (after id mapping) |
-| **Game FPS** (CP2077 ultra 1440p, …) | **No** |
-| **Relative gaming %** between SKUs | **No** |
-| CPU scale edge `factor` for est1 | **No** (needs other official charts or later sources) |
+### It is: manufacturer **product specification** features
 
-So this harvest **fills the manufacturer identity spine** (most CPUs/GPUs as
-catalog nodes). It does **not** by itself make `est1-estimated` fire for pilot
-FPS — that still needs performance fragments + scale edges from materials that
-actually publish performance.
+Static, SKU-level attributes AMD publishes for every processor/GPU in the compare
+table — the **inputs** to a combination simulator / estimator:
+
+```text
+CPU: cores, threads, base/boost clock, caches, TDP, socket, architecture, …
+GPU: compute units, clocks, memory bus/size/type, board power, …
+```
+
+**Game FPS is not supposed to be here.** FPS is a **function of a combination**
+(CPU × GPU × game × settings × resolution × …). That is **our job** to compute
+(`estimateCombinationPerformance` / future sim layers), not AMD’s product table.
+
+### It is not: a performance chart brief
+
+| Artifact | What it contains | Role for us |
+|----------|------------------|---------------|
+| **Specs catalog** (what we auto-pull) | Identity + electrical/compute specs | **Feature vectors** for every catalog CPU/GPU |
+| **Performance chart / game brief** (optional later) | Published FPS or relative % in named games | Calibration / validation of the sim — **not** the primary product number source if we own the sim |
+| **Third-party review** | Same as charts, third party | O4 validation only |
+
+Owner direction: primary path is **manufacturer specs → our simulation function
+→ estimated FPS range**. Missing FPS in the catalog is **expected and correct**.
+
+### Gap to be honest about (current est1 M0)
+
+M0 `est1` as implemented is still largely **anchor + evidenced scale graph**,
+not yet a full **spec-driven hardware simulator**. The AMD dump is the right
+**input corpus** for that sim; the next design step is to define how cores /
+clocks / CU / memory map into the pure function (and what confidence that gets),
+rather than hunting the catalog for FPS that will never be there.
 
 ---
 
@@ -120,23 +140,24 @@ Behavior:
 
 ---
 
-## 5. How this feeds multi-CPU est1
+## 5. How this feeds multi-CPU estimation
 
 ```text
-AMD processor catalog (auto)
-  → node list for catalog cpuIds (7600, 7700, 7800X3D, …)
-  → future: join keys for scale graph endpoints
-
-AMD graphics catalog (auto)
-  → GPU identity for AMD GPUs (NVIDIA still separate)
-
-Still manual / separate harvest:
-  → performance tables / relative gaming charts that yield CpuScaleEdge.factor
-  → game FPS anchors when AMD/NVIDIA publish them with settings
+AMD processor catalog (auto)  ─┐
+                               ├─► feature vectors per cpuId / gpuId
+AMD graphics catalog (auto)  ──┘         │
+                                         ▼
+                         estimateCombinationPerformance / sim
+                                         │
+                                         ▼
+                              fpsMin..fpsMax + method + confidence
+                                         ▲
+                    optional calibration (charts/reviews) ─┘
 ```
 
 Pilot `cpu.zen4-7600` is one **mapped node** among many extractable SKUs — not a
-one-off.
+one-off. Coverage of “most CPUs” = most nodes have specs in the manufacturer
+dump + a sim that accepts those features.
 
 ---
 

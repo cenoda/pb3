@@ -302,12 +302,23 @@ Refresh:
 python3 scripts/curate-amd-product-catalog.py --kind both
 ```
 
-## 9. Still needed for product est1 FPS (not auto from specs table)
+## 9. Role split (owner-aligned)
 
-1. Official **performance** materials (relative gaming charts or game FPS with
-   settings) — separate from specs compare table.
-2. Map AMD catalog `name` → project `cpuId` / `gpuId`.
-3. Optional O4 reviews only after manufacturer spine is useful.
+| Layer | Source | Job |
+|-------|--------|-----|
+| **Manufacturer specs catalog** | AMD auto harvest (done) | Inputs: what the silicon *is* |
+| **Our simulation / est1 function** | Code + policy | Outputs: combination **game FPS range** |
+| **Charts / reviews** | Optional | Calibrate or O4-validate the sim — not the main FPS factory |
+
+Missing game FPS in the AMD table is **normal**. Do not treat “find FPS in
+catalog” as a blocker.
+
+### Still needed for product numbers
+
+1. Map catalog `name` → project `cpuId` / `gpuId`.
+2. Define / extend the **sim** that consumes those features (beyond pure
+   anchor+scale if that is the product direction).
+3. Optional calibration set (official charts or reviews) later.
 
 ## 10. AMD catalog harvest worksheet
 
