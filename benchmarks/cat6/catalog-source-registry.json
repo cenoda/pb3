@@ -53,6 +53,15 @@
       "origin": "Noctua support FAQ",
       "citation": "https://www.noctua.at/en/support/faqs/how-can-i-ensure-both-case-and-ram-compatibility-with-my-nh-d15",
       "notes": "Source for the 32 mm out-of-box RAM clearance at the default 168 mm cooler height, and for the rule that raising the front fan to clear taller memory increases total cooler height by the same amount. Supports invariant I6. It is referenced from the part's notes rather than from provenance, because cat6 has no provenance key for the notes field."
+    },
+    {
+      "sourceId": "source.cat6.amd.ryzen-5-7600.product",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "AMD Ryzen 5 7600 Desktop Processor - product specifications",
+      "origin": "AMD product page",
+      "citation": "https://www.amd.com/en/products/processors/desktops/ryzen/7000-series/amd-ryzen-5-7600.html",
+      "notes": "Covers the boxed SKU (Product ID Boxed 100-100001015BOX); the tray SKU 100-000001015 is a different product. The page publishes no CPU package width, length or height. CCD Size 71mm2 and IOD Size 122mm2 are silicon die areas, not package dimensions, and cannot substitute for them."
     }
   ]
 }

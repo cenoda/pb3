@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import { PSU_HEADROOM_MULTIPLIER } from "../contract/compat2";
 import type { CatalogProvenance } from "../contract/cat6";
 import {
   catalogSourceRegistryFileSchema,
@@ -13,6 +14,7 @@ const GPU_PART_PATH = "parts/gpu/gpu.asus-dual-rtx4070-o12g/part.json";
 const CASE_PART_PATH = "parts/case/case.fractal-design-north-tg-dark/part.json";
 const A3_PART_PATH = "parts/case/case.lian-li-a3-matx-black/part.json";
 const COOLER_PART_PATH = "parts/cooler/cooler.noctua-nh-d15-g2/part.json";
+const CPU_PART_PATH = "parts/cpu/cpu.amd-ryzen-5-7600/part.json";
 const REGISTRY_PATH = "benchmarks/cat6/catalog-source-registry.json";
 
 function readJson(rel: string): unknown {
@@ -74,6 +76,51 @@ describe("cat6 step 2 — authored parts", () => {
     // Noctua publishes no manufacturer part number for this cooler; EAN and UPC
     // are not part numbers and must not be substituted for one.
     expect(part.identity.partNumber).toBeUndefined();
+  });
+
+  it("parses the Ryzen 5 7600 and resolves provenance against the registry", () => {
+    const part = partDefinitionV3Schema.parse(readJson(CPU_PART_PATH));
+    assertPartResolvesAgainstRegistry(CPU_PART_PATH);
+
+    const compat = part.compatSpec;
+    expect(compat && "socket" in compat ? compat.socket : undefined).toBe("AM5");
+    expect(
+      compat && "tdpWatts" in compat ? compat.tdpWatts : undefined,
+    ).toBe(65);
+
+    // The boxed SKU, not the tray SKU 100-000001015.
+    expect(part.identity.partNumber).toBe("100-100001015BOX");
+
+    // AMD publishes no CPU package dimensions on this page, and the CCD/IOD
+    // die areas it does publish are not dimensions. The field stays absent
+    // rather than being filled from a widely repeated figure -- see the CPU
+    // package-dimension blocker in ID_MIGRATION.md.
+    expect(part.dimensionsMm).toBeUndefined();
+  });
+
+  it("I8 — the demonstration build's psu-wattage need is derived from authored parts", () => {
+    const cpu = partDefinitionV3Schema.parse(readJson(CPU_PART_PATH));
+    const gpu = partDefinitionV3Schema.parse(readJson(GPU_PART_PATH));
+
+    const cpuTdp =
+      cpu.compatSpec && "tdpWatts" in cpu.compatSpec
+        ? cpu.compatSpec.tdpWatts
+        : undefined;
+    const gpuTdp =
+      gpu.compatSpec && "tdpWatts" in gpu.compatSpec
+        ? gpu.compatSpec.tdpWatts
+        : undefined;
+    expect(cpuTdp).toBeDefined();
+    expect(gpuTdp).toBeDefined();
+
+    // Same arithmetic as checkPsuWattage, against the same stub constant, so a
+    // change to the multiplier surfaces here as well as in the engine tests.
+    const required =
+      ((cpuTdp as number) + (gpuTdp as number)) * PSU_HEADROOM_MULTIPLIER;
+    expect(required).toBeCloseTo(344.5, 5);
+    // Slot 10's 750 W unit clears it; slot 11's 550 W SFX would too, which is
+    // why I9's PSU substitution stays available.
+    expect(required).toBeLessThanOrEqual(550);
   });
 
   // The figures the O7 demonstration build rests on (ID_MIGRATION.md I2, I9).

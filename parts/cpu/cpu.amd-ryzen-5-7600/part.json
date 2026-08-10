@@ -1,0 +1,37 @@
+{
+  "contractVersion": "cat6",
+  "id": "cpu.amd-ryzen-5-7600",
+  "category": "cpu",
+  "displayName": "AMD Ryzen 5 7600",
+  "identity": {
+    "manufacturer": "AMD",
+    "modelName": "Ryzen 5 7600",
+    "partNumber": "100-100001015BOX",
+    "releasedAt": "2023-01-14"
+  },
+  "modelGlbPath": "parts/cpu/cpu.amd-ryzen-5-7600/model.glb",
+  "performanceSpec": {
+    "baseClockMhz": 3800,
+    "boostClockMhz": 5100,
+    "boostClockBasis": "AMD publishes Max. Boost Clock as 'Up to 5.1 GHz' and Base Clock as '3.8 GHz'; both are recorded in MHz. Unlike a board-partner graphics card, the SKU vendor and the chip vendor are the same party here, so these are this SKU's own published figures and C10's chip-inheritance prohibition does not arise."
+  },
+  "compatSpec": {
+    "socket": "AM5",
+    "tdpWatts": 65
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.amd.ryzen-5-7600.product. SKU identification: 'Product ID Boxed: 100-100001015BOX' is recorded as partNumber because this catalog entry is the boxed processor ('Form Factor: Desktops, Boxed Processor'); the page also lists 'Product ID Tray: 100-000001015', which is a different SKU and is not catalogued. Architecture and configuration: Family 'Ryzen', Series 'Ryzen 7000 Series', Former Codename 'Raphael AM5', Processor Architecture 'Zen 4', CPU Cores '6', Threads '12', L1 Cache '384 KB', L2 Cache '6 MB', L3 Cache '32 MB'. Thermal: 'Thermal Solution (PIB): AMD Wraith Stealth', 'Max Operating Temperature: 95C'. No package dimensions: the page publishes 'CCD Size: 71mm2' and 'IOD Size: 122mm2', which are silicon die areas and not package width/length/height; they are recorded here so the absence of dimensionsMm is traceable to what the source does and does not say, and they must not be converted into dimensions. No power limit: 'Default TDP: 65W' is recorded in compatSpec.tdpWatts, and performanceSpec.defaultPowerLimitW is absent because TDP is a thermal figure and the page publishes no package power limit.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.amd.ryzen-5-7600.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.amd.ryzen-5-7600.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "performanceSpec": {
+      "sourceId": "source.cat6.amd.ryzen-5-7600.product",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}

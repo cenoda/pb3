@@ -386,6 +386,41 @@ parts, and no part in this build is one.
 | B5 | Slot 14 selection | ✅ **Closed** — GIGABYTE B650M AORUS ELITE AX Rev. 1.3, approved 2026-08-10 |
 | B6 | **I6** sourcing (cooler RAM clearance + module height) | **Source identified, pending provenance recording.** Closes when both citations and retrieval dates are in the registry (Step 4) — not before |
 | B7 | **I9** — which PSU the **I8** demonstration build uses | ✅ **Closed** — slot 10 (Corsair RM750e, 140 mm ATX); slot 2 supports ATX up to 220 mm |
+| B8 | **CPU package dimensions** — no public AMD product page publishes them, but exit condition 4 wants every physical-core part's box derived from cited dimensions | Before Step 6. Found authoring slot 4; see below |
+
+### B8 — CPU package dimensions are not on the product page
+
+AMD's Ryzen 5 7600 page publishes no package width, length or height. What it does
+publish — `CCD Size: 71mm²`, `IOD Size: 122mm²` — is **silicon die area**, not a
+package dimension, and cannot be converted into one.
+
+`dimensionsMm` is therefore absent on slot 4, which is correct under exit
+condition 3 (unsourceable means absent). But the CPU is a phys3 physical-core part:
+the legacy fixture carries `collision:cpu-die`, and Step 6 derives collision boxes
+from `dimensionsMm`. Exit condition 4 asks that **every** physical-core part's box
+come from cited dimensions, and as it stands the CPU cannot satisfy that.
+
+This is a category-level problem, not a slot-4 one: it will recur for slot 5 and for
+any CPU added later.
+
+**What is not yet established:** whether AMD publishes AM5 package drawings
+somewhere other than the product page. AMD's x86 thermal-design material treats
+package drawings as separate technical documentation, sometimes behind access
+requirements. That is a reason to go looking, **not** grounds to record that the
+dimensions do not exist or are unobtainable — neither has been checked.
+
+Options, for the step that resolves this:
+
+1. Find an official AM5 package drawing and cite it. Preferred; the dimension is a
+   socket-level fact shared by every AM5 CPU, so one citation covers the category.
+2. Narrow exit condition 4 to the physical-core parts whose dimensions are
+   publishable, and record the CPU as a known exception with its reason.
+3. Drop the CPU from collision geometry entirely, since it sits under the cooler and
+   its box has never decided a verdict.
+
+**Not an option:** the widely repeated 40 × 40 mm figure. It is not in any source
+this repository has read, and writing it down would be the fixture problem returning
+under a real product's name.
 
 ### B3, second half — branch filtering, found while authoring slot 2
 
