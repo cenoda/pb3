@@ -4,9 +4,8 @@ Derived from [`specs/phase-6.md`](./specs/phase-6.md) and
 [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md). Required by
 the "plan before code" rule in [`../README.md`](../README.md).
 
-Status: **Draft, 2026-08-10. Owner decisions O1–O8 locked; package acceptance and
-an explicit implementation-start instruction still required. Implementation not
-authorized.**
+Status: **Accepted 2026-08-10. Owner decisions O1–O8 locked. Implementation
+started — Step 1 complete; Steps 2–12 open.**
 
 ---
 

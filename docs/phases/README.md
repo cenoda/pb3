@@ -11,7 +11,7 @@ Per-phase working areas (specs, TODO, fix log). Cross-cutting project docs stay 
 | Phase 4 — Evidence-grade data and validation | [`phase-4/`](./phase-4/) | **Frozen** 2026-08-09 ([`FREEZE.md`](./phase-4/FREEZE.md)); prov4 + external evidence shipped; Step 9 not claimed |
 | Phase 4.1 — Combination performance estimator (sub-path) | [`phase-4.1/`](./phase-4.1/) | **Frozen** with Phase 4; `est1` M0 + AMD specs catalog spine shipped; full sim paused; not Phase 5 |
 | Phase 5 — Product surface | [`phase-5/`](./phase-5/) | **Complete** (2026-08-09); owner-approved closeout. Presentation only; no engine, contract or data change |
-| Phase 6 — Real parts catalog | [`phase-6/`](./phase-6/) | **M0 drafted**, O1–O8 **locked** (2026-08-10); package not accepted, implementation not authorized. Data only; `cat6` contract; SKU-level id migration |
+| Phase 6 — Real parts catalog | [`phase-6/`](./phase-6/) | **In progress** (2026-08-10); M0 accepted, O1–O8 locked, Step 1 (`cat6` contract) done. Data only; SKU-level id migration |
 
 Fixture data remains at repo root: `parts/`, `benchmarks/` (not moved into phase folders).
 

@@ -2,9 +2,9 @@
 
 The phase that replaces the invented data the Phase 0–5 work runs on.
 
-**Status: M0 package drafted 2026-08-10. Owner decisions O1–O8 locked
-2026-08-10. Package acceptance and an explicit implementation-start instruction
-are still required — implementation not authorized.**
+**Status: M0 package drafted and accepted 2026-08-10. Owner decisions O1–O8
+locked. Implementation started — Step 1 (the `cat6` contract) is complete;
+Steps 2–12 are open.**
 
 This phase changes **no display layer and no engine logic** — the data only. It
 is the exact inverse of Phase 5, which changed the display layer and no data.
@@ -48,8 +48,9 @@ this shape: the gate measures the thing itself, not a proxy for it.
 |------|-------|
 | M0 scope + contract + plan drafted | **Done — 2026-08-10** |
 | Owner decisions O1–O8 | **Locked — 2026-08-10** |
-| Owner acceptance + explicit start instruction | Not given |
-| Implementation Steps 1–11 | Not started |
+| Owner acceptance + implementation start | **Done — 2026-08-10** (accepted by starting Step 1; no separate written acceptance) |
+| Step 1 — `cat6` contract, no data | **Done — 2026-08-10** (`pnpm test` 32 files / 236 tests, `pnpm build` clean) |
+| Steps 2–11 | Not started |
 | Owner spot-check (Step 12) | Not started |
 
 ## Relationship to other work

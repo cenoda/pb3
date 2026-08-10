@@ -10,12 +10,12 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
 - [x] `cat6` catalog data contract drafted
 - [x] Implementation plan drafted (Steps 1–12)
 - [x] **Owner decisions O1–O8 locked** (2026-08-10)
-- [ ] Owner acceptance of the M0 package
-- [ ] Explicit implementation-start instruction
+- [x] Owner acceptance of the M0 package (2026-08-10, by starting implementation)
+- [x] Implementation started (2026-08-10)
 
-## Implementation (not authorized)
+## Implementation
 
-- [ ] Step 1 — `cat6` types + Zod + schema tests, no data
+- [x] Step 1 — `cat6` types + Zod + schema tests, no data (2026-08-10; 21 schema tests)
 - [ ] Step 2 — source registry + one GPU end to end (cost probe)
 - [ ] Step 3 — `ID_MIGRATION.md` map, reviewed before any rename
 - [ ] Step 4 — execute the migration repo-wide; assert no legacy id remains

@@ -1,8 +1,8 @@
 # Phase 6 — Real parts catalog (M0 scope)
 
 Status: **M0 drafted 2026-08-10. Owner decisions O1–O8 locked 2026-08-10
-(§7). Owner acceptance of the package and an explicit implementation-start
-instruction are still required; implementation not authorized.**
+(§7). Package accepted and implementation started 2026-08-10 — the owner
+accepted by implementing Step 1; no separate written acceptance was recorded.**
 
 Charter authority: [`../../../../PROJECT_CHARTER.md`](../../../../PROJECT_CHARTER.md)
 §2 (깊이 우선), §5 (성능 데이터 원칙), §6 (부품 데이터 모델 원칙).

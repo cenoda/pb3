@@ -119,8 +119,8 @@
    [`docs/phases/phase-4.1/`](docs/phases/phase-4.1/)
 10. ~~**Phase 5 (제품 표면)**~~ → **완료 · 소유자 승인 (2026-08-09)** —
     [`docs/phases/phase-5/`](docs/phases/phase-5/)
-11. **Phase 6 (실제 부품 카탈로그, `cat6`)** — M0 초안 작성 (2026-08-10);
-    **O1–O8 미결 · 소유자 수락 전 구현 금지** —
+11. **Phase 6 (실제 부품 카탈로그, `cat6`)** — M0 수락 + O1–O8 확정 (2026-08-10);
+    **Step 1 (`cat6` 계약) 완료**, Steps 2–12 진행 예정 —
     [`docs/phases/phase-6/`](docs/phases/phase-6/)
 12. **Phase 7 (카탈로그 브라우저 + 이미지)** — 미계획; Phase 6 종료 및 이미지
     권리 ADR 이후 별도 M0 필요
@@ -424,7 +424,8 @@ browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
 | Plan | [`implementation_plan.md`](docs/phases/phase-6/implementation_plan.md) — Steps 1–12, "source first, data second" |
 | Shape | 카탈로그 데이터만 (브라우저는 Phase 7) · ≈30개 소수 정예 · AM5/DDR5 단일 · 이미지는 계약만 |
 | Owner decisions | **O1–O8 locked (2026-08-10)** — spec §7 |
-| Owner acceptance | **Not given.** Implementation not authorized |
+| Owner acceptance | **Accepted 2026-08-10** by starting implementation; no separate written acceptance recorded |
+| Progress | **Step 1 done (2026-08-10)** — `cat6` contract types + Zod + 21 schema tests; no data, no loader, nothing imports `cat6` yet. `pnpm test` 32 files / 236 tests, `pnpm build` clean |
 | Gate | Owner picks 3 parts at random and traces every engine-consumed field to a citation in one hop |
 | **O1 — accepted consequence** | `perf1` covers 2 CPUs × 2 GPUs and Phase 4.1 (the attempt to close that gap) is frozen, so **most valid builds show no FPS**. The surface states the combination estimator is **in preparation**, via `src/perf/**` reason strings — no UI change |
 | **O3/O4 — id migration** | Fixture ids are **retired**; ids become **SKU-level** (`gpu.asus-dual-rtx4070-o12g`). ASUS vs MSI differ in dimensions *and* clocks/power, so `cat6` records both. One-time repo-wide migration with `ID_MIGRATION.md` + a guard asserting no legacy id remains |
