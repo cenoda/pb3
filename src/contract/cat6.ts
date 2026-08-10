@@ -86,12 +86,26 @@ export interface CatalogProvenance {
  * geometry generator, not this field.
  */
 export interface DimensionsMm {
+  /**
+   * Each axis is optional, because vendors publish partial dimensions: a
+   * motherboard page prints a two-figure board outline with no thickness, and a
+   * memory vendor may publish module height alone. Only axes the source
+   * actually published are recorded.
+   *
+   * A missing axis is never filled from the part's form factor. ATX, SFX and
+   * UDIMM standardise mounting geometry, not a SKU's physical dimensions, and
+   * substituting one for the other would state a measurement no vendor made.
+   *
+   * Consumers that need a complete box — collision geometry above all — build
+   * one only when all three axes are present. A check that needs a single axis
+   * may use that axis when it is published.
+   */
   /** Longest principal dimension, mm. */
-  lengthMm: number;
+  lengthMm?: number;
   /** Second principal dimension, mm. */
-  heightMm: number;
+  heightMm?: number;
   /** Third principal dimension (thickness / depth), mm. */
-  thicknessMm: number;
+  thicknessMm?: number;
   /**
    * The vendor's printed dimension string, verbatim, before any interpretation.
    */

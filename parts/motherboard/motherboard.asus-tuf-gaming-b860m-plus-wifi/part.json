@@ -9,9 +9,30 @@
     "roleNote": "The production and default catalog remains AM5 + DDR5 scoped (O2). A non-AM5 DDR5 motherboard may exist only when it is explicitly designated as a negative fixture whose purpose is to exercise cpu-socket: incompatible. This board is that designated negative fixture (C15)."
   },
   "modelGlbPath": "parts/motherboard/motherboard.asus-tuf-gaming-b860m-plus-wifi/model.glb",
-  "notes": "Published facts from source.cat6.asus.tuf-gaming-b860m-plus-wifi.techspec, kept verbatim. CPU socket 'LGA1851', supporting Intel Core Ultra Processors (Series 2). Chipset 'Intel B860'. Memory 'DDR5', 4 DIMMs, maximum capacity 256GB, published wording 'Support up to 8800+MT/s (OC)'. Form factor 'mATX', which maps to compat2's Micro-ATX. Board dimensions '24.4cm x 24.4cm', a two-figure outline with no thickness, so dimensionsMm is absent for the same reason as the other boards in this catalog. compatSpec is NOT recorded on this part, and its absence is a contract limitation rather than a data gap: MotherboardCompatSpec requires maxMemorySpeedMtS, the source publishes the ceiling only as '8800+MT/s (OC)' whose trailing '+' is not an exact figure, and converting it into one would be an interpretation this catalog has not authorised. Because compatSpec is absent, checkCpuSocket reports unavailable rather than incompatible, so this part does not yet perform the negative-fixture role C15 admits it for. See the batch report's contract finding.",
+  "dimensionsMm": {
+    "raw": "24.4cm x 24.4cm",
+    "lengthMm": 244,
+    "heightMm": 244,
+    "assignmentBasis": "ASUS prints a two-figure board outline in centimetres, recorded here in millimetres as the board's two in-plane dimensions. thicknessMm is absent because the page publishes no board thickness; it is not filled from the Micro-ATX form factor, which standardises mounting geometry rather than this SKU's physical dimensions."
+  },
+  "compatSpec": {
+    "socket": "LGA1851",
+    "chipset": "Intel B860",
+    "formFactor": "Micro-ATX",
+    "supportedMemoryType": "DDR5",
+    "biosMinVersionForCpu": {}
+  },
+  "notes": "Published facts from source.cat6.asus.tuf-gaming-b860m-plus-wifi.techspec, kept verbatim. CPU socket 'LGA1851', supporting Intel Core Ultra Processors (Series 2). Chipset 'Intel B860'. Memory 'DDR5', 4 DIMMs, maximum capacity 256GB. Form factor 'mATX', which maps to compat2's Micro-ATX. maxMemorySpeedMtS is absent: ASUS publishes the ceiling as 'Support up to 8800+MT/s (OC)', where the trailing '+' states a floor for the overclocking ceiling rather than an exact maximum, so recording a number would invent one. checkRamSupport reports unavailable for this board as a result, which is the true statement; the socket and form factor are unaffected and still drive their own checks. BIOS: biosMinVersionForCpu is deliberately empty under O6.",
   "provenance": {
     "identity": {
+      "sourceId": "source.cat6.asus.tuf-gaming-b860m-plus-wifi.techspec",
+      "retrievedAt": "2026-08-10"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.asus.tuf-gaming-b860m-plus-wifi.techspec",
+      "retrievedAt": "2026-08-10"
+    },
+    "compatSpec": {
       "sourceId": "source.cat6.asus.tuf-gaming-b860m-plus-wifi.techspec",
       "retrievedAt": "2026-08-10"
     }

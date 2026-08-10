@@ -43,7 +43,19 @@ export interface MotherboardCompatSpec {
   chipset: string;
   formFactor: "ATX" | "Micro-ATX";
   supportedMemoryType: "DDR5";
-  maxMemorySpeedMtS: number;
+  /**
+   * The highest memory data rate the board vendor explicitly lists for this
+   * SKU, OC/XMP/EXPO values included (cat6 rule C14).
+   *
+   * Optional because some vendors publish no exact maximum — ASUS states one
+   * board's ceiling as "Support up to 8800+MT/s (OC)", where the trailing "+"
+   * is a floor for the overclocking ceiling rather than a maximum. Recording a
+   * number there would invent one. `checkRamSupport` already reports
+   * `unavailable` when this is absent, so the omission costs the memory check
+   * and nothing else: the board's socket and form factor still drive their own
+   * checks.
+   */
+  maxMemorySpeedMtS?: number;
   biosMinVersionForCpu: Record<string, string>;
 }
 

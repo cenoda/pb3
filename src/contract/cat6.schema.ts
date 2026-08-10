@@ -41,13 +41,24 @@ export const partIdentitySchema = z.object({
   roleNote: nonEmptyString.optional(),
 });
 
-export const dimensionsMmSchema = z.object({
-  lengthMm: positiveFiniteNumber,
-  heightMm: positiveFiniteNumber,
-  thicknessMm: positiveFiniteNumber,
-  raw: nonEmptyString,
-  assignmentBasis: nonEmptyString,
-});
+export const dimensionsMmSchema = z
+  .object({
+    lengthMm: positiveFiniteNumber.optional(),
+    heightMm: positiveFiniteNumber.optional(),
+    thicknessMm: positiveFiniteNumber.optional(),
+    raw: nonEmptyString,
+    assignmentBasis: nonEmptyString,
+  })
+  .refine(
+    (dimensions) =>
+      dimensions.lengthMm !== undefined ||
+      dimensions.heightMm !== undefined ||
+      dimensions.thicknessMm !== undefined,
+    {
+      message:
+        "dimensionsMm must record at least one published axis; a part with no published dimension omits the field entirely",
+    },
+  );
 
 export const performanceSpecSchema = z.object({
   boostClockMhz: positiveFiniteNumber.optional(),

@@ -1,6 +1,9 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import { checkCpuSocket } from "../compat/checkCpuSocket";
+import { checkRamSupport } from "../compat/checkRamSupport";
+import type { CompatibilityInputs } from "../compat/compatibilityInputs";
 import { PSU_HEADROOM_MULTIPLIER } from "../contract/compat2";
 import type { PartDefinitionV3 } from "../contract/cat6";
 import { partDefinitionV3Schema } from "../contract/cat6.schema";
@@ -125,21 +128,128 @@ describe("cat6 batch — ID_MIGRATION invariants on authored data", () => {
     );
   });
 
-  it("unsourceable dimensions stay absent rather than being completed", () => {
-    // CPUs: package dimensions are not on the product pages (B8).
+  it("unpublished axes stay absent rather than being completed", () => {
+    // Under B10 a part records the axes its vendor published and no others.
+    // The detailed per-part expectations live in the B10 block below; this
+    // asserts the rule that no axis is ever invented from a form factor.
+    const unpublished: Array<[string, Array<"lengthMm" | "heightMm" | "thicknessMm">]> = [
+      [SLOT.s8Board, ["thicknessMm"]],
+      [SLOT.s9Board, ["thicknessMm"]],
+      [SLOT.s14Board, ["thicknessMm"]],
+      [SLOT.s13Ram, ["lengthMm", "thicknessMm"]],
+    ];
+    for (const [rel, axes] of unpublished) {
+      for (const axis of axes) {
+        expect(part(rel).dimensionsMm?.[axis], `${rel}.${axis}`).toBeUndefined();
+      }
+    }
+    // CPUs publish no axis at all, so they carry no record (B8).
     expect(part(SLOT.s4Cpu).dimensionsMm).toBeUndefined();
     expect(part(SLOT.s5Cpu).dimensionsMm).toBeUndefined();
-    // Boards: published as a two-figure outline with no thickness.
-    expect(part(SLOT.s8Board).dimensionsMm).toBeUndefined();
-    expect(part(SLOT.s9Board).dimensionsMm).toBeUndefined();
-    expect(part(SLOT.s14Board).dimensionsMm).toBeUndefined();
-    // G.SKILL: height only, no length or thickness.
-    expect(part(SLOT.s13Ram).dimensionsMm).toBeUndefined();
   });
 
   it("slot 9 carries the C15 negative-fixture designation", () => {
     const roleNote = part(SLOT.s9Board).identity.roleNote;
     expect(roleNote).toBeTruthy();
     expect(roleNote).toContain("cpu-socket: incompatible");
+  });
+});
+
+/**
+ * B9's effect, checked against the engines themselves. The catalog loader still
+ * serves the legacy fixture set until Step 5's manifest lands, so the checks are
+ * driven directly from the authored compat specs rather than through
+ * `loadPartCatalog`.
+ */
+describe("cat6 batch — B9: an absent memory ceiling costs only the memory check", () => {
+  function inputsFor(boardRel: string, ramRel: string): CompatibilityInputs {
+    return {
+      cpu: part(SLOT.s4Cpu).compatSpec as CompatibilityInputs["cpu"],
+      motherboard: part(boardRel)
+        .compatSpec as CompatibilityInputs["motherboard"],
+      gpu: null,
+      ram: part(ramRel).compatSpec as CompatibilityInputs["ram"],
+      psu: null,
+      caseSpec: null,
+      cpuId: part(SLOT.s4Cpu).id,
+      motherboardId: part(boardRel).id,
+      gpuId: "",
+      ramId: part(ramRel).id,
+      psuId: "",
+      caseId: "",
+    };
+  }
+
+  it("slot 9 produces the cpu-socket negative C15 admits it for", () => {
+    const result = checkCpuSocket(inputsFor(SLOT.s9Board, SLOT.s12Ram));
+    expect(result.status).toBe("incompatible");
+    expect(result.explanation).toContain("LGA1851");
+    expect(result.explanation).toContain("AM5");
+  });
+
+  it("slot 9's missing ceiling makes ram-support unavailable, not incompatible", () => {
+    const result = checkRamSupport(inputsFor(SLOT.s9Board, SLOT.s12Ram));
+    expect(result.status).toBe("unavailable");
+    // Not a claim that the memory is unsupported -- only that we cannot judge.
+    expect(result.status).not.toBe("incompatible");
+  });
+
+  it("boards that do publish a ceiling still judge memory normally", () => {
+    expect(checkRamSupport(inputsFor(SLOT.s8Board, SLOT.s12Ram)).status).toBe(
+      "compatible",
+    );
+    expect(checkRamSupport(inputsFor(SLOT.s8Board, SLOT.s13Ram)).status).toBe(
+      "incompatible",
+    );
+    expect(checkRamSupport(inputsFor(SLOT.s14Board, SLOT.s12Ram)).status).toBe(
+      "compatible",
+    );
+  });
+});
+
+describe("cat6 batch — B10: partial dimensions", () => {
+  const hasFullBox = (rel: string): boolean => {
+    const dimensions = part(rel).dimensionsMm;
+    return (
+      dimensions?.lengthMm !== undefined &&
+      dimensions?.heightMm !== undefined &&
+      dimensions?.thicknessMm !== undefined
+    );
+  };
+
+  it("parts that published all three axes still carry a complete box", () => {
+    // Step 6 builds collision geometry only from these.
+    for (const rel of [
+      SLOT.s3Cooler,
+      SLOT.s7Gpu,
+      SLOT.s10Psu,
+      SLOT.s11Psu,
+      SLOT.s12Ram,
+      "parts/case/case.fractal-design-north-tg-dark/part.json",
+      "parts/case/case.lian-li-a3-matx-black/part.json",
+      "parts/gpu/gpu.asus-dual-rtx4070-o12g/part.json",
+    ]) {
+      expect(hasFullBox(rel), `${rel} lost an axis`).toBe(true);
+    }
+  });
+
+  it("parts with partial dimensions keep the axes their vendor published", () => {
+    for (const rel of [SLOT.s8Board, SLOT.s9Board, SLOT.s14Board]) {
+      const dimensions = part(rel).dimensionsMm;
+      expect(dimensions?.lengthMm).toBeGreaterThan(0);
+      expect(dimensions?.heightMm).toBeGreaterThan(0);
+      expect(dimensions?.thicknessMm).toBeUndefined();
+      expect(hasFullBox(rel)).toBe(false);
+    }
+
+    const gskill = part(SLOT.s13Ram).dimensionsMm;
+    expect(gskill?.heightMm).toBe(44);
+    expect(gskill?.lengthMm).toBeUndefined();
+    expect(gskill?.thicknessMm).toBeUndefined();
+  });
+
+  it("CPUs publish no axis at all, so they carry no dimensions record", () => {
+    expect(part(SLOT.s4Cpu).dimensionsMm).toBeUndefined();
+    expect(part(SLOT.s5Cpu).dimensionsMm).toBeUndefined();
   });
 });

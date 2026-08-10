@@ -302,6 +302,47 @@ describe("cat6.schema", () => {
     expect(parsed.success).toBe(false);
   });
 
+  it("accepts dimensionsMm carrying only the axes a vendor published", () => {
+    // B10: a board outline is two figures with no thickness; a memory FAQ
+    // publishes height alone. Both are recorded rather than discarded.
+    for (const axes of [
+      { lengthMm: 305, heightMm: 244 },
+      { heightMm: 44 },
+      { thicknessMm: 7 },
+    ]) {
+      const parsed = partDefinitionV3Schema.safeParse({
+        ...minimalValidPart,
+        dimensionsMm: {
+          ...axes,
+          raw: "published figures",
+          assignmentBasis: "quoted from the vendor's labelled figures",
+        },
+        provenance: {
+          identity: identityProvenance,
+          dimensions: identityProvenance,
+        },
+      });
+      expect(parsed.success).toBe(true);
+    }
+  });
+
+  it("rejects a dimensionsMm with no axis at all", () => {
+    // A dimensions record that records no dimension is not a record; a part
+    // with nothing published omits the field entirely.
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...minimalValidPart,
+      dimensionsMm: {
+        raw: "no figures published",
+        assignmentBasis: "the page publishes no dimensions",
+      },
+      provenance: {
+        identity: identityProvenance,
+        dimensions: identityProvenance,
+      },
+    });
+    expect(parsed.success).toBe(false);
+  });
+
   it("rejects a dimension that is zero, negative, or non-finite", () => {
     for (const lengthMm of [0, -1, Number.NaN, Number.POSITIVE_INFINITY]) {
       const parsed = partDefinitionV3Schema.safeParse({

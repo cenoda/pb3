@@ -387,10 +387,26 @@ parts, and no part in this build is one.
 | B6 | **I6** sourcing (cooler RAM clearance + module height) | **Source identified, pending provenance recording.** Closes when both citations and retrieval dates are in the registry (Step 4) — not before |
 | B7 | **I9** — which PSU the **I8** demonstration build uses | ✅ **Closed** — slot 10 (Corsair RM750e, 140 mm ATX); slot 2 supports ATX up to 220 mm |
 | B8 | **CPU package dimensions** — no public AMD product page publishes them, but exit condition 4 wants every physical-core part's box derived from cited dimensions | Before Step 6. Found authoring slot 4; see below |
-| B9 | **`MotherboardCompatSpec.maxMemorySpeedMtS` is required**, which blocks slot 9 from carrying a `compatSpec` at all | **Blocks slot 9's role.** Found in the batch; see below |
-| B10 | **`DimensionsMm` is all-or-nothing**, so parts with partial published dimensions record none | Before Step 6, with **B8** |
+| B9 | **`MotherboardCompatSpec.maxMemorySpeedMtS` is required**, which blocked slot 9 from carrying a `compatSpec` at all | ✅ **Closed** — field made optional; slot 9's `cpu-socket` negative verified restored |
+| B10 | **`DimensionsMm` was all-or-nothing**, so parts with partial published dimensions recorded none | ✅ **Closed** — each axis optional, at least one required; published axes now kept |
 
-### B9 — a required memory ceiling blocks the socket negative
+### B9 — a required memory ceiling blocked the socket negative (resolved)
+
+**Owner decision: option 1.** `maxMemorySpeedMtS` is now optional on
+`MotherboardCompatSpec` (`src/contract/compat2.ts:46`,
+`src/contract/vs2.schema.ts:29`). No logic changed: `checkRamSupport` already
+tested the field for null and returned `unavailable` with a reason.
+
+Slot 9 therefore carries `socket`, `chipset`, `formFactor` and
+`supportedMemoryType` while leaving the ceiling absent, and its `cpu-socket`
+negative is restored — verified by driving `checkCpuSocket` and `checkRamSupport`
+directly from the authored specs, since the catalog loader still serves the legacy
+fixture set until Step 5. The memory check reports `unavailable` for this board,
+which is the true statement, and boards that do publish a ceiling are unaffected.
+
+The record of what was decided against is kept below.
+
+### B9 — the original finding
 
 `motherboardCompatSpecSchema` (`src/contract/vs2.schema.ts:24`) requires
 `maxMemorySpeedMtS`. ASUS publishes slot 9's ceiling as **`Support up to
@@ -424,7 +440,30 @@ Options:
 3. **Choose a different slot 9** whose vendor publishes an exact ceiling. Keeps
    both contracts untouched and costs one re-selection.
 
-### B10 — partial published dimensions cannot be recorded
+### B10 — partial published dimensions could not be recorded (resolved)
+
+**Owner decision: allow partial dimensions.** Each axis of `DimensionsMm` is
+optional; `raw` and `assignmentBasis` stay required, and a record with no axis at
+all is rejected — a dimensions record that records no dimension is not a record,
+and a part with nothing published omits the field entirely.
+
+The governing rule, which is the point of the change rather than the optionality:
+
+> A missing axis is **never** filled from the part's form factor. ATX, SFX and
+> UDIMM standardise mounting geometry, not a SKU's physical dimensions.
+> Consumers needing a complete box build one only when all three axes are
+> present; a check needing a single axis may use that axis when published.
+
+Recorded as a result: the boards keep their published two-figure outlines, and the
+G.SKILL kit keeps its 44 mm module height cited to the FAQ that publishes it. CPUs
+still carry no record, because they publish no axis (**B8** is unchanged).
+
+Nothing consumes `dimensionsMm` outside tests yet — the Step 6 generator does not
+exist — so the all-three-present guard has to be built into that generator when it
+is written. Tests assert which parts currently have complete boxes and which do
+not, so the generator's input set is pinned before it is written.
+
+### B10 — the original finding
 
 `DimensionsMm` requires `lengthMm`, `heightMm` and `thicknessMm` together. Three
 kinds of part in this catalog publish fewer:

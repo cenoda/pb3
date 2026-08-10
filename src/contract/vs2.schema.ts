@@ -26,7 +26,7 @@ export const motherboardCompatSpecSchema = z.object({
   chipset: z.string().min(1),
   formFactor: motherboardFormFactorSchema,
   supportedMemoryType: z.literal("DDR5"),
-  maxMemorySpeedMtS: z.number().positive(),
+  maxMemorySpeedMtS: z.number().positive().optional(),
   biosMinVersionForCpu: z.record(z.string().min(1)),
 });
 
