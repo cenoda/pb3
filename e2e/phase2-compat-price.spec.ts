@@ -1,16 +1,16 @@
 import { expect, test, type Page } from "@playwright/test";
 
-const DEFAULT_RAM = "ram.ddr5-32gb-6000";
-const DEFAULT_PSU = "psu.750w-atx";
+const DEFAULT_RAM = "ram.teamgroup-t-create-expert-ddr5-6000-32gb";
+const DEFAULT_PSU = "psu.corsair-rm750e";
 
 function fullVs2Query(overrides: Record<string, string> = {}): string {
   const p = new URLSearchParams({
     v: "vs2",
-    cpu: "cpu.zen4-7600",
-    gpu: "gpu.rtx4070",
-    case: "case.mid-tower-atx-01",
-    mb: "mb.atx-b650-01",
-    cooler: "cooler.air-twin-tower-01",
+    cpu: "cpu.amd-ryzen-5-7600",
+    gpu: "gpu.asus-dual-rtx4070-o12g",
+    case: "case.fractal-design-north-tg-dark",
+    mb: "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+    cooler: "cooler.noctua-nh-d15-g2",
     ram: DEFAULT_RAM,
     psu: DEFAULT_PSU,
     game: "game.cyberpunk-2077",
@@ -48,14 +48,18 @@ test.describe("Phase 2 completion scenario", () => {
 
     await expect(page.getByTestId("compatibility-panel")).toHaveAttribute(
       "data-overall-status",
-      "compatible",
+      "unavailable",
+    );
+    await expect(page.getByTestId("compat-check-chipset-bios")).toHaveAttribute(
+      "data-status",
+      "unavailable",
     );
     await expect(page.getByTestId("price-partial-label")).toHaveCount(0);
     await expect(page.getByTestId("price-subtotal")).toContainText("USD");
     // The user-facing total is on the surface, not only in the disclosure.
     await expect(page.getByTestId("result-price")).toContainText("$");
 
-    await page.getByTestId("motherboard-select").selectOption("mb.micro-b450-01");
+    await page.getByTestId("motherboard-select").selectOption("motherboard.asus-tuf-gaming-b860m-plus-wifi");
     await openWhy(page);
     await expect(page.getByTestId("compat-check-cpu-socket")).toHaveAttribute(
       "data-status",
@@ -70,16 +74,16 @@ test.describe("Phase 2 completion scenario", () => {
     await expect(page.getByTestId("result-performance")).toHaveCount(0);
     await expect(page.getByTestId("result-price")).toHaveCount(0);
 
-    await page.getByTestId("motherboard-select").selectOption("mb.atx-b650-01");
-    await page.getByTestId("cpu-select").selectOption("cpu.zen4-7800x3d");
+    await page.getByTestId("motherboard-select").selectOption("motherboard.gigabyte-b650-aorus-elite-ax-v2");
+    await page.getByTestId("cpu-select").selectOption("cpu.amd-ryzen-7-7800x3d");
     await openWhy(page);
     await expect(page.getByTestId("compat-check-chipset-bios")).toHaveAttribute(
       "data-status",
       "unavailable",
     );
 
-    await page.getByTestId("cpu-select").selectOption("cpu.zen4-7600");
-    await page.getByTestId("ram-part-select").selectOption("ram.ddr5-16gb-7200");
+    await page.getByTestId("cpu-select").selectOption("cpu.amd-ryzen-5-7600");
+    await page.getByTestId("ram-part-select").selectOption("ram.gskill-trident-z5-rgb-ddr5-8400");
     await openWhy(page);
     await expect(page.getByTestId("compat-check-ram-support")).toHaveAttribute(
       "data-status",
@@ -91,11 +95,11 @@ test.describe("Phase 2 completion scenario", () => {
     await waitForPhase2Ready(page);
     expect(page.url()).toBe(urlBeforeReload);
     await expect(page.getByTestId("ram-part-select")).toHaveValue(
-      "ram.ddr5-16gb-7200",
+      "ram.gskill-trident-z5-rgb-ddr5-8400",
     );
 
     await page.goto(
-      "/?v=vs0&cpu=cpu.zen4-7600&gpu=gpu.rtx4070&case=case.mid-tower-atx-01&mb=mb.atx-b650-01&cooler=cooler.air-twin-tower-01&game=game.cyberpunk-2077&preset=preset.raster-ultra",
+      "/?v=vs0&cpu=cpu.amd-ryzen-5-7600&gpu=gpu.asus-dual-rtx4070-o12g&case=case.fractal-design-north-tg-dark&mb=motherboard.gigabyte-b650-aorus-elite-ax-v2&cooler=cooler.noctua-nh-d15-g2&game=game.cyberpunk-2077&preset=preset.raster-ultra",
     );
     await waitForPhase2Ready(page);
     await expect(page.getByTestId("ram-part-select")).toHaveValue(DEFAULT_RAM);

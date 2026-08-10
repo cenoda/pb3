@@ -1,11 +1,11 @@
 import { expect, test, type Page } from "@playwright/test";
 
-const DEFAULT_CPU = "cpu.zen4-7600";
-const DEFAULT_GPU = "gpu.rtx4070";
-const DEFAULT_RAM = "ram.ddr5-32gb-6000";
-const DEFAULT_PSU = "psu.750w-atx";
-const OTHER_CPU = "cpu.zen4-7800x3d";
-const OTHER_GPU = "gpu.rtx4080";
+const DEFAULT_CPU = "cpu.amd-ryzen-5-7600";
+const DEFAULT_GPU = "gpu.asus-dual-rtx4070-o12g";
+const DEFAULT_RAM = "ram.teamgroup-t-create-expert-ddr5-6000-32gb";
+const DEFAULT_PSU = "psu.corsair-rm750e";
+const OTHER_CPU = "cpu.amd-ryzen-7-7800x3d";
+const OTHER_GPU = "gpu.asus-proart-rtx4080-o16g";
 
 const RANGES = {
   default1440: "52–64",
@@ -24,9 +24,9 @@ function fullQuery(cpu: string, gpu: string): string {
     v: "vs2",
     cpu,
     gpu,
-    case: "case.mid-tower-atx-01",
-    mb: "mb.atx-b650-01",
-    cooler: "cooler.air-twin-tower-01",
+    case: "case.fractal-design-north-tg-dark",
+    mb: "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+    cooler: "cooler.noctua-nh-d15-g2",
     ram: DEFAULT_RAM,
     psu: DEFAULT_PSU,
     game: "game.cyberpunk-2077",
@@ -87,7 +87,7 @@ test.describe("Phase 0 exit scenario (plan Step 8)", () => {
     );
     await expect(page.getByTestId("build-viewport")).toHaveAttribute(
       "data-glb-path",
-      "parts/gpu/gpu.rtx4080/model.glb",
+      "parts/gpu/gpu.asus-proart-rtx4080-o16g/model.glb",
     );
     await expect(fps(page, "1440p")).toContainText(RANGES.both1440);
 
@@ -127,7 +127,7 @@ test.describe("Phase 0 exit scenario (plan Step 8)", () => {
   });
 
   test("invalid CPU id falls back to default BuildState", async ({ page }) => {
-    await page.goto("/?v=vs0&cpu=cpu.not-real&gpu=gpu.rtx4080");
+    await page.goto("/?v=vs0&cpu=cpu.not-real&gpu=gpu.asus-proart-rtx4080-o16g");
     await waitForReady(page);
 
     await expect(page.getByTestId("cpu-select")).toHaveValue(DEFAULT_CPU);
@@ -140,11 +140,11 @@ test.describe("Fixture HTTP (build output)", () => {
   test("serves part.json and performance fixtures from dist paths", async ({
     request,
   }) => {
-    const part = await request.get("/parts/gpu/gpu.rtx4070/part.json");
+    const part = await request.get("/parts/gpu/gpu.asus-dual-rtx4070-o12g/part.json");
     expect(part.ok()).toBeTruthy();
     const partJson = await part.json();
-    expect(partJson.id).toBe("gpu.rtx4070");
-    expect(partJson.contractVersion).toBe("vs0");
+    expect(partJson.id).toBe("gpu.asus-dual-rtx4070-o12g");
+    expect(partJson.contractVersion).toBe("cat6");
 
     const perf = await request.get(
       "/benchmarks/vs0/performance-fixtures.json",

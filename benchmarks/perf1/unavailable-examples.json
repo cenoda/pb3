@@ -6,7 +6,7 @@
     {
       "note": "GPU id not present in fixture table (baseline path)",
       "query": {
-        "cpuId": "cpu.zen4-7600",
+        "cpuId": "cpu.amd-ryzen-5-7600",
         "gpuId": "gpu.not-in-catalog",
         "gameId": "game.cyberpunk-2077",
         "presetId": "preset.raster-ultra",
@@ -24,8 +24,8 @@
     {
       "note": "Unknown upscaleId not in phase-1 §2.2 vocabulary",
       "query": {
-        "cpuId": "cpu.zen4-7600",
-        "gpuId": "gpu.rtx4070",
+        "cpuId": "cpu.amd-ryzen-5-7600",
+        "gpuId": "gpu.asus-dual-rtx4070-o12g",
         "gameId": "game.cyberpunk-2077",
         "presetId": "preset.raster-ultra",
         "resolution": "1080p",
@@ -42,7 +42,7 @@
     {
       "note": "Unconfirmed Cinebench version id — rejected example, not new fixture vocabulary",
       "query": {
-        "cpuId": "cpu.zen4-7600",
+        "cpuId": "cpu.amd-ryzen-5-7600",
         "workloadId": "cinebench.2026",
         "metric": "metric.multi-core"
       },

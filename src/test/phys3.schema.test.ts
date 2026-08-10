@@ -15,7 +15,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const evidence = {
-  sourceId: "evidence.phys3.synthetic.case.mid-tower-atx-01",
+  sourceId: "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
   geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
   modelGrade: "Experimental" as const,
   basis: "project-authored synthetic fixture; not manufacturer-verified",
@@ -170,9 +170,9 @@ describe("phys3.schema", () => {
       mountResolutionSchema.safeParse({
         status: "mounted",
         selection: {
-          movingPartId: "mb.atx-b650-01",
+          movingPartId: "motherboard.gigabyte-b650-aorus-elite-ax-v2",
           socketId: "socket.case",
-          targetPartId: "case.mid-tower-atx-01",
+          targetPartId: "case.fractal-design-north-tg-dark",
           anchorId: "anchor.mb",
           orientationId: "normal",
         },
@@ -187,7 +187,7 @@ describe("phys3.schema", () => {
     expect(
       mountResolutionSchema.safeParse({
         status: "unavailable",
-        movingPartId: "mb.micro-b450-01",
+        movingPartId: "motherboard.asus-tuf-gaming-b860m-plus-wifi",
         reason: "missing_physical_spec",
         explanation: "visual-only fallback lacks physicalSpec",
         involvedNodeNames: [],

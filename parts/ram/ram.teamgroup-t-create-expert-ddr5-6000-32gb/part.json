@@ -35,5 +35,39 @@
       "sourceId": "source.cat6.teamgroup.t-create-expert-ddr5-6000-32gb.product",
       "retrievedAt": "2026-08-10"
     }
+  },
+  "physicalSpec": {
+    "physicalContractVersion": "phys3",
+    "evidence": {
+      "sourceId": "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "modelGrade": "Experimental",
+      "basis": "project-authored synthetic fixture geometry; not manufacturer-verified"
+    },
+    "anchors": [],
+    "sockets": [
+      {
+        "socketId": "socket.motherboard",
+        "nodeName": "socket:motherboard",
+        "mountInterfaceId": "iface.mb-ram.ddr5",
+        "targetPartCategory": "motherboard",
+        "orientationVariants": [
+          {
+            "orientationId": "normal",
+            "offsetQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "isDefault": true
+          }
+        ]
+      }
+    ],
+    "collisionNodes": [
+      "collision:ram-kit"
+    ],
+    "clearanceNodes": []
   }
 }

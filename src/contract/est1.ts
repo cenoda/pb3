@@ -48,8 +48,8 @@ export type EstimatorUnavailableReason =
 
 /** M0 pilot query surface — motherboard/cooler/case not included. */
 export interface EstimatorQuery {
-  cpuId: "cpu.zen4-7600";
-  gpuId: "gpu.rtx4070";
+  cpuId: "cpu.amd-ryzen-5-7600";
+  gpuId: "gpu.asus-dual-rtx4070-o12g";
   gameId: "game.cyberpunk-2077";
   presetId: "preset.raster-ultra";
   resolution: EstimatorResolution;

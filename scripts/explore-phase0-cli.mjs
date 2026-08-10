@@ -78,7 +78,7 @@ step("2 default BuildState + ranges", () =>
 step("3 a11y snapshot", () => cli("snapshot"));
 
 step("4 other CPU (ranges update, GPU id unchanged)", () => {
-  cli("select", "data-testid=cpu-select", "cpu.zen4-7800x3d");
+  cli("select", "data-testid=cpu-select", "cpu.amd-ryzen-7-7800x3d");
   spawnSync("sleep", ["0.3"]);
   return evalJs(
     `() => ({
@@ -91,7 +91,7 @@ step("4 other CPU (ranges update, GPU id unchanged)", () => {
 });
 
 step("5 other GPU (mesh path + ranges)", () => {
-  cli("select", "data-testid=gpu-select", "gpu.rtx4080");
+  cli("select", "data-testid=gpu-select", "gpu.asus-proart-rtx4080-o16g");
   spawnSync("sleep", ["0.5"]);
   return evalJs(
     `() => ({
@@ -128,7 +128,7 @@ step("7 reload restore", () => {
 step("8 invalid CPU → default fallback", () => {
   cli(
     "open",
-    `${base}/?v=vs0&cpu=cpu.not-real&gpu=gpu.rtx4080`,
+    `${base}/?v=vs0&cpu=cpu.not-real&gpu=gpu.asus-proart-rtx4080-o16g`,
     "--no-headed",
   );
   spawnSync("sleep", ["0.8"]);
@@ -160,7 +160,7 @@ writeFileSync(
     `|------|--------|`,
     `| Clean open | Full query rewrite; cpu=7600 gpu=4070; 1080p 80–95, 1440p 52–64, 4k 28–36 |`,
     `| Other CPU | cpu=7800x3d; 1440p 58–70; data-gpu-id still 4070 |`,
-    `| Other GPU | gpu=4080; 1440p 115–138; data-glb-path …/gpu.rtx4080/model.glb |`,
+    `| Other GPU | gpu=4080; 1440p 115–138; data-glb-path …/gpu.asus-proart-rtx4080-o16g/model.glb |`,
     `| Reload | Same cpu/gpu/range from URL |`,
     `| Invalid cpu | Fall back to default 7600+4070 full query |`,
     ``,

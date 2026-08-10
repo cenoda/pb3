@@ -88,7 +88,9 @@
     ]
   },
   "compatSpec": {
-    "supportedFormFactors": ["Micro-ATX"]
+    "supportedFormFactors": [
+      "Micro-ATX"
+    ]
   },
   "notes": "Published clearance facts that the cat6 contract has no field for, kept verbatim rather than dropped. GPU thickness: the default configuration is stated as 4-slot, and the only published millimetre figure is conditional -- 'with a 25mm thick fan installed at the bottom, the GPU thickness will be limited to 61mm, allowing for only a 3-slot GPU'. GPU presence: 'when installing a radiator and fan combo, there will be no space for the GPU'. Both depend on a cooling configuration this project does not model, so neither is recorded as a clearance limit. PSU position S4: the ATX PSU SIDE chart marks S4 as incompatible with an ATX PSU, which is a mounting-position restriction rather than a GPU-length limit, so it is kept here instead of being written as a maxGpuLength branch with no figure.",
   "provenance": {

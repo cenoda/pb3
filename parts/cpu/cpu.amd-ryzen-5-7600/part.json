@@ -33,5 +33,39 @@
       "sourceId": "source.cat6.amd.ryzen-5-7600.product",
       "retrievedAt": "2026-08-10"
     }
+  },
+  "physicalSpec": {
+    "physicalContractVersion": "phys3",
+    "evidence": {
+      "sourceId": "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "modelGrade": "Experimental",
+      "basis": "project-authored synthetic fixture geometry; not manufacturer-verified"
+    },
+    "anchors": [],
+    "sockets": [
+      {
+        "socketId": "socket.motherboard",
+        "nodeName": "socket:motherboard",
+        "mountInterfaceId": "iface.mb-cpu.am5",
+        "targetPartCategory": "motherboard",
+        "orientationVariants": [
+          {
+            "orientationId": "normal",
+            "offsetQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "isDefault": true
+          }
+        ]
+      }
+    ],
+    "collisionNodes": [
+      "collision:cpu-die"
+    ],
+    "clearanceNodes": []
   }
 }

@@ -8,7 +8,7 @@ import type {
 
 const ALLOWED_WORKLOAD_IDS = new Set(["cinebench.r23", "cinebench.2024"]);
 const ALLOWED_METRICS = new Set(["metric.single-core", "metric.multi-core"]);
-const ALLOWED_CPU_IDS = new Set(["cpu.zen4-7600", "cpu.zen4-7800x3d"]);
+const ALLOWED_CPU_IDS = new Set(["cpu.amd-ryzen-5-7600", "cpu.amd-ryzen-7-7800x3d"]);
 
 function workloadKey(query: WorkloadQuery): string {
   return [query.cpuId, query.workloadId, query.metric].join("\0");

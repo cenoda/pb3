@@ -181,23 +181,23 @@ export interface CoolingEvidenceFile {
 
 /** Nine physical-core part IDs (existing catalog; no inventory expansion). */
 export const PHYS3_PHYSICAL_CORE_IDS = [
-  "case.mid-tower-atx-01",
-  "mb.atx-b650-01",
-  "cpu.zen4-7600",
-  "cpu.zen4-7800x3d",
-  "gpu.rtx4070",
-  "gpu.rtx4080",
-  "cooler.air-twin-tower-01",
-  "ram.ddr5-32gb-6000",
-  "psu.750w-atx",
+  "case.fractal-design-north-tg-dark",
+  "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+  "cpu.amd-ryzen-5-7600",
+  "cpu.amd-ryzen-7-7800x3d",
+  "gpu.asus-dual-rtx4070-o12g",
+  "gpu.asus-proart-rtx4080-o16g",
+  "cooler.noctua-nh-d15-g2",
+  "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+  "psu.corsair-rm750e",
 ] as const;
 
 /** Four visual-only fallback IDs — physical report must be unavailable. */
 export const PHYS3_VISUAL_ONLY_IDS = [
-  "case.micro-atx-mini-01",
-  "mb.micro-b450-01",
-  "ram.ddr5-16gb-7200",
-  "psu.550w-sfx",
+  "case.lian-li-a3-matx-black",
+  "motherboard.asus-tuf-gaming-b860m-plus-wifi",
+  "ram.gskill-trident-z5-rgb-ddr5-8400",
+  "psu.cooler-master-v550-sfx-gold",
 ] as const;
 
 export const PHYS3_COOLER_ORIENTATION_IDS = ["normal", "rotated-180"] as const;

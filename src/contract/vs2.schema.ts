@@ -2,6 +2,12 @@ import { z } from "zod";
 import { physicalSpecSchema } from "./phys3.schema";
 import { vs0ContractVersionSchema } from "./vs0.schema";
 
+/** Runtime loader accepts vs0 legacy fixtures and cat6-authored parts. */
+export const runtimePartContractVersionSchema = z.union([
+  vs0ContractVersionSchema,
+  z.literal("cat6"),
+]);
+
 export const vs2ContractVersionSchema = z.literal("vs2");
 
 export const partCategoryV2Schema = z.enum([
@@ -58,7 +64,7 @@ export const compatSpecSchema = z.union([
 ]);
 
 export const partDefinitionV2Schema = z.object({
-  contractVersion: vs0ContractVersionSchema,
+  contractVersion: runtimePartContractVersionSchema,
   id: z.string().min(1),
   category: partCategoryV2Schema,
   displayName: z.string().min(1),

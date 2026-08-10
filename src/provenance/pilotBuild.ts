@@ -9,7 +9,7 @@ import { PROV4_PILOT_PART_IDS } from "../contract/prov4";
 
 /** Pilot RAM SKU → perf1 RAM tier (pilot constant only; not a catalog rule). */
 export const PILOT_RAM_SKU_TO_TIER = {
-  ramSkuId: "ram.ddr5-32gb-6000",
+  ramSkuId: "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
   ramTierId: "ram.32gb-ddr5",
 } as const;
 
@@ -19,13 +19,13 @@ export type PilotResolution = (typeof PILOT_RESOLUTIONS)[number];
 export const PILOT_PART_IDS: readonly Prov4PilotPartId[] = PROV4_PILOT_PART_IDS;
 
 export const PILOT_BUILD_PART_IDS = {
-  caseId: "case.mid-tower-atx-01",
-  motherboardId: "mb.atx-b650-01",
-  cpuId: "cpu.zen4-7600",
-  gpuId: "gpu.rtx4070",
-  coolerId: "cooler.air-twin-tower-01",
-  ramId: "ram.ddr5-32gb-6000",
-  psuId: "psu.750w-atx",
+  caseId: "case.fractal-design-north-tg-dark",
+  motherboardId: "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+  cpuId: "cpu.amd-ryzen-5-7600",
+  gpuId: "gpu.asus-dual-rtx4070-o12g",
+  coolerId: "cooler.noctua-nh-d15-g2",
+  ramId: "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+  psuId: "psu.corsair-rm750e",
 } as const;
 
 /** Exact pilot build = DEFAULT_BUILD_STATE_V2 part + game/preset set. */
@@ -47,8 +47,8 @@ export function pilotBaselineKeyFor(
   resolution: PilotResolution,
 ): PilotBaselineKey {
   return {
-    cpuId: "cpu.zen4-7600",
-    gpuId: "gpu.rtx4070",
+    cpuId: "cpu.amd-ryzen-5-7600",
+    gpuId: "gpu.asus-dual-rtx4070-o12g",
     gameId: "game.cyberpunk-2077",
     presetId: "preset.raster-ultra",
     resolution,

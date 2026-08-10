@@ -36,5 +36,68 @@
       "sourceId": "source.cat6.gigabyte.b650-aorus-elite-ax-v2.spec",
       "retrievedAt": "2026-08-10"
     }
+  },
+  "physicalSpec": {
+    "physicalContractVersion": "phys3",
+    "evidence": {
+      "sourceId": "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "modelGrade": "Experimental",
+      "basis": "project-authored synthetic fixture geometry; not manufacturer-verified"
+    },
+    "anchors": [
+      {
+        "anchorId": "anchor.cpu",
+        "nodeName": "anchor:cpu",
+        "mountInterfaceId": "iface.mb-cpu.am5",
+        "acceptsPartCategory": "cpu",
+        "isDefault": true
+      },
+      {
+        "anchorId": "anchor.cooler",
+        "nodeName": "anchor:cooler",
+        "mountInterfaceId": "iface.mb-cooler.am5",
+        "acceptsPartCategory": "cooler",
+        "isDefault": true
+      },
+      {
+        "anchorId": "anchor.ram",
+        "nodeName": "anchor:ram",
+        "mountInterfaceId": "iface.mb-ram.ddr5",
+        "acceptsPartCategory": "ram",
+        "isDefault": true
+      },
+      {
+        "anchorId": "anchor.gpu",
+        "nodeName": "anchor:gpu",
+        "mountInterfaceId": "iface.mb-gpu.pcie",
+        "acceptsPartCategory": "gpu",
+        "isDefault": true
+      }
+    ],
+    "sockets": [
+      {
+        "socketId": "socket.case",
+        "nodeName": "socket:case",
+        "mountInterfaceId": "iface.case-mb.atx",
+        "targetPartCategory": "case",
+        "orientationVariants": [
+          {
+            "orientationId": "normal",
+            "offsetQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "isDefault": true
+          }
+        ]
+      }
+    ],
+    "collisionNodes": [
+      "collision:mb-board"
+    ],
+    "clearanceNodes": []
   }
 }

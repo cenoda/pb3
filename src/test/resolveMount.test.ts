@@ -54,12 +54,12 @@ describe("resolveMount / buildAssemblyState", () => {
     expect(assembly.allMounted).toBe(true);
     expect(assembly.assemblyState.mountSelections.length).toBe(6);
 
-    const mb = assembly.parts.find((p) => p.partId === "mb.atx-b650-01");
+    const mb = assembly.parts.find((p) => p.partId === "motherboard.gigabyte-b650-aorus-elite-ax-v2");
     expect(mb?.transform?.positionMm).toEqual([0, 20, -40]);
     expect(mb?.transform?.orientationQuaternion).toEqual([0, 0, 0, 1]);
 
     const cooler = assembly.parts.find(
-      (p) => p.partId === "cooler.air-twin-tower-01",
+      (p) => p.partId === "cooler.noctua-nh-d15-g2",
     );
     expect(cooler?.resolution?.status).toBe("mounted");
     if (cooler?.resolution?.status === "mounted") {
@@ -82,9 +82,9 @@ describe("resolveMount / buildAssemblyState", () => {
       { coolerOrientationId: "rotated-180" },
     );
 
-    const n = normal.parts.find((p) => p.partId === "cooler.air-twin-tower-01");
+    const n = normal.parts.find((p) => p.partId === "cooler.noctua-nh-d15-g2");
     const r = rotated.parts.find(
-      (p) => p.partId === "cooler.air-twin-tower-01",
+      (p) => p.partId === "cooler.noctua-nh-d15-g2",
     );
     expect(n?.transform).toBeTruthy();
     expect(r?.transform).toBeTruthy();
@@ -99,13 +99,13 @@ describe("resolveMount / buildAssemblyState", () => {
     const assembly = buildAssemblyState(
       {
         ...DEFAULT_BUILD_STATE_V2,
-        motherboardId: "mb.micro-b450-01",
+        motherboardId: "motherboard.asus-tuf-gaming-b860m-plus-wifi",
       },
       catalog,
       indexes,
     );
     expect(assembly.allMounted).toBe(false);
-    const mb = assembly.parts.find((p) => p.partId === "mb.micro-b450-01");
+    const mb = assembly.parts.find((p) => p.partId === "motherboard.asus-tuf-gaming-b860m-plus-wifi");
     expect(mb?.resolution?.status).toBe("unavailable");
     if (mb?.resolution?.status === "unavailable") {
       expect(mb.resolution.reason).toBe("missing_physical_spec");
@@ -114,10 +114,10 @@ describe("resolveMount / buildAssemblyState", () => {
 
   it("covers mount unavailable families via resolveMount", () => {
     const { catalog, indexes } = loadCatalogAndIndexes();
-    const cooler = catalog.get("cooler.air-twin-tower-01")!;
-    const mb = catalog.get("mb.atx-b650-01")!;
-    const visualMb = catalog.get("mb.micro-b450-01")!;
-    const casePart = catalog.get("case.mid-tower-atx-01")!;
+    const cooler = catalog.get("cooler.noctua-nh-d15-g2")!;
+    const mb = catalog.get("motherboard.gigabyte-b650-aorus-elite-ax-v2")!;
+    const visualMb = catalog.get("motherboard.asus-tuf-gaming-b860m-plus-wifi")!;
+    const casePart = catalog.get("case.fractal-design-north-tg-dark")!;
 
     // missing_physical_spec
     const missingSpec = resolveMount({

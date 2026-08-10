@@ -34,5 +34,5 @@ export function GpuModel({ modelGlbPath }: GpuModelProps) {
   return <primitive object={centeredScene} />;
 }
 
-useGLTF.preload("/parts/gpu/gpu.rtx4070/model.glb");
-useGLTF.preload("/parts/gpu/gpu.rtx4080/model.glb");
+useGLTF.preload("/parts/gpu/gpu.asus-dual-rtx4070-o12g/model.glb");
+useGLTF.preload("/parts/gpu/gpu.asus-proart-rtx4080-o16g/model.glb");

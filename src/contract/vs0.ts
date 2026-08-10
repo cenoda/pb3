@@ -131,29 +131,29 @@ export const PHASE0_PRESET = {
 
 export const DEFAULT_BUILD_STATE: BuildState = {
   contractVersion: VS0_CONTRACT_VERSION,
-  caseId: "case.mid-tower-atx-01",
-  motherboardId: "mb.atx-b650-01",
-  cpuId: "cpu.zen4-7600",
-  gpuId: "gpu.rtx4070",
-  coolerId: "cooler.air-twin-tower-01",
+  caseId: "case.fractal-design-north-tg-dark",
+  motherboardId: "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+  cpuId: "cpu.amd-ryzen-5-7600",
+  gpuId: "gpu.asus-dual-rtx4070-o12g",
+  coolerId: "cooler.noctua-nh-d15-g2",
   gameId: PHASE0_GAME.id,
   presetId: PHASE0_PRESET.id,
 };
 
 export const PHASE0_CPU_IDS = [
-  "cpu.zen4-7600",
-  "cpu.zen4-7800x3d",
+  "cpu.amd-ryzen-5-7600",
+  "cpu.amd-ryzen-7-7800x3d",
 ] as const;
 
-export const PHASE0_GPU_IDS = ["gpu.rtx4070", "gpu.rtx4080"] as const;
+export const PHASE0_GPU_IDS = ["gpu.asus-dual-rtx4070-o12g", "gpu.asus-proart-rtx4080-o16g"] as const;
 
 /** Fixed part.json paths for phase 0 (contract §3). */
 export const PHASE0_PART_PATHS = [
-  "parts/case/case.mid-tower-atx-01/part.json",
-  "parts/motherboard/mb.atx-b650-01/part.json",
-  "parts/cpu/cpu.zen4-7600/part.json",
-  "parts/cpu/cpu.zen4-7800x3d/part.json",
-  "parts/gpu/gpu.rtx4070/part.json",
-  "parts/gpu/gpu.rtx4080/part.json",
-  "parts/cooler/cooler.air-twin-tower-01/part.json",
+  "parts/case/case.fractal-design-north-tg-dark/part.json",
+  "parts/motherboard/motherboard.gigabyte-b650-aorus-elite-ax-v2/part.json",
+  "parts/cpu/cpu.amd-ryzen-5-7600/part.json",
+  "parts/cpu/cpu.amd-ryzen-7-7800x3d/part.json",
+  "parts/gpu/gpu.asus-dual-rtx4070-o12g/part.json",
+  "parts/gpu/gpu.asus-proart-rtx4080-o16g/part.json",
+  "parts/cooler/cooler.noctua-nh-d15-g2/part.json",
 ] as const;

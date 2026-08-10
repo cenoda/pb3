@@ -3,7 +3,7 @@
   "dataVersion": "compat2-fixture-draft",
   "rows": [
     {
-      "partId": "case.mid-tower-atx-01",
+      "partId": "case.fractal-design-north-tg-dark",
       "category": "case",
       "status": "ok",
       "amount": 89,
@@ -12,7 +12,7 @@
       "dataVersion": "compat2-fixture-draft"
     },
     {
-      "partId": "case.micro-atx-mini-01",
+      "partId": "case.lian-li-a3-matx-black",
       "category": "case",
       "status": "ok",
       "amount": 69,
@@ -21,7 +21,7 @@
       "dataVersion": "compat2-fixture-draft"
     },
     {
-      "partId": "mb.atx-b650-01",
+      "partId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
       "category": "motherboard",
       "status": "ok",
       "amount": 189,
@@ -30,7 +30,7 @@
       "dataVersion": "compat2-fixture-draft"
     },
     {
-      "partId": "mb.micro-b450-01",
+      "partId": "motherboard.asus-tuf-gaming-b860m-plus-wifi",
       "category": "motherboard",
       "status": "ok",
       "amount": 99,
@@ -39,7 +39,7 @@
       "dataVersion": "compat2-fixture-draft"
     },
     {
-      "partId": "cpu.zen4-7600",
+      "partId": "cpu.amd-ryzen-5-7600",
       "category": "cpu",
       "status": "ok",
       "amount": 199,
@@ -48,7 +48,7 @@
       "dataVersion": "compat2-fixture-draft"
     },
     {
-      "partId": "cpu.zen4-7800x3d",
+      "partId": "cpu.amd-ryzen-7-7800x3d",
       "category": "cpu",
       "status": "ok",
       "amount": 329,
@@ -57,7 +57,7 @@
       "dataVersion": "compat2-fixture-draft"
     },
     {
-      "partId": "gpu.rtx4070",
+      "partId": "gpu.asus-dual-rtx4070-o12g",
       "category": "gpu",
       "status": "ok",
       "amount": 599,
@@ -66,7 +66,7 @@
       "dataVersion": "compat2-fixture-draft"
     },
     {
-      "partId": "gpu.rtx4080",
+      "partId": "gpu.asus-proart-rtx4080-o16g",
       "category": "gpu",
       "status": "ok",
       "amount": 999,
@@ -75,7 +75,7 @@
       "dataVersion": "compat2-fixture-draft"
     },
     {
-      "partId": "cooler.air-twin-tower-01",
+      "partId": "cooler.noctua-nh-d15-g2",
       "category": "cooler",
       "status": "ok",
       "amount": 49,
@@ -84,7 +84,7 @@
       "dataVersion": "compat2-fixture-draft"
     },
     {
-      "partId": "ram.ddr5-32gb-6000",
+      "partId": "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
       "category": "ram",
       "status": "ok",
       "amount": 119,
@@ -93,7 +93,7 @@
       "dataVersion": "compat2-fixture-draft"
     },
     {
-      "partId": "ram.ddr5-16gb-7200",
+      "partId": "ram.gskill-trident-z5-rgb-ddr5-8400",
       "category": "ram",
       "status": "ok",
       "amount": 89,
@@ -102,7 +102,7 @@
       "dataVersion": "compat2-fixture-draft"
     },
     {
-      "partId": "psu.750w-atx",
+      "partId": "psu.corsair-rm750e",
       "category": "psu",
       "status": "ok",
       "amount": 109,
@@ -111,7 +111,7 @@
       "dataVersion": "compat2-fixture-draft"
     },
     {
-      "partId": "psu.550w-sfx",
+      "partId": "psu.cooler-master-v550-sfx-gold",
       "category": "psu",
       "status": "ok",
       "amount": 79,

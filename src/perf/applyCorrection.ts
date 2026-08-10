@@ -91,8 +91,8 @@ const STUB_CORRECTION_RULES: Array<{
 }> = [
   {
     queryKey: baselineKey({
-      cpuId: "cpu.zen4-7600",
-      gpuId: "gpu.rtx4070",
+      cpuId: "cpu.amd-ryzen-5-7600",
+      gpuId: "gpu.asus-dual-rtx4070-o12g",
       gameId: "game.cyberpunk-2077",
       presetId: "preset.raster-ultra",
       resolution: "1440p",
@@ -125,8 +125,8 @@ const STUB_CORRECTION_RULES: Array<{
   },
   {
     queryKey: baselineKey({
-      cpuId: "cpu.zen4-7800x3d",
-      gpuId: "gpu.rtx4080",
+      cpuId: "cpu.amd-ryzen-7-7800x3d",
+      gpuId: "gpu.asus-proart-rtx4080-o16g",
       gameId: "game.cyberpunk-2077",
       presetId: "preset.raster-ultra",
       resolution: "4k",
@@ -158,8 +158,8 @@ const STUB_CORRECTION_RULES: Array<{
   },
   {
     queryKey: baselineKey({
-      cpuId: "cpu.zen4-7600",
-      gpuId: "gpu.rtx4080",
+      cpuId: "cpu.amd-ryzen-5-7600",
+      gpuId: "gpu.asus-proart-rtx4080-o16g",
       gameId: "game.cyberpunk-2077",
       presetId: "preset.raster-ultra",
       resolution: "1080p",
@@ -181,8 +181,8 @@ const STUB_CORRECTION_RULES: Array<{
   },
   {
     queryKey: baselineKey({
-      cpuId: "cpu.zen4-7800x3d",
-      gpuId: "gpu.rtx4070",
+      cpuId: "cpu.amd-ryzen-7-7800x3d",
+      gpuId: "gpu.asus-dual-rtx4070-o12g",
       gameId: "game.cyberpunk-2077",
       presetId: "preset.raster-ultra",
       resolution: "1080p",

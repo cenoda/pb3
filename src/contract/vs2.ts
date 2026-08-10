@@ -33,31 +33,42 @@ export interface BuildStateV2 {
 }
 
 export const PHASE2_CASE_IDS = [
-  "case.mid-tower-atx-01",
-  "case.micro-atx-mini-01",
+  "case.fractal-design-north-tg-dark",
+  "case.lian-li-a3-matx-black",
 ] as const;
 
+/**
+ * Slot 14 (`motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3`) is authored but
+ * deliberately absent: it inherited no legacy geometry, so it has neither a
+ * `model.glb` nor a `physicalSpec`. Offering it would put a dangling model path
+ * in the picker, and its O7 witness role needs the physicalSpec it does not have
+ * — a cooler cannot mount to a board with no mount point. Step 6 generates both
+ * from its dimensions; it joins the catalog there.
+ */
 export const PHASE2_MOTHERBOARD_IDS = [
-  "mb.atx-b650-01",
-  "mb.micro-b450-01",
+  "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+  "motherboard.asus-tuf-gaming-b860m-plus-wifi",
 ] as const;
 
 export const PHASE2_RAM_IDS = [
-  "ram.ddr5-32gb-6000",
-  "ram.ddr5-16gb-7200",
+  "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+  "ram.gskill-trident-z5-rgb-ddr5-8400",
 ] as const;
 
-export const PHASE2_PSU_IDS = ["psu.750w-atx", "psu.550w-sfx"] as const;
+export const PHASE2_PSU_IDS = [
+  "psu.corsair-rm750e",
+  "psu.cooler-master-v550-sfx-gold",
+] as const;
 
 export const DEFAULT_BUILD_STATE_V2: BuildStateV2 = {
   contractVersion: VS2_CONTRACT_VERSION,
-  caseId: "case.mid-tower-atx-01",
-  motherboardId: "mb.atx-b650-01",
-  cpuId: "cpu.zen4-7600",
-  gpuId: "gpu.rtx4070",
-  coolerId: "cooler.air-twin-tower-01",
-  ramId: "ram.ddr5-32gb-6000",
-  psuId: "psu.750w-atx",
+  caseId: "case.fractal-design-north-tg-dark",
+  motherboardId: "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+  cpuId: "cpu.amd-ryzen-5-7600",
+  gpuId: "gpu.asus-dual-rtx4070-o12g",
+  coolerId: "cooler.noctua-nh-d15-g2",
+  ramId: "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+  psuId: "psu.corsair-rm750e",
   gameId: PHASE0_GAME.id,
   presetId: PHASE0_PRESET.id,
 };
@@ -75,21 +86,21 @@ export const VS2_URL_KEYS = {
   preset: "preset",
 } as const;
 
-/** Fixed part.json paths for phase 2 (13 parts). */
+/** Fixed part.json paths for phase 2 catalog (13 parts; manifest in Step 5). */
 export const PHASE2_PART_PATHS = [
-  "parts/case/case.mid-tower-atx-01/part.json",
-  "parts/case/case.micro-atx-mini-01/part.json",
-  "parts/motherboard/mb.atx-b650-01/part.json",
-  "parts/motherboard/mb.micro-b450-01/part.json",
-  "parts/cpu/cpu.zen4-7600/part.json",
-  "parts/cpu/cpu.zen4-7800x3d/part.json",
-  "parts/gpu/gpu.rtx4070/part.json",
-  "parts/gpu/gpu.rtx4080/part.json",
-  "parts/cooler/cooler.air-twin-tower-01/part.json",
-  "parts/ram/ram.ddr5-32gb-6000/part.json",
-  "parts/ram/ram.ddr5-16gb-7200/part.json",
-  "parts/psu/psu.750w-atx/part.json",
-  "parts/psu/psu.550w-sfx/part.json",
+  "parts/case/case.fractal-design-north-tg-dark/part.json",
+  "parts/case/case.lian-li-a3-matx-black/part.json",
+  "parts/motherboard/motherboard.gigabyte-b650-aorus-elite-ax-v2/part.json",
+  "parts/motherboard/motherboard.asus-tuf-gaming-b860m-plus-wifi/part.json",
+  "parts/cpu/cpu.amd-ryzen-5-7600/part.json",
+  "parts/cpu/cpu.amd-ryzen-7-7800x3d/part.json",
+  "parts/gpu/gpu.asus-dual-rtx4070-o12g/part.json",
+  "parts/gpu/gpu.asus-proart-rtx4080-o16g/part.json",
+  "parts/cooler/cooler.noctua-nh-d15-g2/part.json",
+  "parts/ram/ram.teamgroup-t-create-expert-ddr5-6000-32gb/part.json",
+  "parts/ram/ram.gskill-trident-z5-rgb-ddr5-8400/part.json",
+  "parts/psu/psu.corsair-rm750e/part.json",
+  "parts/psu/psu.cooler-master-v550-sfx-gold/part.json",
 ] as const;
 
 export {

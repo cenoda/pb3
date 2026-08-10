@@ -9,30 +9,31 @@
         {
           "checkId": "cpu-socket",
           "status": "compatible",
-          "involvedPartIds": ["cpu.zen4-7600", "mb.atx-b650-01"]
+          "involvedPartIds": ["cpu.amd-ryzen-5-7600", "motherboard.gigabyte-b650-aorus-elite-ax-v2"]
         },
         {
           "checkId": "chipset-bios",
-          "status": "compatible",
-          "involvedPartIds": ["cpu.zen4-7600", "mb.atx-b650-01"]
+          "status": "unavailable",
+          "explanation": "No documented minimum BIOS version for cpu.amd-ryzen-5-7600 on motherboard.gigabyte-b650-aorus-elite-ax-v2.",
+          "involvedPartIds": ["cpu.amd-ryzen-5-7600", "motherboard.gigabyte-b650-aorus-elite-ax-v2"]
         },
         {
           "checkId": "ram-support",
           "status": "compatible",
-          "involvedPartIds": ["ram.ddr5-32gb-6000", "mb.atx-b650-01"]
+          "involvedPartIds": ["ram.teamgroup-t-create-expert-ddr5-6000-32gb", "motherboard.gigabyte-b650-aorus-elite-ax-v2"]
         },
         {
           "checkId": "psu-wattage",
           "status": "compatible",
-          "involvedPartIds": ["psu.750w-atx", "cpu.zen4-7600", "gpu.rtx4070"]
+          "involvedPartIds": ["psu.corsair-rm750e", "cpu.amd-ryzen-5-7600", "gpu.asus-dual-rtx4070-o12g"]
         },
         {
           "checkId": "case-form-factor",
           "status": "compatible",
-          "involvedPartIds": ["case.mid-tower-atx-01", "mb.atx-b650-01"]
+          "involvedPartIds": ["case.fractal-design-north-tg-dark", "motherboard.gigabyte-b650-aorus-elite-ax-v2"]
         }
       ],
-      "overallStatus": "compatible",
+      "overallStatus": "unavailable",
       "dataVersion": "compat2-fixture-draft"
     },
     {
@@ -42,8 +43,8 @@
         {
           "checkId": "cpu-socket",
           "status": "incompatible",
-          "explanation": "CPU cpu.zen4-7600 uses socket AM5; motherboard mb.micro-b450-01 uses socket AM4. These parts cannot be paired.",
-          "involvedPartIds": ["cpu.zen4-7600", "mb.micro-b450-01"]
+          "explanation": "CPU cpu.amd-ryzen-5-7600 uses socket AM5; motherboard motherboard.asus-tuf-gaming-b860m-plus-wifi uses socket LGA1851. These parts cannot be paired.",
+          "involvedPartIds": ["cpu.amd-ryzen-5-7600", "motherboard.asus-tuf-gaming-b860m-plus-wifi"]
         }
       ],
       "overallStatus": "incompatible",
@@ -56,8 +57,8 @@
         {
           "checkId": "chipset-bios",
           "status": "unavailable",
-          "explanation": "No documented minimum BIOS version for cpu.zen4-7800x3d on mb.atx-b650-01.",
-          "involvedPartIds": ["cpu.zen4-7800x3d", "mb.atx-b650-01"]
+          "explanation": "No documented minimum BIOS version for cpu.amd-ryzen-7-7800x3d on motherboard.gigabyte-b650-aorus-elite-ax-v2.",
+          "involvedPartIds": ["cpu.amd-ryzen-7-7800x3d", "motherboard.gigabyte-b650-aorus-elite-ax-v2"]
         }
       ],
       "overallStatus": "unavailable",

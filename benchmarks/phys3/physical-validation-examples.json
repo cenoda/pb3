@@ -10,44 +10,44 @@
         "buildStateVersion": "vs2",
         "mountSelections": [
           {
-            "movingPartId": "mb.atx-b650-01",
+            "movingPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "socketId": "socket.case",
-            "targetPartId": "case.mid-tower-atx-01",
+            "targetPartId": "case.fractal-design-north-tg-dark",
             "anchorId": "anchor.mb",
             "orientationId": "normal"
           },
           {
-            "movingPartId": "cpu.zen4-7600",
+            "movingPartId": "cpu.amd-ryzen-5-7600",
             "socketId": "socket.motherboard",
-            "targetPartId": "mb.atx-b650-01",
+            "targetPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "anchorId": "anchor.cpu",
             "orientationId": "normal"
           },
           {
-            "movingPartId": "gpu.rtx4070",
+            "movingPartId": "gpu.asus-dual-rtx4070-o12g",
             "socketId": "socket.motherboard",
-            "targetPartId": "mb.atx-b650-01",
+            "targetPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "anchorId": "anchor.gpu",
             "orientationId": "normal"
           },
           {
-            "movingPartId": "cooler.air-twin-tower-01",
+            "movingPartId": "cooler.noctua-nh-d15-g2",
             "socketId": "socket.motherboard",
-            "targetPartId": "mb.atx-b650-01",
+            "targetPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "anchorId": "anchor.cooler",
             "orientationId": "normal"
           },
           {
-            "movingPartId": "ram.ddr5-32gb-6000",
+            "movingPartId": "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
             "socketId": "socket.motherboard",
-            "targetPartId": "mb.atx-b650-01",
+            "targetPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "anchorId": "anchor.ram",
             "orientationId": "normal"
           },
           {
-            "movingPartId": "psu.750w-atx",
+            "movingPartId": "psu.corsair-rm750e",
             "socketId": "socket.case",
-            "targetPartId": "case.mid-tower-atx-01",
+            "targetPartId": "case.fractal-design-north-tg-dark",
             "anchorId": "anchor.psu",
             "orientationId": "normal"
           }
@@ -59,16 +59,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "mb.atx-b650-01"
+            "case.fractal-design-north-tg-dark",
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:mb-board"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.mb.atx-b650-01"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2"
           ]
         },
         {
@@ -76,16 +76,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "cpu.zen4-7600"
+            "case.fractal-design-north-tg-dark",
+            "cpu.amd-ryzen-5-7600"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:cpu-die"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.cpu.zen4-7600"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
           ]
         },
         {
@@ -93,16 +93,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "gpu.rtx4070"
+            "case.fractal-design-north-tg-dark",
+            "gpu.asus-dual-rtx4070-o12g"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:gpu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.gpu.rtx4070"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
           ]
         },
         {
@@ -110,16 +110,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "cooler.air-twin-tower-01"
+            "case.fractal-design-north-tg-dark",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -127,16 +127,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "ram.ddr5-32gb-6000"
+            "case.fractal-design-north-tg-dark",
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:ram-kit"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ]
         },
         {
@@ -144,16 +144,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "psu.750w-atx"
+            "case.fractal-design-north-tg-dark",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -161,16 +161,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "cpu.zen4-7600"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "cpu.amd-ryzen-5-7600"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:cpu-die"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.cpu.zen4-7600"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
           ]
         },
         {
@@ -178,16 +178,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "gpu.rtx4070"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "gpu.asus-dual-rtx4070-o12g"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:gpu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.gpu.rtx4070"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
           ]
         },
         {
@@ -195,16 +195,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "cooler.air-twin-tower-01"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -212,16 +212,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "ram.ddr5-32gb-6000"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:ram-kit"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ]
         },
         {
@@ -229,16 +229,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "psu.750w-atx"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -246,16 +246,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cpu.zen4-7600",
-            "gpu.rtx4070"
+            "cpu.amd-ryzen-5-7600",
+            "gpu.asus-dual-rtx4070-o12g"
           ],
           "involvedNodeNames": [
             "collision:cpu-die",
             "collision:gpu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.zen4-7600",
-            "evidence.phys3.synthetic.gpu.rtx4070"
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
           ]
         },
         {
@@ -263,16 +263,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cpu.zen4-7600",
-            "cooler.air-twin-tower-01"
+            "cpu.amd-ryzen-5-7600",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "collision:cpu-die",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.zen4-7600",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -280,16 +280,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cpu.zen4-7600",
-            "ram.ddr5-32gb-6000"
+            "cpu.amd-ryzen-5-7600",
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ],
           "involvedNodeNames": [
             "collision:cpu-die",
             "collision:ram-kit"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.zen4-7600",
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ]
         },
         {
@@ -297,16 +297,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cpu.zen4-7600",
-            "psu.750w-atx"
+            "cpu.amd-ryzen-5-7600",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:cpu-die",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.zen4-7600",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -314,16 +314,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "gpu.rtx4070",
-            "cooler.air-twin-tower-01"
+            "gpu.asus-dual-rtx4070-o12g",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "collision:gpu-body",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.gpu.rtx4070",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -331,16 +331,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "gpu.rtx4070",
-            "ram.ddr5-32gb-6000"
+            "gpu.asus-dual-rtx4070-o12g",
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ],
           "involvedNodeNames": [
             "collision:gpu-body",
             "collision:ram-kit"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.gpu.rtx4070",
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g",
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ]
         },
         {
@@ -348,16 +348,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "gpu.rtx4070",
-            "psu.750w-atx"
+            "gpu.asus-dual-rtx4070-o12g",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:gpu-body",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.gpu.rtx4070",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -365,16 +365,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cooler.air-twin-tower-01",
-            "ram.ddr5-32gb-6000"
+            "cooler.noctua-nh-d15-g2",
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ],
           "involvedNodeNames": [
             "collision:cooler-body",
             "collision:ram-kit"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01",
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2",
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ]
         },
         {
@@ -382,16 +382,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cooler.air-twin-tower-01",
-            "psu.750w-atx"
+            "cooler.noctua-nh-d15-g2",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:cooler-body",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -399,16 +399,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "ram.ddr5-32gb-6000",
-            "psu.750w-atx"
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:ram-kit",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -416,16 +416,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "mb.atx-b650-01"
+            "case.fractal-design-north-tg-dark",
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:mb-board"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.mb.atx-b650-01"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2"
           ]
         },
         {
@@ -433,16 +433,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "cpu.zen4-7600"
+            "case.fractal-design-north-tg-dark",
+            "cpu.amd-ryzen-5-7600"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:cpu-die"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.cpu.zen4-7600"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
           ]
         },
         {
@@ -450,16 +450,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "gpu.rtx4070"
+            "case.fractal-design-north-tg-dark",
+            "gpu.asus-dual-rtx4070-o12g"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:gpu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.gpu.rtx4070"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
           ]
         },
         {
@@ -467,16 +467,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "cooler.air-twin-tower-01"
+            "case.fractal-design-north-tg-dark",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -484,16 +484,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "ram.ddr5-32gb-6000"
+            "case.fractal-design-north-tg-dark",
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:ram-kit"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ]
         },
         {
@@ -501,16 +501,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "psu.750w-atx"
+            "case.fractal-design-north-tg-dark",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         }
       ],
@@ -525,44 +525,44 @@
         "buildStateVersion": "vs2",
         "mountSelections": [
           {
-            "movingPartId": "mb.atx-b650-01",
+            "movingPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "socketId": "socket.case",
-            "targetPartId": "case.mid-tower-atx-01",
+            "targetPartId": "case.fractal-design-north-tg-dark",
             "anchorId": "anchor.mb",
             "orientationId": "normal"
           },
           {
-            "movingPartId": "cpu.zen4-7600",
+            "movingPartId": "cpu.amd-ryzen-5-7600",
             "socketId": "socket.motherboard",
-            "targetPartId": "mb.atx-b650-01",
+            "targetPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "anchorId": "anchor.cpu",
             "orientationId": "normal"
           },
           {
-            "movingPartId": "gpu.rtx4070",
+            "movingPartId": "gpu.asus-dual-rtx4070-o12g",
             "socketId": "socket.motherboard",
-            "targetPartId": "mb.atx-b650-01",
+            "targetPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "anchorId": "anchor.gpu",
             "orientationId": "normal"
           },
           {
-            "movingPartId": "cooler.air-twin-tower-01",
+            "movingPartId": "cooler.noctua-nh-d15-g2",
             "socketId": "socket.motherboard",
-            "targetPartId": "mb.atx-b650-01",
+            "targetPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "anchorId": "anchor.cooler",
             "orientationId": "rotated-180"
           },
           {
-            "movingPartId": "ram.ddr5-32gb-6000",
+            "movingPartId": "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
             "socketId": "socket.motherboard",
-            "targetPartId": "mb.atx-b650-01",
+            "targetPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "anchorId": "anchor.ram",
             "orientationId": "normal"
           },
           {
-            "movingPartId": "psu.750w-atx",
+            "movingPartId": "psu.corsair-rm750e",
             "socketId": "socket.case",
-            "targetPartId": "case.mid-tower-atx-01",
+            "targetPartId": "case.fractal-design-north-tg-dark",
             "anchorId": "anchor.psu",
             "orientationId": "normal"
           }
@@ -574,16 +574,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "mb.atx-b650-01"
+            "case.fractal-design-north-tg-dark",
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:mb-board"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.mb.atx-b650-01"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2"
           ]
         },
         {
@@ -591,16 +591,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "cpu.zen4-7600"
+            "case.fractal-design-north-tg-dark",
+            "cpu.amd-ryzen-5-7600"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:cpu-die"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.cpu.zen4-7600"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
           ]
         },
         {
@@ -608,16 +608,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "gpu.rtx4070"
+            "case.fractal-design-north-tg-dark",
+            "gpu.asus-dual-rtx4070-o12g"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:gpu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.gpu.rtx4070"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
           ]
         },
         {
@@ -625,16 +625,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "cooler.air-twin-tower-01"
+            "case.fractal-design-north-tg-dark",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -642,16 +642,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "ram.ddr5-32gb-6000"
+            "case.fractal-design-north-tg-dark",
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:ram-kit"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ]
         },
         {
@@ -659,16 +659,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "psu.750w-atx"
+            "case.fractal-design-north-tg-dark",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -676,16 +676,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "cpu.zen4-7600"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "cpu.amd-ryzen-5-7600"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:cpu-die"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.cpu.zen4-7600"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
           ]
         },
         {
@@ -693,16 +693,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "gpu.rtx4070"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "gpu.asus-dual-rtx4070-o12g"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:gpu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.gpu.rtx4070"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
           ]
         },
         {
@@ -710,16 +710,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "cooler.air-twin-tower-01"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -727,16 +727,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "ram.ddr5-32gb-6000"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:ram-kit"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ]
         },
         {
@@ -744,16 +744,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "psu.750w-atx"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -761,16 +761,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cpu.zen4-7600",
-            "gpu.rtx4070"
+            "cpu.amd-ryzen-5-7600",
+            "gpu.asus-dual-rtx4070-o12g"
           ],
           "involvedNodeNames": [
             "collision:cpu-die",
             "collision:gpu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.zen4-7600",
-            "evidence.phys3.synthetic.gpu.rtx4070"
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
           ]
         },
         {
@@ -778,16 +778,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cpu.zen4-7600",
-            "cooler.air-twin-tower-01"
+            "cpu.amd-ryzen-5-7600",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "collision:cpu-die",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.zen4-7600",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -795,16 +795,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cpu.zen4-7600",
-            "ram.ddr5-32gb-6000"
+            "cpu.amd-ryzen-5-7600",
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ],
           "involvedNodeNames": [
             "collision:cpu-die",
             "collision:ram-kit"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.zen4-7600",
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ]
         },
         {
@@ -812,16 +812,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cpu.zen4-7600",
-            "psu.750w-atx"
+            "cpu.amd-ryzen-5-7600",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:cpu-die",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.zen4-7600",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -829,16 +829,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "gpu.rtx4070",
-            "cooler.air-twin-tower-01"
+            "gpu.asus-dual-rtx4070-o12g",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "collision:gpu-body",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.gpu.rtx4070",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -846,16 +846,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "gpu.rtx4070",
-            "ram.ddr5-32gb-6000"
+            "gpu.asus-dual-rtx4070-o12g",
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ],
           "involvedNodeNames": [
             "collision:gpu-body",
             "collision:ram-kit"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.gpu.rtx4070",
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g",
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ]
         },
         {
@@ -863,16 +863,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "gpu.rtx4070",
-            "psu.750w-atx"
+            "gpu.asus-dual-rtx4070-o12g",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:gpu-body",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.gpu.rtx4070",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -880,16 +880,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cooler.air-twin-tower-01",
-            "ram.ddr5-32gb-6000"
+            "cooler.noctua-nh-d15-g2",
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ],
           "involvedNodeNames": [
             "collision:cooler-body",
             "collision:ram-kit"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01",
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2",
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ]
         },
         {
@@ -897,16 +897,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cooler.air-twin-tower-01",
-            "psu.750w-atx"
+            "cooler.noctua-nh-d15-g2",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:cooler-body",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -914,16 +914,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "ram.ddr5-32gb-6000",
-            "psu.750w-atx"
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:ram-kit",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -931,16 +931,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "mb.atx-b650-01"
+            "case.fractal-design-north-tg-dark",
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:mb-board"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.mb.atx-b650-01"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2"
           ]
         },
         {
@@ -948,16 +948,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "cpu.zen4-7600"
+            "case.fractal-design-north-tg-dark",
+            "cpu.amd-ryzen-5-7600"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:cpu-die"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.cpu.zen4-7600"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
           ]
         },
         {
@@ -965,16 +965,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "gpu.rtx4070"
+            "case.fractal-design-north-tg-dark",
+            "gpu.asus-dual-rtx4070-o12g"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:gpu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.gpu.rtx4070"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
           ]
         },
         {
@@ -982,17 +982,17 @@
           "kind": "clearance",
           "status": "interference",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "cooler.air-twin-tower-01"
+            "case.fractal-design-north-tg-dark",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:cooler-body"
           ],
-          "explanation": "Clearance volume clearance:cooler-sidekeepout (case.mid-tower-atx-01) is violated by collision:cooler-body (cooler.air-twin-tower-01) beyond 0.1 mm.",
+          "explanation": "Clearance volume clearance:cooler-sidekeepout (case.fractal-design-north-tg-dark) is violated by collision:cooler-body (cooler.noctua-nh-d15-g2) beyond 0.1 mm.",
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -1000,16 +1000,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "ram.ddr5-32gb-6000"
+            "case.fractal-design-north-tg-dark",
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:ram-kit"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.ram.ddr5-32gb-6000"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
           ]
         },
         {
@@ -1017,16 +1017,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "psu.750w-atx"
+            "case.fractal-design-north-tg-dark",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         }
       ],
@@ -1041,37 +1041,37 @@
         "buildStateVersion": "vs2",
         "mountSelections": [
           {
-            "movingPartId": "mb.atx-b650-01",
+            "movingPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "socketId": "socket.case",
-            "targetPartId": "case.mid-tower-atx-01",
+            "targetPartId": "case.fractal-design-north-tg-dark",
             "anchorId": "anchor.mb",
             "orientationId": "normal"
           },
           {
-            "movingPartId": "cpu.zen4-7600",
+            "movingPartId": "cpu.amd-ryzen-5-7600",
             "socketId": "socket.motherboard",
-            "targetPartId": "mb.atx-b650-01",
+            "targetPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "anchorId": "anchor.cpu",
             "orientationId": "normal"
           },
           {
-            "movingPartId": "gpu.rtx4070",
+            "movingPartId": "gpu.asus-dual-rtx4070-o12g",
             "socketId": "socket.motherboard",
-            "targetPartId": "mb.atx-b650-01",
+            "targetPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "anchorId": "anchor.gpu",
             "orientationId": "normal"
           },
           {
-            "movingPartId": "cooler.air-twin-tower-01",
+            "movingPartId": "cooler.noctua-nh-d15-g2",
             "socketId": "socket.motherboard",
-            "targetPartId": "mb.atx-b650-01",
+            "targetPartId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
             "anchorId": "anchor.cooler",
             "orientationId": "normal"
           },
           {
-            "movingPartId": "psu.750w-atx",
+            "movingPartId": "psu.corsair-rm750e",
             "socketId": "socket.case",
-            "targetPartId": "case.mid-tower-atx-01",
+            "targetPartId": "case.fractal-design-north-tg-dark",
             "anchorId": "anchor.psu",
             "orientationId": "normal"
           }
@@ -1079,16 +1079,16 @@
       },
       "checks": [
         {
-          "checkId": "coverage:ram.ddr5-16gb-7200",
+          "checkId": "coverage:ram.gskill-trident-z5-rgb-ddr5-8400",
           "kind": "collision",
           "status": "unavailable",
           "involvedPartIds": [
-            "ram.ddr5-16gb-7200"
+            "ram.gskill-trident-z5-rgb-ddr5-8400"
           ],
           "involvedNodeNames": [
-            "part:ram.ddr5-16gb-7200"
+            "part:ram.gskill-trident-z5-rgb-ddr5-8400"
           ],
-          "explanation": "Part ram.ddr5-16gb-7200 lacks phys3 physicalSpec (visual-only fallback).",
+          "explanation": "Part ram.gskill-trident-z5-rgb-ddr5-8400 lacks phys3 physicalSpec (visual-only fallback).",
           "evidenceSourceIds": []
         },
         {
@@ -1096,16 +1096,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "mb.atx-b650-01"
+            "case.fractal-design-north-tg-dark",
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:mb-board"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.mb.atx-b650-01"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2"
           ]
         },
         {
@@ -1113,16 +1113,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "cpu.zen4-7600"
+            "case.fractal-design-north-tg-dark",
+            "cpu.amd-ryzen-5-7600"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:cpu-die"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.cpu.zen4-7600"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
           ]
         },
         {
@@ -1130,16 +1130,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "gpu.rtx4070"
+            "case.fractal-design-north-tg-dark",
+            "gpu.asus-dual-rtx4070-o12g"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:gpu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.gpu.rtx4070"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
           ]
         },
         {
@@ -1147,16 +1147,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "cooler.air-twin-tower-01"
+            "case.fractal-design-north-tg-dark",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -1164,16 +1164,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "psu.750w-atx"
+            "case.fractal-design-north-tg-dark",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:case-floor",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -1181,16 +1181,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "cpu.zen4-7600"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "cpu.amd-ryzen-5-7600"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:cpu-die"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.cpu.zen4-7600"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
           ]
         },
         {
@@ -1198,16 +1198,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "gpu.rtx4070"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "gpu.asus-dual-rtx4070-o12g"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:gpu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.gpu.rtx4070"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
           ]
         },
         {
@@ -1215,16 +1215,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "cooler.air-twin-tower-01"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -1232,16 +1232,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "mb.atx-b650-01",
-            "psu.750w-atx"
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:mb-board",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.mb.atx-b650-01",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -1249,16 +1249,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cpu.zen4-7600",
-            "gpu.rtx4070"
+            "cpu.amd-ryzen-5-7600",
+            "gpu.asus-dual-rtx4070-o12g"
           ],
           "involvedNodeNames": [
             "collision:cpu-die",
             "collision:gpu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.zen4-7600",
-            "evidence.phys3.synthetic.gpu.rtx4070"
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
           ]
         },
         {
@@ -1266,16 +1266,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cpu.zen4-7600",
-            "cooler.air-twin-tower-01"
+            "cpu.amd-ryzen-5-7600",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "collision:cpu-die",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.zen4-7600",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -1283,16 +1283,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cpu.zen4-7600",
-            "psu.750w-atx"
+            "cpu.amd-ryzen-5-7600",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:cpu-die",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.zen4-7600",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -1300,16 +1300,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "gpu.rtx4070",
-            "cooler.air-twin-tower-01"
+            "gpu.asus-dual-rtx4070-o12g",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "collision:gpu-body",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.gpu.rtx4070",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -1317,16 +1317,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "gpu.rtx4070",
-            "psu.750w-atx"
+            "gpu.asus-dual-rtx4070-o12g",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:gpu-body",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.gpu.rtx4070",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -1334,16 +1334,16 @@
           "kind": "collision",
           "status": "fit",
           "involvedPartIds": [
-            "cooler.air-twin-tower-01",
-            "psu.750w-atx"
+            "cooler.noctua-nh-d15-g2",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "collision:cooler-body",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
         {
@@ -1351,16 +1351,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "mb.atx-b650-01"
+            "case.fractal-design-north-tg-dark",
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:mb-board"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.mb.atx-b650-01"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2"
           ]
         },
         {
@@ -1368,16 +1368,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "cpu.zen4-7600"
+            "case.fractal-design-north-tg-dark",
+            "cpu.amd-ryzen-5-7600"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:cpu-die"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.cpu.zen4-7600"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
           ]
         },
         {
@@ -1385,16 +1385,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "gpu.rtx4070"
+            "case.fractal-design-north-tg-dark",
+            "gpu.asus-dual-rtx4070-o12g"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:gpu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.gpu.rtx4070"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
           ]
         },
         {
@@ -1402,16 +1402,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "cooler.air-twin-tower-01"
+            "case.fractal-design-north-tg-dark",
+            "cooler.noctua-nh-d15-g2"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:cooler-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.cooler.air-twin-tower-01"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
           ]
         },
         {
@@ -1419,16 +1419,16 @@
           "kind": "clearance",
           "status": "fit",
           "involvedPartIds": [
-            "case.mid-tower-atx-01",
-            "psu.750w-atx"
+            "case.fractal-design-north-tg-dark",
+            "psu.corsair-rm750e"
           ],
           "involvedNodeNames": [
             "clearance:cooler-sidekeepout",
             "collision:psu-body"
           ],
           "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.mid-tower-atx-01",
-            "evidence.phys3.synthetic.psu.750w-atx"
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+            "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         }
       ],

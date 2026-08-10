@@ -3,13 +3,13 @@ import { expect, test, type Page } from "@playwright/test";
 function fullVs2Query(overrides: Record<string, string> = {}): string {
   const p = new URLSearchParams({
     v: "vs2",
-    cpu: "cpu.zen4-7600",
-    gpu: "gpu.rtx4070",
-    case: "case.mid-tower-atx-01",
-    mb: "mb.atx-b650-01",
-    cooler: "cooler.air-twin-tower-01",
-    ram: "ram.ddr5-32gb-6000",
-    psu: "psu.750w-atx",
+    cpu: "cpu.amd-ryzen-5-7600",
+    gpu: "gpu.asus-dual-rtx4070-o12g",
+    case: "case.fractal-design-north-tg-dark",
+    mb: "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+    cooler: "cooler.noctua-nh-d15-g2",
+    ram: "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+    psu: "psu.corsair-rm750e",
     game: "game.cyberpunk-2077",
     preset: "preset.raster-ultra",
     ...overrides,
@@ -72,7 +72,7 @@ test.describe("Phase 4.1 combination estimator (est1)", () => {
   });
 
   test("non-pilot build does not activate est1 overlay", async ({ page }) => {
-    await page.goto(fullVs2Query({ gpu: "gpu.rtx4080" }));
+    await page.goto(fullVs2Query({ gpu: "gpu.asus-proart-rtx4080-o16g" }));
     await waitForPhase41Ready(page);
 
     await expect(page.getByTestId("evidence-est1-caveat")).toHaveCount(0);

@@ -112,8 +112,8 @@ describe("estimateBaseline", () => {
   it("switching upscaleId alone changes the looked-up range", async () => {
     const fixtures = await loadBaselineFixtures();
     const baseQuery: BaselineQuery = {
-      cpuId: "cpu.zen4-7600",
-      gpuId: "gpu.rtx4070",
+      cpuId: "cpu.amd-ryzen-5-7600",
+      gpuId: "gpu.asus-dual-rtx4070-o12g",
       gameId: "game.cyberpunk-2077",
       presetId: "preset.raster-ultra",
       resolution: "1440p",
@@ -137,8 +137,8 @@ describe("estimateBaseline", () => {
   it("switching frameGenId alone changes the looked-up range", async () => {
     const fixtures = await loadBaselineFixtures();
     const baseQuery: BaselineQuery = {
-      cpuId: "cpu.zen4-7600",
-      gpuId: "gpu.rtx4070",
+      cpuId: "cpu.amd-ryzen-5-7600",
+      gpuId: "gpu.asus-dual-rtx4070-o12g",
       gameId: "game.cyberpunk-2077",
       presetId: "preset.raster-ultra",
       resolution: "1440p",

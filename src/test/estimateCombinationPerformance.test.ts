@@ -42,8 +42,8 @@ function obs(
     sourceUrl: "https://example.com/review",
     publishedAt: "2024-01-01",
     accessedAt: "2026-08-09",
-    cpuId: "cpu.zen4-7600",
-    gpuId: "gpu.rtx4070",
+    cpuId: "cpu.amd-ryzen-5-7600",
+    gpuId: "gpu.asus-dual-rtx4070-o12g",
     gameId: "game.cyberpunk-2077",
     presetId: "preset.raster-ultra",
     exactSettings: "Ultra RT off DLSS off FG off",
@@ -63,8 +63,8 @@ function obs(
 
 function edge(overrides: Partial<CpuScaleEdge> & { edgeId: string }): CpuScaleEdge {
   return {
-    fromCpuId: "cpu.zen4-7800x3d",
-    toCpuId: "cpu.zen4-7600",
+    fromCpuId: "cpu.amd-ryzen-7-7800x3d",
+    toCpuId: "cpu.amd-ryzen-5-7600",
     factor: 0.9,
     uncertainty: 0.05,
     sourceIds: ["src.scale"],
@@ -82,8 +82,8 @@ function vendor(
     sourceUrl: "https://example.com/vendor",
     publishedAt: "2024-06-01",
     accessedAt: "2026-08-09",
-    cpuId: "cpu.zen4-7800x3d",
-    gpuId: "gpu.rtx4070",
+    cpuId: "cpu.amd-ryzen-7-7800x3d",
+    gpuId: "gpu.asus-dual-rtx4070-o12g",
     gameId: "game.cyberpunk-2077",
     presetId: "preset.raster-ultra",
     exactSettings: "Ultra RT off DLSS off FG off",
@@ -171,7 +171,7 @@ describe("estimateCombinationPerformance", () => {
         obs({
           observationId: "o-flagship",
           sourceId: "src.a",
-          cpuId: "cpu.zen4-7800x3d",
+          cpuId: "cpu.amd-ryzen-7-7800x3d",
           resolution: "4k",
           fpsAverage: 70,
           fpsRangeMin: 65,
@@ -199,7 +199,7 @@ describe("estimateCombinationPerformance", () => {
           obs({
             observationId: "o1",
             sourceId: "src.a",
-            cpuId: "cpu.zen4-7800x3d",
+            cpuId: "cpu.amd-ryzen-7-7800x3d",
             resolution: query.resolution,
             fpsAverage: 80,
             fpsRangeMin: 75,
@@ -224,7 +224,7 @@ describe("estimateCombinationPerformance", () => {
         obs({
           observationId: "o1",
           sourceId: "src.a",
-          cpuId: "cpu.zen4-7800x3d",
+          cpuId: "cpu.amd-ryzen-7-7800x3d",
           fpsAverage: 110,
           fpsRangeMin: 100,
           fpsRangeMax: 120,
@@ -248,7 +248,7 @@ describe("estimateCombinationPerformance", () => {
         obs({
           observationId: "review.exact",
           sourceId: "src.review",
-          cpuId: "cpu.zen4-7600",
+          cpuId: "cpu.amd-ryzen-5-7600",
           resolution: "1440p",
           fpsAverage: 60,
           fpsRangeMin: 55,
@@ -290,7 +290,7 @@ describe("estimateCombinationPerformance", () => {
         obs({
           observationId: "review.avg-only",
           sourceId: "src.review",
-          cpuId: "cpu.zen4-7600",
+          cpuId: "cpu.amd-ryzen-5-7600",
           resolution: "1440p",
           fpsAverage: 60,
           // no published range → exact aggregate unavailable
@@ -328,7 +328,7 @@ describe("estimateCombinationPerformance", () => {
         obs({
           observationId: "review.avg-only-2",
           sourceId: "src.review2",
-          cpuId: "cpu.zen4-7600",
+          cpuId: "cpu.amd-ryzen-5-7600",
           resolution: "1440p",
           fpsAverage: 98,
         }),

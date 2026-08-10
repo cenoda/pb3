@@ -62,8 +62,8 @@ describe("perf1.schema", () => {
 
   it("rejects baseline row missing required fields", () => {
     const parsed = baselineFixtureRowSchema.safeParse({
-      cpuId: "cpu.zen4-7600",
-      gpuId: "gpu.rtx4070",
+      cpuId: "cpu.amd-ryzen-5-7600",
+      gpuId: "gpu.asus-dual-rtx4070-o12g",
       gameId: "game.cyberpunk-2077",
       presetId: "preset.raster-ultra",
       resolution: "1440p",
@@ -85,8 +85,8 @@ describe("perf1.schema", () => {
 
   it("rejects unknown limitingFactor.category", () => {
     const parsed = baselineFixtureRowSchema.safeParse({
-      cpuId: "cpu.zen4-7600",
-      gpuId: "gpu.rtx4070",
+      cpuId: "cpu.amd-ryzen-5-7600",
+      gpuId: "gpu.asus-dual-rtx4070-o12g",
       gameId: "game.cyberpunk-2077",
       presetId: "preset.raster-ultra",
       resolution: "1440p",
@@ -109,8 +109,8 @@ describe("perf1.schema", () => {
 
   it("rejects inverted FPS range (fpsMin > fpsMax)", () => {
     const parsed = baselineFixtureRowSchema.safeParse({
-      cpuId: "cpu.zen4-7600",
-      gpuId: "gpu.rtx4070",
+      cpuId: "cpu.amd-ryzen-5-7600",
+      gpuId: "gpu.asus-dual-rtx4070-o12g",
       gameId: "game.cyberpunk-2077",
       presetId: "preset.raster-ultra",
       resolution: "1440p",

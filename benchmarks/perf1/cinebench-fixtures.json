@@ -4,7 +4,7 @@
   "description": "Phase-1 Cinebench workload stubs (CPU-only). All confidence values are 'stub'. Scores are ordinal wiring stubs, not laboratory measurements.",
   "rows": [
     {
-      "cpuId": "cpu.zen4-7600",
+      "cpuId": "cpu.amd-ryzen-5-7600",
       "workloadId": "cinebench.r23",
       "metric": "metric.single-core",
       "score": 1920,
@@ -13,7 +13,7 @@
       "basis": "phase-1 perf1 Cinebench fixture table; not measured; scores are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7600",
+      "cpuId": "cpu.amd-ryzen-5-7600",
       "workloadId": "cinebench.r23",
       "metric": "metric.multi-core",
       "score": 11800,
@@ -22,7 +22,7 @@
       "basis": "phase-1 perf1 Cinebench fixture table; not measured; scores are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7600",
+      "cpuId": "cpu.amd-ryzen-5-7600",
       "workloadId": "cinebench.2024",
       "metric": "metric.single-core",
       "score": 1980,
@@ -31,7 +31,7 @@
       "basis": "phase-1 perf1 Cinebench fixture table; not measured; scores are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7600",
+      "cpuId": "cpu.amd-ryzen-5-7600",
       "workloadId": "cinebench.2024",
       "metric": "metric.multi-core",
       "score": 12250,
@@ -40,7 +40,7 @@
       "basis": "phase-1 perf1 Cinebench fixture table; not measured; scores are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7800x3d",
+      "cpuId": "cpu.amd-ryzen-7-7800x3d",
       "workloadId": "cinebench.r23",
       "metric": "metric.single-core",
       "score": 2010,
@@ -49,7 +49,7 @@
       "basis": "phase-1 perf1 Cinebench fixture table; not measured; scores are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7800x3d",
+      "cpuId": "cpu.amd-ryzen-7-7800x3d",
       "workloadId": "cinebench.r23",
       "metric": "metric.multi-core",
       "score": 12400,
@@ -58,7 +58,7 @@
       "basis": "phase-1 perf1 Cinebench fixture table; not measured; scores are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7800x3d",
+      "cpuId": "cpu.amd-ryzen-7-7800x3d",
       "workloadId": "cinebench.2024",
       "metric": "metric.single-core",
       "score": 2085,
@@ -67,7 +67,7 @@
       "basis": "phase-1 perf1 Cinebench fixture table; not measured; scores are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7800x3d",
+      "cpuId": "cpu.amd-ryzen-7-7800x3d",
       "workloadId": "cinebench.2024",
       "metric": "metric.multi-core",
       "score": 12880,

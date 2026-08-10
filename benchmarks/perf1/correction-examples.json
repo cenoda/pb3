@@ -6,8 +6,8 @@
     {
       "note": "cpu-power.reduced applied alone — power-limit reduction correction",
       "query": {
-        "cpuId": "cpu.zen4-7600",
-        "gpuId": "gpu.rtx4070",
+        "cpuId": "cpu.amd-ryzen-5-7600",
+        "gpuId": "gpu.asus-dual-rtx4070-o12g",
         "gameId": "game.cyberpunk-2077",
         "presetId": "preset.raster-ultra",
         "resolution": "1440p",
@@ -36,8 +36,8 @@
     {
       "note": "cooling.insufficient + load.sustained with stub evidence present",
       "query": {
-        "cpuId": "cpu.zen4-7800x3d",
-        "gpuId": "gpu.rtx4080",
+        "cpuId": "cpu.amd-ryzen-7-7800x3d",
+        "gpuId": "gpu.asus-proart-rtx4080-o16g",
         "gameId": "game.cyberpunk-2077",
         "presetId": "preset.raster-ultra",
         "resolution": "4k",
@@ -68,8 +68,8 @@
     {
       "note": "load.sustained without applicable evidence — withheld correction (completion scenario step 7)",
       "query": {
-        "cpuId": "cpu.zen4-7600",
-        "gpuId": "gpu.rtx4080",
+        "cpuId": "cpu.amd-ryzen-5-7600",
+        "gpuId": "gpu.asus-proart-rtx4080-o16g",
         "gameId": "game.cyberpunk-2077",
         "presetId": "preset.raster-ultra",
         "resolution": "1080p",
@@ -89,8 +89,8 @@
     {
       "note": "gpu-power.reduced applied alone — additional power-limit stub example",
       "query": {
-        "cpuId": "cpu.zen4-7800x3d",
-        "gpuId": "gpu.rtx4070",
+        "cpuId": "cpu.amd-ryzen-7-7800x3d",
+        "gpuId": "gpu.asus-dual-rtx4070-o12g",
         "gameId": "game.cyberpunk-2077",
         "presetId": "preset.raster-ultra",
         "resolution": "1080p",

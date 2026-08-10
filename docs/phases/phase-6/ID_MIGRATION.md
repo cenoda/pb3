@@ -1,9 +1,7 @@
 # Phase 6 — Part id migration
 
-Status: **selection approved 2026-08-10, including slot 14 and the
-`GpuModel.tsx` carve-out.** Products are the owner's Step 3 selection. **No part
-has been authored yet.** Step 4 starts only after the **B1** and **B2** contract
-changes land (§6).
+Status: **Step 4 executed 2026-08-10.** Products are the owner's Step 3 selection.
+Legacy fixture ids are retired; the runtime catalog loads 14 `cat6` parts.
 
 Authority: [`specs/phase-6.md`](./specs/phase-6.md) §4 (**O3**, **O4**).
 Contract: [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md) (`cat6`).
@@ -403,6 +401,29 @@ parts, and no part in this build is one.
 | B8 | **CPU package dimensions** — no public AMD product page publishes them, but exit condition 4 wants every physical-core part's box derived from cited dimensions | Before Step 6. Found authoring slot 4; see below |
 | B9 | **`MotherboardCompatSpec.maxMemorySpeedMtS` is required**, which blocked slot 9 from carrying a `compatSpec` at all | ✅ **Closed** — field made optional; slot 9's `cpu-socket` negative verified restored |
 | B10 | **`DimensionsMm` was all-or-nothing**, so parts with partial published dimensions recorded none | ✅ **Closed** — each axis optional, at least one required; published axes now kept |
+| B11 | **No catalog price is sourced yet**, so the running app's only prices are the 13 phase-2 fixture amounts | Before the **O5** price step. Found during Step 4; see below |
+
+### B11 — the fixture prices are not catalog prices
+
+Step 4 re-points the 13 `benchmarks/price2` amounts onto the new ids and stops
+there. They stay compat2 `PricedPart` rows carrying
+`basis: "phase-2 fixture price; not a live market quote"`, which is what they
+are.
+
+They are **not** migrated into `benchmarks/cat6/catalog-prices.json`. `cat6`'s
+`CatalogStreetPrice` requires `retailer` ("the retailer whose listing was read"),
+`region`, `sourceId` and `retrievedAt` ("ISO-8601 date the listing was read; this
+is a snapshot, not a feed"). Carrying a synthetic number into those fields would
+publish a dated retailer quote for a real, named SKU that no one read — the exact
+claim the shape exists to make, and a charter §2 violation with a `sourceId` that
+resolves to nothing in `catalog-source-registry.json`. The gap between $49 and
+what an NH-D15 G2 actually costs is the size of the lie.
+
+The consequence, recorded rather than hidden: **the price the app shows is a
+fixture amount attached to a real product name.** That is inherited from Phase 2
+and not made worse here, but it does not survive to a release. The **O5** step
+authors real MSRP and dated street snapshots per SKU, and deletes
+`benchmarks/price2/` at that point.
 
 ### B9 — a required memory ceiling blocked the socket negative (resolved)
 
@@ -576,7 +597,7 @@ Verified by grep against the working tree.
 | `benchmarks/phys3/physical-validation-examples.json` | **Rewritten** from real dimensions (**RK1**), not re-pointed |
 | **`benchmarks/compat2/compatibility-examples.json`** | **Rewritten, not a mechanical re-point.** Its first example asserts `chipset-bios: "compatible"` and `overallStatus: "compatible"`; under **O6** both become `unavailable`. Tied to **D3** — do not rewrite the expectations by inventing a BIOS minimum |
 | `benchmarks/vs0/*.json` | Re-pointed |
-| `benchmarks/price2/price-fixtures.json` | Deleted; superseded by `benchmarks/cat6/catalog-prices.json` (**O5**) |
+| `benchmarks/price2/price-fixtures.json` | **Re-pointed, not deleted.** Deletion is deferred to the step that authors **O5**'s sourced prices, because the supersession this row originally assumed has not happened: no catalog price has been sourced yet. The 13 amounts stay phase-2 fixtures and keep their `basis` — `phase-2 fixture price; not a live market quote`. Moving them under `benchmarks/cat6/` in `CatalogPriceRow` shape would have dressed a synthetic number as a dated retailer snapshot of a real SKU, which `CatalogStreetPrice` (`retailer`, `retrievedAt`, `sourceId`) exists to assert. See **B11** |
 | `e2e/**` (7 specs) | Selections re-pointed; each assertion's meaning preserved (**RK4**) |
 | `src/test/**` (~25 files) | Re-pointed with the code they cover |
 

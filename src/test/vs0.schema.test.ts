@@ -10,15 +10,16 @@ import {
   partDefinitionSchema,
   performanceFixtureFileSchema,
 } from "../contract/vs0.schema";
+import { partDefinitionV2Schema } from "../contract/vs2.schema";
 
 const repoRoot = join(import.meta.dirname, "../..");
 
 describe("vs0.schema", () => {
-  it("parses all checked-in part.json fixtures", () => {
+  it("parses all checked-in part.json fixtures via runtime loader schema", () => {
     for (const partPath of PHASE0_PART_PATHS) {
       const raw = readFileSync(join(repoRoot, partPath), "utf8");
       const json: unknown = JSON.parse(raw);
-      const parsed = partDefinitionSchema.safeParse(json);
+      const parsed = partDefinitionV2Schema.safeParse(json);
       expect(parsed.success, partPath).toBe(true);
     }
   });
@@ -36,10 +37,10 @@ describe("vs0.schema", () => {
   it("rejects part definitions with wrong contract version", () => {
     const parsed = partDefinitionSchema.safeParse({
       contractVersion: "vs1",
-      id: "gpu.rtx4070",
+      id: "gpu.asus-dual-rtx4070-o12g",
       category: "gpu",
       displayName: "Bad",
-      modelGlbPath: "parts/gpu/gpu.rtx4070/model.glb",
+      modelGlbPath: "parts/gpu/gpu.asus-dual-rtx4070-o12g/model.glb",
     });
     expect(parsed.success).toBe(false);
   });
@@ -47,7 +48,7 @@ describe("vs0.schema", () => {
   it("rejects build state missing required fields", () => {
     const parsed = buildStateSchema.safeParse({
       contractVersion: VS0_CONTRACT_VERSION,
-      cpuId: "cpu.zen4-7600",
+      cpuId: "cpu.amd-ryzen-5-7600",
     });
     expect(parsed.success).toBe(false);
   });

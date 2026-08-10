@@ -125,8 +125,8 @@ describe("prov4 fixture integrity", () => {
   it("ships audit-only external rows without product FPS for exact pilot key", () => {
     const exactMatchWithFps = externalObservations.observations.filter(
       (o) =>
-        o.cpuId === "cpu.zen4-7600" &&
-        o.gpuId === "gpu.rtx4070" &&
+        o.cpuId === "cpu.amd-ryzen-5-7600" &&
+        o.gpuId === "gpu.asus-dual-rtx4070-o12g" &&
         o.gameId === "game.cyberpunk-2077" &&
         o.presetId === "preset.raster-ultra" &&
         o.upscaleId === "upscale.off" &&

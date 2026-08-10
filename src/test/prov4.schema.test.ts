@@ -44,8 +44,8 @@ const validCaptureConditions = {
 };
 
 const pilotKey = {
-  cpuId: "cpu.zen4-7600" as const,
-  gpuId: "gpu.rtx4070" as const,
+  cpuId: "cpu.amd-ryzen-5-7600" as const,
+  gpuId: "gpu.asus-dual-rtx4070-o12g" as const,
   gameId: "game.cyberpunk-2077" as const,
   presetId: "preset.raster-ultra" as const,
   resolution: "1080p" as const,
@@ -56,13 +56,13 @@ const pilotKey = {
 };
 
 const buildPartIds = {
-  caseId: "case.mid-tower-atx-01" as const,
-  motherboardId: "mb.atx-b650-01" as const,
-  cpuId: "cpu.zen4-7600" as const,
-  gpuId: "gpu.rtx4070" as const,
-  coolerId: "cooler.air-twin-tower-01" as const,
-  ramId: "ram.ddr5-32gb-6000" as const,
-  psuId: "psu.750w-atx" as const,
+  caseId: "case.fractal-design-north-tg-dark" as const,
+  motherboardId: "motherboard.gigabyte-b650-aorus-elite-ax-v2" as const,
+  cpuId: "cpu.amd-ryzen-5-7600" as const,
+  gpuId: "gpu.asus-dual-rtx4070-o12g" as const,
+  coolerId: "cooler.noctua-nh-d15-g2" as const,
+  ramId: "ram.teamgroup-t-create-expert-ddr5-6000-32gb" as const,
+  psuId: "psu.corsair-rm750e" as const,
 };
 
 function firstPartyMeasured(overrides: Record<string, unknown> = {}) {
@@ -528,9 +528,9 @@ describe("prov4.schema — geometry", () => {
     expect(
       geometryEvidenceRecordSchema.safeParse({
         provenanceContractVersion: "prov4",
-        evidenceId: "geo.cpu.zen4-7600",
-        partId: "cpu.zen4-7600",
-        phys3EvidenceSourceId: "evidence.phys3.synthetic.cpu.zen4-7600",
+        evidenceId: "geo.cpu.amd-ryzen-5-7600",
+        partId: "cpu.amd-ryzen-5-7600",
+        phys3EvidenceSourceId: "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
         modelGrade: "Experimental",
         geometryDataVersion: "phys3-exp-20260808",
         sourceIds: ["src.project-synthetic.geometry"],
@@ -546,8 +546,8 @@ describe("prov4.schema — geometry", () => {
       geometryEvidenceRecordSchema.safeParse({
         provenanceContractVersion: "prov4",
         evidenceId: "geo.cpu",
-        partId: "cpu.zen4-7600",
-        phys3EvidenceSourceId: "evidence.phys3.synthetic.cpu.zen4-7600",
+        partId: "cpu.amd-ryzen-5-7600",
+        phys3EvidenceSourceId: "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
         modelGrade: "Community",
         geometryDataVersion: "phys3-exp-20260808",
         sourceIds: ["src.x"],

@@ -27,7 +27,8 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
 - [ ] Step 3.1 — **B1/B2 contract policy, before any motherboard is authored:**
       `maxMemorySpeedMtS` = vendor-published maximum (**D2**), and the narrow
       non-AM5 negative-fixture exception (**D1**)
-- [ ] Step 4 — execute the migration repo-wide; assert no legacy id remains
+- [x] Step 4 — execute the migration repo-wide; assert no legacy id remains
+      (2026-08-10; 14 parts, `cat6.integrity` guard; price fixtures re-pointed, **B11**)
 - [ ] Step 5 — `parts/catalog-manifest.json` + loader; retire `PHASE2_PART_PATHS`
 - [ ] Step 6 — geometry generated from `dimensionsMm`; re-derive `phys3`
       verdicts; re-point `prov4` geometry version

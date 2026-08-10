@@ -21,7 +21,7 @@ describe("buildPriceSummary", () => {
       dataVersion: "test",
       rows: [
         {
-          partId: "gpu.rtx4070",
+          partId: "gpu.asus-dual-rtx4070-o12g",
           category: "gpu",
           status: "ok",
           amount: 599,

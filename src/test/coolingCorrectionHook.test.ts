@@ -31,7 +31,7 @@ describe("coolingCorrectionHook", () => {
     expect(file.rows).toEqual([]);
 
     const result = buildCoolingCorrectionInput({
-      buildPartIds: ["case.mid-tower-atx-01"],
+      buildPartIds: ["case.fractal-design-north-tg-dark"],
       mountSelections: [],
       geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
       physicalReport: emptyAssemblyReport("fit"),
@@ -46,7 +46,7 @@ describe("coolingCorrectionHook", () => {
 
   it("withholds when physical validation is incomplete", () => {
     const result = buildCoolingCorrectionInput({
-      buildPartIds: ["case.mid-tower-atx-01"],
+      buildPartIds: ["case.fractal-design-north-tg-dark"],
       mountSelections: [],
       geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
       physicalReport: emptyAssemblyReport("unavailable"),
@@ -65,9 +65,9 @@ describe("coolingCorrectionHook", () => {
 
   it("stub-only exact match populates hook fields without bucket mapping", () => {
     const mount = {
-      movingPartId: "cooler.air-twin-tower-01",
+      movingPartId: "cooler.noctua-nh-d15-g2",
       socketId: "socket.motherboard",
-      targetPartId: "mb.atx-b650-01",
+      targetPartId: "motherboard.gigabyte-b650-aorus-elite-ax-v2",
       anchorId: "anchor.cooler",
       orientationId: "normal",
     };
@@ -78,7 +78,7 @@ describe("coolingCorrectionHook", () => {
         {
           physicalContractVersion: "phys3",
           evidenceSourceId: "stub-only.unit-test.cooling",
-          buildPartIds: ["case.mid-tower-atx-01", "cooler.air-twin-tower-01"],
+          buildPartIds: ["case.fractal-design-north-tg-dark", "cooler.noctua-nh-d15-g2"],
           mountSelections: [mount],
           geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
           coolingHeadroom: 0.75,
@@ -89,7 +89,7 @@ describe("coolingCorrectionHook", () => {
     };
 
     const hit = buildCoolingCorrectionInput({
-      buildPartIds: ["cooler.air-twin-tower-01", "case.mid-tower-atx-01"],
+      buildPartIds: ["cooler.noctua-nh-d15-g2", "case.fractal-design-north-tg-dark"],
       mountSelections: [mount],
       geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
       physicalReport: emptyAssemblyReport("fit"),
@@ -109,7 +109,7 @@ describe("coolingCorrectionHook", () => {
     }
 
     const stale = buildCoolingCorrectionInput({
-      buildPartIds: ["cooler.air-twin-tower-01", "case.mid-tower-atx-01"],
+      buildPartIds: ["cooler.noctua-nh-d15-g2", "case.fractal-design-north-tg-dark"],
       mountSelections: [mount],
       geometryDataVersion: "stale-version",
       physicalReport: emptyAssemblyReport("fit"),
@@ -119,7 +119,7 @@ describe("coolingCorrectionHook", () => {
     expect(stale.status).toBe("unavailable");
 
     const missing = buildCoolingCorrectionInput({
-      buildPartIds: ["cooler.air-twin-tower-01", "case.mid-tower-atx-01"],
+      buildPartIds: ["cooler.noctua-nh-d15-g2", "case.fractal-design-north-tg-dark"],
       mountSelections: [{ ...mount, orientationId: "rotated-180" }],
       geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
       physicalReport: emptyAssemblyReport("fit"),

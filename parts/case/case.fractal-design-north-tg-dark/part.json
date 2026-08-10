@@ -41,7 +41,10 @@
     ]
   },
   "compatSpec": {
-    "supportedFormFactors": ["ATX", "Micro-ATX"]
+    "supportedFormFactors": [
+      "ATX",
+      "Micro-ATX"
+    ]
   },
   "provenance": {
     "identity": {
@@ -60,5 +63,37 @@
       "sourceId": "source.cat6.fractal-design.north-tg-dark.product",
       "retrievedAt": "2026-08-10"
     }
+  },
+  "physicalSpec": {
+    "physicalContractVersion": "phys3",
+    "evidence": {
+      "sourceId": "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "modelGrade": "Experimental",
+      "basis": "project-authored synthetic fixture geometry; not manufacturer-verified"
+    },
+    "anchors": [
+      {
+        "anchorId": "anchor.mb",
+        "nodeName": "anchor:mb",
+        "mountInterfaceId": "iface.case-mb.atx",
+        "acceptsPartCategory": "motherboard",
+        "isDefault": true
+      },
+      {
+        "anchorId": "anchor.psu",
+        "nodeName": "anchor:psu",
+        "mountInterfaceId": "iface.case-psu.atx",
+        "acceptsPartCategory": "psu",
+        "isDefault": true
+      }
+    ],
+    "sockets": [],
+    "collisionNodes": [
+      "collision:case-floor"
+    ],
+    "clearanceNodes": [
+      "clearance:cooler-sidekeepout"
+    ]
   }
 }

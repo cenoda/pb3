@@ -14,13 +14,13 @@ parts/
 
 | Category | ID | GLB note |
 |----------|-----|----------|
-| case | `case.mid-tower-atx-01` | large dark chassis box |
-| motherboard | `mb.atx-b650-01` | flat green board |
-| cooler | `cooler.air-twin-tower-01` | silver tower box |
-| cpu | `cpu.zen4-7600` | small grey IHS |
-| cpu | `cpu.zen4-7800x3d` | small red-accent IHS |
-| gpu | `gpu.rtx4070` | **shorter / thinner, blue** |
-| gpu | `gpu.rtx4080` | **longer / thicker, orange** |
+| case | `case.fractal-design-north-tg-dark` | large dark chassis box |
+| motherboard | `motherboard.gigabyte-b650-aorus-elite-ax-v2` | flat green board |
+| cooler | `cooler.noctua-nh-d15-g2` | silver tower box |
+| cpu | `cpu.amd-ryzen-5-7600` | small grey IHS |
+| cpu | `cpu.amd-ryzen-7-7800x3d` | small red-accent IHS |
+| gpu | `gpu.asus-dual-rtx4070-o12g` | **shorter / thinner, blue** |
+| gpu | `gpu.asus-proart-rtx4080-o16g` | **longer / thicker, orange** |
 
 GPU placeholders are intentionally different so mesh swap is obvious in the viewport.
 

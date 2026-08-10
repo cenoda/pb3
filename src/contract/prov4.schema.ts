@@ -261,8 +261,8 @@ export const performanceCaptureConditionsSchema = z.object({
 });
 
 export const pilotBaselineKeySchema = z.object({
-  cpuId: z.literal("cpu.zen4-7600"),
-  gpuId: z.literal("gpu.rtx4070"),
+  cpuId: z.literal("cpu.amd-ryzen-5-7600"),
+  gpuId: z.literal("gpu.asus-dual-rtx4070-o12g"),
   gameId: z.literal("game.cyberpunk-2077"),
   presetId: z.literal("preset.raster-ultra"),
   resolution: z.enum(["1080p", "1440p", "4k"]),
@@ -273,13 +273,13 @@ export const pilotBaselineKeySchema = z.object({
 });
 
 export const pilotBuildPartIdsSchema = z.object({
-  caseId: z.literal("case.mid-tower-atx-01"),
-  motherboardId: z.literal("mb.atx-b650-01"),
-  cpuId: z.literal("cpu.zen4-7600"),
-  gpuId: z.literal("gpu.rtx4070"),
-  coolerId: z.literal("cooler.air-twin-tower-01"),
-  ramId: z.literal("ram.ddr5-32gb-6000"),
-  psuId: z.literal("psu.750w-atx"),
+  caseId: z.literal("case.fractal-design-north-tg-dark"),
+  motherboardId: z.literal("motherboard.gigabyte-b650-aorus-elite-ax-v2"),
+  cpuId: z.literal("cpu.amd-ryzen-5-7600"),
+  gpuId: z.literal("gpu.asus-dual-rtx4070-o12g"),
+  coolerId: z.literal("cooler.noctua-nh-d15-g2"),
+  ramId: z.literal("ram.teamgroup-t-create-expert-ddr5-6000-32gb"),
+  psuId: z.literal("psu.corsair-rm750e"),
 });
 
 const limitingFactorSchema = z.object({

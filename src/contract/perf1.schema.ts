@@ -3,8 +3,8 @@ import { estimateConfidenceSchema } from "./vs0.schema";
 
 export const perf1ContractVersionSchema = z.literal("perf1");
 
-export const cpuIdSchema = z.enum(["cpu.zen4-7600", "cpu.zen4-7800x3d"]);
-export const gpuIdSchema = z.enum(["gpu.rtx4070", "gpu.rtx4080"]);
+export const cpuIdSchema = z.enum(["cpu.amd-ryzen-5-7600", "cpu.amd-ryzen-7-7800x3d"]);
+export const gpuIdSchema = z.enum(["gpu.asus-dual-rtx4070-o12g", "gpu.asus-proart-rtx4080-o16g"]);
 export const gameIdSchema = z.literal("game.cyberpunk-2077");
 export const presetIdSchema = z.literal("preset.raster-ultra");
 export const perf1ResolutionIdSchema = z.enum(["1080p", "1440p", "4k"]);

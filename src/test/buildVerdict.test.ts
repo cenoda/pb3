@@ -4,10 +4,10 @@ import type { PhysicalValidationReport } from "../contract/phys3";
 import { buildVerdict } from "../ui/buildVerdict";
 
 const NAMES: Record<string, string> = {
-  "mb.atx-b650-01": "ATX B650 Board 01 (fixture)",
-  "case.micro-atx-mini-01": "Micro-ATX Mini Case 01 (fixture)",
-  "cpu.zen4-7600": "Ryzen 5 7600 (fixture)",
-  "cooler.air-twin-tower-01": "Air Twin Tower Cooler 01 (fixture)",
+  "motherboard.gigabyte-b650-aorus-elite-ax-v2": "ATX B650 Board 01 (fixture)",
+  "case.lian-li-a3-matx-black": "Micro-ATX Mini Case 01 (fixture)",
+  "cpu.amd-ryzen-5-7600": "Ryzen 5 7600 (fixture)",
+  "cooler.noctua-nh-d15-g2": "Air Twin Tower Cooler 01 (fixture)",
 };
 
 const nameOf = (partId: string) => NAMES[partId] ?? partId;
@@ -69,8 +69,8 @@ describe("buildVerdict", () => {
             checkId: "case-form-factor",
             status: "incompatible",
             explanation:
-              "Motherboard mb.atx-b650-01 is ATX; case case.micro-atx-mini-01 supports Micro-ATX only.",
-            involvedPartIds: ["case.micro-atx-mini-01", "mb.atx-b650-01"],
+              "Motherboard motherboard.gigabyte-b650-aorus-elite-ax-v2 is ATX; case case.lian-li-a3-matx-black supports Micro-ATX only.",
+            involvedPartIds: ["case.lian-li-a3-matx-black", "motherboard.gigabyte-b650-aorus-elite-ax-v2"],
           },
         ],
       }),
@@ -91,8 +91,8 @@ describe("buildVerdict", () => {
             checkId: "case-form-factor",
             status: "incompatible",
             explanation:
-              "Motherboard mb.atx-b650-01 is ATX; case case.micro-atx-mini-01 supports Micro-ATX only.",
-            involvedPartIds: ["case.micro-atx-mini-01", "mb.atx-b650-01"],
+              "Motherboard motherboard.gigabyte-b650-aorus-elite-ax-v2 is ATX; case case.lian-li-a3-matx-black supports Micro-ATX only.",
+            involvedPartIds: ["case.lian-li-a3-matx-black", "motherboard.gigabyte-b650-aorus-elite-ax-v2"],
           },
         ],
       }),
@@ -116,9 +116,9 @@ describe("buildVerdict", () => {
             checkId: "collision:cooler-case",
             kind: "collision",
             status: "interference",
-            involvedPartIds: ["cooler.air-twin-tower-01"],
+            involvedPartIds: ["cooler.noctua-nh-d15-g2"],
             involvedNodeNames: [],
-            explanation: "Cooler cooler.air-twin-tower-01 overlaps the side panel.",
+            explanation: "Cooler cooler.noctua-nh-d15-g2 overlaps the side panel.",
             evidenceSourceIds: [],
           },
         ],
@@ -150,8 +150,8 @@ describe("buildVerdict", () => {
             checkId: "chipset-bios",
             status: "unavailable",
             explanation:
-              "No documented minimum BIOS version for cpu.zen4-7600 on mb.atx-b650-01.",
-            involvedPartIds: ["cpu.zen4-7600", "mb.atx-b650-01"],
+              "No documented minimum BIOS version for cpu.amd-ryzen-5-7600 on motherboard.gigabyte-b650-aorus-elite-ax-v2.",
+            involvedPartIds: ["cpu.amd-ryzen-5-7600", "motherboard.gigabyte-b650-aorus-elite-ax-v2"],
           },
         ],
       }),

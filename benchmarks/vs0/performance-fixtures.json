@@ -4,8 +4,8 @@
   "description": "Phase-0 performance stubs for wiring only. All confidence values are 'stub'. Do not treat fpsMin/fpsMax as laboratory measurements.",
   "rows": [
     {
-      "cpuId": "cpu.zen4-7600",
-      "gpuId": "gpu.rtx4070",
+      "cpuId": "cpu.amd-ryzen-5-7600",
+      "gpuId": "gpu.asus-dual-rtx4070-o12g",
       "gameId": "game.cyberpunk-2077",
       "presetId": "preset.raster-ultra",
       "resolutionId": "1080p",
@@ -16,8 +16,8 @@
       "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7600",
-      "gpuId": "gpu.rtx4070",
+      "cpuId": "cpu.amd-ryzen-5-7600",
+      "gpuId": "gpu.asus-dual-rtx4070-o12g",
       "gameId": "game.cyberpunk-2077",
       "presetId": "preset.raster-ultra",
       "resolutionId": "1440p",
@@ -28,8 +28,8 @@
       "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7600",
-      "gpuId": "gpu.rtx4070",
+      "cpuId": "cpu.amd-ryzen-5-7600",
+      "gpuId": "gpu.asus-dual-rtx4070-o12g",
       "gameId": "game.cyberpunk-2077",
       "presetId": "preset.raster-ultra",
       "resolutionId": "4k",
@@ -40,8 +40,8 @@
       "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7600",
-      "gpuId": "gpu.rtx4080",
+      "cpuId": "cpu.amd-ryzen-5-7600",
+      "gpuId": "gpu.asus-proart-rtx4080-o16g",
       "gameId": "game.cyberpunk-2077",
       "presetId": "preset.raster-ultra",
       "resolutionId": "1080p",
@@ -52,8 +52,8 @@
       "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7600",
-      "gpuId": "gpu.rtx4080",
+      "cpuId": "cpu.amd-ryzen-5-7600",
+      "gpuId": "gpu.asus-proart-rtx4080-o16g",
       "gameId": "game.cyberpunk-2077",
       "presetId": "preset.raster-ultra",
       "resolutionId": "1440p",
@@ -64,8 +64,8 @@
       "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7600",
-      "gpuId": "gpu.rtx4080",
+      "cpuId": "cpu.amd-ryzen-5-7600",
+      "gpuId": "gpu.asus-proart-rtx4080-o16g",
       "gameId": "game.cyberpunk-2077",
       "presetId": "preset.raster-ultra",
       "resolutionId": "4k",
@@ -76,8 +76,8 @@
       "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7800x3d",
-      "gpuId": "gpu.rtx4070",
+      "cpuId": "cpu.amd-ryzen-7-7800x3d",
+      "gpuId": "gpu.asus-dual-rtx4070-o12g",
       "gameId": "game.cyberpunk-2077",
       "presetId": "preset.raster-ultra",
       "resolutionId": "1080p",
@@ -88,8 +88,8 @@
       "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7800x3d",
-      "gpuId": "gpu.rtx4070",
+      "cpuId": "cpu.amd-ryzen-7-7800x3d",
+      "gpuId": "gpu.asus-dual-rtx4070-o12g",
       "gameId": "game.cyberpunk-2077",
       "presetId": "preset.raster-ultra",
       "resolutionId": "1440p",
@@ -100,8 +100,8 @@
       "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7800x3d",
-      "gpuId": "gpu.rtx4070",
+      "cpuId": "cpu.amd-ryzen-7-7800x3d",
+      "gpuId": "gpu.asus-dual-rtx4070-o12g",
       "gameId": "game.cyberpunk-2077",
       "presetId": "preset.raster-ultra",
       "resolutionId": "4k",
@@ -112,8 +112,8 @@
       "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7800x3d",
-      "gpuId": "gpu.rtx4080",
+      "cpuId": "cpu.amd-ryzen-7-7800x3d",
+      "gpuId": "gpu.asus-proart-rtx4080-o16g",
       "gameId": "game.cyberpunk-2077",
       "presetId": "preset.raster-ultra",
       "resolutionId": "1080p",
@@ -124,8 +124,8 @@
       "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7800x3d",
-      "gpuId": "gpu.rtx4080",
+      "cpuId": "cpu.amd-ryzen-7-7800x3d",
+      "gpuId": "gpu.asus-proart-rtx4080-o16g",
       "gameId": "game.cyberpunk-2077",
       "presetId": "preset.raster-ultra",
       "resolutionId": "1440p",
@@ -136,8 +136,8 @@
       "basis": "phase-0 fixture table; not measured; numbers are ordinal stubs only and must not be read as real benchmark results"
     },
     {
-      "cpuId": "cpu.zen4-7800x3d",
-      "gpuId": "gpu.rtx4080",
+      "cpuId": "cpu.amd-ryzen-7-7800x3d",
+      "gpuId": "gpu.asus-proart-rtx4080-o16g",
       "gameId": "game.cyberpunk-2077",
       "presetId": "preset.raster-ultra",
       "resolutionId": "4k",

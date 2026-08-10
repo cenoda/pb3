@@ -414,7 +414,7 @@ Carried out of the phase (judged out of scope, not overlooked): no part photos
 browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
 **real parts catalog**, which is not started in this session.
 
-## Phase 6 — Real parts catalog (M0 drafted 2026-08-10; O1–O8 locked; package not accepted)
+## Phase 6 — Real parts catalog (M0 accepted; Steps 1–4 in progress)
 
 | 항목 | 상태 |
 |------|------|
@@ -425,10 +425,10 @@ browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
 | Shape | 카탈로그 데이터만 (브라우저는 Phase 7) · ≈30개 소수 정예 · AM5/DDR5 단일 · 이미지는 계약만 |
 | Owner decisions | **O1–O8 locked (2026-08-10)** — spec §7 |
 | Owner acceptance | **Accepted 2026-08-10** by starting implementation; no separate written acceptance recorded |
-| Progress | **Step 1 done (2026-08-10)** — `cat6` contract types + Zod + 21 schema tests; no data, no loader, nothing imports `cat6` yet. `pnpm test` 32 files / 236 tests, `pnpm build` clean |
+| Progress | **Steps 1–4 done (2026-08-10)** — `cat6` contract; 14 real SKU parts; legacy ids retired repo-wide (`ID_MIGRATION.md`); runtime loads `cat6` parts; `cat6.integrity` legacy-id guard. Prices are re-pointed phase-2 fixtures, not catalog prices (**B11**). `pnpm test` 35 files / 277 tests; `pnpm test:e2e` 17; `pnpm build` clean |
 | Gate | Owner picks 3 parts at random and traces every engine-consumed field to a citation in one hop |
 | **O1 — accepted consequence** | `perf1` covers 2 CPUs × 2 GPUs and Phase 4.1 (the attempt to close that gap) is frozen, so **most valid builds show no FPS**. The surface states the combination estimator is **in preparation**, via `src/perf/**` reason strings — no UI change |
-| **O3/O4 — id migration** | Fixture ids are **retired**; ids become **SKU-level** (`gpu.asus-dual-rtx4070-o12g`). ASUS vs MSI differ in dimensions *and* clocks/power, so `cat6` records both. One-time repo-wide migration with `ID_MIGRATION.md` + a guard asserting no legacy id remains |
+| **O3/O4 — id migration** | **Done (Step 4, 2026-08-10).** 13 legacy folders retired; 14 `cat6` SKU ids live under `parts/**`. `src/test/cat6.integrity.test.ts` guards `src/**`, `parts/**`, `benchmarks/**`, `e2e/**` (docs deliberately excluded). Slot 14 has no legacy geometry — no `physicalSpec` until Step 6 |
 | **Share links** | **Break once, deliberately.** The URL carries part ids; old links open on the default build (lenient decoder), not an error |
 | **O5 — price** | MSRP **and** dated domestic street snapshot, manually curated. Street drives the total; MSRP is never summed; missing street → `unavailable` + `isPartial` |
 | **O6 — BIOS** | Not considered. Socket compatibility only; `checkChipsetBios` already returns `unavailable` without the map, so no engine change |

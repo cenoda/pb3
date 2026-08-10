@@ -15,8 +15,8 @@ export const PERF1_DATA_VERSION = "perf1" as const;
 
 // --- Baseline vocabulary (§3.1) ---
 
-export type CpuId = "cpu.zen4-7600" | "cpu.zen4-7800x3d";
-export type GpuId = "gpu.rtx4070" | "gpu.rtx4080";
+export type CpuId = "cpu.amd-ryzen-5-7600" | "cpu.amd-ryzen-7-7800x3d";
+export type GpuId = "gpu.asus-dual-rtx4070-o12g" | "gpu.asus-proart-rtx4080-o16g";
 export type GameId = "game.cyberpunk-2077";
 export type PresetId = "preset.raster-ultra";
 export type Perf1ResolutionId = "1080p" | "1440p" | "4k";

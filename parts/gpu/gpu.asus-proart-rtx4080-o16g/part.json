@@ -42,5 +42,39 @@
       "sourceId": "source.cat6.nvidia.rtx4080-family.reference-tgp",
       "retrievedAt": "2026-08-10"
     }
+  },
+  "physicalSpec": {
+    "physicalContractVersion": "phys3",
+    "evidence": {
+      "sourceId": "evidence.phys3.synthetic.gpu.asus-proart-rtx4080-o16g",
+      "geometryDataVersion": "phys3-exp-20260808",
+      "modelGrade": "Experimental",
+      "basis": "project-authored synthetic fixture geometry; not manufacturer-verified"
+    },
+    "anchors": [],
+    "sockets": [
+      {
+        "socketId": "socket.motherboard",
+        "nodeName": "socket:motherboard",
+        "mountInterfaceId": "iface.mb-gpu.pcie",
+        "targetPartCategory": "motherboard",
+        "orientationVariants": [
+          {
+            "orientationId": "normal",
+            "offsetQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "isDefault": true
+          }
+        ]
+      }
+    ],
+    "collisionNodes": [
+      "collision:gpu-body"
+    ],
+    "clearanceNodes": []
   }
 }

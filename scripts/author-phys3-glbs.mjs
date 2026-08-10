@@ -308,7 +308,7 @@ function authorPart(relDir, color, defs) {
 
 // --- Physical-core geometry (synthetic Experimental) ---
 
-authorPart("parts/case/case.mid-tower-atx-01", [0.25, 0.25, 0.28], [
+authorPart("parts/case/case.fractal-design-north-tg-dark", [0.25, 0.25, 0.28], [
   { kind: "box", name: "visual:case", hx: 150, hy: 200, hz: 200, translation: [0, 200, 0] },
   { kind: "box", name: "collision:case-floor", hx: 150, hy: 5, hz: 200, translation: [0, 5, 0] },
   {
@@ -323,7 +323,7 @@ authorPart("parts/case/case.mid-tower-atx-01", [0.25, 0.25, 0.28], [
   { kind: "empty", name: "anchor:psu", translation: [0, 40, 160] },
 ]);
 
-authorPart("parts/motherboard/mb.atx-b650-01", [0.15, 0.45, 0.2], [
+authorPart("parts/motherboard/motherboard.gigabyte-b650-aorus-elite-ax-v2", [0.15, 0.45, 0.2], [
   { kind: "box", name: "visual:motherboard", hx: 152, hy: 2, hz: 122, translation: [0, 2, 0] },
   { kind: "box", name: "collision:mb-board", hx: 152, hy: 2, hz: 122, translation: [0, 2, 0] },
   { kind: "empty", name: "socket:case", translation: [0, 0, 0] },
@@ -333,7 +333,7 @@ authorPart("parts/motherboard/mb.atx-b650-01", [0.15, 0.45, 0.2], [
   { kind: "empty", name: "anchor:gpu", translation: [0, 8, -100] },
 ]);
 
-for (const cpuId of ["cpu.zen4-7600", "cpu.zen4-7800x3d"]) {
+for (const cpuId of ["cpu.amd-ryzen-5-7600", "cpu.amd-ryzen-7-7800x3d"]) {
   const color = cpuId.includes("7800") ? [0.7, 0.2, 0.2] : [0.6, 0.35, 0.15];
   authorPart(`parts/cpu/${cpuId}`, color, [
     { kind: "box", name: `visual:${cpuId}`, hx: 20, hy: 2, hz: 20, translation: [0, 2, 0] },
@@ -342,21 +342,21 @@ for (const cpuId of ["cpu.zen4-7600", "cpu.zen4-7800x3d"]) {
   ]);
 }
 
-authorPart("parts/gpu/gpu.rtx4070", [0.15, 0.55, 0.95], [
-  { kind: "box", name: "visual:gpu.rtx4070", hx: 100, hy: 18, hz: 40, translation: [0, 18, 0] },
+authorPart("parts/gpu/gpu.asus-dual-rtx4070-o12g", [0.15, 0.55, 0.95], [
+  { kind: "box", name: "visual:gpu.asus-dual-rtx4070-o12g", hx: 100, hy: 18, hz: 40, translation: [0, 18, 0] },
   { kind: "box", name: "collision:gpu-body", hx: 100, hy: 18, hz: 40, translation: [0, 18, 0] },
   { kind: "empty", name: "socket:motherboard", translation: [0, 0, 0] },
 ]);
 
-authorPart("parts/gpu/gpu.rtx4080", [0.95, 0.45, 0.1], [
-  { kind: "box", name: "visual:gpu.rtx4080", hx: 120, hy: 22, hz: 45, translation: [0, 22, 0] },
+authorPart("parts/gpu/gpu.asus-proart-rtx4080-o16g", [0.95, 0.45, 0.1], [
+  { kind: "box", name: "visual:gpu.asus-proart-rtx4080-o16g", hx: 120, hy: 22, hz: 45, translation: [0, 22, 0] },
   { kind: "box", name: "collision:gpu-body", hx: 120, hy: 22, hz: 45, translation: [0, 22, 0] },
   { kind: "empty", name: "socket:motherboard", translation: [0, 0, 0] },
 ]);
 
 // Asymmetric +X body: normal clears sidekeepout; rotated-180 overlaps it.
 // Compact +Z bias keeps GPU/RAM clear in the default orientation.
-authorPart("parts/cooler/cooler.air-twin-tower-01", [0.4, 0.4, 0.45], [
+authorPart("parts/cooler/cooler.noctua-nh-d15-g2", [0.4, 0.4, 0.45], [
   {
     kind: "box",
     name: "visual:cooler",
@@ -376,13 +376,13 @@ authorPart("parts/cooler/cooler.air-twin-tower-01", [0.4, 0.4, 0.45], [
   { kind: "empty", name: "socket:motherboard", translation: [0, 0, 0] },
 ]);
 
-authorPart("parts/ram/ram.ddr5-32gb-6000", [0.2, 0.6, 0.7], [
+authorPart("parts/ram/ram.teamgroup-t-create-expert-ddr5-6000-32gb", [0.2, 0.6, 0.7], [
   { kind: "box", name: "visual:ram", hx: 10, hy: 20, hz: 70, translation: [0, 20, 0] },
   { kind: "box", name: "collision:ram-kit", hx: 10, hy: 20, hz: 70, translation: [0, 20, 0] },
   { kind: "empty", name: "socket:motherboard", translation: [0, 0, 0] },
 ]);
 
-authorPart("parts/psu/psu.750w-atx", [0.35, 0.35, 0.4], [
+authorPart("parts/psu/psu.corsair-rm750e", [0.35, 0.35, 0.4], [
   { kind: "box", name: "visual:psu", hx: 75, hy: 40, hz: 70, translation: [0, 40, 0] },
   { kind: "box", name: "collision:psu-body", hx: 75, hy: 40, hz: 70, translation: [0, 40, 0] },
   { kind: "empty", name: "socket:case", translation: [0, 0, 0] },

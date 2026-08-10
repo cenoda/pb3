@@ -50,13 +50,13 @@ const registry: EvidenceSourceRegistryFile = {
 };
 
 const buildPartIds = {
-  caseId: "case.mid-tower-atx-01" as const,
-  motherboardId: "mb.atx-b650-01" as const,
-  cpuId: "cpu.zen4-7600" as const,
-  gpuId: "gpu.rtx4070" as const,
-  coolerId: "cooler.air-twin-tower-01" as const,
-  ramId: "ram.ddr5-32gb-6000" as const,
-  psuId: "psu.750w-atx" as const,
+  caseId: "case.fractal-design-north-tg-dark" as const,
+  motherboardId: "motherboard.gigabyte-b650-aorus-elite-ax-v2" as const,
+  cpuId: "cpu.amd-ryzen-5-7600" as const,
+  gpuId: "gpu.asus-dual-rtx4070-o12g" as const,
+  coolerId: "cooler.noctua-nh-d15-g2" as const,
+  ramId: "ram.teamgroup-t-create-expert-ddr5-6000-32gb" as const,
+  psuId: "psu.corsair-rm750e" as const,
 };
 
 const capture = {
@@ -213,7 +213,7 @@ describe("pilotBuild + buildPilotDisclosureReport", () => {
     expect(
       isPilotBuild({
         ...DEFAULT_BUILD_STATE_V2,
-        gpuId: "gpu.rtx4080",
+        gpuId: "gpu.asus-proart-rtx4080-o16g",
       }),
     ).toBe(false);
   });
@@ -250,7 +250,7 @@ describe("pilotBuild + buildPilotDisclosureReport", () => {
 
   it("marks non-pilot builds inactive without inventing overlay rows", () => {
     const report = buildPilotDisclosureReport({
-      state: { ...DEFAULT_BUILD_STATE_V2, gpuId: "gpu.rtx4080" },
+      state: { ...DEFAULT_BUILD_STATE_V2, gpuId: "gpu.asus-proart-rtx4080-o16g" },
       physicalSpecsByPartId: specsMap(),
       registry,
       performance: performanceFile(),

@@ -57,8 +57,8 @@ describe("applyCorrection", () => {
   it("returns null for empty CorrectionInput (identity path)", async () => {
     const fixtures = await loadBaselineFixtures();
     const query: BaselineQuery = {
-      cpuId: "cpu.zen4-7600",
-      gpuId: "gpu.rtx4070",
+      cpuId: "cpu.amd-ryzen-5-7600",
+      gpuId: "gpu.asus-dual-rtx4070-o12g",
       gameId: "game.cyberpunk-2077",
       presetId: "preset.raster-ultra",
       resolution: "1440p",
@@ -75,8 +75,8 @@ describe("applyCorrection", () => {
   it("returns not-supported outcome for unsupported correction id", async () => {
     const fixtures = await loadBaselineFixtures();
     const query: BaselineQuery = {
-      cpuId: "cpu.zen4-7600",
-      gpuId: "gpu.rtx4070",
+      cpuId: "cpu.amd-ryzen-5-7600",
+      gpuId: "gpu.asus-dual-rtx4070-o12g",
       gameId: "game.cyberpunk-2077",
       presetId: "preset.raster-ultra",
       resolution: "1440p",

@@ -14,7 +14,7 @@ import type { PartCategoryV2 } from "./vs2";
  * Optional nested physicalSpec is Phase-3 phys3 metadata; omitted means visual-only.
  */
 export interface PartDefinitionV2 {
-  contractVersion: "vs0";
+  contractVersion: "vs0" | "cat6";
   id: string;
   category: PartCategoryV2;
   displayName: string;

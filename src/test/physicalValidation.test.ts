@@ -122,7 +122,7 @@ describe("physicalValidation", () => {
     const assembly = buildAssemblyState(
       {
         ...DEFAULT_BUILD_STATE_V2,
-        ramId: "ram.ddr5-16gb-7200",
+        ramId: "ram.gskill-trident-z5-rgb-ddr5-8400",
       },
       catalog,
       indexes,

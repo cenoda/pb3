@@ -7,7 +7,7 @@
       "note": "GPU id not present in part catalog / fixture table",
       "query": {
         "contractVersion": "vs0",
-        "cpuId": "cpu.zen4-7600",
+        "cpuId": "cpu.amd-ryzen-5-7600",
         "gpuId": "gpu.not-in-catalog",
         "gameId": "game.cyberpunk-2077",
         "presetId": "preset.raster-ultra",
@@ -17,7 +17,7 @@
         "contractVersion": "vs0",
         "query": {
           "contractVersion": "vs0",
-          "cpuId": "cpu.zen4-7600",
+          "cpuId": "cpu.amd-ryzen-5-7600",
           "gpuId": "gpu.not-in-catalog",
           "gameId": "game.cyberpunk-2077",
           "presetId": "preset.raster-ultra",
@@ -37,7 +37,7 @@
       "query": {
         "contractVersion": "vs0",
         "cpuId": "cpu.not-in-catalog",
-        "gpuId": "gpu.rtx4070",
+        "gpuId": "gpu.asus-dual-rtx4070-o12g",
         "gameId": "game.cyberpunk-2077",
         "presetId": "preset.raster-ultra",
         "resolutionId": "1080p"
@@ -47,7 +47,7 @@
         "query": {
           "contractVersion": "vs0",
           "cpuId": "cpu.not-in-catalog",
-          "gpuId": "gpu.rtx4070",
+          "gpuId": "gpu.asus-dual-rtx4070-o12g",
           "gameId": "game.cyberpunk-2077",
           "presetId": "preset.raster-ultra",
           "resolutionId": "1080p"
@@ -65,8 +65,8 @@
       "note": "Unsupported game id (phase-0 only ships one game constant)",
       "query": {
         "contractVersion": "vs0",
-        "cpuId": "cpu.zen4-7600",
-        "gpuId": "gpu.rtx4070",
+        "cpuId": "cpu.amd-ryzen-5-7600",
+        "gpuId": "gpu.asus-dual-rtx4070-o12g",
         "gameId": "game.not-supported",
         "presetId": "preset.raster-ultra",
         "resolutionId": "4k"
@@ -75,8 +75,8 @@
         "contractVersion": "vs0",
         "query": {
           "contractVersion": "vs0",
-          "cpuId": "cpu.zen4-7600",
-          "gpuId": "gpu.rtx4070",
+          "cpuId": "cpu.amd-ryzen-5-7600",
+          "gpuId": "gpu.asus-dual-rtx4070-o12g",
           "gameId": "game.not-supported",
           "presetId": "preset.raster-ultra",
           "resolutionId": "4k"

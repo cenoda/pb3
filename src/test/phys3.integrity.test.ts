@@ -18,20 +18,7 @@ const repoRoot = path.resolve(
 );
 
 function partJsonPath(partId: string): string {
-  const categoryDir =
-    partId.startsWith("mb.")
-      ? "motherboard"
-      : partId.startsWith("case.")
-        ? "case"
-        : partId.startsWith("cpu.")
-          ? "cpu"
-          : partId.startsWith("gpu.")
-            ? "gpu"
-            : partId.startsWith("cooler.")
-              ? "cooler"
-              : partId.startsWith("ram.")
-                ? "ram"
-                : "psu";
+  const categoryDir = partId.split(".")[0]!;
   return path.join(repoRoot, "parts", categoryDir, partId, "part.json");
 }
 
@@ -68,7 +55,7 @@ describe("phys3 fixture integrity", () => {
   });
 
   it("rejects unreferenced physical-prefix nodes", () => {
-    const partId = "cpu.zen4-7600";
+    const partId = "cpu.amd-ryzen-5-7600";
     const raw = JSON.parse(fs.readFileSync(partJsonPath(partId), "utf8"));
     const part = partDefinitionV2Schema.parse(raw);
     const spec = physicalSpecSchema.parse(part.physicalSpec);

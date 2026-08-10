@@ -13,41 +13,41 @@ import type { PartDefinitionV2 } from "../contract/partV2";
 const catalogParts: PartDefinitionV2[] = [
   {
     contractVersion: "vs0",
-    id: "case.mid-tower-atx-01",
+    id: "case.fractal-design-north-tg-dark",
     category: "case",
     displayName: "Case",
-    modelGlbPath: "parts/case/case.mid-tower-atx-01/model.glb",
+    modelGlbPath: "parts/case/case.fractal-design-north-tg-dark/model.glb",
     compatSpec: { supportedFormFactors: ["ATX", "Micro-ATX"] },
   },
   {
     contractVersion: "vs0",
-    id: "case.micro-atx-mini-01",
+    id: "case.lian-li-a3-matx-black",
     category: "case",
     displayName: "Mini Case",
-    modelGlbPath: "parts/case/case.micro-atx-mini-01/model.glb",
+    modelGlbPath: "parts/case/case.lian-li-a3-matx-black/model.glb",
     compatSpec: { supportedFormFactors: ["Micro-ATX"] },
   },
   {
     contractVersion: "vs0",
-    id: "mb.atx-b650-01",
+    id: "motherboard.gigabyte-b650-aorus-elite-ax-v2",
     category: "motherboard",
     displayName: "Board",
-    modelGlbPath: "parts/motherboard/mb.atx-b650-01/model.glb",
+    modelGlbPath: "parts/motherboard/motherboard.gigabyte-b650-aorus-elite-ax-v2/model.glb",
     compatSpec: {
       socket: "AM5",
       chipset: "B650",
       formFactor: "ATX",
       supportedMemoryType: "DDR5",
       maxMemorySpeedMtS: 6400,
-      biosMinVersionForCpu: { "cpu.zen4-7600": "1.20" },
+      biosMinVersionForCpu: { "cpu.amd-ryzen-5-7600": "1.20" },
     },
   },
   {
     contractVersion: "vs0",
-    id: "mb.micro-b450-01",
+    id: "motherboard.asus-tuf-gaming-b860m-plus-wifi",
     category: "motherboard",
     displayName: "B450",
-    modelGlbPath: "parts/motherboard/mb.micro-b450-01/model.glb",
+    modelGlbPath: "parts/motherboard/motherboard.asus-tuf-gaming-b860m-plus-wifi/model.glb",
     compatSpec: {
       socket: "AM4",
       chipset: "B450",
@@ -59,73 +59,73 @@ const catalogParts: PartDefinitionV2[] = [
   },
   {
     contractVersion: "vs0",
-    id: "cpu.zen4-7600",
+    id: "cpu.amd-ryzen-5-7600",
     category: "cpu",
     displayName: "7600",
-    modelGlbPath: "parts/cpu/cpu.zen4-7600/model.glb",
+    modelGlbPath: "parts/cpu/cpu.amd-ryzen-5-7600/model.glb",
     compatSpec: { socket: "AM5", tdpWatts: 65 },
   },
   {
     contractVersion: "vs0",
-    id: "cpu.zen4-7800x3d",
+    id: "cpu.amd-ryzen-7-7800x3d",
     category: "cpu",
     displayName: "7800X3D",
-    modelGlbPath: "parts/cpu/cpu.zen4-7800x3d/model.glb",
+    modelGlbPath: "parts/cpu/cpu.amd-ryzen-7-7800x3d/model.glb",
     compatSpec: { socket: "AM5", tdpWatts: 120 },
   },
   {
     contractVersion: "vs0",
-    id: "gpu.rtx4070",
+    id: "gpu.asus-dual-rtx4070-o12g",
     category: "gpu",
     displayName: "4070",
-    modelGlbPath: "parts/gpu/gpu.rtx4070/model.glb",
+    modelGlbPath: "parts/gpu/gpu.asus-dual-rtx4070-o12g/model.glb",
     compatSpec: { tdpWatts: 200 },
   },
   {
     contractVersion: "vs0",
-    id: "gpu.rtx4080",
+    id: "gpu.asus-proart-rtx4080-o16g",
     category: "gpu",
     displayName: "4080",
-    modelGlbPath: "parts/gpu/gpu.rtx4080/model.glb",
+    modelGlbPath: "parts/gpu/gpu.asus-proart-rtx4080-o16g/model.glb",
     compatSpec: { tdpWatts: 320 },
   },
   {
     contractVersion: "vs0",
-    id: "cooler.air-twin-tower-01",
+    id: "cooler.noctua-nh-d15-g2",
     category: "cooler",
     displayName: "Cooler",
-    modelGlbPath: "parts/cooler/cooler.air-twin-tower-01/model.glb",
+    modelGlbPath: "parts/cooler/cooler.noctua-nh-d15-g2/model.glb",
   },
   {
     contractVersion: "vs0",
-    id: "ram.ddr5-32gb-6000",
+    id: "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
     category: "ram",
     displayName: "32GB",
-    modelGlbPath: "parts/ram/ram.ddr5-32gb-6000/model.glb",
+    modelGlbPath: "parts/ram/ram.teamgroup-t-create-expert-ddr5-6000-32gb/model.glb",
     compatSpec: { memoryType: "DDR5", speedMtS: 6000, capacityGb: 32 },
   },
   {
     contractVersion: "vs0",
-    id: "ram.ddr5-16gb-7200",
+    id: "ram.gskill-trident-z5-rgb-ddr5-8400",
     category: "ram",
     displayName: "16GB",
-    modelGlbPath: "parts/ram/ram.ddr5-16gb-7200/model.glb",
+    modelGlbPath: "parts/ram/ram.gskill-trident-z5-rgb-ddr5-8400/model.glb",
     compatSpec: { memoryType: "DDR5", speedMtS: 7200, capacityGb: 16 },
   },
   {
     contractVersion: "vs0",
-    id: "psu.750w-atx",
+    id: "psu.corsair-rm750e",
     category: "psu",
     displayName: "750W",
-    modelGlbPath: "parts/psu/psu.750w-atx/model.glb",
+    modelGlbPath: "parts/psu/psu.corsair-rm750e/model.glb",
     compatSpec: { wattage: 750 },
   },
   {
     contractVersion: "vs0",
-    id: "psu.550w-sfx",
+    id: "psu.cooler-master-v550-sfx-gold",
     category: "psu",
     displayName: "550W",
-    modelGlbPath: "parts/psu/psu.550w-sfx/model.glb",
+    modelGlbPath: "parts/psu/psu.cooler-master-v550-sfx-gold/model.glb",
     compatSpec: { wattage: 550 },
   },
 ];
@@ -137,34 +137,34 @@ describe("urlSync", () => {
   it("encodes every BuildStateV2 field canonically", () => {
     const state = {
       ...DEFAULT_BUILD_STATE_V2,
-      cpuId: "cpu.zen4-7800x3d",
-      gpuId: "gpu.rtx4080",
+      cpuId: "cpu.amd-ryzen-7-7800x3d",
+      gpuId: "gpu.asus-proart-rtx4080-o16g",
     };
     const params = buildStateToSearchParams(state);
 
     expect(params.get("v")).toBe("vs2");
-    expect(params.get("cpu")).toBe("cpu.zen4-7800x3d");
-    expect(params.get("gpu")).toBe("gpu.rtx4080");
-    expect(params.get("case")).toBe("case.mid-tower-atx-01");
-    expect(params.get("mb")).toBe("mb.atx-b650-01");
-    expect(params.get("cooler")).toBe("cooler.air-twin-tower-01");
-    expect(params.get("ram")).toBe("ram.ddr5-32gb-6000");
-    expect(params.get("psu")).toBe("psu.750w-atx");
+    expect(params.get("cpu")).toBe("cpu.amd-ryzen-7-7800x3d");
+    expect(params.get("gpu")).toBe("gpu.asus-proart-rtx4080-o16g");
+    expect(params.get("case")).toBe("case.fractal-design-north-tg-dark");
+    expect(params.get("mb")).toBe("motherboard.gigabyte-b650-aorus-elite-ax-v2");
+    expect(params.get("cooler")).toBe("cooler.noctua-nh-d15-g2");
+    expect(params.get("ram")).toBe("ram.teamgroup-t-create-expert-ddr5-6000-32gb");
+    expect(params.get("psu")).toBe("psu.corsair-rm750e");
     expect(params.get("game")).toBe("game.cyberpunk-2077");
     expect(params.get("preset")).toBe("preset.raster-ultra");
     expect([...params.keys()]).toHaveLength(10);
   });
 
   it("decodes partial query against defaults", () => {
-    const params = new URLSearchParams("cpu=cpu.zen4-7800x3d&gpu=gpu.rtx4080");
+    const params = new URLSearchParams("cpu=cpu.amd-ryzen-7-7800x3d&gpu=gpu.asus-proart-rtx4080-o16g");
     const decoded = buildStateFromSearchParams(
       params,
       DEFAULT_BUILD_STATE_V2,
       isValid,
     );
 
-    expect(decoded.cpuId).toBe("cpu.zen4-7800x3d");
-    expect(decoded.gpuId).toBe("gpu.rtx4080");
+    expect(decoded.cpuId).toBe("cpu.amd-ryzen-7-7800x3d");
+    expect(decoded.gpuId).toBe("gpu.asus-proart-rtx4080-o16g");
     expect(decoded.caseId).toBe(DEFAULT_BUILD_STATE_V2.caseId);
     expect(decoded.ramId).toBe(DEFAULT_BUILD_STATE_V2.ramId);
     expect(decoded.psuId).toBe(DEFAULT_BUILD_STATE_V2.psuId);
@@ -173,7 +173,7 @@ describe("urlSync", () => {
 
   it("falls back to defaults for invalid ids", () => {
     const params = new URLSearchParams(
-      "cpu=cpu.not-real&gpu=gpu.rtx4080&case=case.mid-tower-atx-01&mb=mb.atx-b650-01&cooler=cooler.air-twin-tower-01&ram=ram.ddr5-32gb-6000&psu=psu.750w-atx&game=game.cyberpunk-2077&preset=preset.raster-ultra&v=vs2",
+      "cpu=cpu.not-real&gpu=gpu.asus-proart-rtx4080-o16g&case=case.fractal-design-north-tg-dark&mb=motherboard.gigabyte-b650-aorus-elite-ax-v2&cooler=cooler.noctua-nh-d15-g2&ram=ram.teamgroup-t-create-expert-ddr5-6000-32gb&psu=psu.corsair-rm750e&game=game.cyberpunk-2077&preset=preset.raster-ultra&v=vs2",
     );
     const decoded = buildStateFromSearchParams(
       params,
@@ -184,7 +184,7 @@ describe("urlSync", () => {
   });
 
   it("falls back to defaults for unsupported contract version", () => {
-    const params = new URLSearchParams("v=vs9&cpu=cpu.zen4-7800x3d");
+    const params = new URLSearchParams("v=vs9&cpu=cpu.amd-ryzen-7-7800x3d");
     const decoded = buildStateFromSearchParams(
       params,
       DEFAULT_BUILD_STATE_V2,
@@ -196,11 +196,11 @@ describe("urlSync", () => {
   it("decodes legacy v=vs0 links with ram/psu defaults filled", () => {
     const params = new URLSearchParams({
       v: "vs0",
-      cpu: "cpu.zen4-7800x3d",
-      gpu: "gpu.rtx4080",
-      case: "case.mid-tower-atx-01",
-      mb: "mb.atx-b650-01",
-      cooler: "cooler.air-twin-tower-01",
+      cpu: "cpu.amd-ryzen-7-7800x3d",
+      gpu: "gpu.asus-proart-rtx4080-o16g",
+      case: "case.fractal-design-north-tg-dark",
+      mb: "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+      cooler: "cooler.noctua-nh-d15-g2",
       game: "game.cyberpunk-2077",
       preset: "preset.raster-ultra",
     });
@@ -210,7 +210,7 @@ describe("urlSync", () => {
       isValid,
     );
     expect(decoded.contractVersion).toBe("vs2");
-    expect(decoded.cpuId).toBe("cpu.zen4-7800x3d");
+    expect(decoded.cpuId).toBe("cpu.amd-ryzen-7-7800x3d");
     expect(decoded.ramId).toBe(DEFAULT_BUILD_STATE_V2.ramId);
     expect(decoded.psuId).toBe(DEFAULT_BUILD_STATE_V2.psuId);
   });
@@ -218,8 +218,8 @@ describe("urlSync", () => {
   it("round-trips full vs2 encode/decode", () => {
     const state = {
       ...DEFAULT_BUILD_STATE_V2,
-      ramId: "ram.ddr5-16gb-7200",
-      psuId: "psu.550w-sfx",
+      ramId: "ram.gskill-trident-z5-rgb-ddr5-8400",
+      psuId: "psu.cooler-master-v550-sfx-gold",
     };
     const params = buildStateToSearchParams(state);
     const decoded = buildStateFromSearchParams(

@@ -113,8 +113,8 @@ export interface HumanVerificationFile {
 // --- Performance evidence (§6) ---
 
 export interface PilotBaselineKey {
-  cpuId: "cpu.zen4-7600";
-  gpuId: "gpu.rtx4070";
+  cpuId: "cpu.amd-ryzen-5-7600";
+  gpuId: "gpu.asus-dual-rtx4070-o12g";
   gameId: "game.cyberpunk-2077";
   presetId: "preset.raster-ultra";
   resolution: "1080p" | "1440p" | "4k";
@@ -408,13 +408,13 @@ export interface PerformanceEvidenceRecord {
   evidenceId: string;
   key: PilotBaselineKey;
   buildPartIds: {
-    caseId: "case.mid-tower-atx-01";
-    motherboardId: "mb.atx-b650-01";
-    cpuId: "cpu.zen4-7600";
-    gpuId: "gpu.rtx4070";
-    coolerId: "cooler.air-twin-tower-01";
-    ramId: "ram.ddr5-32gb-6000";
-    psuId: "psu.750w-atx";
+    caseId: "case.fractal-design-north-tg-dark";
+    motherboardId: "motherboard.gigabyte-b650-aorus-elite-ax-v2";
+    cpuId: "cpu.amd-ryzen-5-7600";
+    gpuId: "gpu.asus-dual-rtx4070-o12g";
+    coolerId: "cooler.noctua-nh-d15-g2";
+    ramId: "ram.teamgroup-t-create-expert-ddr5-6000-32gb";
+    psuId: "psu.corsair-rm750e";
   };
   measurement: PerformanceMeasurement;
   confidence: EstimateConfidence;
@@ -524,13 +524,13 @@ export interface GeometryEvidenceFile {
 
 /** Pilot part ids allowed in the M0 geometry file. */
 export const PROV4_PILOT_PART_IDS = [
-  "case.mid-tower-atx-01",
-  "mb.atx-b650-01",
-  "cpu.zen4-7600",
-  "gpu.rtx4070",
-  "cooler.air-twin-tower-01",
-  "ram.ddr5-32gb-6000",
-  "psu.750w-atx",
+  "case.fractal-design-north-tg-dark",
+  "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+  "cpu.amd-ryzen-5-7600",
+  "gpu.asus-dual-rtx4070-o12g",
+  "cooler.noctua-nh-d15-g2",
+  "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+  "psu.corsair-rm750e",
 ] as const;
 
 export type Prov4PilotPartId = (typeof PROV4_PILOT_PART_IDS)[number];

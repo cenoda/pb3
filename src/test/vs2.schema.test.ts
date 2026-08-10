@@ -19,13 +19,28 @@ describe("vs2.schema", () => {
     expect(parsed.success).toBe(false);
   });
 
-  it("accepts part definition with nested compatSpec", () => {
+  it("accepts cat6-authored part definition with runtime loader schema", () => {
+    const parsed = partDefinitionV2Schema.safeParse({
+      contractVersion: "cat6",
+      id: "cpu.amd-ryzen-5-7600",
+      category: "cpu",
+      displayName: "AMD Ryzen 5 7600",
+      modelGlbPath: "parts/cpu/cpu.amd-ryzen-5-7600/model.glb",
+      compatSpec: {
+        socket: "AM5",
+        tdpWatts: 65,
+      },
+    });
+    expect(parsed.success).toBe(true);
+  });
+
+  it("accepts part definition with nested compatSpec (vs0)", () => {
     const parsed = partDefinitionV2Schema.safeParse({
       contractVersion: "vs0",
-      id: "cpu.zen4-7600",
+      id: "cpu.amd-ryzen-5-7600",
       category: "cpu",
       displayName: "Ryzen 5 7600 (fixture)",
-      modelGlbPath: "parts/cpu/cpu.zen4-7600/model.glb",
+      modelGlbPath: "parts/cpu/cpu.amd-ryzen-5-7600/model.glb",
       compatSpec: {
         socket: "AM5",
         tdpWatts: 65,
@@ -37,7 +52,7 @@ describe("vs2.schema", () => {
   it("rejects part definition missing required base fields", () => {
     const parsed = partDefinitionV2Schema.safeParse({
       contractVersion: "vs0",
-      id: "cpu.zen4-7600",
+      id: "cpu.amd-ryzen-5-7600",
       category: "cpu",
     });
     expect(parsed.success).toBe(false);

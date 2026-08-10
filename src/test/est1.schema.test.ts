@@ -15,8 +15,8 @@ import {
 } from "../contract/est1.schema";
 
 const query: EstimatorQuery = {
-  cpuId: "cpu.zen4-7600",
-  gpuId: "gpu.rtx4070",
+  cpuId: "cpu.amd-ryzen-5-7600",
+  gpuId: "gpu.asus-dual-rtx4070-o12g",
   gameId: "game.cyberpunk-2077",
   presetId: "preset.raster-ultra",
   resolution: "1080p",

@@ -44,13 +44,13 @@ test.describe("Phase 5 exit conditions", () => {
     await page.goto("/");
     await expect(page.getByTestId("result-performance")).toBeVisible();
 
-    await page.getByTestId("case-select").selectOption("case.micro-atx-mini-01");
+    await page.getByTestId("case-select").selectOption("case.lian-li-a3-matx-black");
 
     const reason = page.getByTestId("result-reason");
     await expect(reason).toBeVisible();
     // R2: product names, not part ids, and it says what to change.
-    await expect(reason).toContainText("Micro-ATX Mini Case 01");
-    await expect(reason).not.toContainText("case.micro-atx-mini-01");
+    await expect(reason).toContainText("LIAN LI A3-mATX Black");
+    await expect(reason).not.toContainText("case.lian-li-a3-matx-black");
     await expect(reason).toContainText("Change the case or the motherboard.");
 
     // R1: no performance number and no price for a build that cannot work.
@@ -114,8 +114,8 @@ test.describe("Phase 5 exit conditions", () => {
   }) => {
     await context.grantPermissions(["clipboard-read", "clipboard-write"]);
     await page.goto("/");
-    await page.getByTestId("gpu-select").selectOption("gpu.rtx4080");
-    await page.getByTestId("cpu-select").selectOption("cpu.zen4-7800x3d");
+    await page.getByTestId("gpu-select").selectOption("gpu.asus-proart-rtx4080-o16g");
+    await page.getByTestId("cpu-select").selectOption("cpu.amd-ryzen-7-7800x3d");
 
     await page.getByTestId("copy-link").click();
     await expect(page.getByTestId("copy-status")).toContainText("Link copied");

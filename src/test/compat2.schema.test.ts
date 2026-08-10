@@ -10,15 +10,15 @@ import {
 const compatibleCheck = {
   checkId: "cpu-socket" as const,
   status: "compatible" as const,
-  involvedPartIds: ["cpu.zen4-7600", "mb.atx-b650-01"],
+  involvedPartIds: ["cpu.amd-ryzen-5-7600", "motherboard.gigabyte-b650-aorus-elite-ax-v2"],
 };
 
 const incompatibleCheck = {
   checkId: "cpu-socket" as const,
   status: "incompatible" as const,
   explanation:
-    "CPU cpu.zen4-7600 uses socket AM5; motherboard mb.micro-b450-01 uses socket AM4.",
-  involvedPartIds: ["cpu.zen4-7600", "mb.micro-b450-01"],
+    "CPU cpu.amd-ryzen-5-7600 uses socket AM5; motherboard motherboard.asus-tuf-gaming-b860m-plus-wifi uses socket LGA1851.",
+  involvedPartIds: ["cpu.amd-ryzen-5-7600", "motherboard.asus-tuf-gaming-b860m-plus-wifi"],
 };
 
 describe("compat2.schema", () => {
@@ -51,7 +51,7 @@ describe("compat2.schema", () => {
       compatContractVersion: "compat2",
       lines: [
         {
-          partId: "gpu.rtx4070",
+          partId: "gpu.asus-dual-rtx4070-o12g",
           category: "gpu",
           status: "ok",
           amount: 599,
@@ -60,7 +60,7 @@ describe("compat2.schema", () => {
           dataVersion: "compat2-fixture-draft",
         },
         {
-          partId: "ram.ddr5-32gb-6000",
+          partId: "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
           category: "ram",
           status: "unavailable",
           basis: "phase-2 fixture price; not a live market quote",
@@ -97,7 +97,7 @@ describe("compat2.schema", () => {
       dataVersion: "compat2-fixture-draft",
       rows: [
         {
-          partId: "gpu.rtx4070",
+          partId: "gpu.asus-dual-rtx4070-o12g",
           category: "gpu",
           status: "ok",
           amount: 599,

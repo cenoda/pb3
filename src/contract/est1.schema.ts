@@ -41,8 +41,8 @@ export const estimatorUnavailableReasonSchema = z.enum([
 ]);
 
 export const estimatorQuerySchema = z.object({
-  cpuId: z.literal("cpu.zen4-7600"),
-  gpuId: z.literal("gpu.rtx4070"),
+  cpuId: z.literal("cpu.amd-ryzen-5-7600"),
+  gpuId: z.literal("gpu.asus-dual-rtx4070-o12g"),
   gameId: z.literal("game.cyberpunk-2077"),
   presetId: z.literal("preset.raster-ultra"),
   resolution: estimatorResolutionSchema,

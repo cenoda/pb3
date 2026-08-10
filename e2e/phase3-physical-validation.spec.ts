@@ -3,13 +3,13 @@ import { expect, test, type Page } from "@playwright/test";
 function fullVs2Query(overrides: Record<string, string> = {}): string {
   const p = new URLSearchParams({
     v: "vs2",
-    cpu: "cpu.zen4-7600",
-    gpu: "gpu.rtx4070",
-    case: "case.mid-tower-atx-01",
-    mb: "mb.atx-b650-01",
-    cooler: "cooler.air-twin-tower-01",
-    ram: "ram.ddr5-32gb-6000",
-    psu: "psu.750w-atx",
+    cpu: "cpu.amd-ryzen-5-7600",
+    gpu: "gpu.asus-dual-rtx4070-o12g",
+    case: "case.fractal-design-north-tg-dark",
+    mb: "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+    cooler: "cooler.noctua-nh-d15-g2",
+    ram: "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+    psu: "psu.corsair-rm750e",
     game: "game.cyberpunk-2077",
     preset: "preset.raster-ultra",
     ...overrides,
@@ -56,13 +56,17 @@ test.describe("Phase 3 physical validation scenario", () => {
       .getByTestId("build-viewport")
       .getAttribute("data-assembly-poses");
     expect(poses).toBeTruthy();
-    expect(poses!).toContain("mb.atx-b650-01@0.000,20.000,-40.000");
-    expect(poses!).toContain("cooler.air-twin-tower-01@");
+    expect(poses!).toContain("motherboard.gigabyte-b650-aorus-elite-ax-v2@0.000,20.000,-40.000");
+    expect(poses!).toContain("cooler.noctua-nh-d15-g2@");
 
-    // Logical compatibility remains a separate result
+    // Logical compatibility: chipset-bios unavailable under O6 (D3); physical fit is separate
     await expect(page.getByTestId("compatibility-panel")).toHaveAttribute(
       "data-overall-status",
-      "compatible",
+      "unavailable",
+    );
+    await expect(page.getByTestId("compat-check-chipset-bios")).toHaveAttribute(
+      "data-status",
+      "unavailable",
     );
 
     // Baseline numbers on the surface, recorded so a later regression is visible
@@ -100,7 +104,7 @@ test.describe("Phase 3 physical validation scenario", () => {
     );
 
     // Visual-only fallback → physical unavailable (not box-as-truth fit)
-    await page.getByTestId("ram-part-select").selectOption("ram.ddr5-16gb-7200");
+    await page.getByTestId("ram-part-select").selectOption("ram.gskill-trident-z5-rgb-ddr5-8400");
     await openWhy(page);
     await expect(page.getByTestId("physical-validation-panel")).toHaveAttribute(
       "data-overall-status",
@@ -119,7 +123,7 @@ test.describe("Phase 3 physical validation scenario", () => {
     // Restore supported RAM: fit returns, cooling stays unavailable (empty
     // evidence), and the performance numbers come back unchanged — the proof
     // that withholding them was a presentation rule, not an engine failure.
-    await page.getByTestId("ram-part-select").selectOption("ram.ddr5-32gb-6000");
+    await page.getByTestId("ram-part-select").selectOption("ram.teamgroup-t-create-expert-ddr5-6000-32gb");
     await openWhy(page);
     await expect(page.getByTestId("physical-validation-panel")).toHaveAttribute(
       "data-overall-status",

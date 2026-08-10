@@ -16,22 +16,27 @@ import {
 } from "../state/validateBuildState";
 
 describe("compatibilityChecks", () => {
-  it("default build is fully compatible", async () => {
+  it("default build compat checks pass except chipset-bios (O6 — no BIOS minimum modeled)", async () => {
     const catalog = await loadPartCatalog();
     const report = buildCompatibilityReport(DEFAULT_BUILD_STATE_V2, catalog);
-    expect(report.overallStatus).toBe("compatible");
+    expect(report.overallStatus).toBe("unavailable");
     expect(report.checks).toHaveLength(5);
-    expect(report.checks.every((check) => check.status === "compatible")).toBe(
-      true,
+    const byId = Object.fromEntries(
+      report.checks.map((c) => [c.checkId, c.status]),
     );
+    expect(byId["cpu-socket"]).toBe("compatible");
+    expect(byId["chipset-bios"]).toBe("unavailable");
+    expect(byId["ram-support"]).toBe("compatible");
+    expect(byId["psu-wattage"]).toBe("compatible");
+    expect(byId["case-form-factor"]).toBe("compatible");
   });
 
-  it("cpu-socket reports incompatible for AM5 CPU on AM4 board", async () => {
+  it("cpu-socket reports incompatible for AM5 CPU on LGA1851 board (slot 9 negative)", async () => {
     const catalog = await loadPartCatalog();
     const inputs = resolveCompatibilityInputs(
       {
         ...DEFAULT_BUILD_STATE_V2,
-        motherboardId: "mb.micro-b450-01",
+        motherboardId: "motherboard.asus-tuf-gaming-b860m-plus-wifi",
       },
       catalog,
     );
@@ -45,13 +50,13 @@ describe("compatibilityChecks", () => {
     const inputs = resolveCompatibilityInputs(
       {
         ...DEFAULT_BUILD_STATE_V2,
-        cpuId: "cpu.zen4-7800x3d",
+        cpuId: "cpu.amd-ryzen-7-7800x3d",
       },
       catalog,
     );
     const result = checkChipsetBios(inputs);
     expect(result.status).toBe("unavailable");
-    expect(result.explanation).toContain("cpu.zen4-7800x3d");
+    expect(result.explanation).toContain("cpu.amd-ryzen-7-7800x3d");
   });
 
   it("ram-support is incompatible when kit exceeds motherboard max speed", async () => {
@@ -59,13 +64,13 @@ describe("compatibilityChecks", () => {
     const inputs = resolveCompatibilityInputs(
       {
         ...DEFAULT_BUILD_STATE_V2,
-        ramId: "ram.ddr5-16gb-7200",
+        ramId: "ram.gskill-trident-z5-rgb-ddr5-8400",
       },
       catalog,
     );
     const result = checkRamSupport(inputs);
     expect(result.status).toBe("incompatible");
-    expect(result.explanation).toContain("7200");
+    expect(result.explanation).toContain("8400");
   });
 
   it("psu-wattage is incompatible when draw exceeds PSU capacity", async () => {
@@ -73,9 +78,9 @@ describe("compatibilityChecks", () => {
     const inputs = resolveCompatibilityInputs(
       {
         ...DEFAULT_BUILD_STATE_V2,
-        cpuId: "cpu.zen4-7800x3d",
-        gpuId: "gpu.rtx4080",
-        psuId: "psu.550w-sfx",
+        cpuId: "cpu.amd-ryzen-7-7800x3d",
+        gpuId: "gpu.asus-proart-rtx4080-o16g",
+        psuId: "psu.cooler-master-v550-sfx-gold",
       },
       catalog,
     );
@@ -89,7 +94,7 @@ describe("compatibilityChecks", () => {
     const inputs = resolveCompatibilityInputs(
       {
         ...DEFAULT_BUILD_STATE_V2,
-        caseId: "case.micro-atx-mini-01",
+        caseId: "case.lian-li-a3-matx-black",
       },
       catalog,
     );
@@ -103,8 +108,8 @@ describe("compatibilityChecks", () => {
     const report = buildCompatibilityReport(
       {
         ...DEFAULT_BUILD_STATE_V2,
-        cpuId: "cpu.zen4-7800x3d",
-        motherboardId: "mb.micro-b450-01",
+        cpuId: "cpu.amd-ryzen-7-7800x3d",
+        motherboardId: "motherboard.asus-tuf-gaming-b860m-plus-wifi",
       },
       catalog,
     );
@@ -125,7 +130,7 @@ describe("compatibilityChecks", () => {
 });
 
 describe("fixture integrity", () => {
-  it("loads 13 phase-2 parts with compatSpec where required", async () => {
+  it("loads 13 catalog parts with compatSpec where required", async () => {
     const catalog = await loadPartCatalog();
     expect(catalog.byId.size).toBe(13);
     assertPartCompatFields(catalog);

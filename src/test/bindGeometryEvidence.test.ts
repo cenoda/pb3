@@ -27,7 +27,7 @@ const verifications: HumanVerificationFile = {
   records: [],
 };
 
-const phys3SourceId = "evidence.phys3.synthetic.cpu.zen4-7600";
+const phys3SourceId = "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600";
 
 const physicalSpec: PhysicalSpec = {
   physicalContractVersion: "phys3",
@@ -49,8 +49,8 @@ const geometryFile: GeometryEvidenceFile = {
   rows: [
     {
       provenanceContractVersion: "prov4",
-      evidenceId: "geo.cpu.zen4-7600",
-      partId: "cpu.zen4-7600",
+      evidenceId: "geo.cpu.amd-ryzen-5-7600",
+      partId: "cpu.amd-ryzen-5-7600",
       phys3EvidenceSourceId: phys3SourceId,
       modelGrade: "Experimental",
       geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
@@ -67,7 +67,7 @@ const nowIso = "2026-08-09T00:00:00Z";
 describe("bindGeometryEvidence", () => {
   it("returns not_pilot_part for non-pilot ids", () => {
     const binding = bindGeometryEvidence({
-      partId: "cpu.zen4-7800x3d",
+      partId: "cpu.amd-ryzen-7-7800x3d",
       physicalSpec,
       evidenceFile: geometryFile,
       registry,
@@ -82,7 +82,7 @@ describe("bindGeometryEvidence", () => {
 
   it("returns missing_physical_spec when spec absent", () => {
     const binding = bindGeometryEvidence({
-      partId: "cpu.zen4-7600",
+      partId: "cpu.amd-ryzen-5-7600",
       physicalSpec: undefined,
       evidenceFile: geometryFile,
       registry,
@@ -97,7 +97,7 @@ describe("bindGeometryEvidence", () => {
 
   it("joins on phys3EvidenceSourceId then asserts part/version/grade", () => {
     const binding = bindGeometryEvidence({
-      partId: "cpu.zen4-7600",
+      partId: "cpu.amd-ryzen-5-7600",
       physicalSpec,
       evidenceFile: geometryFile,
       registry,
@@ -113,7 +113,7 @@ describe("bindGeometryEvidence", () => {
 
   it("returns phys3_ref_mismatch when partId diverges after join", () => {
     const binding = bindGeometryEvidence({
-      partId: "gpu.rtx4070",
+      partId: "gpu.asus-dual-rtx4070-o12g",
       physicalSpec: {
         ...physicalSpec,
         evidence: {
@@ -134,7 +134,7 @@ describe("bindGeometryEvidence", () => {
 
   it("returns missing_evidence_row when phys3 id not found", () => {
     const binding = bindGeometryEvidence({
-      partId: "cpu.zen4-7600",
+      partId: "cpu.amd-ryzen-5-7600",
       physicalSpec: {
         ...physicalSpec,
         evidence: {
@@ -155,7 +155,7 @@ describe("bindGeometryEvidence", () => {
 
   it("returns missing_source when registry unresolved", () => {
     const binding = bindGeometryEvidence({
-      partId: "cpu.zen4-7600",
+      partId: "cpu.amd-ryzen-5-7600",
       physicalSpec,
       evidenceFile: {
         ...geometryFile,
@@ -178,7 +178,7 @@ describe("bindGeometryEvidence", () => {
 
   it("returns grade_ceiling_violation when Verified on synthetic-only", () => {
     const binding = bindGeometryEvidence({
-      partId: "cpu.zen4-7600",
+      partId: "cpu.amd-ryzen-5-7600",
       physicalSpec: {
         ...physicalSpec,
         evidence: {
