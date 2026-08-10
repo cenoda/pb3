@@ -66,7 +66,7 @@ describe("phys3 fixture integrity", () => {
     // Simulate an unreferenced collision node in the index
     index.nodesByName.set("collision:orphan", {
       name: "collision:orphan",
-      localMatrix: index.nodesByName.get("collision:cpu-die")!.localMatrix,
+      localMatrix: index.nodesByName.get("socket:motherboard")!.localMatrix,
       translation: [0, 0, 0],
       rotation: [0, 0, 0, 1],
       halfExtentsMm: [1, 1, 1],

@@ -72,23 +72,6 @@
           ]
         },
         {
-          "checkId": "collision:collision:case-floor|collision:cpu-die",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "case.fractal-design-north-tg-dark",
-            "cpu.amd-ryzen-5-7600"
-          ],
-          "involvedNodeNames": [
-            "collision:case-floor",
-            "collision:cpu-die"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
-          ]
-        },
-        {
           "checkId": "collision:collision:case-floor|collision:gpu-body",
           "kind": "collision",
           "status": "fit",
@@ -157,23 +140,6 @@
           ]
         },
         {
-          "checkId": "collision:collision:cpu-die|collision:mb-board",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
-            "cpu.amd-ryzen-5-7600"
-          ],
-          "involvedNodeNames": [
-            "collision:mb-board",
-            "collision:cpu-die"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
-          ]
-        },
-        {
           "checkId": "collision:collision:gpu-body|collision:mb-board",
           "kind": "collision",
           "status": "fit",
@@ -238,74 +204,6 @@
           ],
           "evidenceSourceIds": [
             "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
-            "evidence.phys3.synthetic.psu.corsair-rm750e"
-          ]
-        },
-        {
-          "checkId": "collision:collision:cpu-die|collision:gpu-body",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "cpu.amd-ryzen-5-7600",
-            "gpu.asus-dual-rtx4070-o12g"
-          ],
-          "involvedNodeNames": [
-            "collision:cpu-die",
-            "collision:gpu-body"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
-            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
-          ]
-        },
-        {
-          "checkId": "collision:collision:cooler-body|collision:cpu-die",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "cpu.amd-ryzen-5-7600",
-            "cooler.noctua-nh-d15-g2"
-          ],
-          "involvedNodeNames": [
-            "collision:cpu-die",
-            "collision:cooler-body"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
-            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
-          ]
-        },
-        {
-          "checkId": "collision:collision:cpu-die|collision:ram-kit",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "cpu.amd-ryzen-5-7600",
-            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
-          ],
-          "involvedNodeNames": [
-            "collision:cpu-die",
-            "collision:ram-kit"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
-            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
-          ]
-        },
-        {
-          "checkId": "collision:collision:cpu-die|collision:psu-body",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "cpu.amd-ryzen-5-7600",
-            "psu.corsair-rm750e"
-          ],
-          "involvedNodeNames": [
-            "collision:cpu-die",
-            "collision:psu-body"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
             "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
@@ -426,23 +324,6 @@
           "evidenceSourceIds": [
             "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
             "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2"
-          ]
-        },
-        {
-          "checkId": "clearance:clearance:cooler-sidekeepout|collision:cpu-die",
-          "kind": "clearance",
-          "status": "fit",
-          "involvedPartIds": [
-            "case.fractal-design-north-tg-dark",
-            "cpu.amd-ryzen-5-7600"
-          ],
-          "involvedNodeNames": [
-            "clearance:cooler-sidekeepout",
-            "collision:cpu-die"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
           ]
         },
         {
@@ -587,23 +468,6 @@
           ]
         },
         {
-          "checkId": "collision:collision:case-floor|collision:cpu-die",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "case.fractal-design-north-tg-dark",
-            "cpu.amd-ryzen-5-7600"
-          ],
-          "involvedNodeNames": [
-            "collision:case-floor",
-            "collision:cpu-die"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
-          ]
-        },
-        {
           "checkId": "collision:collision:case-floor|collision:gpu-body",
           "kind": "collision",
           "status": "fit",
@@ -672,23 +536,6 @@
           ]
         },
         {
-          "checkId": "collision:collision:cpu-die|collision:mb-board",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
-            "cpu.amd-ryzen-5-7600"
-          ],
-          "involvedNodeNames": [
-            "collision:mb-board",
-            "collision:cpu-die"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
-          ]
-        },
-        {
           "checkId": "collision:collision:gpu-body|collision:mb-board",
           "kind": "collision",
           "status": "fit",
@@ -753,74 +600,6 @@
           ],
           "evidenceSourceIds": [
             "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
-            "evidence.phys3.synthetic.psu.corsair-rm750e"
-          ]
-        },
-        {
-          "checkId": "collision:collision:cpu-die|collision:gpu-body",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "cpu.amd-ryzen-5-7600",
-            "gpu.asus-dual-rtx4070-o12g"
-          ],
-          "involvedNodeNames": [
-            "collision:cpu-die",
-            "collision:gpu-body"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
-            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
-          ]
-        },
-        {
-          "checkId": "collision:collision:cooler-body|collision:cpu-die",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "cpu.amd-ryzen-5-7600",
-            "cooler.noctua-nh-d15-g2"
-          ],
-          "involvedNodeNames": [
-            "collision:cpu-die",
-            "collision:cooler-body"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
-            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
-          ]
-        },
-        {
-          "checkId": "collision:collision:cpu-die|collision:ram-kit",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "cpu.amd-ryzen-5-7600",
-            "ram.teamgroup-t-create-expert-ddr5-6000-32gb"
-          ],
-          "involvedNodeNames": [
-            "collision:cpu-die",
-            "collision:ram-kit"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
-            "evidence.phys3.synthetic.ram.teamgroup-t-create-expert-ddr5-6000-32gb"
-          ]
-        },
-        {
-          "checkId": "collision:collision:cpu-die|collision:psu-body",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "cpu.amd-ryzen-5-7600",
-            "psu.corsair-rm750e"
-          ],
-          "involvedNodeNames": [
-            "collision:cpu-die",
-            "collision:psu-body"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
             "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
@@ -941,23 +720,6 @@
           "evidenceSourceIds": [
             "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
             "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2"
-          ]
-        },
-        {
-          "checkId": "clearance:clearance:cooler-sidekeepout|collision:cpu-die",
-          "kind": "clearance",
-          "status": "fit",
-          "involvedPartIds": [
-            "case.fractal-design-north-tg-dark",
-            "cpu.amd-ryzen-5-7600"
-          ],
-          "involvedNodeNames": [
-            "clearance:cooler-sidekeepout",
-            "collision:cpu-die"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
           ]
         },
         {
@@ -1109,23 +871,6 @@
           ]
         },
         {
-          "checkId": "collision:collision:case-floor|collision:cpu-die",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "case.fractal-design-north-tg-dark",
-            "cpu.amd-ryzen-5-7600"
-          ],
-          "involvedNodeNames": [
-            "collision:case-floor",
-            "collision:cpu-die"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
-          ]
-        },
-        {
           "checkId": "collision:collision:case-floor|collision:gpu-body",
           "kind": "collision",
           "status": "fit",
@@ -1177,23 +922,6 @@
           ]
         },
         {
-          "checkId": "collision:collision:cpu-die|collision:mb-board",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "motherboard.gigabyte-b650-aorus-elite-ax-v2",
-            "cpu.amd-ryzen-5-7600"
-          ],
-          "involvedNodeNames": [
-            "collision:mb-board",
-            "collision:cpu-die"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
-          ]
-        },
-        {
           "checkId": "collision:collision:gpu-body|collision:mb-board",
           "kind": "collision",
           "status": "fit",
@@ -1241,57 +969,6 @@
           ],
           "evidenceSourceIds": [
             "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2",
-            "evidence.phys3.synthetic.psu.corsair-rm750e"
-          ]
-        },
-        {
-          "checkId": "collision:collision:cpu-die|collision:gpu-body",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "cpu.amd-ryzen-5-7600",
-            "gpu.asus-dual-rtx4070-o12g"
-          ],
-          "involvedNodeNames": [
-            "collision:cpu-die",
-            "collision:gpu-body"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
-            "evidence.phys3.synthetic.gpu.asus-dual-rtx4070-o12g"
-          ]
-        },
-        {
-          "checkId": "collision:collision:cooler-body|collision:cpu-die",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "cpu.amd-ryzen-5-7600",
-            "cooler.noctua-nh-d15-g2"
-          ],
-          "involvedNodeNames": [
-            "collision:cpu-die",
-            "collision:cooler-body"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
-            "evidence.phys3.synthetic.cooler.noctua-nh-d15-g2"
-          ]
-        },
-        {
-          "checkId": "collision:collision:cpu-die|collision:psu-body",
-          "kind": "collision",
-          "status": "fit",
-          "involvedPartIds": [
-            "cpu.amd-ryzen-5-7600",
-            "psu.corsair-rm750e"
-          ],
-          "involvedNodeNames": [
-            "collision:cpu-die",
-            "collision:psu-body"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600",
             "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
         },
@@ -1361,23 +1038,6 @@
           "evidenceSourceIds": [
             "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
             "evidence.phys3.synthetic.motherboard.gigabyte-b650-aorus-elite-ax-v2"
-          ]
-        },
-        {
-          "checkId": "clearance:clearance:cooler-sidekeepout|collision:cpu-die",
-          "kind": "clearance",
-          "status": "fit",
-          "involvedPartIds": [
-            "case.fractal-design-north-tg-dark",
-            "cpu.amd-ryzen-5-7600"
-          ],
-          "involvedNodeNames": [
-            "clearance:cooler-sidekeepout",
-            "collision:cpu-die"
-          ],
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
-            "evidence.phys3.synthetic.cpu.amd-ryzen-5-7600"
           ]
         },
         {

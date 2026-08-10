@@ -337,7 +337,6 @@ for (const cpuId of ["cpu.amd-ryzen-5-7600", "cpu.amd-ryzen-7-7800x3d"]) {
   const color = cpuId.includes("7800") ? [0.7, 0.2, 0.2] : [0.6, 0.35, 0.15];
   authorPart(`parts/cpu/${cpuId}`, color, [
     { kind: "box", name: `visual:${cpuId}`, hx: 20, hy: 2, hz: 20, translation: [0, 2, 0] },
-    { kind: "box", name: "collision:cpu-die", hx: 20, hy: 2, hz: 20, translation: [0, 2, 0] },
     { kind: "empty", name: "socket:motherboard", translation: [0, 0, 0] },
   ]);
 }

@@ -63,9 +63,7 @@
         ]
       }
     ],
-    "collisionNodes": [
-      "collision:cpu-die"
-    ],
+    "collisionNodes": [],
     "clearanceNodes": []
   }
 }

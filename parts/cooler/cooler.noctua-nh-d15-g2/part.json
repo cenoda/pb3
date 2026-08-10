@@ -68,13 +68,6 @@
     "collisionNodes": [
       "collision:cooler-body"
     ],
-    "clearanceNodes": [],
-    "allowedContacts": [
-      {
-        "collisionNodeA": "collision:cooler-body",
-        "collisionNodeB": "collision:cpu-die",
-        "reason": "intended cooler base contact over CPU package"
-      }
-    ]
+    "clearanceNodes": []
   }
 }
