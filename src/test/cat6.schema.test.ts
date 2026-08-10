@@ -63,6 +63,28 @@ const sampleDimensionsMm = {
     "Three unlabeled figures read as length, height, and thickness by graphics-card convention.",
 };
 
+const sampleClearanceLimits = {
+  raw: "GPU max length: 355 mm with and without front fan mounted",
+  maxGpuLength: [
+    { limitMm: 355, condition: "with and without front fan mounted" },
+  ],
+};
+
+const casePartBase = {
+  contractVersion: "cat6" as const,
+  id: "case.fractal-design-north-tg-dark",
+  category: "case" as const,
+  displayName: "Fractal Design North Black TG Dark",
+  identity: {
+    manufacturer: "Fractal Design",
+    modelName: "North Black TG Dark",
+  },
+  modelGlbPath: "parts/case/case.fractal-design-north-tg-dark/model.glb",
+  provenance: {
+    identity: identityProvenance,
+  },
+};
+
 describe("cat6.schema", () => {
   it("accepts a minimal valid cat6 part", () => {
     expect(partDefinitionV3Schema.safeParse(minimalValidPart).success).toBe(true);
@@ -275,6 +297,100 @@ describe("cat6.schema", () => {
       },
     });
     expect(parsed.success).toBe(false);
+  });
+
+  it("accepts a part with clearanceLimits and provenance.clearanceLimits", () => {
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...casePartBase,
+      clearanceLimits: sampleClearanceLimits,
+      provenance: {
+        identity: identityProvenance,
+        clearanceLimits: identityProvenance,
+      },
+    });
+    expect(parsed.success).toBe(true);
+  });
+
+  it("rejects clearanceLimits without provenance.clearanceLimits", () => {
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...casePartBase,
+      clearanceLimits: sampleClearanceLimits,
+    });
+    expect(parsed.success).toBe(false);
+  });
+
+  it("rejects provenance.clearanceLimits without clearanceLimits", () => {
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...casePartBase,
+      provenance: {
+        identity: identityProvenance,
+        clearanceLimits: identityProvenance,
+      },
+    });
+    expect(parsed.success).toBe(false);
+  });
+
+  it("rejects an empty limits array", () => {
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...casePartBase,
+      clearanceLimits: {
+        raw: "GPU max length: 355 mm",
+        maxGpuLength: [],
+      },
+      provenance: {
+        identity: identityProvenance,
+        clearanceLimits: identityProvenance,
+      },
+    });
+    expect(parsed.success).toBe(false);
+  });
+
+  it("rejects a non-positive limitMm", () => {
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...casePartBase,
+      clearanceLimits: {
+        raw: "GPU max length: 0 mm",
+        maxGpuLength: [{ limitMm: 0 }],
+      },
+      provenance: {
+        identity: identityProvenance,
+        clearanceLimits: identityProvenance,
+      },
+    });
+    expect(parsed.success).toBe(false);
+  });
+
+  it("accepts a ClearanceLimit with no condition", () => {
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...casePartBase,
+      clearanceLimits: {
+        raw: "GPU max length: 355 mm",
+        maxGpuLength: [{ limitMm: 355 }],
+      },
+      provenance: {
+        identity: identityProvenance,
+        clearanceLimits: identityProvenance,
+      },
+    });
+    expect(parsed.success).toBe(true);
+  });
+
+  it("accepts two limits for the same measurement with different conditions", () => {
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...casePartBase,
+      clearanceLimits: {
+        raw: "PSU max length: 1 HDD Tray: 255 mm max, 2 HDD Tray: 155 mm max",
+        maxPsuLength: [
+          { limitMm: 255, condition: "1 HDD Tray" },
+          { limitMm: 155, condition: "2 HDD Tray" },
+        ],
+      },
+      provenance: {
+        identity: identityProvenance,
+        clearanceLimits: identityProvenance,
+      },
+    });
+    expect(parsed.success).toBe(true);
   });
 
   it("rejects an incomplete image object", () => {

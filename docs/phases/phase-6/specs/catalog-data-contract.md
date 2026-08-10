@@ -76,6 +76,7 @@ export interface CatalogProvenance {
   identity: CatalogSourceRef;
   compatSpec?: CatalogSourceRef;
   dimensions?: CatalogSourceRef;
+  clearanceLimits?: CatalogSourceRef;
   performanceSpec?: CatalogSourceRef;
   msrp?: CatalogSourceRef;
   streetPrice?: CatalogSourceRef;
@@ -133,6 +134,38 @@ export interface PerformanceSpec {
   powerLimitBasis?: string;
 }
 
+/** One published clearance limit, with the condition it holds under. */
+export interface ClearanceLimit {
+  /** The limit in mm. */
+  limitMm: number;
+  /**
+   * The vendor's printed condition, verbatim. Absent when the vendor states the
+   * limit unconditionally.
+   *
+   * Free text for now. A machine-readable key is deliberately not invented
+   * here: no configuration model exists yet to name conditions against, and
+   * guessing a vocabulary before the configurations are known would be the
+   * same error as guessing a spec.
+   */
+  condition?: string;
+}
+
+/**
+ * Internal clearance limits a case vendor publishes. These, not `dimensionsMm`,
+ * are what physical validation needs: `dimensionsMm` is the external box, and
+ * fit is decided by the internal envelope. Arrays, because vendors publish
+ * limits that vary by configuration — one real page states PSU length as
+ * "1 HDD Tray: 255 mm max, 2 HDD Tray: 155 mm max". These are alternatives,
+ * not simultaneous constraints.
+ */
+export interface CaseClearanceLimits {
+  maxGpuLength?: ClearanceLimit[];
+  maxCpuCoolerHeight?: ClearanceLimit[];
+  maxPsuLength?: ClearanceLimit[];
+  /** The vendor's printed lines for this block, verbatim. */
+  raw: string;
+}
+
 /**
  * Defined for Phase 7. No part populates this in Phase 6: an image file needs a
  * source-specific rights decision that does not exist yet (ADR-004 leaves the
@@ -156,6 +189,7 @@ export interface PartDefinitionV3 {
   identity: PartIdentity;
   modelGlbPath: string;
   dimensionsMm?: DimensionsMm;
+  clearanceLimits?: CaseClearanceLimits;
   performanceSpec?: PerformanceSpec;
   provenance: CatalogProvenance;
   image?: CatalogImageRef;
@@ -325,6 +359,8 @@ Rules:
 | **C9** | **`biosMinVersionForCpu` is not populated** (**O6**). Socket compatibility only. `checkChipsetBios` already reports `unavailable` when the map is absent, so no engine changes. |
 | **C10** | **A SKU does not inherit its chip's numbers into `performanceSpec`.** That group exists to record how this SKU differs from others built on the same chip; filling it from a reference figure erases exactly that. If the board partner does not publish a value, the `performanceSpec` field is absent. **`compatSpec` is different:** it feeds compatibility checks, its fields are chip-level facts, and a chip-vendor figure is a real published fact. It may be recorded, cited to the chip vendor rather than the board partner, and the registry source must record any scope caveat the chip vendor states. |
 | **C11** | **Dimensions are product-relative, not scene axes.** `dimensionsMm` stores the vendor's printed string (`raw`), principal-dimension numbers (`lengthMm` / `heightMm` / `thicknessMm`), and the assignment rationale (`assignmentBasis`). Mapping product axes to phys3 scene axes (+X/+Y/+Z) is owned by the Step 6 geometry generator, once per category — not buried inside a field that is supposed to be a quotation. |
+| **C12** | **A limit whose published condition scopes it to a different SKU is not recorded.** One real page lists a cooler height of "145 mm with Fan Bracket (Mesh version only) / 170 mm w.o" on the tempered-glass product's own page; for the tempered-glass SKU only the 170 mm figure applies, and the 145 mm figure is omitted rather than stored with a condition that can never hold. This is **O3**'s SKU granularity applied to clearance. |
+| **C13** | **Conditional limits are preserved, not collapsed.** When a vendor publishes several limits that apply to the catalogued SKU under different configurations, every one is recorded with its condition. They are alternatives, and reducing them to a single number silently picks a configuration on the user's behalf. **Evaluation semantics** (normative for any consumer): if the deciding configuration is known, use the limit for that condition; if it is not modelled or cannot be determined, evaluate every applicable limit; if the verdict is the same under all of them, report that verdict; if the verdict differs by condition, the result is **undecided by configuration** — report it as such, naming the conditions and their limits, and do not pick one; the most restrictive limit is a fallback only where a single scalar is structurally required and no configuration is known. Worked example: a 200 mm PSU against "1 HDD Tray: 255 mm / 2 HDD Tray: 155 mm" fits with one tray, does not fit with two, so with the tray configuration unmodelled the answer is undecided by configuration — not "incompatible", which would reject a build the user can actually assemble. **Scope note:** `PhysicalValidationStatus` is `"fit" \| "interference" \| "unavailable"`, with no `conditional` member, and Phase 6 changes no phys3 type. In this phase the undecided-by-configuration outcome is carried by the existing `unavailable` status, whose explanation names each condition and its limit. A distinct `conditional` status is a phys3 contract change plus display work, and belongs to a later phase. |
 
 ---
 
@@ -337,10 +373,12 @@ Schema (`src/contract/cat6.schema.ts`) — structural, per file:
 - `displayName` non-empty and not matching `/\(fixture\)/`
 - `id` matching the §3 pattern, category prefix equal to `category`
 - `provenance.identity` required; group-presence refinement in both directions
-  for `compatSpec`, `dimensionsMm`, `performanceSpec`
+  for `compatSpec`, `dimensionsMm`, `clearanceLimits`, `performanceSpec`
 - every `retrievedAt` / `releasedAt` / `publishedAt` an ISO-8601 date
 - `dimensionsMm`: `lengthMm` / `heightMm` / `thicknessMm` finite and `> 0`;
   `raw` and `assignmentBasis` non-empty strings
+- `clearanceLimits`: `limitMm` finite and `> 0`; `condition` non-empty when
+  present; `raw` non-empty; each limit array non-empty when present
 - `performanceSpec` numbers finite and `> 0`; `boostClockBasis` /
   `powerLimitBasis` non-empty when present
 - `image`, if present, complete

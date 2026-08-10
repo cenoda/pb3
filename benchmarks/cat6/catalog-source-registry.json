@@ -18,6 +18,14 @@
       "origin": "NVIDIA GeForce RTX 40 Series product page",
       "citation": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4070-family/",
       "notes": "Total Graphics Power 200 W. NVIDIA states the table describes the Founders Edition / reference design and that add-in-board specifications may vary by manufacturer. This figure is therefore chip-level, not an ASUS-published board figure."
+    },
+    {
+      "sourceId": "source.cat6.fractal-design.north-tg-dark.product",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "Fractal Design North (Black TG Dark) - specifications",
+      "origin": "Fractal Design product page",
+      "citation": "https://www.fractal-design.com/products/cases/north/north/black-tg-dark/"
     }
   ]
 }

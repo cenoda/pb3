@@ -56,6 +56,20 @@ export const performanceSpecSchema = z.object({
   powerLimitBasis: nonEmptyString.optional(),
 });
 
+export const clearanceLimitSchema = z.object({
+  limitMm: positiveFiniteNumber,
+  condition: nonEmptyString.optional(),
+});
+
+const nonEmptyClearanceLimitArray = z.array(clearanceLimitSchema).min(1);
+
+export const caseClearanceLimitsSchema = z.object({
+  maxGpuLength: nonEmptyClearanceLimitArray.optional(),
+  maxCpuCoolerHeight: nonEmptyClearanceLimitArray.optional(),
+  maxPsuLength: nonEmptyClearanceLimitArray.optional(),
+  raw: nonEmptyString,
+});
+
 export const catalogImageRefSchema = z.object({
   path: nonEmptyString,
   sourceId: nonEmptyString,
@@ -67,6 +81,7 @@ export const catalogProvenanceSchema = z.object({
   identity: catalogSourceRefSchema,
   compatSpec: catalogSourceRefSchema.optional(),
   dimensions: catalogSourceRefSchema.optional(),
+  clearanceLimits: catalogSourceRefSchema.optional(),
   performanceSpec: catalogSourceRefSchema.optional(),
   msrp: catalogSourceRefSchema.optional(),
   streetPrice: catalogSourceRefSchema.optional(),
@@ -85,21 +100,28 @@ function refineGroupPresence(
   part: {
     compatSpec?: unknown;
     dimensionsMm?: unknown;
+    clearanceLimits?: unknown;
     performanceSpec?: unknown;
     provenance: {
       compatSpec?: unknown;
       dimensions?: unknown;
+      clearanceLimits?: unknown;
       performanceSpec?: unknown;
     };
   },
   ctx: z.RefinementCtx,
 ): void {
   const pairs: Array<{
-    field: "compatSpec" | "dimensionsMm" | "performanceSpec";
-    provenanceKey: "compatSpec" | "dimensions" | "performanceSpec";
+    field: "compatSpec" | "dimensionsMm" | "clearanceLimits" | "performanceSpec";
+    provenanceKey:
+      | "compatSpec"
+      | "dimensions"
+      | "clearanceLimits"
+      | "performanceSpec";
   }> = [
     { field: "compatSpec", provenanceKey: "compatSpec" },
     { field: "dimensionsMm", provenanceKey: "dimensions" },
+    { field: "clearanceLimits", provenanceKey: "clearanceLimits" },
     { field: "performanceSpec", provenanceKey: "performanceSpec" },
   ];
 
@@ -135,6 +157,7 @@ export const partDefinitionV3Schema = z
     identity: partIdentitySchema,
     modelGlbPath: nonEmptyString,
     dimensionsMm: dimensionsMmSchema.optional(),
+    clearanceLimits: caseClearanceLimitsSchema.optional(),
     performanceSpec: performanceSpecSchema.optional(),
     provenance: catalogProvenanceSchema,
     image: catalogImageRefSchema.optional(),

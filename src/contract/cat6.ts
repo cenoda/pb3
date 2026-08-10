@@ -64,6 +64,7 @@ export interface CatalogProvenance {
   identity: CatalogSourceRef;
   compatSpec?: CatalogSourceRef;
   dimensions?: CatalogSourceRef;
+  clearanceLimits?: CatalogSourceRef;
   performanceSpec?: CatalogSourceRef;
   msrp?: CatalogSourceRef;
   streetPrice?: CatalogSourceRef;
@@ -114,6 +115,38 @@ export interface PerformanceSpec {
   powerLimitBasis?: string;
 }
 
+/** One published clearance limit, with the condition it holds under. */
+export interface ClearanceLimit {
+  /** The limit in mm. */
+  limitMm: number;
+  /**
+   * The vendor's printed condition, verbatim. Absent when the vendor states the
+   * limit unconditionally.
+   *
+   * Free text for now. A machine-readable key is deliberately not invented
+   * here: no configuration model exists yet to name conditions against, and
+   * guessing a vocabulary before the configurations are known would be the same
+   * error as guessing a spec.
+   */
+  condition?: string;
+}
+
+/**
+ * Internal clearance limits a case vendor publishes. These, not `dimensionsMm`,
+ * are what physical validation needs: `dimensionsMm` is the external box, and
+ * fit is decided by the internal envelope. Arrays, because vendors publish
+ * limits that vary by configuration — one real page states PSU length as
+ * "1 HDD Tray: 255 mm max, 2 HDD Tray: 155 mm max". These are alternatives,
+ * not simultaneous constraints.
+ */
+export interface CaseClearanceLimits {
+  maxGpuLength?: ClearanceLimit[];
+  maxCpuCoolerHeight?: ClearanceLimit[];
+  maxPsuLength?: ClearanceLimit[];
+  /** The vendor's printed lines for this block, verbatim. */
+  raw: string;
+}
+
 /**
  * Defined for Phase 7. No part populates this in Phase 6: an image file needs a
  * source-specific rights decision that does not exist yet (ADR-004 leaves the
@@ -137,6 +170,7 @@ export interface PartDefinitionV3 {
   identity: PartIdentity;
   modelGlbPath: string;
   dimensionsMm?: DimensionsMm;
+  clearanceLimits?: CaseClearanceLimits;
   performanceSpec?: PerformanceSpec;
   provenance: CatalogProvenance;
   image?: CatalogImageRef;

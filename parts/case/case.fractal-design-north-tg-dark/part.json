@@ -1,0 +1,64 @@
+{
+  "contractVersion": "cat6",
+  "id": "case.fractal-design-north-tg-dark",
+  "category": "case",
+  "displayName": "Fractal Design North Black TG Dark",
+  "identity": {
+    "manufacturer": "Fractal Design",
+    "modelName": "North Black TG Dark"
+  },
+  "modelGlbPath": "parts/case/case.fractal-design-north-tg-dark/model.glb",
+  "dimensionsMm": {
+    "raw": "447 x 215 x 469 mm",
+    "lengthMm": 447,
+    "heightMm": 469,
+    "thicknessMm": 215,
+    "assignmentBasis": "Fractal Design labels the figures (LxWxH), so the assignment is quoted, not inferred. The page also lists 433.5 x 215 x 450 mm without feet, protrusions and screws; the primary figure is recorded here."
+  },
+  "clearanceLimits": {
+    "raw": "GPU max length: 355 mm with and without front fan mounted | CPU cooler max height: 145 mm with Fan Bracket (Mesh version only)/ 170 mm w.o | PSU max length: 1 HDD Tray: 255 mm max, 2 HDD Tray: 155 mm max",
+    "maxGpuLength": [
+      {
+        "limitMm": 355,
+        "condition": "with and without front fan mounted"
+      }
+    ],
+    "maxCpuCoolerHeight": [
+      {
+        "limitMm": 170,
+        "condition": "without Fan Bracket"
+      }
+    ],
+    "maxPsuLength": [
+      {
+        "limitMm": 255,
+        "condition": "1 HDD Tray"
+      },
+      {
+        "limitMm": 155,
+        "condition": "2 HDD Tray"
+      }
+    ]
+  },
+  "compatSpec": {
+    "supportedFormFactors": ["ATX", "Micro-ATX"]
+  },
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.fractal-design.north-tg-dark.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.fractal-design.north-tg-dark.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "clearanceLimits": {
+      "sourceId": "source.cat6.fractal-design.north-tg-dark.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.fractal-design.north-tg-dark.product",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}

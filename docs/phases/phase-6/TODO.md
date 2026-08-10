@@ -53,3 +53,8 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
   that requires (**O2**)
 - **Performance coverage** — the `est1` formula that makes most of the catalog
   answerable; needs a Phase 4 / 4.1 unfreeze decision (**O1**)
+- **`conditional` physical-validation status** — when clearance limits are
+  configuration-dependent and the configuration is unmodelled, **C13** carries
+  the undecided-by-configuration outcome through existing `unavailable` +
+  explanation in Phase 6; a distinct `PhysicalValidationStatus` member and any
+  display work belong to a later phase with their own decision

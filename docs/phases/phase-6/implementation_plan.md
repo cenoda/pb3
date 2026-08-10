@@ -105,6 +105,10 @@ boxes; the hardcoded half-extents and the engineered
 `clearance:cooler-sidekeepout` tuning are removed. The generator owns the
 per-category mapping from product-relative `dimensionsMm` fields to phys3 scene
 axes (+X/+Y/+Z); that mapping is not stored in `part.json` (see contract **C11**).
+For cases, the generator also derives clearance volumes from `clearanceLimits`
+under **C13**, replacing the hand-authored clearance node; where limits are
+conditional and the configuration is unmodelled, the step produces the
+`unavailable` outcome described in **C13** rather than choosing a configuration.
 New `geometryDataVersion: "cat6-spec-⟨date⟩"`; `modelGrade` stays `Experimental`
 (**C5**).
 
