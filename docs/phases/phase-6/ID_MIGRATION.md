@@ -381,11 +381,37 @@ parts, and no part in this build is one.
 |---|------|------|
 | B1 | **D2** `maxMemorySpeedMtS` rule written into `cat6` | Before Step 4 authors **any** motherboard |
 | B2 | **D1** negative-fixture exception written into `cat6` / `specs/phase-6.md` | Before slot 9 is authored |
-| B3 | **D4** three-outcome C13 + `conditional` in `PhysicalValidationStatus` | **Candidate blocker before Step 6.** A phys3 contract change plus display propagation; needs its own decision. **Not resolved by slot 14** |
+| B3 | **D4** three-outcome C13 + `conditional` in `PhysicalValidationStatus`, **and branch filtering** (below) | **Candidate blocker before Step 6.** A phys3 contract change plus display propagation; needs its own decision. **Not resolved by slot 14** |
 | B4 | **D3** F4 permanent-caution resolution | Bounded step of its own. Does **not** gate Steps 3–4 |
 | B5 | Slot 14 selection | ✅ **Closed** — GIGABYTE B650M AORUS ELITE AX Rev. 1.3, approved 2026-08-10 |
 | B6 | **I6** sourcing (cooler RAM clearance + module height) | **Source identified, pending provenance recording.** Closes when both citations and retrieval dates are in the registry (Step 4) — not before |
-| B7 | **I9** — which PSU the **I8** demonstration build uses | Step 4, once slot 2's published GPU- and PSU-length limits are read |
+| B7 | **I9** — which PSU the **I8** demonstration build uses | ✅ **Closed** — slot 10 (Corsair RM750e, 140 mm ATX); slot 2 supports ATX up to 220 mm |
+
+### B3, second half — branch filtering, found while authoring slot 2
+
+`ClearanceLimit.condition` is free text, deliberately (**C13**: no configuration
+model exists to name conditions against). Slot 2 is the first part where that
+costs something measurable.
+
+Six of its fourteen GPU-length branches are conditioned on the PSU's own length —
+`ATX PSU >150mm`, `ATX PSU >140mm`, `ATX PSU <=140mm`, and so on. With slot 10's
+140 mm unit selected, the `>150mm` and `>140mm` branches **cannot apply to the
+build at all**, but no evaluator can determine that: the predicate is inside a
+string.
+
+For this fixture it happens not to matter. The 258 mm `S2` and `S3` branches carry
+no PSU predicate, fail independently, and the verdict is `conditional` either way.
+**That is a coincidence of this case, not a property of the design.** A case whose
+only failing branches are PSU-length-conditioned would be reported `conditional`
+when the selected PSU makes it an unambiguous `fit` — a false `conditional`, which
+is the same class of error as the `unavailable`-means-blocked problem **D4** was
+written to fix.
+
+So adding the `conditional` status alone is not sufficient. Whatever step resolves
+**B3** has to decide whether conditions stay free text (and the status is reported
+more often than the facts warrant) or gain enough structure to be filtered against
+a build. **This does not change B3's timing** — it remains a candidate blocker
+before Step 6, for the reason it already was.
 
 ---
 
