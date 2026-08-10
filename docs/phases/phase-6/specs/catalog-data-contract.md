@@ -256,13 +256,20 @@ Ids are **SKU-level** and are assigned once, in the migration step (scope §4).
 ```
 
 - `gpu.asus-dual-rtx4070-o12g`
-- `mb.asus-tuf-b650-plus-wifi`
+- `motherboard.asus-tuf-b650-plus-wifi`
 - `cpu.amd-ryzen5-7600`
+
+The prefix is the **literal `PartCategoryV2` value** — `motherboard`, not `mb`.
+The fixture catalog abbreviated it, which would force an abbreviation map into
+code and break the folder-equals-category integrity check for no gain. Verbosity
+is free here: nothing but a diff reader ever looks at an id.
 
 Rules:
 
 - Lowercase, ASCII, dot separating the category, hyphens inside.
 - The category prefix must equal `category`, and the folder name must equal `id`.
+- The suffix matches `^[a-z0-9]+(?:-[a-z0-9]+)+$` — at least two hyphen-separated
+  segments, so a bare vendor name is not a valid id.
 - Ids stay **opaque to code**: nothing parses vendor, chip, or platform out of an
   id string. The convention is for humans reading a diff.
 - Once the migration lands, an id is stable. Renaming again breaks every share
