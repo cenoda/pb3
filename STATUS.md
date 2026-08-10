@@ -117,7 +117,13 @@
 9. **Phase 4.1 (`est1`)** — M0 combination estimator **implemented
    (2026-08-09)** — O1–O9 locked; sidecar only; temporary draft caveat —
    [`docs/phases/phase-4.1/`](docs/phases/phase-4.1/)
-10. **Phase 5+** — not planned; requires separate M0 after the above gates
+10. ~~**Phase 5 (제품 표면)**~~ → **완료 · 소유자 승인 (2026-08-09)** —
+    [`docs/phases/phase-5/`](docs/phases/phase-5/)
+11. **Phase 6 (실제 부품 카탈로그, `cat6`)** — M0 초안 작성 (2026-08-10);
+    **O1–O8 미결 · 소유자 수락 전 구현 금지** —
+    [`docs/phases/phase-6/`](docs/phases/phase-6/)
+12. **Phase 7 (카탈로그 브라우저 + 이미지)** — 미계획; Phase 6 종료 및 이미지
+    권리 ADR 이후 별도 M0 필요
 
 ## Phase 0 종료 승인 (2026-08-08)
 
@@ -407,3 +413,23 @@ Carried out of the phase (judged out of scope, not overlooked): no part photos
 (no image field in the part contract), selection is a dropdown rather than a
 browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
 **real parts catalog**, which is not started in this session.
+
+## Phase 6 — Real parts catalog (M0 drafted 2026-08-10; O1–O8 locked; package not accepted)
+
+| 항목 | 상태 |
+|------|------|
+| Home | [`docs/phases/phase-6/`](docs/phases/phase-6/) |
+| Scope | [`specs/phase-6.md`](docs/phases/phase-6/specs/phase-6.md) — data only; display layer read-only, engine logic read-only |
+| Contract | [`catalog-data-contract.md`](docs/phases/phase-6/specs/catalog-data-contract.md) — `cat6`: SKU identity, `dimensionsMm`, `performanceSpec` (boost clock / power limit), per-group provenance, image **fields only**, manifest, MSRP + street snapshot |
+| Plan | [`implementation_plan.md`](docs/phases/phase-6/implementation_plan.md) — Steps 1–12, "source first, data second" |
+| Shape | 카탈로그 데이터만 (브라우저는 Phase 7) · ≈30개 소수 정예 · AM5/DDR5 단일 · 이미지는 계약만 |
+| Owner decisions | **O1–O8 locked (2026-08-10)** — spec §7 |
+| Owner acceptance | **Not given.** Implementation not authorized |
+| Gate | Owner picks 3 parts at random and traces every engine-consumed field to a citation in one hop |
+| **O1 — accepted consequence** | `perf1` covers 2 CPUs × 2 GPUs and Phase 4.1 (the attempt to close that gap) is frozen, so **most valid builds show no FPS**. The surface states the combination estimator is **in preparation**, via `src/perf/**` reason strings — no UI change |
+| **O3/O4 — id migration** | Fixture ids are **retired**; ids become **SKU-level** (`gpu.asus-dual-rtx4070-o12g`). ASUS vs MSI differ in dimensions *and* clocks/power, so `cat6` records both. One-time repo-wide migration with `ID_MIGRATION.md` + a guard asserting no legacy id remains |
+| **Share links** | **Break once, deliberately.** The URL carries part ids; old links open on the default build (lenient decoder), not an error |
+| **O5 — price** | MSRP **and** dated domestic street snapshot, manually curated. Street drives the total; MSRP is never summed; missing street → `unavailable` + `isPartial` |
+| **O6 — BIOS** | Not considered. Socket compatibility only; `checkChipsetBios` already returns `unavailable` without the map, so no engine change |
+| **O2 — platform** | AM5/DDR5 only, **temporary narrowing**. LGA1851 / LGA1700 / AM4 intended later; that will require a deliberate versioned widening of `compat2`'s DDR5 and form-factor literals |
+| Phase 4 / 4.1 | Still frozen. Three mechanical carve-outs only: `prov4` pilot ids + geometry version, `perf1` fixture ids, and `src/perf/**` unavailable reason wording |

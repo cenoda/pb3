@@ -10,7 +10,7 @@ This file is the **repository-level agent brief**. Aria (Grok Build), Lira (Clau
 |------|--------|
 | Repository contents | **Phase 0–3 app, docs, and fixtures** — Vite/React/R3F SPA under `src/`, 13-part catalog and fixtures at repo-root `parts/` + `benchmarks/` |
 | Implementation | **Phase 0–3 complete**; Phase 4 external-evidence + **Phase 4.1 `est1` M0 + AMD specs catalog harvest** shipped (2026-08-09) |
-| Current planning gate | **Phase 4 + 4.1 frozen (owner, 2026-08-09)** — see `docs/phases/phase-4/FREEZE.md`; Step 9 / full sim not claimed; **Phase 5 may proceed in parallel** (separate M0; do not silently break `prov4`/`est1`) |
+| Current planning gate | **Phase 6 M0 drafted (2026-08-10), O1–O8 locked, package not yet accepted** — `docs/phases/phase-6/`; no implementation until explicit owner acceptance + start instruction. Phase 5 complete (owner-approved 2026-08-09). **Phase 4 + 4.1 remain frozen** — see `docs/phases/phase-4/FREEZE.md`; Step 9 / full sim not claimed; do not silently break `prov4`/`est1` |
 | Stack / runtime / tooling | **Locked** (ADR-001–003) + **Playwright** for exit-scenario E2E |
 | License | Code + data + project-authored synthetic fixture GLBs: **Apache-2.0** (ADR-004); third-party/manufacturer-derived real-hardware GLBs still require a separate source-specific decision |
 | Tag `vertical-slice-v0` | **Created and pushed** after owner-authorized Phase 0 PASS |
