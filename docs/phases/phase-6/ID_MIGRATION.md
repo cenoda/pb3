@@ -255,17 +255,31 @@ NH-D15 G2 dual-fan RAM limit   32 mm   (Noctua, out-of-box configuration)
         168 ≤ 170  →  I2's 2 mm clearance holds
 ```
 
-**Source pair identified; not yet recorded.** Both figures come from
-manufacturer pages, but neither is in
-`benchmarks/cat6/catalog-source-registry.json` yet, so this is a derivation with
-its citations pending — not a verified one. Step 4 re-reads both pages and records
-citation plus retrieval date; **B6** closes at that moment and not before. If
-either figure differs from what is written here, **RK3** applies: the part or the
-invariant is re-decided, the numbers are not adjusted to preserve the conclusion.
+**Both citations are recorded — B6 is closed.** Neither figure is an expectation
+any more:
 
-Note the margin is **exactly zero** — `32 ≤ 32`. Any correction upward on the
-module height, or downward on the cooler's clearance, breaks the invariant with no
-slack at all.
+| Figure | Where it lives | Source |
+|---|---|---|
+| Module height 32 mm | `ram.teamgroup-t-create-expert-ddr5-6000-32gb` → `dimensionsMm.heightMm`, with `provenance.dimensions` | `source.cat6.teamgroup.t-create-expert-ddr5-6000-32gb.product` — publishes all three axes labelled, `32(H) × 133(L) × 7(W) mm` |
+| RAM clearance 32 mm, cooler height 168 mm, and the raise-increases-height rule | `cooler.noctua-nh-d15-g2` → `notes` (cat6 has no field for a cooler's RAM clearance), height in `dimensionsMm.heightMm` with provenance | `source.cat6.noctua.nh-d15-g2-ram-faq` and `source.cat6.noctua.nh-d15-g2.specifications` |
+
+Noctua states the mechanism directly rather than leaving it to be inferred: the
+out-of-box clearance is 32 mm at the default 168 mm height, and raising the front
+fan for taller memory raises the cooler by the same amount — its own worked example
+is 35 mm memory giving a 171 mm cooler.
+
+The arithmetic runs on authored data in
+`src/test/cat6.batch.invariants.test.ts`, which reads the module height from the
+memory part and the cooler height from the cooler part rather than restating
+either. **RK3 still governs a correction:** if a re-read changes a figure, the part
+or the invariant is re-decided — the numbers are not adjusted to preserve the
+conclusion — and the test fails rather than drifting.
+
+The margin is **exactly zero** — `32 ≤ 32`. Any correction upward on the module
+height, or downward on the cooler's clearance, breaks the invariant with no slack
+at all. That is a property of the selection, not of the evidence, and it is why the
+equality is asserted explicitly rather than as an inequality that would pass on a
+wrong number.
 
 ### I7 — `case-form-factor` negative
 
@@ -384,7 +398,7 @@ parts, and no part in this build is one.
 | B3 | **D4** three-outcome C13 + `conditional` in `PhysicalValidationStatus`, **and branch filtering** (below) | **Candidate blocker before Step 6.** A phys3 contract change plus display propagation; needs its own decision. **Not resolved by slot 14** |
 | B4 | **D3** F4 permanent-caution resolution | Bounded step of its own. Does **not** gate Steps 3–4 |
 | B5 | Slot 14 selection | ✅ **Closed** — GIGABYTE B650M AORUS ELITE AX Rev. 1.3, approved 2026-08-10 |
-| B6 | **I6** sourcing (cooler RAM clearance + module height) | **Source identified, pending provenance recording.** Closes when both citations and retrieval dates are in the registry (Step 4) — not before |
+| B6 | **I6** sourcing (cooler RAM clearance + module height) | ✅ **Closed 2026-08-10** — both citations recorded; **I6** derived from authored data. See below |
 | B7 | **I9** — which PSU the **I8** demonstration build uses | ✅ **Closed** — slot 10 (Corsair RM750e, 140 mm ATX); slot 2 supports ATX up to 220 mm |
 | B8 | **CPU package dimensions** — no public AMD product page publishes them, but exit condition 4 wants every physical-core part's box derived from cited dimensions | Before Step 6. Found authoring slot 4; see below |
 | B9 | **`MotherboardCompatSpec.maxMemorySpeedMtS` is required**, which blocked slot 9 from carrying a `compatSpec` at all | ✅ **Closed** — field made optional; slot 9's `cpu-socket` negative verified restored |
