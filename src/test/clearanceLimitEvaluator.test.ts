@@ -480,6 +480,29 @@ describe("integrated physical report clearance limits", () => {
     ).toBe(true);
   });
 
+  it("O7 witness build reports cooler interference via slot 14 on A3-mATX", () => {
+    const { catalog, indexes } = loadCatalogAndIndexes();
+    const build = {
+      ...DEFAULT_BUILD_STATE_V2,
+      caseId: "case.lian-li-a3-matx-black",
+      motherboardId: "motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3",
+      coolerId: "cooler.noctua-nh-d15-g2",
+    };
+    const assembly = buildAssemblyState(build, catalog, indexes);
+    const report = buildPhysicalValidationReport({
+      assembly,
+      partsById: catalog.byId,
+      glbIndexes: indexes,
+    });
+    const coolerLimit = report.checks.find(
+      (c) => c.checkId === "clearance-limit:cpu-cooler-height",
+    );
+    expect(coolerLimit?.status).toBe("interference");
+    expect(coolerLimit?.explanation).toContain("168 mm");
+    expect(coolerLimit?.explanation).toContain("165 mm");
+    expect(report.overallStatus).toBe("interference");
+  });
+
   it("A3 demonstration build reports cooler interference from clearance limits", () => {
     const { catalog, indexes } = loadCatalogAndIndexes();
     const build = {

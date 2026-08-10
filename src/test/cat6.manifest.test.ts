@@ -36,9 +36,7 @@ import {
 const ROOT = resolve(__dirname, "../..");
 const MANIFEST_REL = "parts/catalog-manifest.json";
 
-/** Slot 14 — withheld until Step 6 geometry/GLB exist. */
-const WITHHELD_AUTHORED_PART_ID =
-  "motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3";
+/** Slot 14 admitted in Step 6 — runtime manifest matches authored set. */
 
 function readManifestFromDisk(): CatalogManifestFile {
   const raw = JSON.parse(readFileSync(resolve(ROOT, MANIFEST_REL), "utf8"));
@@ -162,9 +160,7 @@ describe("cat6 manifest — Step 5 (O8)", () => {
     }
   });
 
-  it("T4 — authored minus manifest is exactly slot 14 (temporary until Step 6)", () => {
-    // Step 6 will generate geometry/GLB for slot 14 and add it to the manifest.
-    // This is not a permanent second catalog index — only the pre-Step-6 withhold.
+  it("T4 — authored minus manifest is empty (runtime set matches authored cat6 parts)", () => {
     const manifest = readManifestFromDisk();
     const manifestIds = new Set(manifest.parts.map((entry) => entry.id));
 
@@ -177,7 +173,7 @@ describe("cat6 manifest — Step 5 (O8)", () => {
       (id) => !authoredSet.has(id),
     );
 
-    expect(withheld).toEqual([WITHHELD_AUTHORED_PART_ID]);
+    expect(withheld).toEqual([]);
     expect(unexpectedManifestOnly).toEqual([]);
   });
 

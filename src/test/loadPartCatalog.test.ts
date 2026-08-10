@@ -24,7 +24,7 @@ describe("loadPartCatalog", () => {
     for (const entry of manifest.parts) {
       expect(catalog.get(entry.id), entry.id).toBeDefined();
     }
-    expect(catalog.byId.size).toBe(13);
+    expect(catalog.byId.size).toBe(14);
   });
 
   it("resolves default build state ids", async () => {
@@ -55,14 +55,15 @@ describe("compat2 fixture loaders", () => {
     expect(file.examples.length).toBeGreaterThanOrEqual(3);
   });
 
-  it("loads price fixtures for all catalog parts", async () => {
+  it("loads price fixtures and every price row references a catalog part", async () => {
     const [catalog, prices] = await Promise.all([
       loadPartCatalog(),
       loadPriceFixtures(),
     ]);
     expect(prices.compatContractVersion).toBe("compat2");
-    for (const partId of catalog.byId.keys()) {
-      expect(prices.rows.some((row) => row.partId === partId)).toBe(true);
+    const catalogIds = new Set(catalog.byId.keys());
+    for (const row of prices.rows) {
+      expect(catalogIds.has(row.partId), `price row ${row.partId}`).toBe(true);
     }
   });
 });

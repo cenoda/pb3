@@ -38,12 +38,9 @@ export const PHASE2_CASE_IDS = [
 ] as const;
 
 /**
- * Slot 14 (`motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3`) is authored but
- * deliberately absent: it inherited no legacy geometry, so it has neither a
- * `model.glb` nor a `physicalSpec`. Offering it would put a dangling model path
- * in the picker, and its O7 witness role needs the physicalSpec it does not have
- * — a cooler cannot mount to a board with no mount point. Step 6 generates both
- * from its dimensions; it joins the catalog there.
+ * Slot 14 (`motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3`) is admitted in
+ * the runtime manifest with a visual-only plane GLB and collision-less
+ * `physicalSpec` (Step 6, 2026-08-10).
  */
 export const PHASE2_MOTHERBOARD_IDS = [
   "motherboard.gigabyte-b650-aorus-elite-ax-v2",

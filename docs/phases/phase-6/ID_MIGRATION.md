@@ -1,10 +1,11 @@
 # Phase 6 — Part id migration
 
-Status: **Step 5 executed 2026-08-10.** Products are the owner's Step 3 selection.
+Status: **Step 5 executed 2026-08-10; Step 6 slot 14 admitted 2026-08-10.** Products are the owner's Step 3 selection.
 Legacy fixture ids are retired; **14 `cat6` parts are authored** under `parts/`, and
-the **runtime manifest currently loads 13** — slot 14
-(`motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3`) is intentionally withheld
-until Step 6 geometry/GLB. **O7 running-app reachability is still pending.**
+the **runtime manifest loads all 14**. Slot 14
+(`motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3`) has a visual-only plane GLB
+and collision-less `physicalSpec`. **O7 running-app reachability** is proven by
+`e2e/phase6-o7-slot14-witness.spec.ts`.
 
 Authority: [`specs/phase-6.md`](./specs/phase-6.md) §4 (**O3**, **O4**).
 Contract: [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md) (`cat6`).
@@ -644,11 +645,10 @@ setters derive allowed ids from the loaded catalog (`catalogAllowedIds`), not fr
 `PHASE2_*_IDS` / `PHASE0_*_IDS` — those constants remain in `vs2.ts` for
 contract/fixture meaning only.
 
-**Slot 14 (`motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3`) — intentional
-withhold, not O7 resolution:** the part is authored under `parts/` but has neither
-`model.glb` nor `physicalSpec`, so it is **not** in the runtime manifest. Step 6
-must generate geometry/assets and add it to the manifest before the running app can
-reach **O7**'s witness build. **B3**, **B8**, and **B11** are unchanged by Step 5.
+**Slot 14 (`motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3`) — admitted Step 6
+(2026-08-10):** visual-only 244 × 244 mm plane GLB, collision-less
+`physicalSpec`, runtime manifest entry. O7 witness build is reachable in the
+running app. **B3**, **B8**, and **B11** unchanged.
 
 ### `src/viewport/GpuModel.tsx` — carve-out (owner ruling, 2026-08-10)
 

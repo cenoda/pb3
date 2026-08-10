@@ -1,6 +1,6 @@
 /**
  * Deterministic, dependency-free Phase 3 synthetic GLB author.
- * Units: mm, Y-up. Box meshes only. Runtime scale identity (size in mesh).
+ * Units: mm, Y-up. Box meshes (and visual-only XZ planes). Runtime scale identity.
  *
  * Usage: node scripts/author-phys3-glbs.mjs
  */
@@ -88,6 +88,24 @@ function buildBoxGeometry(hx, hy, hz) {
     indices: new Uint16Array(indices),
     min: [-hx, -hy, -hz],
     max: [hx, hy, hz],
+    vertexCount: 24,
+    indexCount: 36,
+  };
+}
+
+/** Flat quad in the XZ plane at Y=0 — visual-only, zero Y extent. */
+function buildPlaneGeometry(hx, hz) {
+  const positions = [-hx, 0, -hz, hx, 0, -hz, hx, 0, hz, -hx, 0, hz];
+  const norms = [0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0];
+  const indices = [0, 1, 2, 0, 2, 3];
+  return {
+    positions: new Float32Array(positions),
+    normals: new Float32Array(norms),
+    indices: new Uint16Array(indices),
+    min: [-hx, 0, -hz],
+    max: [hx, 0, hz],
+    vertexCount: 4,
+    indexCount: 6,
   };
 }
 
@@ -104,7 +122,10 @@ function writeGlb(outPath, { nodes, meshes, materials, generator }) {
 
   for (let mi = 0; mi < meshes.length; mi++) {
     const mesh = meshes[mi];
-    const geo = buildBoxGeometry(mesh.hx, mesh.hy, mesh.hz);
+    const geo =
+      mesh.kind === "plane"
+        ? buildPlaneGeometry(mesh.hx, mesh.hz)
+        : buildBoxGeometry(mesh.hx, mesh.hy, mesh.hz);
 
     const posBytes = Buffer.from(geo.positions.buffer);
     const norBytes = Buffer.from(geo.normals.buffer);
@@ -129,7 +150,7 @@ function writeGlb(outPath, { nodes, meshes, materials, generator }) {
     accessors.push({
       bufferView: bufferViews.length,
       componentType: 5126,
-      count: 24,
+      count: geo.vertexCount,
       type: "VEC3",
       max: geo.max,
       min: geo.min,
@@ -145,7 +166,7 @@ function writeGlb(outPath, { nodes, meshes, materials, generator }) {
     accessors.push({
       bufferView: bufferViews.length,
       componentType: 5126,
-      count: 24,
+      count: geo.vertexCount,
       type: "VEC3",
     });
     bufferViews.push({
@@ -159,7 +180,7 @@ function writeGlb(outPath, { nodes, meshes, materials, generator }) {
     accessors.push({
       bufferView: bufferViews.length,
       componentType: 5123,
-      count: 36,
+      count: geo.indexCount,
       type: "SCALAR",
     });
     bufferViews.push({
@@ -280,9 +301,25 @@ function authorPart(relDir, color, defs) {
     if (d.kind === "box") {
       const meshIndex = meshes.length;
       meshes.push({
+        kind: "box",
         name: `${d.name}-mesh`,
         hx: d.hx,
         hy: d.hy,
+        hz: d.hz,
+        materialIndex: 0,
+      });
+      nodes.push({
+        name: d.name,
+        meshIndex,
+        translation: d.translation ?? [0, 0, 0],
+        rotation: d.rotation ?? IDENTITY_QUAT,
+      });
+    } else if (d.kind === "plane") {
+      const meshIndex = meshes.length;
+      meshes.push({
+        kind: "plane",
+        name: `${d.name}-mesh`,
+        hx: d.hx,
         hz: d.hz,
         materialIndex: 0,
       });
@@ -322,6 +359,25 @@ authorPart("parts/case/case.fractal-design-north-tg-dark", [0.25, 0.25, 0.28], [
   { kind: "empty", name: "anchor:mb", translation: [0, 20, -40] },
   { kind: "empty", name: "anchor:psu", translation: [0, 40, 160] },
 ]);
+
+authorPart(
+  "parts/motherboard/motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3",
+  [0.15, 0.45, 0.2],
+  [
+    {
+      kind: "plane",
+      name: "visual:motherboard",
+      hx: 122,
+      hz: 122,
+      translation: [0, 0, 0],
+    },
+    { kind: "empty", name: "socket:case", translation: [0, 0, 0] },
+    { kind: "empty", name: "anchor:cpu", translation: [0, 8, 20] },
+    { kind: "empty", name: "anchor:cooler", translation: [0, 8, 20] },
+    { kind: "empty", name: "anchor:ram", translation: [110, 8, 40] },
+    { kind: "empty", name: "anchor:gpu", translation: [0, 8, -100] },
+  ],
+);
 
 authorPart("parts/motherboard/motherboard.gigabyte-b650-aorus-elite-ax-v2", [0.15, 0.45, 0.2], [
   { kind: "box", name: "visual:motherboard", hx: 152, hy: 2, hz: 122, translation: [0, 2, 0] },

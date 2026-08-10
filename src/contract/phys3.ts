@@ -184,13 +184,14 @@ export interface CoolingEvidenceFile {
 }
 
 /**
- * Nine physical-core part IDs (existing catalog; no inventory expansion).
+ * Ten physical-core part IDs (existing catalog; no inventory expansion).
  * Membership requires authored `physicalSpec` for mount/socket semantics; not
  * every member must expose collision geometry (see B8 CPU package decision).
  */
 export const PHYS3_PHYSICAL_CORE_IDS = [
   "case.fractal-design-north-tg-dark",
   "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+  "motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3",
   "cpu.amd-ryzen-5-7600",
   "cpu.amd-ryzen-7-7800x3d",
   "gpu.asus-dual-rtx4070-o12g",

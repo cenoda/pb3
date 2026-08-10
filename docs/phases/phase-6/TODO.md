@@ -29,9 +29,11 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
       non-AM5 negative-fixture exception (**D1**)
 - [x] Step 4 — execute the migration repo-wide; assert no legacy id remains
       (2026-08-10; 14 parts, `cat6.integrity` guard; price fixtures re-pointed, **B11**)
-- [x] Step 5 — `parts/catalog-manifest.json` + manifest loader (**O8**); `PHASE2_PART_PATHS` retired (2026-08-10). Runtime manifest holds 13 parts; slot 14 (`motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3`) is authored but withheld until Step 6 geometry/GLB — **O7 running-app reachability still pending**, not closed by this step
+- [x] Step 5 — `parts/catalog-manifest.json` + manifest loader (**O8**); `PHASE2_PART_PATHS` retired (2026-08-10). Runtime manifest holds 14 parts after Step 6 slot 14 admission
 - [ ] Step 6 — geometry generated from `dimensionsMm`; re-derive `phys3`
-      verdicts; re-point `prov4` geometry version
+      verdicts; re-point `prov4` geometry version — **slot 14 slice done** (plane GLB,
+      collision-less physicalSpec, manifest admission, O7 E2E); remaining Step 6
+      scope open
 - [ ] Step 7 — default build assembles on real dimensions; Phase 0 exit scenario
       re-run
 - [ ] Step 8 — `src/perf/**` unavailable reasons say the estimator is in

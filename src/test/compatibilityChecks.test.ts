@@ -130,9 +130,9 @@ describe("compatibilityChecks", () => {
 });
 
 describe("fixture integrity", () => {
-  it("loads 13 catalog parts with compatSpec where required", async () => {
+  it("loads 14 catalog parts with compatSpec where required", async () => {
     const catalog = await loadPartCatalog();
-    expect(catalog.byId.size).toBe(13);
+    expect(catalog.byId.size).toBe(14);
     assertPartCompatFields(catalog);
     const isValid = createBuildStateValidator(catalog);
     expect(isValid(DEFAULT_BUILD_STATE_V2)).toBe(true);
