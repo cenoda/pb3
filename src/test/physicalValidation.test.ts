@@ -4,7 +4,8 @@ import { fileURLToPath } from "node:url";
 import { Matrix4, Quaternion, Vector3 } from "three";
 import { describe, expect, it } from "vitest";
 import { PHYS3_OVERLAP_EPSILON_MM } from "../contract/phys3";
-import { DEFAULT_BUILD_STATE_V2, PHASE2_PART_PATHS } from "../contract/vs2";
+import { catalogManifestFileSchema } from "../contract/cat6.schema";
+import { DEFAULT_BUILD_STATE_V2 } from "../contract/vs2";
 import { partDefinitionV2Schema } from "../contract/vs2.schema";
 import { buildAssemblyState } from "../physical/buildAssemblyState";
 import { buildPhysicalValidationReport } from "../physical/buildPhysicalValidationReport";
@@ -27,8 +28,18 @@ const repoRoot = path.resolve(
 );
 
 function loadCatalogAndIndexes() {
-  const parts = PHASE2_PART_PATHS.map((p) => {
-    const raw = JSON.parse(fs.readFileSync(path.join(repoRoot, p), "utf8"));
+  const manifest = catalogManifestFileSchema.parse(
+    JSON.parse(
+      fs.readFileSync(
+        path.join(repoRoot, "parts/catalog-manifest.json"),
+        "utf8",
+      ),
+    ),
+  );
+  const parts = manifest.parts.map((entry) => {
+    const raw = JSON.parse(
+      fs.readFileSync(path.join(repoRoot, entry.path), "utf8"),
+    );
     return partDefinitionV2Schema.parse(raw);
   });
   const catalog = createPartCatalog(parts);

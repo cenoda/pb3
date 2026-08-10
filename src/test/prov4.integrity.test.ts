@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { PHASE2_PART_PATHS } from "../contract/vs2";
+import { catalogManifestFileSchema } from "../contract/cat6.schema";
 import {
   coolingProvenanceFileSchema,
   evidenceSourceRegistryFileSchema,
@@ -207,9 +207,12 @@ describe("prov4 fixture integrity", () => {
       [...PILOT_PART_IDS].sort(),
     );
 
+    const manifest = catalogManifestFileSchema.parse(
+      readJson(join(repoRoot, "parts/catalog-manifest.json")),
+    );
     const partById = new Map(
-      PHASE2_PART_PATHS.map((rel) => {
-        const part = readJson(join(repoRoot, rel)) as {
+      manifest.parts.map((entry) => {
+        const part = readJson(join(repoRoot, entry.path)) as {
           id: string;
           physicalSpec?: {
             evidence: {

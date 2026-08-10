@@ -1,20 +1,28 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { loadPartCatalog } from "../catalog/loadPartCatalog";
 import { loadCompat2Examples } from "../catalog/loadCompat2Fixtures";
 import { loadPriceFixtures } from "../price/loadPriceFixtures";
-import { PHASE2_PART_PATHS } from "../contract/vs2";
+import { catalogManifestFileSchema } from "../contract/cat6.schema";
 import {
   DEFAULT_BUILD_STATE,
   assertPartCompatFields,
   createBuildStateValidator,
 } from "../state/validateBuildState";
 
+const ROOT = resolve(__dirname, "../..");
+
 describe("loadPartCatalog", () => {
-  it("loads all fixed phase-2 part ids", async () => {
+  it("loads all manifest part ids", async () => {
+    const manifest = catalogManifestFileSchema.parse(
+      JSON.parse(
+        readFileSync(resolve(ROOT, "parts/catalog-manifest.json"), "utf8"),
+      ),
+    );
     const catalog = await loadPartCatalog();
-    for (const partPath of PHASE2_PART_PATHS) {
-      const id = partPath.split("/")[2];
-      expect(catalog.get(id!), id).toBeDefined();
+    for (const entry of manifest.parts) {
+      expect(catalog.get(entry.id), entry.id).toBeDefined();
     }
     expect(catalog.byId.size).toBe(13);
   });

@@ -1,7 +1,10 @@
 # Phase 6 — Part id migration
 
-Status: **Step 4 executed 2026-08-10.** Products are the owner's Step 3 selection.
-Legacy fixture ids are retired; the runtime catalog loads 14 `cat6` parts.
+Status: **Step 5 executed 2026-08-10.** Products are the owner's Step 3 selection.
+Legacy fixture ids are retired; **14 `cat6` parts are authored** under `parts/`, and
+the **runtime manifest currently loads 13** — slot 14
+(`motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3`) is intentionally withheld
+until Step 6 geometry/GLB. **O7 running-app reachability is still pending.**
 
 Authority: [`specs/phase-6.md`](./specs/phase-6.md) §4 (**O3**, **O4**).
 Contract: [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md) (`cat6`).
@@ -127,7 +130,7 @@ be the literal `PartCategoryV2` value, so they become `motherboard.*`.
 | **14** | *(none — new part)* | `motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3` | GIGABYTE B650M AORUS ELITE AX **Rev. 1.3** | **O7 reachability witness** — see §5 |
 
 Slots 1, 3, 4, 6, 8, 10, 12 are simultaneously the default build
-(`DEFAULT_BUILD_STATE_V2`, `src/contract/vs2.ts:52`) and the `prov4` pilot set
+(`DEFAULT_BUILD_STATE_V2`, `src/contract/vs2.ts:63`) and the `prov4` pilot set
 (`PROV4_PILOT_PART_IDS`, `src/contract/prov4.ts:526`).
 
 ---
@@ -435,8 +438,8 @@ tested the field for null and returned `unavailable` with a reason.
 Slot 9 therefore carries `socket`, `chipset`, `formFactor` and
 `supportedMemoryType` while leaving the ceiling absent, and its `cpu-socket`
 negative is restored — verified by driving `checkCpuSocket` and `checkRamSupport`
-directly from the authored specs, since the catalog loader still serves the legacy
-fixture set until Step 5. The memory check reports `unavailable` for this board,
+directly from the authored specs, since the catalog loader now reads
+`parts/catalog-manifest.json` (Step 5). The memory check reports `unavailable` for this board,
 which is the true statement, and boards that do publish a ceiling are unaffected.
 
 The record of what was decided against is kept below.
@@ -587,7 +590,7 @@ Verified by grep against the working tree.
 
 | Consumer | What changes |
 |----------|--------------|
-| `src/contract/vs2.ts` | `DEFAULT_BUILD_STATE_V2`, `PHASE2_*_IDS`, `PHASE2_PART_PATHS` → manifest (**O8**) |
+| `src/contract/vs2.ts` | **Step 5 (O8) done:** `PHASE2_PART_PATHS` removed; runtime catalog membership comes from `parts/catalog-manifest.json` via `loadPartCatalog`. `DEFAULT_BUILD_STATE_V2` unchanged; manifest does not choose defaults — loader join-guards that every default part id is manifest-listed. `PHASE2_*_IDS` / `PHASE0_*_IDS` constants remain for contract/fixture semantics (e.g. perf1 schema, T2 subset checks); runtime selection validation uses manifest-loaded catalog id + category only |
 | `src/contract/prov4.ts` | `PROV4_PILOT_PART_IDS` re-pointed |
 | `src/contract/vs0.ts`, `perf1.ts`, `perf1.schema.ts`, `est1.ts`, `est1.schema.ts`, `phys3.ts`, `prov4.schema.ts` | Doc-comment and example ids |
 | `src/perf/applyCorrection.ts`, `src/perf/estimateWorkload.ts`, `src/estimate/estimatorQuery.ts`, `src/provenance/pilotBuild.ts`, `src/provenance/bindPerformanceEvidence.ts` | Hardcoded example ids; mechanical |
@@ -600,6 +603,23 @@ Verified by grep against the working tree.
 | `benchmarks/price2/price-fixtures.json` | **Re-pointed, not deleted.** Deletion is deferred to the step that authors **O5**'s sourced prices, because the supersession this row originally assumed has not happened: no catalog price has been sourced yet. The 13 amounts stay phase-2 fixtures and keep their `basis` — `phase-2 fixture price; not a live market quote`. Moving them under `benchmarks/cat6/` in `CatalogPriceRow` shape would have dressed a synthetic number as a dated retailer snapshot of a real SKU, which `CatalogStreetPrice` (`retailer`, `retrievedAt`, `sourceId`) exists to assert. See **B11** |
 | `e2e/**` (7 specs) | Selections re-pointed; each assertion's meaning preserved (**RK4**) |
 | `src/test/**` (~25 files) | Re-pointed with the code they cover |
+
+### Step 5 — manifest and loader (**O8**, done 2026-08-10)
+
+`parts/catalog-manifest.json` is the single runtime membership index: 13 loadable
+parts today. `loadPartCatalog` fetches the manifest, validates with
+`catalogManifestFileSchema`, loads only listed `part.json` paths, and join-guards
+that `DEFAULT_BUILD_STATE_V2` references ids present in the loaded catalog.
+`PHASE2_PART_PATHS` is deleted. Runtime selection validation and `buildStore`
+setters derive allowed ids from the loaded catalog (`catalogAllowedIds`), not from
+`PHASE2_*_IDS` / `PHASE0_*_IDS` — those constants remain in `vs2.ts` for
+contract/fixture meaning only.
+
+**Slot 14 (`motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3`) — intentional
+withhold, not O7 resolution:** the part is authored under `parts/` but has neither
+`model.glb` nor `physicalSpec`, so it is **not** in the runtime manifest. Step 6
+must generate geometry/assets and add it to the manifest before the running app can
+reach **O7**'s witness build. **B3**, **B8**, and **B11** are unchanged by Step 5.
 
 ### `src/viewport/GpuModel.tsx` — carve-out (owner ruling, 2026-08-10)
 

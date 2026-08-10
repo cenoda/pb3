@@ -86,23 +86,6 @@ export const VS2_URL_KEYS = {
   preset: "preset",
 } as const;
 
-/** Fixed part.json paths for phase 2 catalog (13 parts; manifest in Step 5). */
-export const PHASE2_PART_PATHS = [
-  "parts/case/case.fractal-design-north-tg-dark/part.json",
-  "parts/case/case.lian-li-a3-matx-black/part.json",
-  "parts/motherboard/motherboard.gigabyte-b650-aorus-elite-ax-v2/part.json",
-  "parts/motherboard/motherboard.asus-tuf-gaming-b860m-plus-wifi/part.json",
-  "parts/cpu/cpu.amd-ryzen-5-7600/part.json",
-  "parts/cpu/cpu.amd-ryzen-7-7800x3d/part.json",
-  "parts/gpu/gpu.asus-dual-rtx4070-o12g/part.json",
-  "parts/gpu/gpu.asus-proart-rtx4080-o16g/part.json",
-  "parts/cooler/cooler.noctua-nh-d15-g2/part.json",
-  "parts/ram/ram.teamgroup-t-create-expert-ddr5-6000-32gb/part.json",
-  "parts/ram/ram.gskill-trident-z5-rgb-ddr5-8400/part.json",
-  "parts/psu/psu.corsair-rm750e/part.json",
-  "parts/psu/psu.cooler-master-v550-sfx-gold/part.json",
-] as const;
-
 export {
   PHASE0_CPU_IDS,
   PHASE0_GPU_IDS,

@@ -120,7 +120,7 @@
 10. ~~**Phase 5 (제품 표면)**~~ → **완료 · 소유자 승인 (2026-08-09)** —
     [`docs/phases/phase-5/`](docs/phases/phase-5/)
 11. **Phase 6 (실제 부품 카탈로그, `cat6`)** — M0 수락 + O1–O8 확정 (2026-08-10);
-    **Step 1 (`cat6` 계약) 완료**, Steps 2–12 진행 예정 —
+    **Steps 1–5 완료** (Step 5: manifest/loader **O8**), Steps 6–12 진행 예정 —
     [`docs/phases/phase-6/`](docs/phases/phase-6/)
 12. **Phase 7 (카탈로그 브라우저 + 이미지)** — 미계획; Phase 6 종료 및 이미지
     권리 ADR 이후 별도 M0 필요
@@ -414,7 +414,7 @@ Carried out of the phase (judged out of scope, not overlooked): no part photos
 browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
 **real parts catalog**, which is not started in this session.
 
-## Phase 6 — Real parts catalog (M0 accepted; Steps 1–4 in progress)
+## Phase 6 — Real parts catalog (M0 accepted; Steps 1–5 done)
 
 | 항목 | 상태 |
 |------|------|
@@ -425,10 +425,13 @@ browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
 | Shape | 카탈로그 데이터만 (브라우저는 Phase 7) · ≈30개 소수 정예 · AM5/DDR5 단일 · 이미지는 계약만 |
 | Owner decisions | **O1–O8 locked (2026-08-10)** — spec §7 |
 | Owner acceptance | **Accepted 2026-08-10** by starting implementation; no separate written acceptance recorded |
-| Progress | **Steps 1–4 done (2026-08-10)** — `cat6` contract; 14 real SKU parts; legacy ids retired repo-wide (`ID_MIGRATION.md`); runtime loads `cat6` parts; `cat6.integrity` legacy-id guard. Prices are re-pointed phase-2 fixtures, not catalog prices (**B11**). `pnpm test` 35 files / 277 tests; `pnpm test:e2e` 17; `pnpm build` clean |
+| Progress | **Steps 1–5 done (2026-08-10)** — `cat6` contract; 14 authored SKU parts; legacy ids retired repo-wide; **`parts/catalog-manifest.json` + manifest loader (O8)** loads 13 runtime parts; `PHASE2_PART_PATHS` removed; selection validation uses catalog membership. Prices remain re-pointed phase-2 fixtures, not catalog prices (**B11**). `pnpm test` 36 files / 284 tests; `pnpm test:e2e` 17; `pnpm build` clean |
+| **O8 — manifest/loader** | **Done (Step 5).** Runtime membership is manifest-only; default build join-guarded, not manifest-derived |
+| **O7 — running-app reachability** | **Pending Step 6.** Slot 14 is authored but withheld from runtime manifest (no `model.glb` / `physicalSpec`); witness build not reachable in the running app yet |
+| Open blockers (unchanged) | **B3** (`conditional` phys3 status), **B4** (permanent `caution` under O6), **B8** (CPU package dimensions), **B11** (no sourced catalog prices yet) |
 | Gate | Owner picks 3 parts at random and traces every engine-consumed field to a citation in one hop |
 | **O1 — accepted consequence** | `perf1` covers 2 CPUs × 2 GPUs and Phase 4.1 (the attempt to close that gap) is frozen, so **most valid builds show no FPS**. The surface states the combination estimator is **in preparation**, via `src/perf/**` reason strings — no UI change |
-| **O3/O4 — id migration** | **Done (Step 4, 2026-08-10).** 13 legacy folders retired; 14 `cat6` SKU ids live under `parts/**`. `src/test/cat6.integrity.test.ts` guards `src/**`, `parts/**`, `benchmarks/**`, `e2e/**` (docs deliberately excluded). Slot 14 has no legacy geometry — no `physicalSpec` until Step 6 |
+| **O3/O4 — id migration** | **Done (Step 4, 2026-08-10).** 13 legacy folders retired; 14 `cat6` SKU ids live under `parts/**`. `src/test/cat6.integrity.test.ts` guards `src/**`, `parts/**`, `benchmarks/**`, `e2e/**` (docs deliberately excluded). Slot 14 authored; runtime manifest lists 13 until Step 6 geometry |
 | **Share links** | **Break once, deliberately.** The URL carries part ids; old links open on the default build (lenient decoder), not an error |
 | **O5 — price** | MSRP **and** dated domestic street snapshot, manually curated. Street drives the total; MSRP is never summed; missing street → `unavailable` + `isPartial` |
 | **O6 — BIOS** | Not considered. Socket compatibility only; `checkChipsetBios` already returns `unavailable` without the map, so no engine change |

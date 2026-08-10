@@ -1,18 +1,11 @@
 import { create } from "zustand";
 import type { BuildStateV2 } from "../contract/vs2";
-import {
-  PHASE0_CPU_IDS,
-  PHASE0_GPU_IDS,
-  PHASE2_CASE_IDS,
-  PHASE2_MOTHERBOARD_IDS,
-  PHASE2_PSU_IDS,
-  PHASE2_RAM_IDS,
-} from "../contract/vs2";
+import type { CatalogAllowedIds } from "./validateBuildState";
 
 interface BuildStore {
   buildState: BuildStateV2 | null;
   initialized: boolean;
-  init: (state: BuildStateV2) => void;
+  init: (state: BuildStateV2, allowed: CatalogAllowedIds) => void;
   setCase: (caseId: string) => void;
   setMotherboard: (motherboardId: string) => void;
   setCpu: (cpuId: string) => void;
@@ -22,12 +15,11 @@ interface BuildStore {
   setPsu: (psuId: string) => void;
 }
 
-const caseIdSet = new Set<string>(PHASE2_CASE_IDS);
-const motherboardIdSet = new Set<string>(PHASE2_MOTHERBOARD_IDS);
-const cpuIdSet = new Set<string>(PHASE0_CPU_IDS);
-const gpuIdSet = new Set<string>(PHASE0_GPU_IDS);
-const ramIdSet = new Set<string>(PHASE2_RAM_IDS);
-const psuIdSet = new Set<string>(PHASE2_PSU_IDS);
+let allowedIds: CatalogAllowedIds | null = null; // injected from manifest-loaded catalog via init()
+
+function allowedSet(category: keyof CatalogAllowedIds): Set<string> {
+  return allowedIds?.[category] ?? new Set();
+}
 
 function updateField(
   store: BuildStore,
@@ -46,24 +38,31 @@ function updateField(
 export const useBuildStore = create<BuildStore>((set) => ({
   buildState: null,
   initialized: false,
-  init: (state) => set({ buildState: state, initialized: true }),
+  init: (state, allowed) => {
+    allowedIds = allowed;
+    set({ buildState: state, initialized: true });
+  },
   setCase: (caseId) =>
-    set((store) => updateField(store, "caseId", caseId, caseIdSet)),
+    set((store) => updateField(store, "caseId", caseId, allowedSet("case"))),
   setMotherboard: (motherboardId) =>
     set((store) =>
-      updateField(store, "motherboardId", motherboardId, motherboardIdSet),
+      updateField(
+        store,
+        "motherboardId",
+        motherboardId,
+        allowedSet("motherboard"),
+      ),
     ),
   setCpu: (cpuId) =>
-    set((store) => updateField(store, "cpuId", cpuId, cpuIdSet)),
+    set((store) => updateField(store, "cpuId", cpuId, allowedSet("cpu"))),
   setGpu: (gpuId) =>
-    set((store) => updateField(store, "gpuId", gpuId, gpuIdSet)),
+    set((store) => updateField(store, "gpuId", gpuId, allowedSet("gpu"))),
   setCooler: (coolerId) =>
-    set((store) => {
-      if (!store.buildState) return store;
-      return { buildState: { ...store.buildState, coolerId } };
-    }),
+    set((store) =>
+      updateField(store, "coolerId", coolerId, allowedSet("cooler")),
+    ),
   setRam: (ramId) =>
-    set((store) => updateField(store, "ramId", ramId, ramIdSet)),
+    set((store) => updateField(store, "ramId", ramId, allowedSet("ram"))),
   setPsu: (psuId) =>
-    set((store) => updateField(store, "psuId", psuId, psuIdSet)),
+    set((store) => updateField(store, "psuId", psuId, allowedSet("psu"))),
 }));

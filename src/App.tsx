@@ -44,6 +44,7 @@ import {
   replaceUrlWithBuildState,
 } from "./state/urlSync";
 import {
+  catalogAllowedIds,
   createBuildStateValidator,
   DEFAULT_BUILD_STATE,
   type PartCatalog,
@@ -148,7 +149,7 @@ export default function App() {
           isValid,
         );
 
-        init(decoded);
+        init(decoded, catalogAllowedIds(catalog));
         usePerfPanelStore.getState().resetCorrection();
         replaceUrlWithBuildState(decoded);
         setBoot({
@@ -339,7 +340,11 @@ export default function App() {
         <h1 className="app-title">pb3 — PC Builder</h1>
         <BuildActions
           disabled={boot.status !== "ready" || !buildState}
-          onReset={() => init(DEFAULT_BUILD_STATE)}
+          onReset={() => {
+            if (boot.status === "ready") {
+              init(DEFAULT_BUILD_STATE, catalogAllowedIds(boot.catalog));
+            }
+          }}
         />
       </header>
 
