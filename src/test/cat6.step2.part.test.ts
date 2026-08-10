@@ -12,6 +12,7 @@ const ROOT = resolve(__dirname, "../..");
 const GPU_PART_PATH = "parts/gpu/gpu.asus-dual-rtx4070-o12g/part.json";
 const CASE_PART_PATH = "parts/case/case.fractal-design-north-tg-dark/part.json";
 const A3_PART_PATH = "parts/case/case.lian-li-a3-matx-black/part.json";
+const COOLER_PART_PATH = "parts/cooler/cooler.noctua-nh-d15-g2/part.json";
 const REGISTRY_PATH = "benchmarks/cat6/catalog-source-registry.json";
 
 function readJson(rel: string): unknown {
@@ -66,10 +67,51 @@ describe("cat6 step 2 — authored parts", () => {
     expect(new Set(psuLimits.map((limit) => limit.condition)).size).toBe(2);
   });
 
+  it("parses the Noctua NH-D15 G2 and resolves provenance against the registry", () => {
+    const part = partDefinitionV3Schema.parse(readJson(COOLER_PART_PATH));
+    assertPartResolvesAgainstRegistry(COOLER_PART_PATH);
+
+    // Noctua publishes no manufacturer part number for this cooler; EAN and UPC
+    // are not part numbers and must not be substituted for one.
+    expect(part.identity.partNumber).toBeUndefined();
+  });
+
   // The figures the O7 demonstration build rests on (ID_MIGRATION.md I2, I9).
-  const NH_D15_G2_HEIGHT_MM = 168;
+  // The cooler height is read from the authored part rather than restated, so
+  // I2 is derived from catalog data on both sides.
+  const coolerHeightMm = (): number => {
+    const cooler = partDefinitionV3Schema.parse(readJson(COOLER_PART_PATH));
+    const height = cooler.dimensionsMm?.heightMm;
+    expect(height).toBeDefined();
+    return height as number;
+  };
   const RM750E_LENGTH_MM = 140;
   const DUAL_RTX4070_LENGTH_MM = 267.01;
+
+  it("I2 — the NH-D15 G2 interferes with the A3-mATX and clears the Fractal North", () => {
+    const height = coolerHeightMm();
+    const limitsOf = (path: string): number[] =>
+      (
+        partDefinitionV3Schema.parse(readJson(path)).clearanceLimits
+          ?.maxCpuCoolerHeight ?? []
+      ).map((limit) => limit.limitMm);
+
+    const a3 = limitsOf(A3_PART_PATH);
+    const north = limitsOf(CASE_PART_PATH);
+    expect(a3.length).toBeGreaterThan(0);
+    expect(north.length).toBeGreaterThan(0);
+
+    // Fails in every A3 branch -> interference; the O7 demonstration.
+    expect(a3.every((limit) => height > limit)).toBe(true);
+    // Fits in every North branch -> the default build is unaffected.
+    expect(north.every((limit) => height <= limit)).toBe(true);
+
+    // Both margins are small enough that a transcription slip inverts a
+    // verdict, so they are asserted rather than left implicit.
+    expect(Math.min(...a3)).toBe(165);
+    expect(Math.min(...north)).toBe(170);
+    expect(height).toBe(168);
+  });
 
   it("parses the LIAN LI A3-mATX case and resolves provenance against the registry", () => {
     const part = partDefinitionV3Schema.parse(readJson(A3_PART_PATH));
@@ -93,9 +135,8 @@ describe("cat6 step 2 — authored parts", () => {
     // I2: the cooler exceeds the limit in every published branch -> interference.
     const coolerLimits = limits?.maxCpuCoolerHeight ?? [];
     expect(coolerLimits).toHaveLength(1);
-    expect(
-      coolerLimits.every((limit) => NH_D15_G2_HEIGHT_MM > limit.limitMm),
-    ).toBe(true);
+    const height = coolerHeightMm();
+    expect(coolerLimits.every((limit) => height > limit.limitMm)).toBe(true);
 
     // I9: the PSU clears every published branch -> fit, so the demonstration
     // build can use the 140 mm ATX unit rather than the SFX substitute.

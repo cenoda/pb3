@@ -1,0 +1,29 @@
+{
+  "contractVersion": "cat6",
+  "id": "cooler.noctua-nh-d15-g2",
+  "category": "cooler",
+  "displayName": "Noctua NH-D15 G2",
+  "identity": {
+    "manufacturer": "Noctua",
+    "modelName": "NH-D15 G2"
+  },
+  "modelGlbPath": "parts/cooler/cooler.noctua-nh-d15-g2/model.glb",
+  "dimensionsMm": {
+    "raw": "Height with fan(s): 168 mm | Width with fan(s): 150 mm | Depth with fan(s): 152 mm",
+    "lengthMm": 152,
+    "heightMm": 168,
+    "thicknessMm": 150,
+    "assignmentBasis": "Noctua labels the figures Height / Width / Depth, so heightMm is quoted rather than inferred. Depth is recorded as lengthMm and width as thicknessMm, matching the case convention already used for case.fractal-design-north-tg-dark and case.lian-li-a3-matx-black. The with-fan figures are recorded because the cooler ships with its two fans fitted and the installed envelope is what physical validation needs; the page also lists Depth without fan(s): 127 mm and Width without fan(s): 150 mm, and Height without fan(s) is 168 mm, unchanged."
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.noctua.nh-d15-g2.specifications unless stated. SKU identification: 'Base convexity: Standard', 'Colour: Brown' -- these distinguish this SKU from the separately published NH-D15 G2 LBC, NH-D15 G2 HBC and NH-D15 G2 chromax.black, which are different products with their own specification pages and are not catalogued here. Socket compatibility: 'AM5, AM4, LGA1700, LGA1851, LGA1954, LGA1156, LGA1155, LGA1150, LGA1151, LGA1200'. compat2 defines no CoolerCompatSpec and no cooler-socket check -- cooler-to-motherboard socket matching is expressed geometrically through the phys3 mount interface -- so this list has no compatSpec field to occupy. Construction: 8 heatpipes of 6 mm diameter; fan configuration 2x 140x140x25mm (round); included fans 2x NF-A14x25r G2 PWM. Weight with fan(s) 1525 g, without fan(s) 1180 g. Identifiers: NSPR 228, EAN 9010018000405, UPC 841501100406; no manufacturer part number is published on the specification page, so partNumber is absent rather than derived from EAN or UPC. RAM clearance, from source.cat6.noctua.nh-d15-g2-ram-faq: out-of-box RAM clearance is 32 mm at the default 168 mm cooler height, and raising the front fan to clear taller memory increases total cooler height by the same amount -- Noctua's own example is 35 mm memory raising the fan 3 mm for a 171 mm cooler height. This is the manufacturer statement behind invariant I6.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.noctua.nh-d15-g2.specifications",
+      "retrievedAt": "2026-08-10"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.noctua.nh-d15-g2.specifications",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}

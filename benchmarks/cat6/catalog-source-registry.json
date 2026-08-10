@@ -35,6 +35,24 @@
       "origin": "LIAN LI product page",
       "citation": "https://lian-li.com/product/a3-matx/",
       "notes": "The specification table (GPU LENGTH CLEARANCE, CPU HEIGHT CLEARANCE, PSU SUPPORT, MOTHERBOARD SUPPORT, CASE DIMENSIONS) is machine-readable text on the page. The HARDWARE COMPATIBILITY IN ALL CONFIGURATIONS charts, which carry the per-position GPU-length branches, are published as images (for example a3-h-030c.webp) with no alt text and no text transcription; the branch figures recorded from them were read off the rendered images by the repository owner, and automated re-reading of the page will not reproduce them. The page's Specifications list A3-mATX BLACK and A3-mATX WHITE as separate MODEL NO. / COLOR variants, so the black variant is a named SKU on this source rather than an assumption."
+    },
+    {
+      "sourceId": "source.cat6.noctua.nh-d15-g2.specifications",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "Noctua NH-D15 G2 - Specifications",
+      "origin": "Noctua product specification page",
+      "citation": "https://www.noctua.at/en/products/nh-d15-g2/specifications",
+      "notes": "Covers the Standard base-convexity, brown NH-D15 G2 only. Noctua publishes NH-D15 G2 LBC, NH-D15 G2 HBC and NH-D15 G2 chromax.black as separate products with their own specification pages; figures from this page must not be applied to those SKUs. The page lists NSPR, EAN and UPC but no manufacturer part number."
+    },
+    {
+      "sourceId": "source.cat6.noctua.nh-d15-g2-ram-faq",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "Noctua FAQ - How can I ensure both case and RAM compatibility with my NH-D15 (G2)?",
+      "origin": "Noctua support FAQ",
+      "citation": "https://www.noctua.at/en/support/faqs/how-can-i-ensure-both-case-and-ram-compatibility-with-my-nh-d15",
+      "notes": "Source for the 32 mm out-of-box RAM clearance at the default 168 mm cooler height, and for the rule that raising the front fan to clear taller memory increases total cooler height by the same amount. Supports invariant I6. It is referenced from the part's notes rather than from provenance, because cat6 has no provenance key for the notes field."
     }
   ]
 }
