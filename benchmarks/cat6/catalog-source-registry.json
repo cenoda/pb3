@@ -26,6 +26,15 @@
       "title": "Fractal Design North (Black TG Dark) - specifications",
       "origin": "Fractal Design product page",
       "citation": "https://www.fractal-design.com/products/cases/north/north/black-tg-dark/"
+    },
+    {
+      "sourceId": "source.cat6.lian-li.a3-matx.product",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "LIAN LI A3-mATX - specifications and hardware compatibility charts",
+      "origin": "LIAN LI product page",
+      "citation": "https://lian-li.com/product/a3-matx/",
+      "notes": "The specification table (GPU LENGTH CLEARANCE, CPU HEIGHT CLEARANCE, PSU SUPPORT, MOTHERBOARD SUPPORT, CASE DIMENSIONS) is machine-readable text on the page. The HARDWARE COMPATIBILITY IN ALL CONFIGURATIONS charts, which carry the per-position GPU-length branches, are published as images (for example a3-h-030c.webp) with no alt text and no text transcription; the branch figures recorded from them were read off the rendered images by the repository owner, and automated re-reading of the page will not reproduce them. The page's Specifications list A3-mATX BLACK and A3-mATX WHITE as separate MODEL NO. / COLOR variants, so the black variant is a named SKU on this source rather than an assumption."
     }
   ]
 }

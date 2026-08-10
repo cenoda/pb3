@@ -11,6 +11,7 @@ const ROOT = resolve(__dirname, "../..");
 
 const GPU_PART_PATH = "parts/gpu/gpu.asus-dual-rtx4070-o12g/part.json";
 const CASE_PART_PATH = "parts/case/case.fractal-design-north-tg-dark/part.json";
+const A3_PART_PATH = "parts/case/case.lian-li-a3-matx-black/part.json";
 const REGISTRY_PATH = "benchmarks/cat6/catalog-source-registry.json";
 
 function readJson(rel: string): unknown {
@@ -63,5 +64,87 @@ describe("cat6 step 2 — authored parts", () => {
     const psuLimits = part.clearanceLimits?.maxPsuLength ?? [];
     expect(psuLimits).toHaveLength(2);
     expect(new Set(psuLimits.map((limit) => limit.condition)).size).toBe(2);
+  });
+
+  // The figures the O7 demonstration build rests on (ID_MIGRATION.md I2, I9).
+  const NH_D15_G2_HEIGHT_MM = 168;
+  const RM750E_LENGTH_MM = 140;
+  const DUAL_RTX4070_LENGTH_MM = 267.01;
+
+  it("parses the LIAN LI A3-mATX case and resolves provenance against the registry", () => {
+    const part = partDefinitionV3Schema.parse(readJson(A3_PART_PATH));
+    assertPartResolvesAgainstRegistry(A3_PART_PATH);
+
+    // The page states "M-ATX/ITX"; compat2 models only ATX and Micro-ATX, so
+    // Mini-ITX is dropped. ATX must stay absent or the case-form-factor
+    // negative stops being a fact about the product.
+    const compat = part.compatSpec;
+    const formFactors =
+      compat && "supportedFormFactors" in compat
+        ? compat.supportedFormFactors
+        : undefined;
+    expect(formFactors).toEqual(["Micro-ATX"]);
+  });
+
+  it("A3-mATX clearance limits produce exactly one interference for the O7 build", () => {
+    const part = partDefinitionV3Schema.parse(readJson(A3_PART_PATH));
+    const limits = part.clearanceLimits;
+
+    // I2: the cooler exceeds the limit in every published branch -> interference.
+    const coolerLimits = limits?.maxCpuCoolerHeight ?? [];
+    expect(coolerLimits).toHaveLength(1);
+    expect(
+      coolerLimits.every((limit) => NH_D15_G2_HEIGHT_MM > limit.limitMm),
+    ).toBe(true);
+
+    // I9: the PSU clears every published branch -> fit, so the demonstration
+    // build can use the 140 mm ATX unit rather than the SFX substitute.
+    const psuLimits = limits?.maxPsuLength ?? [];
+    expect(psuLimits.length).toBeGreaterThan(0);
+    expect(
+      psuLimits.every((limit) => RM750E_LENGTH_MM <= limit.limitMm),
+    ).toBe(true);
+
+    // I9: the GPU fits under some published branches and not others, so the
+    // C13/D4 outcome is `conditional` -- not a second `interference`. The
+    // cooler stays the only interference in the demonstration build.
+    const gpuLimits = limits?.maxGpuLength ?? [];
+    const gpuFits = gpuLimits.filter(
+      (limit) => DUAL_RTX4070_LENGTH_MM <= limit.limitMm,
+    );
+    const gpuFails = gpuLimits.filter(
+      (limit) => DUAL_RTX4070_LENGTH_MM > limit.limitMm,
+    );
+    expect(gpuFits.length).toBeGreaterThan(0);
+    expect(gpuFails.length).toBeGreaterThan(0);
+
+    // Every failing branch is a 258 mm side-mount branch; if a front branch
+    // ever falls below the card's length the demonstration build changes.
+    for (const limit of gpuFails) {
+      expect(limit.condition?.startsWith("ATX PSU SIDE") ?? false).toBe(true);
+    }
+  });
+
+  it("A3-mATX records all three published GPU-length charts", () => {
+    const part = partDefinitionV3Schema.parse(readJson(A3_PART_PATH));
+    const gpuLimits = part.clearanceLimits?.maxGpuLength ?? [];
+
+    const countStartingWith = (prefix: string): number =>
+      gpuLimits.filter((limit) => limit.condition?.startsWith(prefix)).length;
+
+    expect(gpuLimits).toHaveLength(14);
+    // ATX PSU FRONT (5) is counted by excluding the offset-bracket rows, which
+    // share its prefix.
+    expect(
+      countStartingWith("ATX PSU FRONT, position"),
+    ).toBe(5);
+    expect(countStartingWith("ATX PSU FRONT with offset bracket")).toBe(3);
+    expect(countStartingWith("ATX PSU SIDE")).toBe(6);
+
+    // Every branch carries the condition it holds under (C13); a bare limit
+    // here would mean a chart row lost its configuration.
+    for (const limit of gpuLimits) {
+      expect(limit.condition).toBeTruthy();
+    }
   });
 });

@@ -1,0 +1,112 @@
+{
+  "contractVersion": "cat6",
+  "id": "case.lian-li-a3-matx-black",
+  "category": "case",
+  "displayName": "LIAN LI A3-mATX Black",
+  "identity": {
+    "manufacturer": "LIAN LI",
+    "modelName": "A3-mATX"
+  },
+  "modelGlbPath": "parts/case/case.lian-li-a3-matx-black/model.glb",
+  "dimensionsMm": {
+    "raw": "(D) 443mm x (W) 194mm x (H) 321.5mm",
+    "lengthMm": 443,
+    "heightMm": 321.5,
+    "thicknessMm": 194,
+    "assignmentBasis": "LIAN LI labels the figures (D)/(W)/(H), so the assignment is quoted, not inferred; depth is recorded as lengthMm and width as thicknessMm, matching the case convention already used for case.fractal-design-north-tg-dark. The page also lists (D) 443mm x (W) 194mm x (H) 306mm(w/o feet); the primary figure is recorded here."
+  },
+  "clearanceLimits": {
+    "raw": "GPU LENGTH CLEARANCE: Max 415mm | CPU HEIGHT CLEARANCE: Max 165mm | PSU SUPPORT: ATX/SFX/SFX-L (Max 220mm) | HARDWARE COMPATIBILITY IN ALL CONFIGURATIONS, ATX PSU FRONT: F1 + ATX <=140mm: 415mm; F1 + ATX >140mm <=220mm: 334mm; F2 + ATX <=200mm: 334mm; F2.5 + ATX <=182mm: 334mm; F3 + ATX <=165mm: 334mm | ATX PSU FRONT with offset bracket: F1: 415mm; F2: 344mm; F2.5: 344mm | ATX PSU SIDE: S0.5 + ATX <=150mm: 415mm; S0.5 + ATX >150mm: 258mm; S1 + ATX <=140mm: 415mm; S1 + ATX >140mm: 258mm; S2 + ATX: 258mm; S3 + ATX: 258mm; S4: ATX PSU incompatible",
+    "maxGpuLength": [
+      {
+        "limitMm": 415,
+        "condition": "ATX PSU FRONT, position F1, ATX PSU <=140mm"
+      },
+      {
+        "limitMm": 334,
+        "condition": "ATX PSU FRONT, position F1, ATX PSU >140mm <=220mm"
+      },
+      {
+        "limitMm": 334,
+        "condition": "ATX PSU FRONT, position F2, ATX PSU <=200mm"
+      },
+      {
+        "limitMm": 334,
+        "condition": "ATX PSU FRONT, position F2.5, ATX PSU <=182mm"
+      },
+      {
+        "limitMm": 334,
+        "condition": "ATX PSU FRONT, position F3, ATX PSU <=165mm"
+      },
+      {
+        "limitMm": 415,
+        "condition": "ATX PSU FRONT with offset bracket, position F1"
+      },
+      {
+        "limitMm": 344,
+        "condition": "ATX PSU FRONT with offset bracket, position F2"
+      },
+      {
+        "limitMm": 344,
+        "condition": "ATX PSU FRONT with offset bracket, position F2.5"
+      },
+      {
+        "limitMm": 415,
+        "condition": "ATX PSU SIDE, position S0.5, ATX PSU <=150mm"
+      },
+      {
+        "limitMm": 258,
+        "condition": "ATX PSU SIDE, position S0.5, ATX PSU >150mm"
+      },
+      {
+        "limitMm": 415,
+        "condition": "ATX PSU SIDE, position S1, ATX PSU <=140mm"
+      },
+      {
+        "limitMm": 258,
+        "condition": "ATX PSU SIDE, position S1, ATX PSU >140mm"
+      },
+      {
+        "limitMm": 258,
+        "condition": "ATX PSU SIDE, position S2"
+      },
+      {
+        "limitMm": 258,
+        "condition": "ATX PSU SIDE, position S3"
+      }
+    ],
+    "maxCpuCoolerHeight": [
+      {
+        "limitMm": 165
+      }
+    ],
+    "maxPsuLength": [
+      {
+        "limitMm": 220,
+        "condition": "ATX/SFX/SFX-L"
+      }
+    ]
+  },
+  "compatSpec": {
+    "supportedFormFactors": ["Micro-ATX"]
+  },
+  "notes": "Published clearance facts that the cat6 contract has no field for, kept verbatim rather than dropped. GPU thickness: the default configuration is stated as 4-slot, and the only published millimetre figure is conditional -- 'with a 25mm thick fan installed at the bottom, the GPU thickness will be limited to 61mm, allowing for only a 3-slot GPU'. GPU presence: 'when installing a radiator and fan combo, there will be no space for the GPU'. Both depend on a cooling configuration this project does not model, so neither is recorded as a clearance limit. PSU position S4: the ATX PSU SIDE chart marks S4 as incompatible with an ATX PSU, which is a mounting-position restriction rather than a GPU-length limit, so it is kept here instead of being written as a maxGpuLength branch with no figure.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.lian-li.a3-matx.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.lian-li.a3-matx.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "clearanceLimits": {
+      "sourceId": "source.cat6.lian-li.a3-matx.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.lian-li.a3-matx.product",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}
