@@ -47,6 +47,16 @@ export interface PartIdentity {
   chipModel?: string;
   /** ISO-8601 date (YYYY-MM-DD) of market release, when published. */
   releasedAt?: string;
+  /**
+   * Why this part is in the catalog when its presence would otherwise
+   * contradict the catalog's stated scope. Free text, and absent for every
+   * part that needs no such explanation — which is nearly all of them.
+   *
+   * Exists for C15: a non-AM5 board in an AM5-scoped catalog is a deliberate
+   * negative fixture, and that has to be legible in the part file rather than
+   * only in a phase document.
+   */
+  roleNote?: string;
 }
 
 /** A pointer into the cat6 source registry, with the date it was read. */

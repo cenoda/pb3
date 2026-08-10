@@ -90,6 +90,41 @@ describe("cat6.schema", () => {
     expect(partDefinitionV3Schema.safeParse(minimalValidPart).success).toBe(true);
   });
 
+  it("accepts a part with a roleNote", () => {
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...minimalValidPart,
+      identity: {
+        ...minimalValidPart.identity,
+        roleNote:
+          "Negative fixture: non-AM5 board in AM5-scoped catalog to exercise cpu-socket: incompatible.",
+      },
+    });
+    expect(parsed.success).toBe(true);
+  });
+
+  it("accepts a part without a roleNote", () => {
+    expect(
+      partDefinitionV3Schema.safeParse({
+        ...minimalValidPart,
+        identity: {
+          manufacturer: minimalValidPart.identity.manufacturer,
+          modelName: minimalValidPart.identity.modelName,
+        },
+      }).success,
+    ).toBe(true);
+  });
+
+  it("rejects an empty-string roleNote", () => {
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...minimalValidPart,
+      identity: {
+        ...minimalValidPart.identity,
+        roleNote: "",
+      },
+    });
+    expect(parsed.success).toBe(false);
+  });
+
   it("accepts a part carrying compatSpec, dimensionsMm and performanceSpec with their provenance entries", () => {
     const parsed = partDefinitionV3Schema.safeParse({
       ...minimalValidPart,

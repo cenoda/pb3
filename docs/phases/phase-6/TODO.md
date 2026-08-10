@@ -21,7 +21,12 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
       `boostClockBasis`, rules C10–C11
 - [x] Step 2 — source registry + one GPU end to end (2026-08-10):
       `gpu.asus-dual-rtx4070-o12g`, 2 sources, no invented field
-- [ ] Step 3 — `ID_MIGRATION.md` map, reviewed before any rename
+- [x] Step 3 — [`ID_MIGRATION.md`](./ID_MIGRATION.md) map, owner-approved
+      2026-08-10: 13 legacy slots + slot 14 (**O7** reachability witness),
+      decisions D1–D4, invariants I1–I9, blockers B1–B7
+- [ ] Step 3.1 — **B1/B2 contract policy, before any motherboard is authored:**
+      `maxMemorySpeedMtS` = vendor-published maximum (**D2**), and the narrow
+      non-AM5 negative-fixture exception (**D1**)
 - [ ] Step 4 — execute the migration repo-wide; assert no legacy id remains
 - [ ] Step 5 — `parts/catalog-manifest.json` + loader; retire `PHASE2_PART_PATHS`
 - [ ] Step 6 — geometry generated from `dimensionsMm`; re-derive `phys3`
@@ -53,8 +58,25 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
   that requires (**O2**)
 - **Performance coverage** — the `est1` formula that makes most of the catalog
   answerable; needs a Phase 4 / 4.1 unfreeze decision (**O1**)
-- **`conditional` physical-validation status** — when clearance limits are
-  configuration-dependent and the configuration is unmodelled, **C13** carries
-  the undecided-by-configuration outcome through existing `unavailable` +
-  explanation in Phase 6; a distinct `PhysicalValidationStatus` member and any
-  display work belong to a later phase with their own decision
+- **Hardcoded GPU preload in `src/viewport/GpuModel.tsx`** — the file preloads a
+  hardcoded list of exactly two GPUs, so a new catalog GPU gets no preload
+  without a code edit; the same problem **O8** solves for catalog loading. Phase
+  6 allows the **path re-point only**
+  ([`ID_MIGRATION.md`](./ID_MIGRATION.md) §7)
+
+## Escalated out of "later phases"
+
+- **`conditional` physical-validation status** (**D4**, blocker **B3**) — the
+  three-outcome rule is *all branches fit → `fit`*, *all fail →
+  `interference`*, *mixed → `conditional`*. `PhysicalValidationStatus` has no
+  `conditional` member and `unavailable` is promoted to `blocked` by the display
+  layer, so genuinely conditional parts are currently reported as
+  un-assemblable. **Now a candidate blocker before Step 6**, not a later-phase
+  follow-up. The Phase 6 default build is chosen to clear every published branch
+  unconditionally (**I5**) so it never depends on this
+- **Permanent `caution` on every build** (**D3**, blocker **B4**) — under **O6**
+  no board carries `biosMinVersionForCpu`, so `checkChipsetBios` is always
+  `unavailable` and every clean build is demoted to `caution`. **Not accepted**
+  as the phase's UX outcome. Resolved in its own bounded step together with
+  `benchmarks/compat2/compatibility-examples.json` and verdict semantics. **No
+  invented BIOS minimum may be written to make the banner go away**

@@ -38,6 +38,7 @@ export const partIdentitySchema = z.object({
   partNumber: nonEmptyString.optional(),
   chipModel: nonEmptyString.optional(),
   releasedAt: iso8601DateSchema.optional(),
+  roleNote: nonEmptyString.optional(),
 });
 
 export const dimensionsMmSchema = z.object({
