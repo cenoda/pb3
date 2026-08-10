@@ -1,0 +1,45 @@
+{
+  "contractVersion": "cat6",
+  "id": "gpu.asus-dual-rtx4070-o12g",
+  "category": "gpu",
+  "displayName": "ASUS Dual GeForce RTX 4070 OC Edition 12GB GDDR6X",
+  "identity": {
+    "manufacturer": "ASUS",
+    "modelName": "Dual GeForce RTX 4070 OC Edition 12GB GDDR6X",
+    "partNumber": "DUAL-RTX4070-O12G",
+    "chipModel": "NVIDIA GeForce RTX 4070"
+  },
+  "modelGlbPath": "parts/gpu/gpu.asus-dual-rtx4070-o12g/model.glb",
+  "dimensionsMm": {
+    "raw": "267.01 x 133.94 x 51.13 mm",
+    "lengthMm": 267.01,
+    "heightMm": 133.94,
+    "thicknessMm": 51.13,
+    "assignmentBasis": "ASUS prints three unlabeled figures. 51.13 mm is identified as the thickness from the same page's published 2.56-slot width (2.56 x 20.32 mm = 52.0 mm); the remaining two are length and height by graphics-card convention."
+  },
+  "performanceSpec": {
+    "boostClockMhz": 2520,
+    "boostClockBasis": "Default Mode boost as published by ASUS; the page also lists OC Mode 2550 MHz, which requires ASUS software."
+  },
+  "compatSpec": {
+    "tdpWatts": 200
+  },
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.asus.dual-rtx4070-o12g.techspec",
+      "retrievedAt": "2026-08-10"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.asus.dual-rtx4070-o12g.techspec",
+      "retrievedAt": "2026-08-10"
+    },
+    "performanceSpec": {
+      "sourceId": "source.cat6.asus.dual-rtx4070-o12g.techspec",
+      "retrievedAt": "2026-08-10"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.nvidia.rtx4070-family.reference-tgp",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}

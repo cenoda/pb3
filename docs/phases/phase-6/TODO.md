@@ -16,7 +16,11 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
 ## Implementation
 
 - [x] Step 1 — `cat6` types + Zod + schema tests, no data (2026-08-10; 21 schema tests)
-- [ ] Step 2 — source registry + one GPU end to end (cost probe)
+- [x] Step 1.1 — contract amendment found by the cost probe (2026-08-10):
+      product-relative `DimensionsMm` + `raw` + `assignmentBasis`,
+      `boostClockBasis`, rules C10–C11
+- [x] Step 2 — source registry + one GPU end to end (2026-08-10):
+      `gpu.asus-dual-rtx4070-o12g`, 2 sources, no invented field
 - [ ] Step 3 — `ID_MIGRATION.md` map, reviewed before any rename
 - [ ] Step 4 — execute the migration repo-wide; assert no legacy id remains
 - [ ] Step 5 — `parts/catalog-manifest.json` + loader; retire `PHASE2_PART_PATHS`
