@@ -1,0 +1,46 @@
+{
+  "contractVersion": "cat6",
+  "id": "gpu.asus-proart-rtx4080-o16g",
+  "category": "gpu",
+  "displayName": "ASUS ProArt GeForce RTX 4080 OC Edition 16GB GDDR6X",
+  "identity": {
+    "manufacturer": "ASUS",
+    "modelName": "ProArt GeForce RTX 4080 OC Edition 16GB GDDR6X",
+    "partNumber": "PROART-RTX4080-O16G",
+    "chipModel": "NVIDIA GeForce RTX 4080"
+  },
+  "modelGlbPath": "parts/gpu/gpu.asus-proart-rtx4080-o16g/model.glb",
+  "dimensionsMm": {
+    "raw": "300 x 120 x 50 mm",
+    "lengthMm": 300,
+    "heightMm": 120,
+    "thicknessMm": 50,
+    "assignmentBasis": "ASUS prints three unlabeled figures. 50 mm is identified as the thickness from the same page's published 2.5-slot width (2.5 x 20.32 mm = 50.8 mm); the remaining two are length and height by graphics-card convention. This is the same derivation used for gpu.asus-dual-rtx4070-o12g."
+  },
+  "performanceSpec": {
+    "boostClockMhz": 2595,
+    "boostClockBasis": "Default Mode boost as published by ASUS; the page also lists OC Mode 2625 MHz, which requires ASUS software."
+  },
+  "compatSpec": {
+    "tdpWatts": 320
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped. From source.cat6.asus.proart-rtx4080-o16g.techspec: CUDA cores '9728', memory speed '22.4 Gbps', memory interface '256-bit', power connector '1 x 16-pin', slot width '2.5 Slot' (used above as the thickness basis), and recommended PSU '750W'. From source.cat6.nvidia.rtx4080-family.reference-tgp: 'Required System Power: 750W'. The recommended-PSU figures are not modelled -- compat2 sizes the PSU from CPU and GPU TDP with a stub headroom multiplier rather than from a vendor recommendation -- so they are recorded here rather than converted into a compat field.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.asus.proart-rtx4080-o16g.techspec",
+      "retrievedAt": "2026-08-10"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.asus.proart-rtx4080-o16g.techspec",
+      "retrievedAt": "2026-08-10"
+    },
+    "performanceSpec": {
+      "sourceId": "source.cat6.asus.proart-rtx4080-o16g.techspec",
+      "retrievedAt": "2026-08-10"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.nvidia.rtx4080-family.reference-tgp",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}

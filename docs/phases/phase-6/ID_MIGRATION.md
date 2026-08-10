@@ -387,6 +387,63 @@ parts, and no part in this build is one.
 | B6 | **I6** sourcing (cooler RAM clearance + module height) | **Source identified, pending provenance recording.** Closes when both citations and retrieval dates are in the registry (Step 4) — not before |
 | B7 | **I9** — which PSU the **I8** demonstration build uses | ✅ **Closed** — slot 10 (Corsair RM750e, 140 mm ATX); slot 2 supports ATX up to 220 mm |
 | B8 | **CPU package dimensions** — no public AMD product page publishes them, but exit condition 4 wants every physical-core part's box derived from cited dimensions | Before Step 6. Found authoring slot 4; see below |
+| B9 | **`MotherboardCompatSpec.maxMemorySpeedMtS` is required**, which blocks slot 9 from carrying a `compatSpec` at all | **Blocks slot 9's role.** Found in the batch; see below |
+| B10 | **`DimensionsMm` is all-or-nothing**, so parts with partial published dimensions record none | Before Step 6, with **B8** |
+
+### B9 — a required memory ceiling blocks the socket negative
+
+`motherboardCompatSpecSchema` (`src/contract/vs2.schema.ts:24`) requires
+`maxMemorySpeedMtS`. ASUS publishes slot 9's ceiling as **`Support up to
+8800+MT/s (OC)`** — the trailing `+` states a floor for the overclocking ceiling,
+not an exact maximum, and converting it into one is an interpretation this catalog
+has not authorised.
+
+So slot 9 cannot carry a `compatSpec` at all, which means it cannot carry
+`socket: "LGA1851"` either — and `checkCpuSocket` reports `unavailable` instead of
+`incompatible`. **The board is in the catalog under the C15 exception for a role it
+currently cannot perform.** Nothing else in the catalog produces a `cpu-socket`
+negative, so that path is unexercised until this is decided.
+
+The part is authored with everything else in place, so whichever option is taken
+completes it with one field.
+
+Options:
+
+1. **Make `maxMemorySpeedMtS` optional in `MotherboardCompatSpec`.** The engine
+   already handles its absence: `checkRamSupport`
+   (`src/compat/checkRamSupport.ts:12`) tests `maxMemorySpeedMtS == null` and
+   returns `unavailable` with a reason. So this is a type and schema change with
+   **no logic change** — and it is the honest shape, because "the vendor did not
+   publish an exact ceiling" is a real state this contract cannot currently
+   express. It does touch compat2, which Phase 6 otherwise leaves alone.
+2. **Record 8800.** Defensible under C14's literal wording — 8800 is the highest
+   rate explicitly listed — and it understates rather than overstates, since the
+   `+` means the true ceiling is at least that. It is inert in practice: every
+   build containing slot 9 is `cpu-socket` blocked before `ram-support` is
+   reached. But it writes a number the vendor did not print as a maximum.
+3. **Choose a different slot 9** whose vendor publishes an exact ceiling. Keeps
+   both contracts untouched and costs one re-selection.
+
+### B10 — partial published dimensions cannot be recorded
+
+`DimensionsMm` requires `lengthMm`, `heightMm` and `thicknessMm` together. Three
+kinds of part in this catalog publish fewer:
+
+| Part | Published | Missing |
+|---|---|---|
+| Motherboards (slots 8, 9, 14) | board outline, two figures | thickness |
+| G.SKILL kit (slot 13) | module height 44 mm | length, thickness |
+| CPUs (slots 4, 5) | nothing | all three — this is **B8** |
+
+In each case the whole field is absent, so a figure the vendor **did** publish is
+discarded. For slot 13 that figure is the module height — the same class of number
+that invariant **I6** turns on for slot 12.
+
+This is the same decision as **B8** and should be taken with it: either
+`DimensionsMm` gains optional members and Step 6's generator handles partial boxes,
+or exit condition 4 is narrowed to the parts whose dimensions are fully
+publishable. Not urgent for the demonstration build, which needs none of these
+boxes, but Step 6 cannot generate geometry for these parts as things stand.
 
 ### B8 — CPU package dimensions are not on the product page
 

@@ -1,0 +1,30 @@
+{
+  "contractVersion": "cat6",
+  "id": "motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3",
+  "category": "motherboard",
+  "displayName": "GIGABYTE B650M AORUS ELITE AX (Rev. 1.3)",
+  "identity": {
+    "manufacturer": "GIGABYTE",
+    "modelName": "B650M AORUS ELITE AX (Rev. 1.3)"
+  },
+  "modelGlbPath": "parts/motherboard/motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3/model.glb",
+  "compatSpec": {
+    "socket": "AM5",
+    "chipset": "AMD B650",
+    "formFactor": "Micro-ATX",
+    "supportedMemoryType": "DDR5",
+    "maxMemorySpeedMtS": 8000,
+    "biosMinVersionForCpu": {}
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.gigabyte.b650m-aorus-elite-ax-rev-1-3.spec. Revision: this SKU is the Rev. 1.3 board and its figures come from the Rev. 1.3 specification page. GIGABYTE publishes revision-specific pages under one model name, so figures from the 1.0/1.1, 1.2 or 1.4 pages do not transfer here; the revision is carried in both the id and modelName for that reason. Memory: 4 DIMM sockets, maximum capacity 256GB, AMD EXPO and Intel XMP supported. maxMemorySpeedMtS records DDR5-8000(OC), the highest rate the vendor explicitly lists for this SKU, per C14. BIOS: biosMinVersionForCpu is deliberately empty under O6. Board dimensions: the page publishes '24.4cm x 24.4cm', a two-figure board outline with no thickness, and cat6's DimensionsMm requires all three, so dimensionsMm is absent rather than completed with a guessed figure.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.gigabyte.b650m-aorus-elite-ax-rev-1-3.spec",
+      "retrievedAt": "2026-08-10"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.gigabyte.b650m-aorus-elite-ax-rev-1-3.spec",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}

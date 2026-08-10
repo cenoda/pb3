@@ -1,0 +1,37 @@
+{
+  "contractVersion": "cat6",
+  "id": "psu.corsair-rm750e",
+  "category": "psu",
+  "displayName": "Corsair RM750e Fully Modular ATX Power Supply",
+  "identity": {
+    "manufacturer": "Corsair",
+    "modelName": "RM750e",
+    "partNumber": "CP-9020295-NA"
+  },
+  "modelGlbPath": "parts/psu/psu.corsair-rm750e/model.glb",
+  "dimensionsMm": {
+    "raw": "140 x 150 x 86 mm",
+    "lengthMm": 140,
+    "heightMm": 86,
+    "thicknessMm": 150,
+    "assignmentBasis": "Corsair publishes the same page's Length as 140mm, which fixes the first figure; the remaining two are the ATX unit's standard width and height, recorded as thicknessMm 150 and heightMm 86. Length is the figure case vendors constrain, and it is the one quoted rather than inferred."
+  },
+  "compatSpec": {
+    "wattage": 750
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.corsair.rm750e-cp-9020295-na.product. Continuous Power 750W; fully modular; ATX 3.1; Cybenetics Gold. SKU: this entry is CP-9020295-NA specifically. Corsair has shipped other RM750e SKUs, including CP-9020262, whose figures must not be substituted for these.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.corsair.rm750e-cp-9020295-na.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.corsair.rm750e-cp-9020295-na.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.corsair.rm750e-cp-9020295-na.product",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}

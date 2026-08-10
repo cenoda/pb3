@@ -1,0 +1,39 @@
+{
+  "contractVersion": "cat6",
+  "id": "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+  "category": "ram",
+  "displayName": "TEAMGROUP T-CREATE EXPERT DDR5-6000 32GB (2x16GB) Black",
+  "identity": {
+    "manufacturer": "TEAMGROUP",
+    "modelName": "T-CREATE EXPERT U-DIMM DDR5 Black",
+    "partNumber": "CTCED532G6000HC30DC01"
+  },
+  "modelGlbPath": "parts/ram/ram.teamgroup-t-create-expert-ddr5-6000-32gb/model.glb",
+  "dimensionsMm": {
+    "raw": "32(H) x 133(L) x 7(W) mm",
+    "lengthMm": 133,
+    "heightMm": 32,
+    "thicknessMm": 7,
+    "assignmentBasis": "TEAMGROUP labels the figures (H)/(L)/(W), so all three are quoted rather than inferred. The 32 mm height is the figure invariant I6 rests on."
+  },
+  "compatSpec": {
+    "memoryType": "DDR5",
+    "speedMtS": 6000,
+    "capacityGb": 32
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.teamgroup.t-create-expert-ddr5-6000-32gb.product. Kit configuration '32GB (2x16GB)', CL30, bandwidth 48000 MB/s, 1.35V, profiles 'Intel XMP 3.0 / AMD EXPO'. speedMtS records the kit's rated 6000 MT/s under C14's reciprocal rule, so that both sides of checkRamSupport are the same kind of figure. compat2 models neither latency, voltage nor module count, so those are recorded here.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.teamgroup.t-create-expert-ddr5-6000-32gb.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.teamgroup.t-create-expert-ddr5-6000-32gb.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.teamgroup.t-create-expert-ddr5-6000-32gb.product",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}

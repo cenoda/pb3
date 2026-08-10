@@ -1,0 +1,37 @@
+{
+  "contractVersion": "cat6",
+  "id": "psu.cooler-master-v550-sfx-gold",
+  "category": "psu",
+  "displayName": "Cooler Master V550 SFX Gold 550W",
+  "identity": {
+    "manufacturer": "Cooler Master",
+    "modelName": "V550 SFX Gold",
+    "partNumber": "MPY-5501-SFHAGV"
+  },
+  "modelGlbPath": "parts/psu/psu.cooler-master-v550-sfx-gold/model.glb",
+  "dimensionsMm": {
+    "raw": "100 x 125 x 63.5 mm",
+    "lengthMm": 100,
+    "heightMm": 63.5,
+    "thicknessMm": 125,
+    "assignmentBasis": "Cooler Master publishes the same page's Length as 100mm, which fixes the first figure; the remaining two are the SFX unit's standard width and height, recorded as thicknessMm 125 and heightMm 63.5. Length is the figure case vendors constrain, and it is the one quoted rather than inferred."
+  },
+  "compatSpec": {
+    "wattage": 550
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.cooler-master.v550-sfx-gold.product. The 550 W rating is stated in the product title itself ('V550 SFX Gold 550W'). Form factor SFX; 80 PLUS Gold; fully modular; 92mm fan; an SFX-to-ATX bracket is included. compat2 models no PSU form factor, so the SFX designation and the bracket have no compat field and are recorded here.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.cooler-master.v550-sfx-gold.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.cooler-master.v550-sfx-gold.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.cooler-master.v550-sfx-gold.product",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}

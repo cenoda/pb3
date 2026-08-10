@@ -1,0 +1,28 @@
+{
+  "contractVersion": "cat6",
+  "id": "ram.gskill-trident-z5-rgb-ddr5-8400",
+  "category": "ram",
+  "displayName": "G.SKILL Trident Z5 RGB DDR5-8400 48GB (2x24GB) White",
+  "identity": {
+    "manufacturer": "G.SKILL",
+    "modelName": "Trident Z5 RGB",
+    "partNumber": "F5-8400J4052G24GX2-TZ5RW"
+  },
+  "modelGlbPath": "parts/ram/ram.gskill-trident-z5-rgb-ddr5-8400/model.glb",
+  "compatSpec": {
+    "memoryType": "DDR5",
+    "speedMtS": 8400,
+    "capacityGb": 48
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped. From source.cat6.gskill.f5-8400j4052g24gx2-tz5rw.specification: capacity '48GB (24GBx2)', dual channel kit, 'Intel XMP 3.0', tested speed '8400 MT/s', tested latency '40-52-52-134', tested voltage '1.40V', unbuffered, non-ECC, no fan. SPD speed is '5600 MT/s' at '1.10V'; speedMtS records the rated 8400 MT/s and not the SPD fallback, under C14's reciprocal rule, so both sides of checkRamSupport are the same kind of figure. G.SKILL states that reaching 8400 MT/s requires overclocking and BIOS adjustment and that the achievable speed depends on the CPU and motherboard; that is a property of the rated figure, not a reason to record a different one. SKU: this is the TZ5RW white variant, not TZ5RK. From source.cat6.gskill.dram-memory-faq: module height 'Trident Z5 RGB: 44mm', and the DDR5 naming convention in which the W suffix denotes White. Module length and thickness are not published in either source, and cat6's DimensionsMm requires all three figures together, so dimensionsMm is absent rather than completed from a generic DDR5 UDIMM specification -- the same principle applied to CPU packages under blocker B8.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.gskill.f5-8400j4052g24gx2-tz5rw.specification",
+      "retrievedAt": "2026-08-10"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.gskill.f5-8400j4052g24gx2-tz5rw.specification",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "contractVersion": "cat6",
+  "id": "cpu.amd-ryzen-7-7800x3d",
+  "category": "cpu",
+  "displayName": "AMD Ryzen 7 7800X3D",
+  "identity": {
+    "manufacturer": "AMD",
+    "modelName": "Ryzen 7 7800X3D",
+    "partNumber": "100-100000910WOF",
+    "releasedAt": "2023-04-06"
+  },
+  "modelGlbPath": "parts/cpu/cpu.amd-ryzen-7-7800x3d/model.glb",
+  "performanceSpec": {
+    "baseClockMhz": 4200,
+    "boostClockMhz": 5000,
+    "boostClockBasis": "AMD publishes Max. Boost Clock as 'Up to 5.0 GHz' and Base Clock as '4.2 GHz'; both are recorded in MHz. The SKU vendor and the chip vendor are the same party, so these are this SKU's own published figures and C10's chip-inheritance prohibition does not arise."
+  },
+  "compatSpec": {
+    "socket": "AM5",
+    "tdpWatts": 120
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.amd.ryzen-7-7800x3d.product. SKU identification: 'Product ID Boxed: 100-100000910WOF' is recorded as partNumber because this entry is the boxed processor ('Form Factor: Desktops, Boxed Processor'); 'Product ID Tray: 100-000000910' is a different SKU and is not catalogued. Architecture and configuration: Former Codename 'Raphael AM5', Processor Architecture 'Zen 4', CPU Cores '8', Threads '16', L3 Cache '96 MB'. Thermal: 'Thermal Solution (PIB): Not Included' -- this processor ships without a cooler, unlike the Ryzen 5 7600 -- and 'Tjmax: 89C'. No package dimensions: the page publishes CCD and IOD die areas only, which are silicon areas and not package width/length/height; dimensionsMm is therefore absent under blocker B8, which is category-level and already recorded.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.amd.ryzen-7-7800x3d.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.amd.ryzen-7-7800x3d.product",
+      "retrievedAt": "2026-08-10"
+    },
+    "performanceSpec": {
+      "sourceId": "source.cat6.amd.ryzen-7-7800x3d.product",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}

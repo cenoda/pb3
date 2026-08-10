@@ -1,0 +1,19 @@
+{
+  "contractVersion": "cat6",
+  "id": "motherboard.asus-tuf-gaming-b860m-plus-wifi",
+  "category": "motherboard",
+  "displayName": "ASUS TUF GAMING B860M-PLUS WIFI",
+  "identity": {
+    "manufacturer": "ASUS",
+    "modelName": "TUF GAMING B860M-PLUS WIFI",
+    "roleNote": "The production and default catalog remains AM5 + DDR5 scoped (O2). A non-AM5 DDR5 motherboard may exist only when it is explicitly designated as a negative fixture whose purpose is to exercise cpu-socket: incompatible. This board is that designated negative fixture (C15)."
+  },
+  "modelGlbPath": "parts/motherboard/motherboard.asus-tuf-gaming-b860m-plus-wifi/model.glb",
+  "notes": "Published facts from source.cat6.asus.tuf-gaming-b860m-plus-wifi.techspec, kept verbatim. CPU socket 'LGA1851', supporting Intel Core Ultra Processors (Series 2). Chipset 'Intel B860'. Memory 'DDR5', 4 DIMMs, maximum capacity 256GB, published wording 'Support up to 8800+MT/s (OC)'. Form factor 'mATX', which maps to compat2's Micro-ATX. Board dimensions '24.4cm x 24.4cm', a two-figure outline with no thickness, so dimensionsMm is absent for the same reason as the other boards in this catalog. compatSpec is NOT recorded on this part, and its absence is a contract limitation rather than a data gap: MotherboardCompatSpec requires maxMemorySpeedMtS, the source publishes the ceiling only as '8800+MT/s (OC)' whose trailing '+' is not an exact figure, and converting it into one would be an interpretation this catalog has not authorised. Because compatSpec is absent, checkCpuSocket reports unavailable rather than incompatible, so this part does not yet perform the negative-fixture role C15 admits it for. See the batch report's contract finding.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.asus.tuf-gaming-b860m-plus-wifi.techspec",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}

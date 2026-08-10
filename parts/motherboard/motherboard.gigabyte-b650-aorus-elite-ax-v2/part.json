@@ -1,0 +1,30 @@
+{
+  "contractVersion": "cat6",
+  "id": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+  "category": "motherboard",
+  "displayName": "GIGABYTE B650 AORUS ELITE AX V2",
+  "identity": {
+    "manufacturer": "GIGABYTE",
+    "modelName": "B650 AORUS ELITE AX V2"
+  },
+  "modelGlbPath": "parts/motherboard/motherboard.gigabyte-b650-aorus-elite-ax-v2/model.glb",
+  "compatSpec": {
+    "socket": "AM5",
+    "chipset": "AMD B650",
+    "formFactor": "ATX",
+    "supportedMemoryType": "DDR5",
+    "maxMemorySpeedMtS": 8000,
+    "biosMinVersionForCpu": {}
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.gigabyte.b650-aorus-elite-ax-v2.spec. Memory: 4 DIMM sockets, maximum capacity 256GB. maxMemorySpeedMtS records DDR5-8000(OC), the highest rate the vendor explicitly lists for this SKU, per C14 -- a catalog compatibility ceiling, not a guarantee that any given kit, CPU memory controller or DIMM population reaches it. BIOS: biosMinVersionForCpu is deliberately empty under O6; this catalog does not model BIOS-revision compatibility, and checkChipsetBios reports that as unavailable. Board dimensions: the page publishes '30.5cm x 24.4cm', which is a two-figure board outline with no thickness, and cat6's DimensionsMm requires length, height and thickness together; dimensionsMm is therefore absent rather than completed with a guessed third figure. The page also separates the Wi-Fi module by PCB rev. 1.0 / 1.1; the catalogued identity is the B650 AORUS ELITE AX V2 model itself, and no PCB revision is added to identity because no recorded field depends on the difference.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.gigabyte.b650-aorus-elite-ax-v2.spec",
+      "retrievedAt": "2026-08-10"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.gigabyte.b650-aorus-elite-ax-v2.spec",
+      "retrievedAt": "2026-08-10"
+    }
+  }
+}
