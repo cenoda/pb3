@@ -1,5 +1,9 @@
 import { z } from "zod";
 import { physicalSpecSchema } from "./phys3.schema";
+import {
+  caseClearanceLimitsSchema,
+  dimensionsMmSchema,
+} from "./cat6.fields.schema";
 import { vs0ContractVersionSchema } from "./vs0.schema";
 
 /** Runtime loader accepts vs0 legacy fixtures and cat6-authored parts. */
@@ -73,6 +77,14 @@ export const partDefinitionV2Schema = z.object({
   compatSpec: compatSpecSchema.optional(),
   /** Nested phys3 block; omitted = visual-only coverage. */
   physicalSpec: physicalSpecSchema.optional(),
+  dimensionsMm: dimensionsMmSchema.optional(),
+  clearanceLimits: caseClearanceLimitsSchema.optional(),
+  provenance: z
+    .object({
+      clearanceLimits: z.object({ sourceId: z.string().min(1) }).optional(),
+      dimensions: z.object({ sourceId: z.string().min(1) }).optional(),
+    })
+    .optional(),
 });
 
 export const buildStateV2Schema = z.object({

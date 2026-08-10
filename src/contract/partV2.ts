@@ -6,6 +6,7 @@ import type {
   PsuCompatSpec,
   RamCompatSpec,
 } from "./compat2";
+import type { CaseClearanceLimits, DimensionsMm } from "./cat6";
 import type { PhysicalSpec } from "./phys3";
 import type { PartCategoryV2 } from "./vs2";
 
@@ -28,6 +29,15 @@ export interface PartDefinitionV2 {
     | PsuCompatSpec
     | CaseCompatSpec;
   physicalSpec?: PhysicalSpec;
+  /** cat6-authored dimensions; absent when the vendor published none. */
+  dimensionsMm?: DimensionsMm;
+  /** cat6 case clearance limits for scalar clearance-limit evaluation. */
+  clearanceLimits?: CaseClearanceLimits;
+  /** Minimal provenance for runtime evidence attribution. */
+  provenance?: {
+    clearanceLimits?: { sourceId: string };
+    dimensions?: { sourceId: string };
+  };
 }
 
 const CATEGORIES_REQUIRING_COMPAT: ReadonlySet<PartCategoryV2> = new Set([

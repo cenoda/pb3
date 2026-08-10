@@ -286,5 +286,26 @@ describe("physicalValidation", () => {
         },
       ]),
     ).toBe("unavailable");
+
+    expect(
+      aggregatePhysicalStatus([
+        {
+          checkId: "1",
+          kind: "clearance-limit",
+          status: "conditional",
+          involvedPartIds: ["a"],
+          involvedNodeNames: ["clearance-limit:x"],
+          evidenceSourceIds: [],
+        },
+        {
+          checkId: "2",
+          kind: "collision",
+          status: "fit",
+          involvedPartIds: ["b"],
+          involvedNodeNames: ["collision:b"],
+          evidenceSourceIds: [],
+        },
+      ]),
+    ).toBe("conditional");
   });
 });

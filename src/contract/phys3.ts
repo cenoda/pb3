@@ -104,9 +104,13 @@ export interface AssemblyState {
   mountSelections: MountSelection[];
 }
 
-export type PhysicalValidationStatus = "fit" | "interference" | "unavailable";
+export type PhysicalValidationStatus =
+  | "fit"
+  | "interference"
+  | "unavailable"
+  | "conditional";
 
-export type PhysicalCheckKind = "collision" | "clearance";
+export type PhysicalCheckKind = "collision" | "clearance" | "clearance-limit";
 
 export interface PhysicalCheckResult {
   checkId: string;
@@ -114,7 +118,7 @@ export interface PhysicalCheckResult {
   status: PhysicalValidationStatus;
   involvedPartIds: string[];
   involvedNodeNames: string[];
-  /** Required for interference and unavailable. */
+  /** Required for interference, unavailable, and conditional. */
   explanation?: string;
   evidenceSourceIds: string[];
 }
@@ -179,7 +183,11 @@ export interface CoolingEvidenceFile {
   rows: CoolingEvidenceRecord[];
 }
 
-/** Nine physical-core part IDs (existing catalog; no inventory expansion). */
+/**
+ * Nine physical-core part IDs (existing catalog; no inventory expansion).
+ * Membership requires authored `physicalSpec` for mount/socket semantics; not
+ * every member must expose collision geometry (see B8 CPU package decision).
+ */
 export const PHYS3_PHYSICAL_CORE_IDS = [
   "case.fractal-design-north-tg-dark",
   "motherboard.gigabyte-b650-aorus-elite-ax-v2",

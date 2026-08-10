@@ -36,6 +36,7 @@ export function aggregatePhysicalStatus(
 ): PhysicalValidationStatus {
   if (checks.some((c) => c.status === "interference")) return "interference";
   if (checks.some((c) => c.status === "unavailable")) return "unavailable";
+  if (checks.some((c) => c.status === "conditional")) return "conditional";
   return "fit";
 }
 

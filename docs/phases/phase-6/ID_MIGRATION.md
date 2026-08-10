@@ -396,7 +396,7 @@ parts, and no part in this build is one.
 |---|------|------|
 | B1 | **D2** `maxMemorySpeedMtS` rule written into `cat6` | Before Step 4 authors **any** motherboard |
 | B2 | **D1** negative-fixture exception written into `cat6` / `specs/phase-6.md` | Before slot 9 is authored |
-| B3 | **D4** three-outcome C13 + `conditional` in `PhysicalValidationStatus`, **and branch filtering** (below) | **Candidate blocker before Step 6.** A phys3 contract change plus display propagation; needs its own decision. **Not resolved by slot 14** |
+| B3 | **D4** three-outcome C13 + `conditional` in `PhysicalValidationStatus`, **and branch filtering** (below) | ✅ **Resolved 2026-08-10** — `conditional` status, conservative `appliesWhen` pruning, and selected-build part resolution in `evaluateClearanceLimits` |
 | B4 | **D3** F4 permanent-caution resolution | Bounded step of its own. Does **not** gate Steps 3–4 |
 | B5 | Slot 14 selection | ✅ **Closed** — GIGABYTE B650M AORUS ELITE AX Rev. 1.3, approved 2026-08-10 |
 | B6 | **I6** sourcing (cooler RAM clearance + module height) | ✅ **Closed 2026-08-10** — both citations recorded; **I6** derived from authored data. See below |
@@ -522,7 +522,35 @@ or exit condition 4 is narrowed to the parts whose dimensions are fully
 publishable. Not urgent for the demonstration build, which needs none of these
 boxes, but Step 6 cannot generate geometry for these parts as things stand.
 
-### B8 — CPU package dimensions are not on the product page
+### B8 — CPU package dimensions: decision (pre-Step-6 closure, 2026-08-10)
+
+AMD's Ryzen 5 7600 and Ryzen 7 7800X3D product pages publish **no** sourced
+package width, length, or height. Published `CCD Size` / `IOD Size` figures are
+silicon die areas, not package dimensions.
+
+**Approved decision for Step 6:**
+
+1. `dimensionsMm` stays absent on CPU slots — correct under exit condition 3.
+2. The legacy synthetic `collision:cpu-die` box is **not** accepted as real-product
+   physical truth.
+3. Step 6 **excludes CPU collision geometry** while preserving socket/mount semantics.
+4. Official package mechanical geometry may be reintroduced later when a suitable
+   primary source is obtained.
+5. Exit condition 4 is **not** weakened: physical-core membership does not require
+   every member to expose a collision box (see `PHYS3_PHYSICAL_CORE_IDS` comment).
+
+**Renderer note (read-only audit):** each CPU GLB carries a separate `visual:*` mesh
+and `collision:cpu-die`; `MountedPartModel` renders only `visual:*` nodes.
+Removing collision geometry in Step 6 does not remove CPU visibility.
+
+**B12 follow-up:** when the CPU collision node is removed in Step 6, stale cooler
+`allowedContacts` references to `collision:cpu-die` must be removed in the same step.
+
+Options 1–3 from the pre-decision list above are superseded by this ruling except
+that option 1 (official package drawing) remains the preferred path if a primary
+source is found later.
+
+### B8 — CPU package dimensions are not on the product page (original finding)
 
 AMD's Ryzen 5 7600 page publishes no package width, length or height. What it does
 publish — `CCD Size: 71mm²`, `IOD Size: 122mm²` — is **silicon die area**, not a
@@ -579,8 +607,9 @@ written to fix.
 So adding the `conditional` status alone is not sufficient. Whatever step resolves
 **B3** has to decide whether conditions stay free text (and the status is reported
 more often than the facts warrant) or gain enough structure to be filtered against
-a build. **This does not change B3's timing** — it remains a candidate blocker
-before Step 6, for the reason it already was.
+a build. **Resolved 2026-08-10:** `condition` remains verbatim provenance/display
+text; structured `appliesWhen` predicates (`psu.lengthMm` with `lte` \| `gt`)
+perform conservative branch pruning against the selected build's PSU length.
 
 ---
 

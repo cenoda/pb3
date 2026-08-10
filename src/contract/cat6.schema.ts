@@ -6,10 +6,21 @@ import {
 } from "./prov4.schema";
 import { physicalSpecSchema } from "./phys3.schema";
 import {
+  caseClearanceLimitsSchema,
+  dimensionsMmSchema,
+} from "./cat6.fields.schema";
+import {
   compatSpecSchema,
   partCategoryV2Schema,
 } from "./vs2.schema";
 import { CAT6_CONTRACT_VERSION, CAT6_ID_SUFFIX_PATTERN } from "./cat6";
+
+export {
+  caseClearanceLimitsSchema,
+  clearanceConditionSchema,
+  clearanceLimitSchema,
+  dimensionsMmSchema,
+} from "./cat6.fields.schema";
 
 export const cat6ContractVersionSchema = z.literal(CAT6_CONTRACT_VERSION);
 
@@ -41,45 +52,12 @@ export const partIdentitySchema = z.object({
   roleNote: nonEmptyString.optional(),
 });
 
-export const dimensionsMmSchema = z
-  .object({
-    lengthMm: positiveFiniteNumber.optional(),
-    heightMm: positiveFiniteNumber.optional(),
-    thicknessMm: positiveFiniteNumber.optional(),
-    raw: nonEmptyString,
-    assignmentBasis: nonEmptyString,
-  })
-  .refine(
-    (dimensions) =>
-      dimensions.lengthMm !== undefined ||
-      dimensions.heightMm !== undefined ||
-      dimensions.thicknessMm !== undefined,
-    {
-      message:
-        "dimensionsMm must record at least one published axis; a part with no published dimension omits the field entirely",
-    },
-  );
-
 export const performanceSpecSchema = z.object({
   boostClockMhz: positiveFiniteNumber.optional(),
   boostClockBasis: nonEmptyString.optional(),
   baseClockMhz: positiveFiniteNumber.optional(),
   defaultPowerLimitW: positiveFiniteNumber.optional(),
   powerLimitBasis: nonEmptyString.optional(),
-});
-
-export const clearanceLimitSchema = z.object({
-  limitMm: positiveFiniteNumber,
-  condition: nonEmptyString.optional(),
-});
-
-const nonEmptyClearanceLimitArray = z.array(clearanceLimitSchema).min(1);
-
-export const caseClearanceLimitsSchema = z.object({
-  maxGpuLength: nonEmptyClearanceLimitArray.optional(),
-  maxCpuCoolerHeight: nonEmptyClearanceLimitArray.optional(),
-  maxPsuLength: nonEmptyClearanceLimitArray.optional(),
-  raw: nonEmptyString,
 });
 
 export const catalogImageRefSchema = z.object({

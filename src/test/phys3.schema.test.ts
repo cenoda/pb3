@@ -94,6 +94,16 @@ const interferenceCheck = {
   evidenceSourceIds: ["ev"],
 };
 
+const conditionalCheck = {
+  checkId: "clearance-limit:gpu-length",
+  kind: "clearance-limit" as const,
+  status: "conditional" as const,
+  involvedPartIds: ["case", "gpu"],
+  involvedNodeNames: ["clearance-limit:maxGpuLength"],
+  explanation: "mixed branches",
+  evidenceSourceIds: ["ev"],
+};
+
 describe("phys3.schema", () => {
   it("accepts a valid physicalSpec", () => {
     expect(physicalSpecSchema.safeParse(validPhysicalSpec).success).toBe(true);
@@ -268,6 +278,28 @@ describe("phys3.schema", () => {
         geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
       }).success,
     ).toBe(true);
+
+    expect(
+      physicalValidationReportSchema.safeParse({
+        physicalContractVersion: "phys3",
+        buildStateVersion: "vs2",
+        assemblyState: assembly,
+        checks: [fitCheck, conditionalCheck],
+        overallStatus: "conditional",
+        geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
+      }).success,
+    ).toBe(true);
+
+    expect(
+      physicalValidationReportSchema.safeParse({
+        physicalContractVersion: "phys3",
+        buildStateVersion: "vs2",
+        assemblyState: assembly,
+        checks: [conditionalCheck, unavailableCheck],
+        overallStatus: "conditional",
+        geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
+      }).success,
+    ).toBe(false);
   });
 
   it("validates benchmarks/phys3/physical-validation-examples.json", () => {

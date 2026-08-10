@@ -105,12 +105,12 @@ boxes; the hardcoded half-extents and the engineered
 `clearance:cooler-sidekeepout` tuning are removed. The generator owns the
 per-category mapping from product-relative `dimensionsMm` fields to phys3 scene
 axes (+X/+Y/+Z); that mapping is not stored in `part.json` (see contract **C11**).
-For cases, the generator also derives clearance volumes from `clearanceLimits`
-under **C13**, replacing the hand-authored clearance node; where limits are
-conditional and the configuration is unmodelled, it evaluates every published
-branch and reports `fit` / `interference` / `conditional` per **C13** rather than
-choosing a configuration. `conditional` needs a phys3 member that does not exist
-yet — see blocker **B3** in [`ID_MIGRATION.md`](./ID_MIGRATION.md).
+For cases, published `clearanceLimits` are evaluated by a **scalar clearance-limit
+evaluator** at runtime (separate from the OBB collision engine), reporting
+`fit` / `interference` / `conditional` per **C13** with conservative branch
+applicability filtering. `conditional` is a phys3 status member (**B3** resolved).
+The generator does **not** derive internal clearance volumes or invented case
+envelope boxes from scalar limits or case exterior `dimensionsMm` — see **B14**.
 New `geometryDataVersion: "cat6-spec-⟨date⟩"`; `modelGrade` stays `Experimental`
 (**C5**).
 

@@ -13,6 +13,7 @@ import type { PartDefinitionV2 } from "../contract/partV2";
 import { collectCollisionInputs } from "./collision/collectCollisionInputs";
 import { aggregatePhysicalStatus } from "./collision/types";
 import { createObbCollisionEngine } from "./collision/validatePhysicalFit";
+import { evaluateClearanceLimits } from "./clearanceLimit/evaluateClearanceLimits";
 
 export interface BuildPhysicalReportArgs {
   assembly: ResolvedAssembly;
@@ -126,6 +127,33 @@ export function buildPhysicalValidationReport(
       explanation: "No collision geometry available for physical validation.",
       evidenceSourceIds: [],
     });
+  }
+
+  const casePartEntry = assembly.parts.find((p) => p.category === "case");
+  const casePart = casePartEntry
+    ? partsById.get(casePartEntry.partId)
+    : undefined;
+  const clearanceEvidenceSourceIds = casePart?.provenance?.clearanceLimits
+    ?.sourceId
+    ? [casePart.provenance.clearanceLimits.sourceId]
+    : [];
+
+  if (casePartEntry) {
+    const selectedPartId = (category: string) =>
+      assembly.parts.find((p) => p.category === category)?.partId;
+
+    checks.push(
+      ...evaluateClearanceLimits({
+        partsById,
+        casePartId: casePartEntry.partId,
+        selectedPartIds: {
+          gpuId: selectedPartId("gpu"),
+          coolerId: selectedPartId("cooler"),
+          psuId: selectedPartId("psu"),
+        },
+        evidenceSourceIds: clearanceEvidenceSourceIds,
+      }),
+    );
   }
 
   return {

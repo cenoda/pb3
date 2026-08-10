@@ -139,20 +139,36 @@ export interface PerformanceSpec {
   powerLimitBasis?: string;
 }
 
+/** Phase-6 machine-checkable clearance predicate subject. */
+export type ClearanceConditionSubject = "psu.lengthMm";
+
+export type ClearanceConditionOperator = "lte" | "gt";
+
+/**
+ * Optional structured predicate alongside verbatim `condition` text.
+ * Conservative applicability pruning only — a true result is not proof that the
+ * full vendor condition is selected.
+ */
+export interface ClearanceCondition {
+  subject: ClearanceConditionSubject;
+  operator: ClearanceConditionOperator;
+  valueMm: number;
+}
+
 /** One published clearance limit, with the condition it holds under. */
 export interface ClearanceLimit {
   /** The limit in mm. */
   limitMm: number;
   /**
    * The vendor's printed condition, verbatim. Absent when the vendor states the
-   * limit unconditionally.
-   *
-   * Free text for now. A machine-readable key is deliberately not invented
-   * here: no configuration model exists yet to name conditions against, and
-   * guessing a vocabulary before the configurations are known would be the same
-   * error as guessing a spec.
+   * limit unconditionally. Never parsed for evaluation — display/provenance only.
    */
   condition?: string;
+  /**
+   * Optional structured necessary conditions for conservative branch pruning.
+   * Unmodeled qualifiers in `condition` remain unresolved.
+   */
+  appliesWhen?: ClearanceCondition[];
 }
 
 /**

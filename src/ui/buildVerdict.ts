@@ -66,7 +66,7 @@ export function buildVerdict(input: BuildVerdictInput): BuildVerdict {
     };
   }
 
-  if (physical.overallStatus !== "fit") {
+  if (physical.overallStatus === "unavailable") {
     const unresolved = physical.checks.find(
       (check) => check.status === "unavailable",
     );
@@ -77,6 +77,20 @@ export function buildVerdict(input: BuildVerdictInput): BuildVerdict {
         ? physicalReason(unresolved, nameOf)
         : "We could not work out how these parts fit together. Change a part to try another combination.",
       showResults: false,
+    };
+  }
+
+  if (physical.overallStatus === "conditional") {
+    const conditional = physical.checks.find(
+      (check) => check.status === "conditional",
+    );
+    return {
+      level: "caution",
+      headline: "These parts may fit, depending on configuration.",
+      reason: conditional
+        ? physicalReason(conditional, nameOf)
+        : "Published clearance limits disagree across configurations. The rest of the build checks out.",
+      showResults: true,
     };
   }
 

@@ -20,23 +20,38 @@
     "maxGpuLength": [
       {
         "limitMm": 415,
-        "condition": "ATX PSU FRONT, position F1, ATX PSU <=140mm"
+        "condition": "ATX PSU FRONT, position F1, ATX PSU <=140mm",
+        "appliesWhen": [
+          { "subject": "psu.lengthMm", "operator": "lte", "valueMm": 140 }
+        ]
       },
       {
         "limitMm": 334,
-        "condition": "ATX PSU FRONT, position F1, ATX PSU >140mm <=220mm"
+        "condition": "ATX PSU FRONT, position F1, ATX PSU >140mm <=220mm",
+        "appliesWhen": [
+          { "subject": "psu.lengthMm", "operator": "gt", "valueMm": 140 }
+        ]
       },
       {
         "limitMm": 334,
-        "condition": "ATX PSU FRONT, position F2, ATX PSU <=200mm"
+        "condition": "ATX PSU FRONT, position F2, ATX PSU <=200mm",
+        "appliesWhen": [
+          { "subject": "psu.lengthMm", "operator": "lte", "valueMm": 200 }
+        ]
       },
       {
         "limitMm": 334,
-        "condition": "ATX PSU FRONT, position F2.5, ATX PSU <=182mm"
+        "condition": "ATX PSU FRONT, position F2.5, ATX PSU <=182mm",
+        "appliesWhen": [
+          { "subject": "psu.lengthMm", "operator": "lte", "valueMm": 182 }
+        ]
       },
       {
         "limitMm": 334,
-        "condition": "ATX PSU FRONT, position F3, ATX PSU <=165mm"
+        "condition": "ATX PSU FRONT, position F3, ATX PSU <=165mm",
+        "appliesWhen": [
+          { "subject": "psu.lengthMm", "operator": "lte", "valueMm": 165 }
+        ]
       },
       {
         "limitMm": 415,
@@ -52,19 +67,31 @@
       },
       {
         "limitMm": 415,
-        "condition": "ATX PSU SIDE, position S0.5, ATX PSU <=150mm"
+        "condition": "ATX PSU SIDE, position S0.5, ATX PSU <=150mm",
+        "appliesWhen": [
+          { "subject": "psu.lengthMm", "operator": "lte", "valueMm": 150 }
+        ]
       },
       {
         "limitMm": 258,
-        "condition": "ATX PSU SIDE, position S0.5, ATX PSU >150mm"
+        "condition": "ATX PSU SIDE, position S0.5, ATX PSU >150mm",
+        "appliesWhen": [
+          { "subject": "psu.lengthMm", "operator": "gt", "valueMm": 150 }
+        ]
       },
       {
         "limitMm": 415,
-        "condition": "ATX PSU SIDE, position S1, ATX PSU <=140mm"
+        "condition": "ATX PSU SIDE, position S1, ATX PSU <=140mm",
+        "appliesWhen": [
+          { "subject": "psu.lengthMm", "operator": "lte", "valueMm": 140 }
+        ]
       },
       {
         "limitMm": 258,
-        "condition": "ATX PSU SIDE, position S1, ATX PSU >140mm"
+        "condition": "ATX PSU SIDE, position S1, ATX PSU >140mm",
+        "appliesWhen": [
+          { "subject": "psu.lengthMm", "operator": "gt", "valueMm": 140 }
+        ]
       },
       {
         "limitMm": 258,

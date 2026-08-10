@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PHYS3_CONTRACT_VERSION } from "./phys3";
+import { PHYS3_CONTRACT_VERSION, type PhysicalValidationStatus } from "./phys3";
 
 export const phys3ContractVersionSchema = z.literal(PHYS3_CONTRACT_VERSION);
 
@@ -163,10 +163,11 @@ export const mountUnavailableReasonSchema = z.enum([
 ]);
 
 function aggregateOverallStatus(
-  checks: Array<{ status: "fit" | "interference" | "unavailable" }>,
-): "fit" | "interference" | "unavailable" {
+  checks: Array<{ status: PhysicalValidationStatus }>,
+): PhysicalValidationStatus {
   if (checks.some((c) => c.status === "interference")) return "interference";
   if (checks.some((c) => c.status === "unavailable")) return "unavailable";
+  if (checks.some((c) => c.status === "conditional")) return "conditional";
   return "fit";
 }
 
@@ -196,12 +197,13 @@ export const physicalValidationStatusSchema = z.enum([
   "fit",
   "interference",
   "unavailable",
+  "conditional",
 ]);
 
 export const physicalCheckResultSchema = z
   .object({
     checkId: z.string().min(1),
-    kind: z.enum(["collision", "clearance"]),
+    kind: z.enum(["collision", "clearance", "clearance-limit"]),
     status: physicalValidationStatusSchema,
     involvedPartIds: z.array(z.string().min(1)).min(1),
     involvedNodeNames: z.array(z.string().min(1)).min(1),
@@ -210,7 +212,9 @@ export const physicalCheckResultSchema = z
   })
   .superRefine((check, ctx) => {
     if (
-      (check.status === "interference" || check.status === "unavailable") &&
+      (check.status === "interference" ||
+        check.status === "unavailable" ||
+        check.status === "conditional") &&
       !check.explanation
     ) {
       ctx.addIssue({

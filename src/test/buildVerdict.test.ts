@@ -133,12 +133,50 @@ describe("buildVerdict", () => {
   it("blocks results when the build cannot be assembled at all", () => {
     const verdict = buildVerdict({
       compatibility: compat(),
-      physical: physical({ overallStatus: "unavailable" }),
+      physical: physical({
+        overallStatus: "unavailable",
+        checks: [
+          {
+            checkId: "coverage:x",
+            kind: "collision",
+            status: "unavailable",
+            involvedPartIds: ["a"],
+            involvedNodeNames: ["part:a"],
+            explanation: "missing geometry",
+            evidenceSourceIds: [],
+          },
+        ],
+      }),
       nameOf,
     });
 
     expect(verdict.showResults).toBe(false);
     expect(verdict.headline).toBe("This build cannot be assembled.");
+  });
+
+  it("shows caution when physical validation is conditional", () => {
+    const verdict = buildVerdict({
+      compatibility: compat(),
+      physical: physical({
+        overallStatus: "conditional",
+        checks: [
+          {
+            checkId: "clearance-limit:gpu-length",
+            kind: "clearance-limit",
+            status: "conditional",
+            involvedPartIds: ["case.lian-li-a3-matx-black", "gpu.asus-dual-rtx4070-o12g"],
+            involvedNodeNames: ["clearance-limit:maxGpuLength"],
+            explanation: "GPU length fits some published branches and fails others.",
+            evidenceSourceIds: [],
+          },
+        ],
+      }),
+      nameOf,
+    });
+
+    expect(verdict.level).toBe("caution");
+    expect(verdict.showResults).toBe(true);
+    expect(verdict.headline).toContain("configuration");
   });
 
   it("still shows results when a check could not be run, and says so", () => {

@@ -144,6 +144,13 @@ export interface PerformanceSpec {
   powerLimitBasis?: string;
 }
 
+/** Optional structured predicate alongside verbatim `condition` text. */
+export interface ClearanceCondition {
+  subject: "psu.lengthMm";
+  operator: "lte" | "gt";
+  valueMm: number;
+}
+
 /** One published clearance limit, with the condition it holds under. */
 export interface ClearanceLimit {
   /** The limit in mm. */
@@ -152,12 +159,20 @@ export interface ClearanceLimit {
    * The vendor's printed condition, verbatim. Absent when the vendor states the
    * limit unconditionally.
    *
-   * Free text for now. A machine-readable key is deliberately not invented
-   * here: no configuration model exists yet to name conditions against, and
-   * guessing a vocabulary before the configurations are known would be the
-   * same error as guessing a spec.
+   * Free text for provenance and display only — never parsed for evaluation.
+   * A machine-readable key is deliberately not invented here: no configuration
+   * model exists yet to name conditions against, and guessing a vocabulary
+   * before the configurations are known would be the same error as guessing a
+   * spec.
    */
   condition?: string;
+  /**
+   * Optional structured necessary conditions for conservative branch pruning.
+   * Currently supports only `psu.lengthMm` with `lte` | `gt`. A true result is
+   * not proof that the full vendor condition is selected; unmodelled qualifiers in
+   * `condition` remain unresolved.
+   */
+  appliesWhen?: ClearanceCondition[];
 }
 
 /**
@@ -370,7 +385,7 @@ Rules:
 | **C10** | **A SKU does not inherit its chip's numbers into `performanceSpec`.** That group exists to record how this SKU differs from others built on the same chip; filling it from a reference figure erases exactly that. If the board partner does not publish a value, the `performanceSpec` field is absent. **`compatSpec` is different:** it feeds compatibility checks, its fields are chip-level facts, and a chip-vendor figure is a real published fact. It may be recorded, cited to the chip vendor rather than the board partner, and the registry source must record any scope caveat the chip vendor states. |
 | **C11** | **Dimensions are product-relative, not scene axes.** `dimensionsMm` stores the vendor's printed string (`raw`), principal-dimension numbers (`lengthMm` / `heightMm` / `thicknessMm`), and the assignment rationale (`assignmentBasis`). Mapping product axes to phys3 scene axes (+X/+Y/+Z) is owned by the Step 6 geometry generator, once per category — not buried inside a field that is supposed to be a quotation. |
 | **C12** | **A limit whose published condition scopes it to a different SKU is not recorded.** One real page lists a cooler height of "145 mm with Fan Bracket (Mesh version only) / 170 mm w.o" on the tempered-glass product's own page; for the tempered-glass SKU only the 170 mm figure applies, and the 145 mm figure is omitted rather than stored with a condition that can never hold. This is **O3**'s SKU granularity applied to clearance. |
-| **C13** | **Conditional limits are preserved, not collapsed.** When a vendor publishes several limits that apply to the catalogued SKU under different configurations, every one is recorded with its condition. They are alternatives, and reducing them to a single number silently picks a configuration on the user's behalf. **Evaluation semantics** (normative for any consumer): if the deciding configuration is known, use the limit for that condition. Otherwise evaluate **every** published branch — not knowing which branch holds does not prevent evaluating all of them — and report `fit` when the part fits in every branch, `interference` when it fails in every branch, and `conditional` when branches disagree. Worked examples against "1 HDD Tray: 255 mm / 2 HDD Tray: 155 mm": a 140 mm PSU satisfies `140 ≤ 155` and `140 ≤ 255`, so it is `fit` outright with no need to model tray state; a 200 mm PSU fits one branch and not the other, so it is `conditional`. **"We do not know which branch holds" and "we cannot judge at all" are different facts and must not collapse into the same `unavailable`.** The most restrictive limit is a fallback only where a single scalar is structurally required and no configuration is known. **Scope note:** `PhysicalValidationStatus` is `"fit" \| "interference" \| "unavailable"`, with no `conditional` member, and the display layer promotes a physical `unavailable` to `blocked` with results hidden (`src/ui/buildVerdict.ts:69`) — so a conditional part would currently be reported as un-assemblable, which is worse than either verdict. Adding the member is a phys3 contract change plus display propagation, and it is a **candidate blocker before Step 6** (**B3** in [`../ID_MIGRATION.md`](../ID_MIGRATION.md)), not a later-phase follow-up. Until it lands the Phase 6 default build is chosen to clear every published branch unconditionally (**I5**), so no shipped build depends on it. |
+| **C13** | **Conditional limits are preserved, not collapsed.** When a vendor publishes several limits that apply to the catalogued SKU under different configurations, every one is recorded with its condition. They are alternatives, and reducing them to a single number silently picks a configuration on the user's behalf. **Evaluation semantics** (normative for any consumer): if the deciding configuration is known, use the limit for that condition. Otherwise evaluate **every** published branch that is not conservatively pruned by `appliesWhen` — not knowing which branch holds does not prevent evaluating all of them — and report `fit` when the part fits in every retained branch, `interference` when it fails in every retained branch, and `conditional` when retained branches disagree. Worked examples against "1 HDD Tray: 255 mm / 2 HDD Tray: 155 mm": a 140 mm PSU satisfies `140 ≤ 155` and `140 ≤ 255`, so it is `fit` outright with no need to model tray state; a 200 mm PSU fits one branch and not the other, so it is `conditional`. **"We do not know which branch holds" and "we cannot judge at all" are different facts and must not collapse into the same `unavailable`.** The most restrictive limit is a fallback only where a single scalar is structurally required and no configuration is known. **`PhysicalValidationStatus` is `"fit" \| "interference" \| "conditional" \| "unavailable"`.** `condition` is verbatim provenance/display text and is never parsed as a runtime DSL; structured applicability currently supports only `psu.lengthMm` with `lte` \| `gt` and performs conservative pruning only. |
 | **C14** | **`maxMemorySpeedMtS` records the highest memory data rate that the motherboard vendor explicitly lists as supported for that SKU, including values marked OC/XMP/EXPO where applicable.** This is a catalog compatibility ceiling, not a guarantee that every memory kit, CPU IMC, DIMM population, or timing configuration will operate at that rate. Vendors publish a list — 8000(OC) / 7800(OC) / … / 5600 / 5200 / 4800 — and the JEDEC floor is the wrong pick: DDR5-6000/6400/7200 kits that people run every day would read `incompatible`, which is the compat engine contradicting reality rather than reporting it. "The EXPO speed" is also the wrong name for it, because the list is not EXPO-only. **Reciprocal for memory:** `RamCompatSpec.speedMtS` records the kit's rated (XMP/EXPO) speed as the vendor prints it, not its SPD/JEDEC fallback. The two sides of `checkRamSupport` must be the same kind of figure or the comparison is meaningless. |
 | **C15** | **The production and default catalog remains AM5 + DDR5 scoped (O2).** A non-AM5 DDR5 motherboard may exist **only** when it is explicitly designated as a negative fixture whose purpose is to exercise `cpu-socket: incompatible`. This is not justified by `MotherboardCompatSpec.socket` being typed `string`. It is one slot deliberately outside the socket boundary, for a test, recorded as an exception rather than a silent widening. The alternative that was rejected was keeping the legacy fixture, which claimed AM4 + B450 + DDR5 — hardware that does not exist, because B450 is DDR4. The designation is carried in the part's `identity.roleNote` (§2), so a reader of the part file can see why a non-AM5 board is in an AM5 catalog without having to find this document. |
 
