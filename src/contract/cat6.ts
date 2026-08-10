@@ -70,13 +70,27 @@ export interface CatalogProvenance {
 }
 
 /**
- * Bounding dimensions of the physical product, mm, in the phys3 axis
- * convention (mm, Y-up). SSOT the collision box is generated from.
+ * Product-relative bounding dimensions of the physical product, mm, as read from
+ * the vendor's published figures. Scene-axis mapping is owned by the Step 6
+ * geometry generator, not this field.
  */
 export interface DimensionsMm {
-  widthMm: number;
+  /** Longest principal dimension, mm. */
+  lengthMm: number;
+  /** Second principal dimension, mm. */
   heightMm: number;
-  depthMm: number;
+  /** Third principal dimension (thickness / depth), mm. */
+  thicknessMm: number;
+  /**
+   * The vendor's printed dimension string, verbatim, before any interpretation.
+   */
+  raw: string;
+  /**
+   * How the raw figures were assigned to the three fields above, and on what
+   * evidence. Required, because vendors frequently print unlabeled figures and
+   * the assignment is then an inference, not a quotation.
+   */
+  assignmentBasis: string;
 }
 
 /**
@@ -87,6 +101,11 @@ export interface DimensionsMm {
 export interface PerformanceSpec {
   /** Published boost / max clock, MHz. */
   boostClockMhz?: number;
+  /**
+   * Which published boost figure boostClockMhz records when a vendor lists
+   * more than one (e.g. default mode vs OC mode).
+   */
+  boostClockBasis?: string;
   /** Published base clock, MHz. */
   baseClockMhz?: number;
   /** Default board / package power limit, W (TGP, TDP, or PPT as published). */

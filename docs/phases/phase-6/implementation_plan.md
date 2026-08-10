@@ -102,8 +102,10 @@ expected — verified with `pnpm build`, not assumed.
 ### Step 6 — Geometry from sourced dimensions
 `scripts/author-phys3-glbs.mjs` reads `dimensionsMm` from the catalog and emits
 boxes; the hardcoded half-extents and the engineered
-`clearance:cooler-sidekeepout` tuning are removed. New
-`geometryDataVersion: "cat6-spec-⟨date⟩"`; `modelGrade` stays `Experimental`
+`clearance:cooler-sidekeepout` tuning are removed. The generator owns the
+per-category mapping from product-relative `dimensionsMm` fields to phys3 scene
+axes (+X/+Y/+Z); that mapping is not stored in `part.json` (see contract **C11**).
+New `geometryDataVersion: "cat6-spec-⟨date⟩"`; `modelGrade` stays `Experimental`
 (**C5**).
 
 Anchor and socket positions are **not** dimensions and cannot be sourced from a

@@ -1,7 +1,8 @@
 # `cat6` — Catalog data contract (M0 draft)
 
-Status: **Draft, 2026-08-10. Reflects owner decisions O1–O8 locked 2026-08-10.
-Package not yet accepted.**
+Status: **Accepted 2026-08-10; owner decisions O1–O8 locked. Amended 2026-08-10
+(Step 1.1) after the first real part was authored — product-relative
+`DimensionsMm`, `boostClockBasis`, and rules C10–C11.**
 Scope authority: [`phase-6.md`](./phase-6.md).
 
 Contract version string: **`cat6`**. It replaces `vs0` as the `contractVersion`
@@ -81,13 +82,34 @@ export interface CatalogProvenance {
 }
 
 /**
- * Bounding dimensions of the physical product, mm, in the phys3 axis
- * convention (mm, Y-up). SSOT the collision box is generated from.
+ * Product-relative bounding dimensions of the physical product, mm, as read
+ * from the vendor's published figures — not scene axes (+X/+Y/+Z). Vendors
+ * often print three unlabeled numbers (e.g. ASUS prints
+ * "267.01 x 133.94 x 51.13 mm" with no labels). Storing scene axes directly
+ * would bury an interpretation step inside a field that is supposed to be a
+ * quotation, and the mapping from product dimensions to scene axes differs per
+ * category. `cat6` therefore stores what the vendor printed (`raw`), the
+ * principal-dimension assignment (`lengthMm` / `heightMm` / `thicknessMm`), and
+ * how that assignment was read (`assignmentBasis`). The scene-axis mapping
+ * belongs to the geometry generator (implementation plan Step 6), where it is
+ * written once per category and can be reviewed. The collision box is generated
+ * from these product-relative figures via that mapping — see rule **C4**.
  */
 export interface DimensionsMm {
-  widthMm: number;   // +X
-  heightMm: number;  // +Y
-  depthMm: number;   // +Z
+  /** Longest principal dimension, mm. */
+  lengthMm: number;
+  /** Second principal dimension, mm. */
+  heightMm: number;
+  /** Third principal dimension (thickness / depth), mm. */
+  thicknessMm: number;
+  /** The vendor's printed dimension string, verbatim, before any interpretation. */
+  raw: string;
+  /**
+   * How the raw figures were assigned to the three fields above, and on what
+   * evidence. Required, because vendors frequently print unlabeled figures and
+   * the assignment is then an inference, not a quotation.
+   */
+  assignmentBasis: string;
 }
 
 /**
@@ -98,6 +120,11 @@ export interface DimensionsMm {
 export interface PerformanceSpec {
   /** Published boost / max clock, MHz. */
   boostClockMhz?: number;
+  /**
+   * Which published boost figure `boostClockMhz` records when a vendor lists
+   * more than one (e.g. default mode vs OC mode).
+   */
+  boostClockBasis?: string;
   /** Published base clock, MHz. */
   baseClockMhz?: number;
   /** Default board / package power limit, W (TGP, TDP, or PPT as published). */
@@ -296,7 +323,8 @@ Rules:
 | **C7** | **No image file ships.** `image` is defined and populated by no part until a rights ADR exists. The integrity test asserts this. |
 | **C8** | **`cat6` is a hard switch.** After migration the schema accepts `contractVersion: "cat6"` only. No dual-read window: every part file is migrated in one step and no external producer of `part.json` exists. |
 | **C9** | **`biosMinVersionForCpu` is not populated** (**O6**). Socket compatibility only. `checkChipsetBios` already reports `unavailable` when the map is absent, so no engine changes. |
-| **C10** | **A SKU does not inherit its chip's numbers.** If a vendor does not publish a boost clock or power limit for a SKU, the field is absent — filling it from the reference chip spec would erase the difference that justifies SKU-level ids. |
+| **C10** | **A SKU does not inherit its chip's numbers into `performanceSpec`.** That group exists to record how this SKU differs from others built on the same chip; filling it from a reference figure erases exactly that. If the board partner does not publish a value, the `performanceSpec` field is absent. **`compatSpec` is different:** it feeds compatibility checks, its fields are chip-level facts, and a chip-vendor figure is a real published fact. It may be recorded, cited to the chip vendor rather than the board partner, and the registry source must record any scope caveat the chip vendor states. |
+| **C11** | **Dimensions are product-relative, not scene axes.** `dimensionsMm` stores the vendor's printed string (`raw`), principal-dimension numbers (`lengthMm` / `heightMm` / `thicknessMm`), and the assignment rationale (`assignmentBasis`). Mapping product axes to phys3 scene axes (+X/+Y/+Z) is owned by the Step 6 geometry generator, once per category — not buried inside a field that is supposed to be a quotation. |
 
 ---
 
@@ -311,8 +339,10 @@ Schema (`src/contract/cat6.schema.ts`) — structural, per file:
 - `provenance.identity` required; group-presence refinement in both directions
   for `compatSpec`, `dimensionsMm`, `performanceSpec`
 - every `retrievedAt` / `releasedAt` / `publishedAt` an ISO-8601 date
-- `dimensionsMm` components finite and `> 0`; `performanceSpec` numbers finite
-  and `> 0`
+- `dimensionsMm`: `lengthMm` / `heightMm` / `thicknessMm` finite and `> 0`;
+  `raw` and `assignmentBasis` non-empty strings
+- `performanceSpec` numbers finite and `> 0`; `boostClockBasis` /
+  `powerLimitBasis` non-empty when present
 - `image`, if present, complete
 
 Integrity test (`src/test/cat6.integrity.test.ts`) — cross-file:

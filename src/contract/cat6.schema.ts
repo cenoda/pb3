@@ -41,13 +41,16 @@ export const partIdentitySchema = z.object({
 });
 
 export const dimensionsMmSchema = z.object({
-  widthMm: positiveFiniteNumber,
+  lengthMm: positiveFiniteNumber,
   heightMm: positiveFiniteNumber,
-  depthMm: positiveFiniteNumber,
+  thicknessMm: positiveFiniteNumber,
+  raw: nonEmptyString,
+  assignmentBasis: nonEmptyString,
 });
 
 export const performanceSpecSchema = z.object({
   boostClockMhz: positiveFiniteNumber.optional(),
+  boostClockBasis: nonEmptyString.optional(),
   baseClockMhz: positiveFiniteNumber.optional(),
   defaultPowerLimitW: positiveFiniteNumber.optional(),
   powerLimitBasis: nonEmptyString.optional(),

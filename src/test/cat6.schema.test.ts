@@ -54,6 +54,15 @@ const validManifest = {
   ],
 };
 
+const sampleDimensionsMm = {
+  lengthMm: 267.01,
+  heightMm: 133.94,
+  thicknessMm: 51.13,
+  raw: "267.01 x 133.94 x 51.13 mm",
+  assignmentBasis:
+    "Three unlabeled figures read as length, height, and thickness by graphics-card convention.",
+};
+
 describe("cat6.schema", () => {
   it("accepts a minimal valid cat6 part", () => {
     expect(partDefinitionV3Schema.safeParse(minimalValidPart).success).toBe(true);
@@ -63,9 +72,10 @@ describe("cat6.schema", () => {
     const parsed = partDefinitionV3Schema.safeParse({
       ...minimalValidPart,
       compatSpec: { tdpWatts: 200 },
-      dimensionsMm: { widthMm: 120, heightMm: 50, depthMm: 240 },
+      dimensionsMm: sampleDimensionsMm,
       performanceSpec: {
         boostClockMhz: 2505,
+        boostClockBasis: "Default Mode boost",
         defaultPowerLimitW: 200,
         powerLimitBasis: "TGP",
       },
@@ -77,6 +87,52 @@ describe("cat6.schema", () => {
       },
     });
     expect(parsed.success).toBe(true);
+  });
+
+  it("accepts a dimensionsMm with raw and assignmentBasis present", () => {
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...minimalValidPart,
+      dimensionsMm: sampleDimensionsMm,
+      provenance: {
+        identity: identityProvenance,
+        dimensions: identityProvenance,
+      },
+    });
+    expect(parsed.success).toBe(true);
+  });
+
+  it("rejects a dimensionsMm missing raw", () => {
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...minimalValidPart,
+      dimensionsMm: {
+        lengthMm: 267.01,
+        heightMm: 133.94,
+        thicknessMm: 51.13,
+        assignmentBasis: "assignment without raw",
+      },
+      provenance: {
+        identity: identityProvenance,
+        dimensions: identityProvenance,
+      },
+    });
+    expect(parsed.success).toBe(false);
+  });
+
+  it("rejects a dimensionsMm missing assignmentBasis", () => {
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...minimalValidPart,
+      dimensionsMm: {
+        lengthMm: 267.01,
+        heightMm: 133.94,
+        thicknessMm: 51.13,
+        raw: "267.01 x 133.94 x 51.13 mm",
+      },
+      provenance: {
+        identity: identityProvenance,
+        dimensions: identityProvenance,
+      },
+    });
+    expect(parsed.success).toBe(false);
   });
 
   it('rejects contractVersion "vs0"', () => {
@@ -141,7 +197,7 @@ describe("cat6.schema", () => {
   it("rejects dimensionsMm present without provenance.dimensions", () => {
     const parsed = partDefinitionV3Schema.safeParse({
       ...minimalValidPart,
-      dimensionsMm: { widthMm: 120, heightMm: 50, depthMm: 240 },
+      dimensionsMm: sampleDimensionsMm,
     });
     expect(parsed.success).toBe(false);
   });
@@ -190,10 +246,13 @@ describe("cat6.schema", () => {
   });
 
   it("rejects a dimension that is zero, negative, or non-finite", () => {
-    for (const widthMm of [0, -1, Number.NaN, Number.POSITIVE_INFINITY]) {
+    for (const lengthMm of [0, -1, Number.NaN, Number.POSITIVE_INFINITY]) {
       const parsed = partDefinitionV3Schema.safeParse({
         ...minimalValidPart,
-        dimensionsMm: { widthMm, heightMm: 50, depthMm: 240 },
+        dimensionsMm: {
+          ...sampleDimensionsMm,
+          lengthMm,
+        },
         provenance: {
           identity: identityProvenance,
           dimensions: identityProvenance,
@@ -201,6 +260,21 @@ describe("cat6.schema", () => {
       });
       expect(parsed.success).toBe(false);
     }
+  });
+
+  it("rejects a non-positive thicknessMm", () => {
+    const parsed = partDefinitionV3Schema.safeParse({
+      ...minimalValidPart,
+      dimensionsMm: {
+        ...sampleDimensionsMm,
+        thicknessMm: 0,
+      },
+      provenance: {
+        identity: identityProvenance,
+        dimensions: identityProvenance,
+      },
+    });
+    expect(parsed.success).toBe(false);
   });
 
   it("rejects an incomplete image object", () => {
