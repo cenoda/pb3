@@ -48,8 +48,10 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
       `phase6-step7-default-assembly.test.ts` + E2E
       `phase6-step7-default-assembly.spec.ts` + exit-scenario + O7 witness green;
       evidence in [`STEPS.md`](./STEPS.md) §5
-- [ ] Step 8 — `src/perf/**` unavailable reasons say the estimator is in
-      preparation; test asserts no presentable value
+- [x] Step 8 — `src/perf/**` unavailable reasons say the estimator is in
+      preparation; test asserts no presentable value (2026-08-11; unit
+      `estimateBaseline.test.ts` + `estimateWorkload.test.ts`; `pnpm test` 38
+      files / 320 tests)
 - [ ] Step 9 — grow to ≈30 parts, including a genuine interference pair
 - [ ] Step 10 — MSRP + dated street snapshots; unsourced → `unavailable`,
       total `isPartial`
@@ -59,9 +61,10 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
 ## Closeout
 
 - [x] `STEPS.md` — Step 6 (authority / RK1, 2026-08-10) + Step 7 (default
-      assembly evidence, 2026-08-11)
+      assembly evidence, 2026-08-11) + Step 8 (unavailable-reason wording,
+      2026-08-11)
 - [ ] `CLOSEOUT.md` — owner result, what it rests on, gaps carried forward
-- [x] `STATUS.md` / [`../README.md`](../README.md) updated (2026-08-11 Step 7 truth-sync)
+- [x] `STATUS.md` / [`../README.md`](../README.md) updated (2026-08-11 Step 8 truth-sync)
 
 ## Carried into later phases (do not start here)
 

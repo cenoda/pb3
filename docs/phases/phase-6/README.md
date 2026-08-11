@@ -3,9 +3,10 @@
 The phase that replaces the invented data the Phase 0–5 work runs on.
 
 **Status: M0 package drafted and accepted 2026-08-10. Owner decisions O1–O8
-locked. Steps 1–7 complete. Step 6 authority boundary (2026-08-10) and Step 7
-default-build assembly verification (2026-08-11) are recorded in
-[`STEPS.md`](./STEPS.md). Steps 8–12 are open.**
+locked. Steps 1–8 complete. Step 6 authority boundary (2026-08-10), Step 7
+default-build assembly verification (2026-08-11), and Step 8 unavailable-reason
+wording (2026-08-11) are recorded in [`STEPS.md`](./STEPS.md). Steps 9–12 are
+open.**
 
 Phase 6 is **primarily a catalog/data phase** — the display layer stays as it
 is. It is not purely data-only: Step 6 includes the narrowly scoped
@@ -21,7 +22,7 @@ changed the display layer and no data.
 | [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md) | `cat6` — identity, dimensions, SKU performance spec, provenance, image fields, id convention, manifest, dual-price model, validation split |
 | [`implementation_plan.md`](./implementation_plan.md) | Ordered Steps 1–12, untouchable boundary, verification, honest failure modes |
 | [`TODO.md`](./TODO.md) | Checklist |
-| [`STEPS.md`](./STEPS.md) | Step 6 + Step 7 closeout records — RK1 arithmetic, default-build assembly evidence |
+| [`STEPS.md`](./STEPS.md) | Step 6 + Step 7 + Step 8 closeout records — RK1 arithmetic, default-build assembly evidence, unavailable-reason wording |
 | [`../phase-5/CLOSEOUT.md`](../phase-5/CLOSEOUT.md) | The direction this phase answers: real catalog first, catalog browser second |
 
 ## The gate
@@ -60,14 +61,16 @@ this shape: the gate measures the thing itself, not a proxy for it.
 | Steps 2–5 — source registry, id migration, manifest | **Done — 2026-08-10** (14 authored `cat6` parts; `parts/catalog-manifest.json` lists 14) |
 | Step 6 — physical authority boundary + O7 witness | **Done — 2026-08-10** (clearance-limit checks authoritative, OBB advisory; slot 14 admitted; O7 E2E green; RK1 record in `STEPS.md`) |
 | Step 7 — default build assembly verification | **Done — 2026-08-11** (default build fits; Phase 0 exit scenario + O7 re-run green; no `DEFAULT_BUILD_STATE_V2` change) |
-| Steps 8–11 | Not started |
+| Step 8 — unavailable reasons say estimator in preparation | **Done — 2026-08-11** (`src/perf/estimateBaseline.ts`, `estimateWorkload.ts`; unit tests green; `pnpm test` 38 / 320, `pnpm test:e2e` 19) |
+| Steps 9–11 | Not started |
 | Owner spot-check (Step 12) | Not started |
 
 ## Relationship to other work
 
 - **Phase 4 / 4.1 stay frozen.** No new evidence claim. Three mechanical
   carve-outs, all id-, version-, or wording-level: `prov4` pilot ids and geometry
-  version, `perf1` fixture ids, and the `src/perf/**` unavailable reason strings.
+  version, `perf1` fixture ids, and the `src/perf/**` unavailable reason strings
+  (**Step 8 done — 2026-08-11**).
   The geometry-version carve-out was **not** exercised: no new geometry
   representation dataset exists, so `phys3-exp-20260808` is retained (see
   [`implementation_plan.md`](./implementation_plan.md) Step 6).

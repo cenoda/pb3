@@ -18,7 +18,7 @@
       },
       "result": {
         "status": "unavailable",
-        "reason": "No fixture row for gpuId gpu.not-in-catalog in perf1 baseline table."
+        "reason": "The combination performance estimator is still in preparation; performance data is not available yet."
       }
     },
     {
@@ -36,7 +36,7 @@
       },
       "result": {
         "status": "unavailable",
-        "reason": "upscaleId upscale.fsr-quality is not in perf1 allowed vocabulary (upscale.off, upscale.dlss-quality)."
+        "reason": "upscaleId upscale.fsr-quality is not a supported upscale setting (upscale.off, upscale.dlss-quality)."
       }
     },
     {
@@ -48,7 +48,7 @@
       },
       "result": {
         "status": "unavailable",
-        "reason": "workloadId cinebench.2026 is unconfirmed; perf1 only supports cinebench.r23 and cinebench.2024."
+        "reason": "workloadId cinebench.2026 is not a supported workload (cinebench.r23, cinebench.2024)."
       }
     }
   ]

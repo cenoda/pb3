@@ -129,10 +129,12 @@ Concretely (**O1**):
 - This is delivered by rewriting the **unavailable reason strings in
   `src/perf/**`**, which the existing surface already renders
   (`ResultBar.tsx` composes `"No estimate is available for this combination."`
-  plus the engine's reason). No display-layer file is touched. The current
-  strings — `"No fixture row for gpuId … in perf1 baseline table."` — leak
-  internal ids and jargon and are replaced with user language, which is also
-  what Phase 5 **R4** requires.
+  plus the engine's reason). No display-layer file is touched. **Step 8
+  (2026-08-11)** replaced the former internal strings — e.g.
+  `"No fixture row for gpuId … in perf1 baseline table."` — with user language
+  such as *the combination performance estimator is still in preparation;
+  performance data is not available yet*, which is also what Phase 5 **R4**
+  requires.
 
 This is disclosure, not regression. The fixture catalog was, in effect, a catalog
 shaped to fit the evidence; making the catalog real makes the size of the gap

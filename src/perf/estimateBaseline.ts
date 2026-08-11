@@ -14,6 +14,9 @@ const ALLOWED_FRAME_GEN_IDS = new Set(["framegen.off", "framegen.on"]);
 const ALLOWED_RAM_TIER_IDS = new Set(["ram.16gb-ddr5", "ram.32gb-ddr5"]);
 const ALLOWED_POWER_PROFILE_IDS = new Set(["power.default"]);
 
+const MISSING_COVERAGE_REASON =
+  "The combination performance estimator is still in preparation; performance data is not available yet.";
+
 function baselineRowKey(query: BaselineQuery): string {
   return [
     query.cpuId,
@@ -34,34 +37,34 @@ function validateBaselineVocabulary(
   if (!ALLOWED_UPSCALE_IDS.has(query.upscaleId)) {
     return {
       status: "unavailable",
-      reason: `upscaleId ${query.upscaleId} is not in perf1 allowed vocabulary (upscale.off, upscale.dlss-quality).`,
+      reason: `upscaleId ${query.upscaleId} is not a supported upscale setting (upscale.off, upscale.dlss-quality).`,
     };
   }
   if (!ALLOWED_FRAME_GEN_IDS.has(query.frameGenId)) {
     return {
       status: "unavailable",
-      reason: `frameGenId ${query.frameGenId} is not in perf1 allowed vocabulary (framegen.off, framegen.on).`,
+      reason: `frameGenId ${query.frameGenId} is not a supported frame generation setting (framegen.off, framegen.on).`,
     };
   }
   if (!ALLOWED_RAM_TIER_IDS.has(query.ramTierId)) {
     return {
       status: "unavailable",
-      reason: `ramTierId ${query.ramTierId} is not in perf1 allowed vocabulary (ram.16gb-ddr5, ram.32gb-ddr5).`,
+      reason: `ramTierId ${query.ramTierId} is not a supported memory tier (ram.16gb-ddr5, ram.32gb-ddr5).`,
     };
   }
   if (!ALLOWED_POWER_PROFILE_IDS.has(query.powerProfileId)) {
     return {
       status: "unavailable",
-      reason: `powerProfileId ${query.powerProfileId} is not in perf1 allowed vocabulary (power.default).`,
+      reason: `powerProfileId ${query.powerProfileId} is not a supported power profile (power.default).`,
     };
   }
   return null;
 }
 
-function unavailableForMissingRow(query: BaselineQuery): UnavailableResult {
+function unavailableForMissingRow(_query: BaselineQuery): UnavailableResult {
   return {
     status: "unavailable",
-    reason: `No fixture row for gpuId ${query.gpuId} in perf1 baseline table.`,
+    reason: MISSING_COVERAGE_REASON,
   };
 }
 

@@ -102,10 +102,42 @@ describe("estimateBaseline", () => {
     for (const example of examples.examples) {
       if (!("resolution" in example.query)) continue;
 
-      const result = estimateBaseline(example.query, fixtures);
+      const result = estimateBaseline(
+        example.query as BaselineQuery,
+        fixtures,
+      );
       expect(result).toEqual(example.result);
       expect(result).not.toHaveProperty("fpsMin");
       expect(result).not.toHaveProperty("fpsMax");
+    }
+  });
+
+  it("returns unavailable with preparation message for uncovered baseline combination", async () => {
+    const fixtures = await loadBaselineFixtures();
+    const query = {
+      cpuId: "cpu.amd-ryzen-5-7600",
+      gpuId: "gpu.not-in-catalog",
+      gameId: "game.cyberpunk-2077",
+      presetId: "preset.raster-ultra",
+      resolution: "1440p",
+      upscaleId: "upscale.off",
+      frameGenId: "framegen.off",
+      ramTierId: "ram.32gb-ddr5",
+      powerProfileId: "power.default",
+    } as unknown as BaselineQuery;
+
+    const result = estimateBaseline(query, fixtures);
+
+    expect(result).toEqual({
+      status: "unavailable",
+      reason:
+        "The combination performance estimator is still in preparation; performance data is not available yet.",
+    });
+    expect(result).not.toHaveProperty("fpsMin");
+    expect(result).not.toHaveProperty("fpsMax");
+    if ("status" in result) {
+      expect(result.reason).toMatch(/preparation/i);
+      expect(result.reason).not.toMatch(/perf1|fixture row|baseline table/i);
     }
   });
 

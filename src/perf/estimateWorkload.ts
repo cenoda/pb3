@@ -10,6 +10,9 @@ const ALLOWED_WORKLOAD_IDS = new Set(["cinebench.r23", "cinebench.2024"]);
 const ALLOWED_METRICS = new Set(["metric.single-core", "metric.multi-core"]);
 const ALLOWED_CPU_IDS = new Set(["cpu.amd-ryzen-5-7600", "cpu.amd-ryzen-7-7800x3d"]);
 
+const MISSING_COVERAGE_REASON =
+  "The combination performance estimator is still in preparation; performance data is not available yet.";
+
 function workloadKey(query: WorkloadQuery): string {
   return [query.cpuId, query.workloadId, query.metric].join("\0");
 }
@@ -20,19 +23,19 @@ function validateWorkloadVocabulary(
   if (!ALLOWED_CPU_IDS.has(query.cpuId)) {
     return {
       status: "unavailable",
-      reason: `cpuId ${query.cpuId} is not in perf1 Cinebench fixture table.`,
+      reason: MISSING_COVERAGE_REASON,
     };
   }
   if (!ALLOWED_METRICS.has(query.metric)) {
     return {
       status: "unavailable",
-      reason: `metric ${query.metric} is not in perf1 allowed vocabulary (metric.single-core, metric.multi-core).`,
+      reason: `metric ${query.metric} is not a supported metric (metric.single-core, metric.multi-core).`,
     };
   }
   if (!ALLOWED_WORKLOAD_IDS.has(query.workloadId)) {
     return {
       status: "unavailable",
-      reason: `workloadId ${query.workloadId} is unconfirmed; perf1 only supports cinebench.r23 and cinebench.2024.`,
+      reason: `workloadId ${query.workloadId} is not a supported workload (cinebench.r23, cinebench.2024).`,
     };
   }
   return null;
@@ -54,7 +57,7 @@ export function estimateWorkload(
   if (!row) {
     return {
       status: "unavailable",
-      reason: `No fixture row for workload query cpuId=${query.cpuId}, workloadId=${query.workloadId}, metric=${query.metric}.`,
+      reason: MISSING_COVERAGE_REASON,
     };
   }
 

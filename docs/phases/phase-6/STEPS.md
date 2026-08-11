@@ -188,3 +188,39 @@ Results:
 
 Step 7 is **complete**. Default build unchanged. Steps 8–12 are open. Do not
 start catalog growth, price work, or Phase 7 from this record.
+
+---
+
+# Step 8 — Unavailable reasons say "in preparation" (**O1**)
+
+## 1. What changed (2026-08-11)
+
+- **`src/perf/estimateBaseline.ts`** — missing baseline coverage and vocabulary
+  validation reasons no longer mention `perf1`, fixture rows, or internal table
+  names. Uncovered combinations return a single preparation-oriented message.
+- **`src/perf/estimateWorkload.ts`** — same treatment for uncovered workload rows
+  and unsupported CPU coverage; vocabulary errors use supported-setting wording
+  without internal jargon.
+- **No UI, schema, fixture data, or estimator logic changes.** Function
+  signatures, unavailable status semantics, and numeric outputs are unchanged.
+
+## 2. User-facing missing-coverage reason (canonical)
+
+```text
+The combination performance estimator is still in preparation; performance data is not available yet.
+```
+
+## 3. Verification
+
+| Suite | Result |
+|-------|--------|
+| Unit `estimateBaseline.test.ts` | **7/7 PASS** — includes uncovered baseline combination (no FPS, preparation reason, no internal table jargon) |
+| Unit `estimateWorkload.test.ts` | **3/3 PASS** — includes uncovered workload row + covered rows unchanged |
+| `pnpm test` (full unit) | **38 files / 320 tests PASS** (+2 tests vs Step 7) |
+| `pnpm test:e2e` | **19/19 PASS** |
+| `pnpm build` | **clean** |
+
+## 4. Status after this record
+
+Step 8 is **complete**. **Next open step: Step 9** (grow catalog to ≈30 parts).
+Do not start catalog growth, price work, or Phase 7 from this record alone.

@@ -4,10 +4,10 @@ Derived from [`specs/phase-6.md`](./specs/phase-6.md) and
 [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md). Required by
 the "plan before code" rule in [`../README.md`](../README.md).
 
-Status: **Accepted 2026-08-10. Owner decisions O1–O8 locked. Steps 1–7
+Status: **Accepted 2026-08-10. Owner decisions O1–O8 locked. Steps 1–8
 complete. Step 6 implementation complete (2026-08-10); Step 7 default-build
-assembly verification complete (2026-08-11). Records in
-[`STEPS.md`](./STEPS.md). Steps 8–12 open.**
+assembly verification complete (2026-08-11); Step 8 unavailable-reason wording
+complete (2026-08-11). Records in [`STEPS.md`](./STEPS.md). Steps 9–12 open.**
 
 ---
 
@@ -183,7 +183,7 @@ collision geometry removed with the stale cooler `allowedContacts` reference
 14 admitted (plane GLB, collision-less `physicalSpec`, manifest entry) and the
 O7 witness proven in the running app (`e2e/phase6-o7-slot14-witness.spec.ts`).
 The **RK1** clearance-limit arithmetic is recorded in
-[`STEPS.md`](./STEPS.md). Step 7 is complete (2026-08-11); Steps 8–12 are open.
+[`STEPS.md`](./STEPS.md). Step 7 is complete (2026-08-11); Step 8 unavailable-reason wording complete (2026-08-11); Steps 9–12 are open.
 
 ### Step 7 — Default build must assemble
 Before the catalog grows: the default build is verified in a browser to assemble
@@ -212,13 +212,19 @@ Evidence and commands: [`STEPS.md`](./STEPS.md) §5. Truth-sync tests:
 `e2e/phase6-step7-default-assembly.spec.ts`.
 
 ### Step 8 — Unavailable reasons say "in preparation" (**O1**)
-The `src/perf/**` reason strings — currently
+The `src/perf/**` reason strings — formerly internal table/fixture jargon such as
 `"No fixture row for gpuId … in perf1 baseline table."` — are rewritten to state
-that the combination estimator is still being built and this pair is not covered
-yet. No UI file is touched; `ResultBar` already renders the engine's reason.
+that the combination estimator is still being built and performance data is not
+available yet. No UI file is touched; `ResultBar` already renders the engine's
+reason.
 
-A unit test asserts that an uncovered pair produces **no presentable performance
-value** and a reason mentioning preparation rather than an internal table name.
+**Step 8 status (2026-08-11): complete.** User-facing missing-coverage message:
+`The combination performance estimator is still in preparation; performance data
+is not available yet.` Unit tests in `estimateBaseline.test.ts` and
+`estimateWorkload.test.ts` assert uncovered combinations return `unavailable` with
+no presentable FPS/score and a preparation-oriented reason (no `perf1`, fixture
+row, or table names). `pnpm test` **38 files / 320 tests**; `pnpm test:e2e`
+**19**; `pnpm build` clean.
 
 ### Step 9 — Grow the catalog to target size
 New parts up to ≈30 on AM5 / DDR5, each entering only when complete to exit
