@@ -45,9 +45,14 @@ test.describe("Phase 6 O7 — slot 14 running-app reachability", () => {
       page.getByTestId("physical-check-clearance-limit:cpu-cooler-height"),
     ).toHaveAttribute("data-status", "interference");
 
-    // BIOS check may remain unavailable under O6; it must not hide physical interference.
+    // BIOS check remains raw unavailable under O6 but is non-blocking (B4);
+    // logical overall is compatible and must not hide physical interference.
     await expect(page.getByTestId("compatibility-panel")).toHaveAttribute(
       "data-overall-status",
+      "compatible",
+    );
+    await expect(page.getByTestId("compat-check-chipset-bios")).toHaveAttribute(
+      "data-status",
       "unavailable",
     );
 

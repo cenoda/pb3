@@ -595,10 +595,9 @@ packet): `pnpm test` **39/339 PASS**, `pnpm test:e2e` **19/19 PASS**,
 
 ## 5. Status after this record
 
-Steps 10 and 11 are **complete**. Step 12 (owner spot-check of three random
-parts) is **open** — it is the owner's action, not an agent step. Blocker
-**B4** (permanent `caution`) remains open and untouched. Phase 7 not
-started.
+Steps 10 and 11 are **complete**. Step 12 owner acceptance and **B4** were
+closed 2026-08-12 (see below and the B4 corrective record). Phase 7 not
+started; final Phase 6 closeout still pending.
 
 ---
 
@@ -645,5 +644,47 @@ Agent-delivered audit packet before owner spot-check. Full record:
   4 BLOCKED**.
 - **Current price totals:** **12 PASS / 1 BLOCKED** over **13** remaining
   rows (+ 1 FIXED-REMOVED historical row).
-- **Owner Step 12 acceptance not claimed.** B4 open. Phase 6 incomplete.
-  Phase 7 not started. Automation pipeline not implemented.
+- **Owner Step 12 acceptance:** closed 2026-08-12 (after corrective
+  `260169e` review).
+- **B4:** resolved 2026-08-12 — see following section.
+- Phase 6 final owner closeout still pending. Phase 7 not started.
+  Automation pipeline not implemented.
+
+---
+
+# B4 — Permanent-caution resolution under O6 (2026-08-12)
+
+Owner decisions locked 2026-08-12:
+
+1. Step 12 is owner-accepted.
+2. Preserve raw `chipset-bios: unavailable` for transparency.
+3. Under O6, BIOS revision compatibility is intentionally not modeled.
+4. Therefore `chipset-bios: unavailable` is informational and non-blocking:
+   it must not downgrade an otherwise compatible report, and must not turn
+   an otherwise clean UI verdict into `caution`.
+5. Every other genuinely unavailable compatibility check retains
+   `unavailable` / `caution`.
+6. Never invent `biosMinVersionForCpu` values to remove the warning.
+
+## Implementation
+
+| Piece | Location |
+|-------|----------|
+| Shared policy (checkId only) | `src/compat/unavailablePolicy.ts` — only `chipset-bios` unavailable is non-blocking |
+| Report aggregation | `src/compat/buildCompatibilityReport.ts` — incompatible → blocking unavailable → else compatible; `dataVersion` `compat2-b4-20260812` |
+| UI verdict | `src/ui/buildVerdict.ts` — uses the same policy |
+| Check engine | `checkChipsetBios` **unchanged** — still returns raw `unavailable` when the map is empty |
+| Fixtures | `benchmarks/compat2/compatibility-examples.json` re-anchored |
+
+## Honesty constraints preserved
+
+- No BIOS minimum data authored.
+- Raw BIOS check remains present and `unavailable` on the default build.
+- Detailed "Why this result?" evidence still exposes BIOS coverage as not modeled.
+- Non-BIOS unavailable (e.g. open-ended ASUS memory ceiling → `ram-support`) still overall `unavailable` and UI `caution`.
+- Physical interference / unavailable / conditional behavior unchanged.
+
+## Status after B4
+
+Step 12 owner-accepted; B4 resolved; final Phase 6 owner closeout **not**
+claimed; Phase 7 **not** started.

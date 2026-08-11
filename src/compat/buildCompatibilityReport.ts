@@ -10,16 +10,26 @@ import { checkCpuSocket } from "./checkCpuSocket";
 import { checkPsuWattage } from "./checkPsuWattage";
 import { checkRamSupport } from "./checkRamSupport";
 import { resolveCompatibilityInputs } from "./compatibilityInputs";
+import { isBlockingUnavailableCheck } from "./unavailablePolicy";
 
-const DATA_VERSION = "compat2-fixture-draft";
+/** Bumped when aggregation semantics change (B4 non-blocking chipset-bios). */
+const DATA_VERSION = "compat2-b4-20260812";
 
+/**
+ * Precedence:
+ * 1. Any incompatible check → incompatible
+ * 2. Any blocking unavailable check → unavailable
+ * 3. Otherwise → compatible
+ *
+ * `chipset-bios: unavailable` is non-blocking under O6/B4 (shared policy).
+ */
 function aggregateOverallStatus(
   checks: CompatibilityReport["checks"],
 ): CompatibilityStatus {
   if (checks.some((check) => check.status === "incompatible")) {
     return "incompatible";
   }
-  if (checks.some((check) => check.status === "unavailable")) {
+  if (checks.some(isBlockingUnavailableCheck)) {
     return "unavailable";
   }
   return "compatible";

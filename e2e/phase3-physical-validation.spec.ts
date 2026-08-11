@@ -56,13 +56,16 @@ test.describe("Phase 3 physical validation scenario", () => {
       .getByTestId("build-viewport")
       .getAttribute("data-assembly-poses");
     expect(poses).toBeTruthy();
-    expect(poses!).toContain("motherboard.gigabyte-b650-aorus-elite-ax-v2@0.000,20.000,-40.000");
+    expect(poses!).toContain(
+      "motherboard.gigabyte-b650-aorus-elite-ax-v2@0.000,20.000,-40.000",
+    );
     expect(poses!).toContain("cooler.noctua-nh-d15-g2@");
 
-    // Logical compatibility: chipset-bios unavailable under O6 (D3); physical fit is separate
+    // Logical compatibility: chipset-bios remains unavailable under O6 (raw
+    // evidence), but B4 keeps overall compatible; physical fit is separate.
     await expect(page.getByTestId("compatibility-panel")).toHaveAttribute(
       "data-overall-status",
-      "unavailable",
+      "compatible",
     );
     await expect(page.getByTestId("compat-check-chipset-bios")).toHaveAttribute(
       "data-status",
@@ -104,7 +107,9 @@ test.describe("Phase 3 physical validation scenario", () => {
 
     // Visual-only RAM: authoritative clearance-limit checks pass (fit); missing
     // physicalSpec is advisory geometry only and does not change overallStatus.
-    await page.getByTestId("ram-part-select").selectOption("ram.gskill-trident-z5-rgb-ddr5-8400");
+    await page
+      .getByTestId("ram-part-select")
+      .selectOption("ram.gskill-trident-z5-rgb-ddr5-8400");
     await openWhy(page);
     await expect(page.getByTestId("physical-validation-panel")).toHaveAttribute(
       "data-overall-status",
@@ -146,7 +151,9 @@ test.describe("Phase 3 physical validation scenario", () => {
     // Restore supported RAM: fit returns, cooling stays unavailable (empty
     // evidence), and the performance numbers come back unchanged — the proof
     // that withholding them was a presentation rule, not an engine failure.
-    await page.getByTestId("ram-part-select").selectOption("ram.teamgroup-t-create-expert-ddr5-6000-32gb");
+    await page
+      .getByTestId("ram-part-select")
+      .selectOption("ram.teamgroup-t-create-expert-ddr5-6000-32gb");
     await openWhy(page);
     await expect(page.getByTestId("physical-validation-panel")).toHaveAttribute(
       "data-overall-status",

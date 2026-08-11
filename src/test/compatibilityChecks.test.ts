@@ -16,10 +16,11 @@ import {
 } from "../state/validateBuildState";
 
 describe("compatibilityChecks", () => {
-  it("default build compat checks pass except chipset-bios (O6 — no BIOS minimum modeled)", async () => {
+  it("default build: BIOS unavailable under O6, overall still compatible (B4)", async () => {
     const catalog = await loadPartCatalog();
     const report = buildCompatibilityReport(DEFAULT_BUILD_STATE_V2, catalog);
-    expect(report.overallStatus).toBe("unavailable");
+    expect(report.dataVersion).toBe("compat2-b4-20260812");
+    expect(report.overallStatus).toBe("compatible");
     expect(report.checks).toHaveLength(5);
     const byId = Object.fromEntries(
       report.checks.map((c) => [c.checkId, c.status]),
@@ -103,7 +104,7 @@ describe("compatibilityChecks", () => {
     expect(result.explanation).toContain("ATX");
   });
 
-  it("aggregate prefers incompatible over unavailable", async () => {
+  it("aggregate prefers incompatible over unavailable, including non-blocking BIOS", async () => {
     const catalog = await loadPartCatalog();
     const report = buildCompatibilityReport(
       {
@@ -113,11 +114,33 @@ describe("compatibilityChecks", () => {
       },
       catalog,
     );
+    expect(
+      report.checks.find((c) => c.checkId === "chipset-bios")?.status,
+    ).toBe("unavailable");
     expect(report.overallStatus).toBe("incompatible");
   });
 
-  it("compatibility example fixtures parse and include all statuses", async () => {
+  it("blocking unavailable (non-BIOS) keeps overall unavailable even with BIOS unavailable", async () => {
+    const catalog = await loadPartCatalog();
+    // ASUS B650-PLUS WIFI has open-ended memory ceiling → ram-support unavailable.
+    const report = buildCompatibilityReport(
+      {
+        ...DEFAULT_BUILD_STATE_V2,
+        motherboardId: "motherboard.asus-tuf-gaming-b650-plus-wifi",
+      },
+      catalog,
+    );
+    const byId = Object.fromEntries(
+      report.checks.map((c) => [c.checkId, c.status]),
+    );
+    expect(byId["chipset-bios"]).toBe("unavailable");
+    expect(byId["ram-support"]).toBe("unavailable");
+    expect(report.overallStatus).toBe("unavailable");
+  });
+
+  it("compatibility example fixtures parse and match B4 aggregation policy", async () => {
     const examples = await loadCompat2Examples();
+    expect(examples.dataVersion).toBe("compat2-b4-20260812");
     const statuses = new Set(
       examples.examples.flatMap((example) =>
         example.checks.map((check) => check.status),
@@ -126,6 +149,24 @@ describe("compatibilityChecks", () => {
     expect(statuses.has("compatible")).toBe(true);
     expect(statuses.has("incompatible")).toBe(true);
     expect(statuses.has("unavailable")).toBe(true);
+
+    const overalls = examples.examples.map((e) => e.overallStatus);
+    expect(overalls).toContain("compatible");
+    expect(overalls).toContain("incompatible");
+    expect(overalls).toContain("unavailable");
+
+    // BIOS-only unavailable example must not force overall unavailable.
+    const biosOnlyOverall = examples.examples.find(
+      (example) =>
+        example.checks.some(
+          (c) => c.checkId === "chipset-bios" && c.status === "unavailable",
+        ) &&
+        !example.checks.some(
+          (c) => c.status === "unavailable" && c.checkId !== "chipset-bios",
+        ) &&
+        !example.checks.some((c) => c.status === "incompatible"),
+    );
+    expect(biosOnlyOverall?.overallStatus).toBe("compatible");
   });
 });
 

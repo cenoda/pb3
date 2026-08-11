@@ -46,13 +46,25 @@ test.describe("Phase 2 completion scenario", () => {
     await page.goto("/");
     await waitForPhase2Ready(page);
 
+    // B4: raw BIOS coverage stays unavailable under O6, but does not demote
+    // an otherwise clean default build's overall status or surface verdict.
     await expect(page.getByTestId("compatibility-panel")).toHaveAttribute(
       "data-overall-status",
-      "unavailable",
+      "compatible",
     );
     await expect(page.getByTestId("compat-check-chipset-bios")).toHaveAttribute(
       "data-status",
       "unavailable",
+    );
+    await expect(page.getByTestId("result")).toHaveAttribute(
+      "data-level",
+      "ok",
+    );
+    await expect(page.getByTestId("result-verdict")).toContainText(
+      "These parts work together.",
+    );
+    await expect(page.getByTestId("result-verdict")).not.toContainText(
+      "with one thing we could not check",
     );
     // Step 10: real cat6 catalog prices. The default build's CPU and GPU have
     // no sourced price row yet and its PSU has MSRP only (no KR street
@@ -63,7 +75,9 @@ test.describe("Phase 2 completion scenario", () => {
     // The user-facing total is on the surface, not only in the disclosure.
     await expect(page.getByTestId("result-price")).toContainText("₩");
 
-    await page.getByTestId("motherboard-select").selectOption("motherboard.asus-tuf-gaming-b860m-plus-wifi");
+    await page
+      .getByTestId("motherboard-select")
+      .selectOption("motherboard.asus-tuf-gaming-b860m-plus-wifi");
     await openWhy(page);
     await expect(page.getByTestId("compat-check-cpu-socket")).toHaveAttribute(
       "data-status",
@@ -78,8 +92,12 @@ test.describe("Phase 2 completion scenario", () => {
     await expect(page.getByTestId("result-performance")).toHaveCount(0);
     await expect(page.getByTestId("result-price")).toHaveCount(0);
 
-    await page.getByTestId("motherboard-select").selectOption("motherboard.gigabyte-b650-aorus-elite-ax-v2");
-    await page.getByTestId("cpu-select").selectOption("cpu.amd-ryzen-7-7800x3d");
+    await page
+      .getByTestId("motherboard-select")
+      .selectOption("motherboard.gigabyte-b650-aorus-elite-ax-v2");
+    await page
+      .getByTestId("cpu-select")
+      .selectOption("cpu.amd-ryzen-7-7800x3d");
     await openWhy(page);
     await expect(page.getByTestId("compat-check-chipset-bios")).toHaveAttribute(
       "data-status",
@@ -87,7 +105,9 @@ test.describe("Phase 2 completion scenario", () => {
     );
 
     await page.getByTestId("cpu-select").selectOption("cpu.amd-ryzen-5-7600");
-    await page.getByTestId("ram-part-select").selectOption("ram.gskill-trident-z5-rgb-ddr5-8400");
+    await page
+      .getByTestId("ram-part-select")
+      .selectOption("ram.gskill-trident-z5-rgb-ddr5-8400");
     await openWhy(page);
     await expect(page.getByTestId("compat-check-ram-support")).toHaveAttribute(
       "data-status",

@@ -9,7 +9,10 @@ import {
 const compatibleCheck = {
   checkId: "cpu-socket" as const,
   status: "compatible" as const,
-  involvedPartIds: ["cpu.amd-ryzen-5-7600", "motherboard.gigabyte-b650-aorus-elite-ax-v2"],
+  involvedPartIds: [
+    "cpu.amd-ryzen-5-7600",
+    "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+  ],
 };
 
 const incompatibleCheck = {
@@ -17,7 +20,10 @@ const incompatibleCheck = {
   status: "incompatible" as const,
   explanation:
     "CPU cpu.amd-ryzen-5-7600 uses socket AM5; motherboard motherboard.asus-tuf-gaming-b860m-plus-wifi uses socket LGA1851.",
-  involvedPartIds: ["cpu.amd-ryzen-5-7600", "motherboard.asus-tuf-gaming-b860m-plus-wifi"],
+  involvedPartIds: [
+    "cpu.amd-ryzen-5-7600",
+    "motherboard.asus-tuf-gaming-b860m-plus-wifi",
+  ],
 };
 
 describe("compat2.schema", () => {
@@ -40,7 +46,7 @@ describe("compat2.schema", () => {
       buildStateVersion: "vs2",
       checks: [compatibleCheck],
       overallStatus: "compatible",
-      dataVersion: "compat2-fixture-draft",
+      dataVersion: "compat2-b4-20260812",
     });
     expect(parsed.success).toBe(true);
   });
@@ -55,7 +61,8 @@ describe("compat2.schema", () => {
           status: "ok",
           amount: 599,
           currency: "KRW",
-          basis: "test retailer listing in KR, retrieved 2026-08-11; snapshot, not a live quote",
+          basis:
+            "test retailer listing in KR, retrieved 2026-08-11; snapshot, not a live quote",
           dataVersion: "test",
         },
         {
@@ -78,14 +85,14 @@ describe("compat2.schema", () => {
   it("accepts fixture file shapes", () => {
     const compatFile = compatibilityExampleFileSchema.safeParse({
       compatContractVersion: "compat2",
-      dataVersion: "compat2-fixture-draft",
+      dataVersion: "compat2-b4-20260812",
       examples: [
         {
           compatContractVersion: "compat2",
           buildStateVersion: "vs2",
           checks: [incompatibleCheck],
           overallStatus: "incompatible",
-          dataVersion: "compat2-fixture-draft",
+          dataVersion: "compat2-b4-20260812",
         },
       ],
     });

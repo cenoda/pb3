@@ -1,14 +1,16 @@
 # Phase 6 — Part id migration
 
-Status: **Steps 1–11 complete.** Steps 1–5 executed 2026-08-10. Step 6
-implementation complete 2026-08-10 — physical authority boundary
-(clearance-limit checks authoritative, OBB advisory-only), slot 14 admitted,
-**O7 running-app witness proven**, RK1 arithmetic in [`STEPS.md`](./STEPS.md).
-Step 7 (default-build assembly verification) and Step 8 (unavailable-reason
-wording) closed 2026-08-11. Step 9 (catalog growth) closed 2026-08-11 — see
-below. Step 10 (sourced catalog prices, **B11** closed) and Step 11
-(integrity/E2E re-anchoring) closed 2026-08-11 — see `STEPS.md` §Step 10–11.
-**Step 12 (owner spot-check) is open.** Products are the owner's Step 3 selection.
+Status: **Steps 1–12 complete; Step 12 owner-accepted 2026-08-12; B4 resolved
+2026-08-12.** Steps 1–5 executed 2026-08-10. Step 6 implementation complete
+2026-08-10 — physical authority boundary (clearance-limit checks authoritative,
+OBB advisory-only), slot 14 admitted, **O7 running-app witness proven**, RK1
+arithmetic in [`STEPS.md`](./STEPS.md). Step 7 (default-build assembly
+verification) and Step 8 (unavailable-reason wording) closed 2026-08-11. Step 9
+(catalog growth) closed 2026-08-11 — see below. Step 10 (sourced catalog prices,
+**B11** closed) and Step 11 (integrity/E2E re-anchoring) closed 2026-08-11 —
+see `STEPS.md` §Step 10–11. Step 12 audit + owner acceptance closed 2026-08-12.
+**B4** closed 2026-08-12 (non-blocking raw `chipset-bios: unavailable` under O6).
+Products are the owner's Step 3 selection.
 Legacy fixture ids are retired; **22 `cat6` parts are authored** under `parts/`,
 and the **runtime manifest loads all 22** (grown from the 14 parts authored in
 Steps 2–5 by Step 9's catalog growth, [`STEPS.md`](./STEPS.md) §Step 9). Slot 14
@@ -74,23 +76,22 @@ Rule to add to `cat6` **before Step 4 authors any motherboard**:
 > This is a catalog compatibility ceiling, not a guarantee that every memory kit,
 > CPU IMC, DIMM population, or timing configuration will operate at that rate.
 
-### D3 — **F4 is unresolved, not accepted**
+### D3 — **F4 / B4 resolved 2026-08-12 (non-blocking BIOS unavailable)**
 
-Under **O6** no board carries `biosMinVersionForCpu`, so `checkChipsetBios` returns
-`unavailable` for every build and `buildVerdict` (`src/ui/buildVerdict.ts:83`)
-demotes every otherwise-clean build — including the default build — to
-`level: "caution"`, *"These parts work together, with one thing we could not
-check."*
+Under **O6** no board carries `biosMinVersionForCpu`, so `checkChipsetBios`
+still returns raw `unavailable` for every build — evidence absence is not
+hidden. **B4** makes that single checkId non-blocking:
 
-That is **not accepted as the phase's UX outcome.** It erases the distinction
-between "a build with a real unchecked risk" and "a build whose BIOS provenance we
-simply do not model". It stays an open blocker, resolved in its own bounded step
-that looks at verdict semantics and
-`benchmarks/compat2/compatibility-examples.json` together.
+- `CompatibilityReport.overallStatus` ignores non-blocking unavailable checks
+  after incompatible precedence;
+- `buildVerdict` does not demote an otherwise clean build to `caution` for
+  BIOS-only unavailable;
+- every other unavailable check id still yields overall `unavailable` and UI
+  `caution`;
+- detailed UI may still show the raw BIOS check as unavailable / not covered.
 
-**It does not block Step 3 or Step 4.** Selection, this migration table, and
-authoring all proceed. What is forbidden is papering over it — **no invented BIOS
-minimum is written into any board to make the banner go away.**
+Shared SSOT: `src/compat/unavailablePolicy.ts` (used by both aggregation and
+verdict). **No invented BIOS minimum is written into any board.**
 
 ### D4 — Conditional clearance produces three outcomes, not two
 
@@ -333,10 +334,12 @@ then the physical stage reports `168 > 165` — a real interference from publish
 figures via the **clearance-limit** scalar rule. OBB overlap is not the authority
 source.
 
-`chipset-bios` reads `unavailable` under **O6**, which demotes the verdict to
-`caution` but keeps `showResults: true` (`src/ui/buildVerdict.ts:83–92`), so the
-physical stage is still reached and the interference is still shown. **D3** does
-not hide **I2**.
+`chipset-bios` still reads raw `unavailable` under **O6** (no BIOS minima
+invented). **B4 (2026-08-12)** makes that check non-blocking for aggregate
+compatibility and the surface verdict, so a clean logical path reaches overall
+`compatible` / verdict `ok` while the detailed report still shows BIOS coverage
+as unavailable. Physical interference remains independent and still blocks.
+**D3** / **B4** do not hide **I2**.
 
 ### I9 — The demonstration build must produce exactly one interference
 
@@ -410,7 +413,7 @@ parts, and no part in this build is one.
 | B1 | **D2** `maxMemorySpeedMtS` rule written into `cat6` | ✅ **Closed** — contract rule **C14** in `specs/catalog-data-contract.md`, written before Step 4 authored any motherboard |
 | B2 | **D1** negative-fixture exception written into `cat6` | ✅ **Closed** — contract rule **C15** + `identity.roleNote`, written before slot 9 was authored |
 | B3 | **D4** three-outcome C13 + `conditional` in `PhysicalValidationStatus`, **and branch filtering** (below) | ✅ **Resolved 2026-08-10** — `conditional` status, conservative `appliesWhen` pruning, and selected-build part resolution in `evaluateClearanceLimits` |
-| B4 | **D3** F4 permanent-caution resolution | Bounded step of its own. Does **not** gate Steps 3–4 |
+| B4 | **D3** F4 permanent-caution resolution | ✅ **Resolved 2026-08-12** — `chipset-bios: unavailable` non-blocking under O6 (shared policy); other unavailable checks still block / caution; no invented BIOS data |
 | B5 | Slot 14 selection | ✅ **Closed** — GIGABYTE B650M AORUS ELITE AX Rev. 1.3, approved 2026-08-10 |
 | B6 | **I6** sourcing (cooler RAM clearance + module height) | ✅ **Closed 2026-08-10** — both citations recorded; **I6** derived from authored data. See below |
 | B7 | **I9** — which PSU the **I8** demonstration build uses | ✅ **Closed** — slot 10 (Corsair RM750e, 140 mm ATX); slot 2 supports ATX up to 220 mm |
@@ -652,7 +655,7 @@ Verified by grep against the working tree.
 | `benchmarks/perf1/*.json` (4 files) | `cpuId` / `gpuId` re-pointed; coverage stays 4 pairs; values stay `stub` |
 | `benchmarks/prov4/pilot-*.json`, `external-performance-observations.json` | Pilot re-pointed; no grade change |
 | `benchmarks/phys3/physical-validation-examples.json` | May retain historical/advisory geometry examples; only clearance-limit-backed rows are authoritative witnesses (**RK1**), not re-pointed |
-| **`benchmarks/compat2/compatibility-examples.json`** | **Rewritten, not a mechanical re-point.** Its first example asserts `chipset-bios: "compatible"` and `overallStatus: "compatible"`; under **O6** both become `unavailable`. Tied to **D3** — do not rewrite the expectations by inventing a BIOS minimum |
+| **`benchmarks/compat2/compatibility-examples.json`** | **Rewritten under B4 (2026-08-12), not a mechanical re-point.** First example keeps raw `chipset-bios: "unavailable"` with `overallStatus: "compatible"`; a separate example keeps a blocking non-BIOS unavailable → overall `unavailable`; incompatible example unchanged. `dataVersion` `compat2-b4-20260812`. **No invented BIOS minimum** |
 | `benchmarks/vs0/*.json` | Re-pointed |
 | `benchmarks/price2/price-fixtures.json` | **Deleted 2026-08-11 (Step 10).** Re-pointed (not deleted) through Step 9; deletion was deferred until sourced catalog prices existed. `benchmarks/cat6/catalog-prices.json` now supersedes it (14 of 22 parts priced; see **B11**, closed, and `STEPS.md` §Step 10). No price2 amount was carried into a `CatalogPriceRow` — every `CatalogStreetPrice` in the new file is a real dated retailer snapshot with its own `retailer` / `retrievedAt` / `sourceId` |
 | `e2e/**` (7 specs) | Selections re-pointed; each assertion's meaning preserved (**RK4**) |
@@ -674,7 +677,8 @@ contract/fixture meaning only.
 (2026-08-10):** visual-only 244 × 244 mm plane GLB, collision-less
 `physicalSpec`, runtime manifest entry. O7 witness build is reachable in the
 running app and covered by `e2e/phase6-o7-slot14-witness.spec.ts`. **B3** and
-**B8** were resolved in the same step; **B4** and **B11** remain open.
+**B8** were resolved in the same step; **B11** closed Step 10; **B4** closed
+2026-08-12.
 
 ### `src/viewport/GpuModel.tsx` — carve-out (owner ruling, 2026-08-10)
 

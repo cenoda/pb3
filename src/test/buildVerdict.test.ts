@@ -70,7 +70,10 @@ describe("buildVerdict", () => {
             status: "incompatible",
             explanation:
               "Motherboard motherboard.gigabyte-b650-aorus-elite-ax-v2 is ATX; case case.lian-li-a3-matx-black supports Micro-ATX only.",
-            involvedPartIds: ["case.lian-li-a3-matx-black", "motherboard.gigabyte-b650-aorus-elite-ax-v2"],
+            involvedPartIds: [
+              "case.lian-li-a3-matx-black",
+              "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            ],
           },
         ],
       }),
@@ -92,7 +95,10 @@ describe("buildVerdict", () => {
             status: "incompatible",
             explanation:
               "Motherboard motherboard.gigabyte-b650-aorus-elite-ax-v2 is ATX; case case.lian-li-a3-matx-black supports Micro-ATX only.",
-            involvedPartIds: ["case.lian-li-a3-matx-black", "motherboard.gigabyte-b650-aorus-elite-ax-v2"],
+            involvedPartIds: [
+              "case.lian-li-a3-matx-black",
+              "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            ],
           },
         ],
       }),
@@ -235,9 +241,13 @@ describe("buildVerdict", () => {
             checkId: "clearance-limit:gpu-length",
             kind: "clearance-limit",
             status: "conditional",
-            involvedPartIds: ["case.lian-li-a3-matx-black", "gpu.asus-dual-rtx4070-o12g"],
+            involvedPartIds: [
+              "case.lian-li-a3-matx-black",
+              "gpu.asus-dual-rtx4070-o12g",
+            ],
             involvedNodeNames: ["clearance-limit:maxGpuLength"],
-            explanation: "GPU length fits some published branches and fails others.",
+            explanation:
+              "GPU length fits some published branches and fails others.",
             evidenceSourceIds: [],
           },
         ],
@@ -250,7 +260,34 @@ describe("buildVerdict", () => {
     expect(verdict.headline).toContain("configuration");
   });
 
-  it("still shows results when a check could not be run, and says so", () => {
+  it("B4: BIOS-only unavailable does not demote an otherwise clean build to caution", () => {
+    const verdict = buildVerdict({
+      compatibility: compat({
+        overallStatus: "compatible",
+        checks: [
+          {
+            checkId: "chipset-bios",
+            status: "unavailable",
+            explanation:
+              "No documented minimum BIOS version for cpu.amd-ryzen-5-7600 on motherboard.gigabyte-b650-aorus-elite-ax-v2.",
+            involvedPartIds: [
+              "cpu.amd-ryzen-5-7600",
+              "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+            ],
+          },
+        ],
+      }),
+      physical: physical(),
+      nameOf,
+    });
+
+    expect(verdict.level).toBe("ok");
+    expect(verdict.headline).toBe("These parts work together.");
+    expect(verdict.reason).toBeNull();
+    expect(verdict.showResults).toBe(true);
+  });
+
+  it("non-BIOS unavailable still produces caution", () => {
     const verdict = buildVerdict({
       compatibility: compat({
         overallStatus: "unavailable",
@@ -259,8 +296,20 @@ describe("buildVerdict", () => {
             checkId: "chipset-bios",
             status: "unavailable",
             explanation:
-              "No documented minimum BIOS version for cpu.amd-ryzen-5-7600 on motherboard.gigabyte-b650-aorus-elite-ax-v2.",
-            involvedPartIds: ["cpu.amd-ryzen-5-7600", "motherboard.gigabyte-b650-aorus-elite-ax-v2"],
+              "No documented minimum BIOS version for cpu.amd-ryzen-5-7600 on motherboard.asus-tuf-gaming-b650-plus-wifi.",
+            involvedPartIds: [
+              "cpu.amd-ryzen-5-7600",
+              "motherboard.asus-tuf-gaming-b650-plus-wifi",
+            ],
+          },
+          {
+            checkId: "ram-support",
+            status: "unavailable",
+            explanation: "RAM or motherboard memory support spec is missing.",
+            involvedPartIds: [
+              "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+              "motherboard.asus-tuf-gaming-b650-plus-wifi",
+            ],
           },
         ],
       }),
@@ -269,7 +318,10 @@ describe("buildVerdict", () => {
     });
 
     expect(verdict.level).toBe("caution");
+    expect(verdict.headline).toBe(
+      "These parts work together, with one thing we could not check.",
+    );
     expect(verdict.showResults).toBe(true);
-    expect(verdict.reason).toContain("Ryzen 5 7600 (fixture)");
+    expect(verdict.reason).toContain("memory support");
   });
 });

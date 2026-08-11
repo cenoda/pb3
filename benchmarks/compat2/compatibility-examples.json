@@ -1,6 +1,6 @@
 {
   "compatContractVersion": "compat2",
-  "dataVersion": "compat2-fixture-draft",
+  "dataVersion": "compat2-b4-20260812",
   "examples": [
     {
       "compatContractVersion": "compat2",
@@ -9,32 +9,48 @@
         {
           "checkId": "cpu-socket",
           "status": "compatible",
-          "involvedPartIds": ["cpu.amd-ryzen-5-7600", "motherboard.gigabyte-b650-aorus-elite-ax-v2"]
+          "involvedPartIds": [
+            "cpu.amd-ryzen-5-7600",
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2"
+          ]
         },
         {
           "checkId": "chipset-bios",
           "status": "unavailable",
           "explanation": "No documented minimum BIOS version for cpu.amd-ryzen-5-7600 on motherboard.gigabyte-b650-aorus-elite-ax-v2.",
-          "involvedPartIds": ["cpu.amd-ryzen-5-7600", "motherboard.gigabyte-b650-aorus-elite-ax-v2"]
+          "involvedPartIds": [
+            "cpu.amd-ryzen-5-7600",
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2"
+          ]
         },
         {
           "checkId": "ram-support",
           "status": "compatible",
-          "involvedPartIds": ["ram.teamgroup-t-create-expert-ddr5-6000-32gb", "motherboard.gigabyte-b650-aorus-elite-ax-v2"]
+          "involvedPartIds": [
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2"
+          ]
         },
         {
           "checkId": "psu-wattage",
           "status": "compatible",
-          "involvedPartIds": ["psu.corsair-rm750e", "cpu.amd-ryzen-5-7600", "gpu.asus-dual-rtx4070-o12g"]
+          "involvedPartIds": [
+            "psu.corsair-rm750e",
+            "cpu.amd-ryzen-5-7600",
+            "gpu.asus-dual-rtx4070-o12g"
+          ]
         },
         {
           "checkId": "case-form-factor",
           "status": "compatible",
-          "involvedPartIds": ["case.fractal-design-north-tg-dark", "motherboard.gigabyte-b650-aorus-elite-ax-v2"]
+          "involvedPartIds": [
+            "case.fractal-design-north-tg-dark",
+            "motherboard.gigabyte-b650-aorus-elite-ax-v2"
+          ]
         }
       ],
-      "overallStatus": "unavailable",
-      "dataVersion": "compat2-fixture-draft"
+      "overallStatus": "compatible",
+      "dataVersion": "compat2-b4-20260812"
     },
     {
       "compatContractVersion": "compat2",
@@ -44,11 +60,14 @@
           "checkId": "cpu-socket",
           "status": "incompatible",
           "explanation": "CPU cpu.amd-ryzen-5-7600 uses socket AM5; motherboard motherboard.asus-tuf-gaming-b860m-plus-wifi uses socket LGA1851. These parts cannot be paired.",
-          "involvedPartIds": ["cpu.amd-ryzen-5-7600", "motherboard.asus-tuf-gaming-b860m-plus-wifi"]
+          "involvedPartIds": [
+            "cpu.amd-ryzen-5-7600",
+            "motherboard.asus-tuf-gaming-b860m-plus-wifi"
+          ]
         }
       ],
       "overallStatus": "incompatible",
-      "dataVersion": "compat2-fixture-draft"
+      "dataVersion": "compat2-b4-20260812"
     },
     {
       "compatContractVersion": "compat2",
@@ -57,12 +76,24 @@
         {
           "checkId": "chipset-bios",
           "status": "unavailable",
-          "explanation": "No documented minimum BIOS version for cpu.amd-ryzen-7-7800x3d on motherboard.gigabyte-b650-aorus-elite-ax-v2.",
-          "involvedPartIds": ["cpu.amd-ryzen-7-7800x3d", "motherboard.gigabyte-b650-aorus-elite-ax-v2"]
+          "explanation": "No documented minimum BIOS version for cpu.amd-ryzen-5-7600 on motherboard.asus-tuf-gaming-b650-plus-wifi.",
+          "involvedPartIds": [
+            "cpu.amd-ryzen-5-7600",
+            "motherboard.asus-tuf-gaming-b650-plus-wifi"
+          ]
+        },
+        {
+          "checkId": "ram-support",
+          "status": "unavailable",
+          "explanation": "RAM or motherboard memory support spec is missing.",
+          "involvedPartIds": [
+            "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+            "motherboard.asus-tuf-gaming-b650-plus-wifi"
+          ]
         }
       ],
       "overallStatus": "unavailable",
-      "dataVersion": "compat2-fixture-draft"
+      "dataVersion": "compat2-b4-20260812"
     }
   ]
 }

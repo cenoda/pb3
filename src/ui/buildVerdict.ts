@@ -7,6 +7,7 @@ import type {
   PhysicalCheckResult,
   PhysicalValidationReport,
 } from "../contract/phys3";
+import { isBlockingUnavailableCheck } from "../compat/unavailablePolicy";
 
 export type VerdictLevel = "ok" | "caution" | "blocked";
 
@@ -97,9 +98,9 @@ export function buildVerdict(input: BuildVerdictInput): BuildVerdict {
     };
   }
 
-  const uncheckable = compatibility.checks.find(
-    (check) => check.status === "unavailable",
-  );
+  // B4 / O6: only blocking unavailable checks demote to caution.
+  // chipset-bios: unavailable stays in the detailed report, not the verdict.
+  const uncheckable = compatibility.checks.find(isBlockingUnavailableCheck);
   if (uncheckable) {
     return {
       level: "caution",

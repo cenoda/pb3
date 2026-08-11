@@ -47,9 +47,7 @@ test.describe("Phase 6 Step 7 — default build assembly (browser)", () => {
     await expect(page.getByTestId("motherboard-select")).toHaveValue(
       DEFAULT.mb,
     );
-    await expect(page.getByTestId("cooler-select")).toHaveValue(
-      DEFAULT.cooler,
-    );
+    await expect(page.getByTestId("cooler-select")).toHaveValue(DEFAULT.cooler);
     await expect(page.getByTestId("ram-part-select")).toHaveValue(DEFAULT.ram);
     await expect(page.getByTestId("psu-select")).toHaveValue(DEFAULT.psu);
 
@@ -63,7 +61,28 @@ test.describe("Phase 6 Step 7 — default build assembly (browser)", () => {
     expect(poses!).toContain(`${DEFAULT.psu}@`);
     expect(poses!).toContain(`${DEFAULT.gpu}@`);
 
+    // B4: clean default build surface verdict is ok; permanent caution is gone.
+    // Detailed compatibility still exposes raw BIOS coverage as unavailable (O6).
+    await expect(page.getByTestId("result")).toHaveAttribute(
+      "data-level",
+      "ok",
+    );
+    await expect(page.getByTestId("result-verdict")).toContainText(
+      "These parts work together.",
+    );
+    await expect(page.getByTestId("result-verdict")).not.toContainText(
+      "with one thing we could not check",
+    );
+
     await openWhy(page);
+    await expect(page.getByTestId("compatibility-panel")).toHaveAttribute(
+      "data-overall-status",
+      "compatible",
+    );
+    await expect(page.getByTestId("compat-check-chipset-bios")).toHaveAttribute(
+      "data-status",
+      "unavailable",
+    );
     await expect(page.getByTestId("physical-validation-panel")).toHaveAttribute(
       "data-overall-status",
       "fit",

@@ -12,7 +12,10 @@ short of ≈30 — see STEPS.md for the sourcing blockers); Step 10 sourced
 catalog prices complete (2026-08-11, partial coverage — 14 of 22 parts priced,
 see STEPS.md for the sourcing gaps); Step 11 integrity gates and E2E
 re-anchoring complete (2026-08-11). Records in [`STEPS.md`](./STEPS.md). Step
-12 (owner spot-check) open.**
+12 exhaustive audit + owner acceptance **complete 2026-08-12**. **B4**
+(permanent-caution under O6) resolved 2026-08-12 by the carve-out below —
+raw `chipset-bios: unavailable` preserved, non-blocking for aggregate and
+verdict. Final Phase 6 owner closeout still pending; Phase 7 not started.**
 
 ---
 
@@ -50,11 +53,12 @@ Exactly inverting Phase 5's boundary.
 | `benchmarks/prov4/pilot-*.json`, `PROV4_PILOT_PART_IDS` | **Ids re-pointed only** (**RK2**). `geometryDataVersion` is **not** re-pointed — no new geometry representation dataset exists (`phys3-exp-20260808` retained; see Step 6). No grade change, no new claim |
 | `src/perf/applyCorrection.ts`, `src/estimate/estimatorQuery.ts` | Hardcoded example ids re-pointed. Mechanical strings; no logic change |
 | `src/perf/**` unavailable **reason strings** | Rewritten to user language stating the estimator is in preparation (**O1**). No logic, no signature, no numeric change |
-| `src/App.tsx`, `src/ui/**`, `src/styles/**` | **Untouchable except the Step 6 and Step 10 carve-outs**: `src/ui/buildVerdict.ts` and `src/ui/WhyThisResult.tsx` changed (Step 6) to route verdicts through the new physical authority. `src/App.tsx` (loader/state rename only), `src/ui/WhyThisResult.tsx`, and `src/ui/ResultBar.tsx` changed (Step 10) — two hardcoded copy strings ("fixed demo prices" / "fixture prices, not live market quotes") corrected to describe real dated street-price snapshots, required by the re-anchoring rule that no demo/fixture/live-price false claim may remain; no other UI/display-logic change. A diff anywhere else here fails review. If real data makes a screen wrong, it is recorded for Phase 7 |
+| `src/App.tsx`, `src/ui/**`, `src/styles/**` | **Untouchable except the Step 6, Step 10, and B4 carve-outs**: `src/ui/buildVerdict.ts` and `src/ui/WhyThisResult.tsx` changed (Step 6) to route verdicts through the new physical authority. `src/App.tsx` (loader/state rename only), `src/ui/WhyThisResult.tsx`, and `src/ui/ResultBar.tsx` changed (Step 10) — two hardcoded copy strings ("fixed demo prices" / "fixture prices, not live market quotes") corrected to describe real dated street-price snapshots, required by the re-anchoring rule that no demo/fixture/live-price false claim may remain. **B4 (2026-08-12):** `src/ui/buildVerdict.ts` only — treat `chipset-bios: unavailable` as non-blocking for the UI verdict (shared policy with `src/compat/`); no broad UI redesign. A diff anywhere else here fails review. If real data makes a screen wrong, it is recorded for Phase 7 |
 | `src/physical/` | **Untouchable except the Step 6 carve-out**: physical-authority boundary (`buildPhysicalValidationReport.ts`, `collision/types.ts`) and the scalar clearance-limit evaluator (`clearanceLimit/evaluateClearanceLimits.ts`). No other `src/physical/` diff |
 | `src/contract/phys3.schema.ts` | **Untouchable except the Step 6 carve-out**: `conditional` added to `PhysicalValidationStatus` (**B3** / D4). No other `phys3` contract diff |
-| `src/compat/`, `src/price/`, `src/provenance/`, `src/state/` | **Untouchable** except where a loader signature must change for the manifest |
-| `src/test/**`, `e2e/**` | Step 6 re-anchored only the directly related physical/verdict tests (`buildVerdict`, `clearanceLimitEvaluator`, `physicalValidation`, `phys3.schema`, `phys3.integrity`, `phase3-physical-validation.spec.ts`) and added `phase6-o7-slot14-witness.spec.ts`. Step 7 added `phase6-step7-default-assembly.test.ts` + `phase6-step7-default-assembly.spec.ts` only (default-build assembly lock). Other tests untouched |
+| `src/compat/`, `src/price/`, `src/provenance/`, `src/state/` | **Untouchable** except where a loader signature must change for the manifest, **and the B4 carve-out (2026-08-12)** on `src/compat/` only: one shared checkId-based policy so `chipset-bios: unavailable` is informational/non-blocking for `overallStatus` aggregation while every other unavailable check stays blocking; `checkChipsetBios` itself must still return raw `unavailable` (no invented BIOS minima, no silent compatible). `src/price/`, `src/provenance/`, `src/state/` remain untouchable |
+| `src/test/**`, `e2e/**` | Step 6 re-anchored only the directly related physical/verdict tests (`buildVerdict`, `clearanceLimitEvaluator`, `physicalValidation`, `phys3.schema`, `phys3.integrity`, `phase3-physical-validation.spec.ts`) and added `phase6-o7-slot14-witness.spec.ts`. Step 7 added `phase6-step7-default-assembly.test.ts` + `phase6-step7-default-assembly.spec.ts` only (default-build assembly lock). **B4 (2026-08-12):** re-anchor compatibility aggregation, verdict, and default-build E2E expectations only (plus `benchmarks/compat2/compatibility-examples.json` dataVersion/semantics). Other tests untouched |
+| `benchmarks/compat2/**` | **B4 carve-out (2026-08-12):** rewrite example overall statuses under the non-blocking BIOS policy; bump compatibility `dataVersion` with the production aggregator. Contract version string `compat2` unchanged (serialized shape unchanged) |
 | `benchmarks/est1/**` | **Untouchable** beyond id re-pointing. Phase 4.1 stays frozen |
 | `docs/decisions/ADR-00*` | Unchanged. An image-rights ADR is a separate future decision |
 

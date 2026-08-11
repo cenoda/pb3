@@ -89,17 +89,23 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
       FIXED-REMOVED (no revision on Danawa/11st); evidence ledger rebuilt
       with exact citation URLs; misleading `scripts/step12-playwright-audit.mjs`
       deleted. Current: 17 PASS / 1 FIXED / 4 BLOCKED parts; 12 PASS / 1
-      BLOCKED prices over 13 rows. **Owner spot-check / Step 12 acceptance
-      not claimed**
-- [ ] Step 12 — owner spot-check of three random parts (acceptance gate)
+      BLOCKED prices over 13 rows
+- [x] Step 12 — **owner-accepted 2026-08-12** (after corrective audit
+      `260169e` independent review). Acceptance gate closed
+- [x] **B4** corrective packet (2026-08-12): `chipset-bios: unavailable`
+      remains raw under O6 (no invented BIOS minima) but is **non-blocking**
+      for aggregate compatibility and UI verdict; other unavailable checks
+      still block / caution. Shared policy in `src/compat/unavailablePolicy.ts`
 
 ## Closeout
 
 - [x] `STEPS.md` — Step 6 (authority / RK1, 2026-08-10) + Step 7 (default
       assembly evidence, 2026-08-11) + Step 8 (unavailable-reason wording,
-      2026-08-11)
+      2026-08-11) + Step 12 / B4 truth-sync (2026-08-12)
 - [ ] `CLOSEOUT.md` — owner result, what it rests on, gaps carried forward
-- [x] `STATUS.md` / [`../README.md`](../README.md) updated (2026-08-11 Step 8 truth-sync)
+      (**not** claimed; final Phase 6 owner closeout still pending)
+- [x] `STATUS.md` / [`../README.md`](../README.md) updated (2026-08-12 B4
+      truth-sync)
 
 ## Carried into later phases (do not start here)
 
@@ -127,10 +133,11 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
   `appliesWhen` branch pruning (contract **C13**). The Phase 6 default build is
   chosen to clear every published branch unconditionally (**I5**) so it never
   depends on this
-- **Permanent `caution` on every build** (**D3**, blocker **B4**) — under **O6**
-  no board carries `biosMinVersionForCpu`, so `checkChipsetBios` is always
-  `unavailable` and every clean build is demoted to `caution`. **Not accepted**
-  as the phase's UX outcome. **Status: still open (2026-08-10).** To be resolved
-  in its own bounded step together with
-  `benchmarks/compat2/compatibility-examples.json` and verdict semantics. **No
-  invented BIOS minimum may be written to make the banner go away**
+- **Permanent `caution` on every build** (**D3**, blocker **B4**) —
+  **Resolved 2026-08-12.** Under **O6**, no board carries
+  `biosMinVersionForCpu`, so `checkChipsetBios` still returns raw
+  `unavailable` (transparency; BIOS coverage not modeled). B4 policy:
+  only `checkId === "chipset-bios"` unavailable is non-blocking for
+  `CompatibilityReport.overallStatus` and the UI verdict; every other
+  unavailable check id keeps `unavailable` / `caution`. No BIOS data was
+  fabricated. Shared SSOT: `src/compat/unavailablePolicy.ts`
