@@ -66,19 +66,32 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
       guessed around; per the plan's decision gate, only fully sourced
       candidates were added and the shortfall is reported rather than
       forced. See [`STEPS.md`](./STEPS.md) §Step 9 for the full record.
-- [x] Step 10 — MSRP + dated street snapshots (2026-08-11): 14 price rows in
-      `benchmarks/cat6/catalog-prices.json` for 22 manifest parts — 12
-      street (KRW), 2 MSRP-only, 0 with both, 8 parts with no row at all
-      (unsourceable this session, not fabricated). `buildPriceSummary`
+- [x] Step 10 — MSRP + dated street snapshots (2026-08-11): **historical**
+      14 price rows in `benchmarks/cat6/catalog-prices.json` for 22 manifest
+      parts — 12 street (KRW), 2 MSRP-only, 0 with both, 8 parts with no row
+      at all (unsourceable this session, not fabricated). `buildPriceSummary`
       rewritten to map street snapshots only; MSRP never summed; missing/
       MSRP-only/non-KRW rows → `unavailable`, total `isPartial`.
-      `benchmarks/price2/` deleted (B11 closed). See `STEPS.md` §Step 10
+      `benchmarks/price2/` deleted (B11 closed). See `STEPS.md` §Step 10.
+      **Current after Step 12 corrective (2026-08-12):** 13 rows (11 street /
+      2 MSRP-only / 9 absent) after removing revision-unverified GIGABYTE
+      B650M Rev. 1.3 street row
 - [x] Step 11 — `cat6.step11.integrity.test.ts` (9 tests) + rewritten
       `buildPriceSummary.test.ts` (9 tests) + 3 `catalogPriceFileSchema`
       tests + E2E re-anchoring in `phase2-compat-price.spec.ts` and
-      `phase5-exit-conditions.spec.ts` (2026-08-11). `pnpm test` 39/339,
-      `pnpm test:e2e` 19/19. See `STEPS.md` §Step 11
-- [ ] Step 12 — owner spot-check of three random parts
+      `phase5-exit-conditions.spec.ts` (2026-08-11). Historical `pnpm test`
+      39/339, `pnpm test:e2e` 19/19. See `STEPS.md` §Step 11
+- [x] Step 12 — exhaustive factual audit packet (2026-08-11; corrective
+      2026-08-12): [`STEP12_AUDIT.md`](./STEP12_AUDIT.md) — Playwright-backed
+      audit of 22 parts; corrected ASUS B650-PLUS WIFI open-ended memory
+      ceiling (`maxMemorySpeedMtS` removed); Lian Li A3 clearance charts
+      visually re-verified PASS; GIGABYTE B650M Rev. 1.3 street price
+      FIXED-REMOVED (no revision on Danawa/11st); evidence ledger rebuilt
+      with exact citation URLs; misleading `scripts/step12-playwright-audit.mjs`
+      deleted. Current: 17 PASS / 1 FIXED / 4 BLOCKED parts; 12 PASS / 1
+      BLOCKED prices over 13 rows. **Owner spot-check / Step 12 acceptance
+      not claimed**
+- [ ] Step 12 — owner spot-check of three random parts (acceptance gate)
 
 ## Closeout
 

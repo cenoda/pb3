@@ -299,7 +299,7 @@ None of the eight carry `physicalSpec` (visual-only placeholder box GLB from
 | Id | Category | Sourced fields | Primary source(s) |
 |---|---|---|---|
 | `gpu.asus-dual-rtx4060-o8g` | gpu | dims 227.2×123.24×49.6 mm; boost 2505/2535 MHz; `tdpWatts` 115 | ASUS techspec; NVIDIA RTX 4060/4060 Ti family page |
-| `motherboard.asus-tuf-gaming-b650-plus-wifi` | motherboard | AM5/AMD B650/ATX/DDR5; `maxMemorySpeedMtS` 7200 (7600+(OC) excluded, same "+" rule as the B860M); dims 305×244 mm, no thickness | ASUS techspec |
+| `motherboard.asus-tuf-gaming-b650-plus-wifi` | motherboard | AM5/AMD B650/ATX/DDR5; `maxMemorySpeedMtS` absent (`7600+(OC)` open-ended ceiling, same "+" rule as the B860M); dims 305×244 mm, no thickness | ASUS techspec |
 | `case.fractal-design-meshify-2-compact-black-solid` | case | dims 424×210×475 mm (labelled LxWxH); `maxGpuLength` 341/360 mm (front-fan branches); `maxCpuCoolerHeight` 169 mm; `maxPsuLength` 200/165 mm (HDD-cage branch); `supportedFormFactors` [ATX, Micro-ATX] (Mini-ITX dropped) | Fractal Design product page |
 | `case.nzxt-h5-flow` | case | dims 430×465×225 mm (labelled H×W×D, D→length); `maxGpuLength` 410 mm; `maxCpuCoolerHeight` 170 mm; `maxPsuLength` 200 mm; `supportedFormFactors` [ATX, Micro-ATX] (E-ATX, Mini-ITX dropped) | NZXT product page |
 | `psu.corsair-rm850e-cp-9020263-na` | psu | dims 140×150×86 mm (unlabelled triplet; length assigned by comparison with the RM750e sibling SKU, which does label Length and shares the identical triplet); `wattage` 850 | Corsair product page |
@@ -599,3 +599,51 @@ Steps 10 and 11 are **complete**. Step 12 (owner spot-check of three random
 parts) is **open** — it is the owner's action, not an agent step. Blocker
 **B4** (permanent `caution`) remains open and untouched. Phase 7 not
 started.
+
+---
+
+# Step 12 — Exhaustive factual audit packet (2026-08-11; corrective 2026-08-12)
+
+Agent-delivered audit packet before owner spot-check. Full record:
+[`STEP12_AUDIT.md`](./STEP12_AUDIT.md).
+
+## 2026-08-11 (original)
+
+- Playwright-backed verification of all 22 manifest parts and (historical)
+  14 price rows.
+- **Required product correction (preserved):** removed false
+  `maxMemorySpeedMtS: 7200` from `motherboard.asus-tuf-gaming-b650-plus-wifi`
+  (ASUS publishes `7600+(OC)` as open-ended ceiling; aligned with B860M
+  `8800+` rule). `checkRamSupport` → `unavailable`.
+- Part totals after product correction: **17 PASS / 1 FIXED / 4 BLOCKED**
+  (GIGABYTE ×2, Corsair PSU product pages ×2). AMD CPU pages verified via
+  HTTP/1.1 fetch of server-rendered specs; NVIDIA TGP via specsmodal — PASS.
+- Historical price totals at that draft: 14 rows / 13 PASS / 1 BLOCKED
+  (superseded by the 2026-08-12 corrective below).
+
+## 2026-08-12 (corrective review — independent findings 1–4)
+
+- **Finding 1 — Lian Li A3:** visual re-read of manufacturer hardware-
+  compatibility chart images (`a3-h-025a.webp`, `a3-h-026a.webp`,
+  `a3-h-030c.webp` on https://lian-li.com/product/a3-matx/). All catalog
+  GPU-clearance branches, dimensions, CPU 165 mm, PSU 220 mm, Micro-ATX,
+  and Black variant match. **PASS retained**; `part.json` unchanged.
+- **Finding 2 — GIGABYTE B650M Rev. 1.3 street price:** Danawa
+  `pcode=18113015` and one-hop 11st product page print only the model-family
+  name; **no Rev. 1.3**. Price row **FIXED — REMOVED** from
+  `catalog-prices.json`; unused Danawa street registry entry removed.
+  Current coverage: **13 of 22** priced (11 street / 2 MSRP-only / 9 absent).
+  Historical Step 10 count (14 rows) preserved as historical only.
+- **Finding 3 — evidence ledger:** `STEP12_AUDIT.md` rebuilt with exact
+  citation URLs, per-field-group sourceIds, G.SKILL FAQ dimensions group
+  (`Trident Z5 RGB: 44 mm`), and aggregates recalculated from row-level
+  verdicts.
+- **Finding 4 — audit helper:** deleted misleading
+  `scripts/step12-playwright-audit.mjs` (not a permanent Phase 6
+  deliverable; future pipeline needs its own plan).
+- **Current part totals (unchanged product set):** **17 PASS / 1 FIXED /
+  4 BLOCKED**.
+- **Current price totals:** **12 PASS / 1 BLOCKED** over **13** remaining
+  rows (+ 1 FIXED-REMOVED historical row).
+- **Owner Step 12 acceptance not claimed.** B4 open. Phase 6 incomplete.
+  Phase 7 not started. Automation pipeline not implemented.

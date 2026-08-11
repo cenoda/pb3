@@ -7,8 +7,11 @@ locked. Steps 1–11 complete. Step 6 authority boundary (2026-08-10), Step 7
 default-build assembly verification (2026-08-11), Step 8 unavailable-reason
 wording (2026-08-11), Step 9 catalog growth to 22 parts (2026-08-11), and
 Step 10 sourced catalog prices + Step 11 integrity/E2E re-anchoring
-(2026-08-11) are recorded in [`STEPS.md`](./STEPS.md). Step 12 (owner
-spot-check) is open.**
+(2026-08-11) are recorded in [`STEPS.md`](./STEPS.md). Step 12 exhaustive factual
+audit packet recorded 2026-08-11 and correctively reviewed 2026-08-12
+([`STEP12_AUDIT.md`](./STEP12_AUDIT.md)) — Lian Li A3 charts visually re-verified
+PASS; revision-unverified GIGABYTE B650M street price removed; owner spot-check /
+acceptance still open (4 manufacturer citations BLOCKED).**
 
 Phase 6 is **primarily a catalog/data phase** — the display layer stays as it
 is. It is not purely data-only: Step 6 includes the narrowly scoped
@@ -65,9 +68,10 @@ this shape: the gate measures the thing itself, not a proxy for it.
 | Step 7 — default build assembly verification | **Done — 2026-08-11** (default build fits; Phase 0 exit scenario + O7 re-run green; no `DEFAULT_BUILD_STATE_V2` change) |
 | Step 8 — unavailable reasons say estimator in preparation | **Done — 2026-08-11** (`src/perf/estimateBaseline.ts`, `estimateWorkload.ts`; unit tests green; `pnpm test` 38 / 320, `pnpm test:e2e` 19) |
 | Step 9 — grow the catalog | **Done — 2026-08-11** (14 → 22 parts, 8 fully sourced additions; ≈30 not reached — several manufacturer sites unfetchable this session; O7 pair untouched and still authoritative) |
-| Step 10 — sourced catalog prices (**O5**) | **Done — 2026-08-11** (14 price rows for 22 parts: 12 street/KRW, 2 MSRP-only, 8 unsourced this session and correctly absent; default build's total is honestly partial — CPU/GPU have no row, PSU is MSRP-only; `benchmarks/price2/` deleted) |
+| Step 10 — sourced catalog prices (**O5**) | **Done — 2026-08-11** (historical: 14 price rows for 22 parts — 12 street/KRW, 2 MSRP-only, 8 absent; `benchmarks/price2/` deleted). **Current after Step 12 corrective (2026-08-12):** 13 rows (11 street / 2 MSRP-only / 9 absent) after removing revision-unverified GIGABYTE B650M Rev. 1.3 street row |
 | Step 11 — integrity + E2E re-anchoring | **Done — 2026-08-11** (9 new integrity tests, price mapping unit tests, 2 E2E specs re-anchored) |
-| Owner spot-check (Step 12) | Not started |
+| Step 12 — exhaustive factual audit packet | **Recorded — 2026-08-11; corrective review 2026-08-12** ([`STEP12_AUDIT.md`](./STEP12_AUDIT.md); ASUS B650 `maxMemorySpeedMtS` corrected; Lian Li A3 charts visually PASS; GIGABYTE Rev. 1.3 price FIXED-REMOVED; 17 PASS / 1 FIXED / 4 BLOCKED parts; 12 PASS / 1 BLOCKED prices over 13 rows) |
+| Owner spot-check (Step 12 acceptance) | Not started — blocked manufacturer citations remain |
 
 ## Relationship to other work
 

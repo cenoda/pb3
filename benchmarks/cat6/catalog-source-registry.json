@@ -1,6 +1,6 @@
 {
   "catalogContractVersion": "cat6",
-  "registryVersion": "cat6-registry-20260811-step10",
+  "registryVersion": "cat6-registry-20260812-step12-corrective",
   "sources": [
     {
       "sourceId": "source.cat6.asus.dual-rtx4070-o12g.techspec",
@@ -178,7 +178,7 @@
       "title": "ASUS TUF GAMING B650-PLUS WIFI - Tech Specs",
       "origin": "ASUS motherboard specification page",
       "citation": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b650-plus-wifi/techspec/",
-      "notes": "Socket AM5, chipset AMD B650, DDR5, ATX. Memory speed list published as '7600+(OC)/ 7200(OC)/ 7000(OC)/ 6800(OC)/6600(OC)/ 6400(OC)/ 6200(OC)/ 6000(OC)/ 5800(OC)/ 5600(OC)/ 5400(OC)/ 5200/ 5000/ 4800'; the leading figure's trailing '+' means the page states a floor for the overclocking ceiling rather than an exact maximum (same reading as the B860M's '8800+MT/s'), so it is not recorded as maxMemorySpeedMtS -- the next listed figure without a '+', 7200(OC), is recorded instead. Board outline is published as two figures (30.5cm x 24.4cm) with no thickness."
+      "notes": "Socket AM5, chipset AMD B650, DDR5, ATX. Memory speed list published as '7600+(OC)/ 7200(OC)/ 7000(OC)/ 6800(OC)/6600(OC)/ 6400(OC)/ 6200(OC)/ 6000(OC)/ 5800(OC)/ 5600(OC)/ 5400(OC)/ 5200/ 5000/ 4800'; the leading figure's trailing '+' means the page states a floor for the overclocking ceiling rather than an exact maximum (same reading as the B860M's '8800+MT/s'), so maxMemorySpeedMtS is not recorded on the part \u2014 absence is better than inventing an exact ceiling (C1, C14). Board outline is published as two figures (30.5cm x 24.4cm) with no thickness."
     },
     {
       "sourceId": "source.cat6.fractal-design.meshify-2-compact.product",
@@ -304,16 +304,6 @@
       "notes": "Lowest listed price 260,580 KRW via Shinsegae Mall."
     },
     {
-      "sourceId": "source.cat6.danawa.motherboard-gigabyte-b650m-aorus-elite-ax-rev-1-3.street",
-      "sourceClass": "external-review",
-      "rightsClass": "fair-use-citation",
-      "title": "GIGABYTE B650M AORUS ELITE AX (PC Direct) - Danawa price comparison",
-      "origin": "Danawa price comparison, lowest listing (11st)",
-      "citation": "https://prod.danawa.com/info/?pcode=18113015",
-      "publishedAt": "2026-08-11",
-      "notes": "Lowest listed price 314,900 KRW via 11st. Danawa's retail listing for this model name does not print a PCB revision number; the part's own identity and provenance.identity are what tie the part to Rev. 1.3, not this retail listing. Recorded as the closest available domestic listing for the model name rather than withheld, since GIGABYTE ordinarily sells one revision at retail at a time for a given board generation."
-    },
-    {
       "sourceId": "source.cat6.danawa.motherboard-asus-tuf-gaming-b860m-plus-wifi.street",
       "sourceClass": "external-review",
       "rightsClass": "fair-use-citation",
@@ -338,20 +328,20 @@
       "sourceClass": "external-review",
       "rightsClass": "fair-use-citation",
       "title": "AMD Ryzen 7 5th Gen 7800X3D (Raphael, official retail box) - Danawa price comparison",
-      "origin": "Danawa price comparison, lowest listing (official retail / 정품 box)",
+      "origin": "Danawa price comparison, lowest listing (official retail / \uc815\ud488 box)",
       "citation": "https://prod.danawa.com/info/?pcode=19627808",
       "publishedAt": "2026-08-11",
-      "notes": "Lowest listed price 702,150 KRW across 3 retailers for the single official retail box (정품), distinct from the cheaper multipack (멀티팩 정품) and bulk-parallel-import (벌크 병행) listings for the same chip."
+      "notes": "Lowest listed price 702,150 KRW across 3 retailers for the single official retail box (\uc815\ud488), distinct from the cheaper multipack (\uba40\ud2f0\ud329 \uc815\ud488) and bulk-parallel-import (\ubc8c\ud06c \ubcd1\ud589) listings for the same chip."
     },
     {
       "sourceId": "source.cat6.danawa.cooler-noctua-nh-d15-g2.street",
       "sourceClass": "external-review",
       "rightsClass": "fair-use-citation",
       "title": "NOCTUA NH-D15 G2 (standard/brown) - Danawa price comparison",
-      "origin": "Danawa price comparison, lowest listing (컴오아시스)",
+      "origin": "Danawa price comparison, lowest listing (\ucef4\uc624\uc544\uc2dc\uc2a4)",
       "citation": "https://prod.danawa.com/info/?pcode=67683362",
       "publishedAt": "2026-08-11",
-      "notes": "Lowest listed price 246,720 KRW via 컴오아시스 (Com Oasis), shipping included. Confirmed as the plain standard-base/brown model, distinct from the LBC, HBC and chromax.black variants also listed on Danawa."
+      "notes": "Lowest listed price 246,720 KRW via \ucef4\uc624\uc544\uc2dc\uc2a4 (Com Oasis), shipping included. Confirmed as the plain standard-base/brown model, distinct from the LBC, HBC and chromax.black variants also listed on Danawa."
     },
     {
       "sourceId": "source.cat6.danawa.ram-teamgroup-t-create-expert-ddr5-6000-32gb.street",
@@ -368,10 +358,10 @@
       "sourceClass": "external-review",
       "rightsClass": "fair-use-citation",
       "title": "TeamGroup T-CREATE DDR5-6000 CL34 EXPERT (Black, 64GB 32GBx2) - Danawa price comparison",
-      "origin": "Danawa price comparison, lowest listing (컴오아시스)",
+      "origin": "Danawa price comparison, lowest listing (\ucef4\uc624\uc544\uc2dc\uc2a4)",
       "citation": "https://prod.danawa.com/info/?pcode=19566788",
       "publishedAt": "2026-08-11",
-      "notes": "Lowest listed price 1,480,000 KRW via 컴오아시스 (Com Oasis). CL34-44-44-84, black heatspreader -- matches this part's CTCED564G6000HC34BDC01 SKU, distinct from the white package listed separately on Danawa."
+      "notes": "Lowest listed price 1,480,000 KRW via \ucef4\uc624\uc544\uc2dc\uc2a4 (Com Oasis). CL34-44-44-84, black heatspreader -- matches this part's CTCED564G6000HC34BDC01 SKU, distinct from the white package listed separately on Danawa."
     },
     {
       "sourceId": "source.cat6.danawa.psu-corsair-rm850e-cp-9020263-na.street",

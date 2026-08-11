@@ -19,10 +19,9 @@
     "chipset": "AMD B650",
     "formFactor": "ATX",
     "supportedMemoryType": "DDR5",
-    "maxMemorySpeedMtS": 7200,
     "biosMinVersionForCpu": {}
   },
-  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.asus.tuf-gaming-b650-plus-wifi.techspec. Socket: 'AMD Socket AM5 for AMD Ryzen(TM) 9000 & 8000 & 7000 Series Desktop Processors'. Chipset: 'AMD B650'. Memory: '4 x DIMM, Max. 256GB, DDR5', dual channel, ECC and Non-ECC un-buffered memory, AMD EXPO supported. Memory speed list, verbatim: '7600+(OC)/ 7200(OC)/ 7000(OC)/ 6800(OC)/6600(OC)/ 6400(OC)/ 6200(OC)/ 6000(OC)/ 5800(OC)/ 5600(OC)/ 5400(OC)/ 5200/ 5000/ 4800'. maxMemorySpeedMtS records 7200, not the higher 7600 -- the trailing '+' on '7600+(OC)' states a floor for the overclocking ceiling rather than an exact maximum, the same reading already applied to the B860M's '8800+MT/s' figure, so 7200(OC), the next listed figure printed without a '+', is the highest value the vendor states as an exact ceiling, per C14. BIOS: biosMinVersionForCpu is deliberately empty under O6.",
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.asus.tuf-gaming-b650-plus-wifi.techspec. Socket: 'AMD Socket AM5 for AMD Ryzen(TM) 9000 & 8000 & 7000 Series Desktop Processors'. Chipset: 'AMD B650'. Memory: '4 x DIMM, Max. 256GB, DDR5', dual channel, ECC and Non-ECC un-buffered memory, AMD EXPO supported. Memory speed list, verbatim: '7600+(OC)/ 7200(OC)/ 7000(OC)/ 6800(OC)/6600(OC)/ 6400(OC)/ 6200(OC)/ 6000(OC)/ 5800(OC)/ 5600(OC)/ 5400(OC)/ 5200/ 5000/ 4800'. maxMemorySpeedMtS is absent: ASUS publishes the leading rate as '7600+(OC)', where the trailing '+' states a floor for the overclocking ceiling rather than an exact maximum — the same reading already applied to motherboard.asus-tuf-gaming-b860m-plus-wifi's '8800+MT/s' figure, so recording any numeric ceiling would invent one (C1, C14). checkRamSupport reports unavailable for this board as a result, which is the true statement; socket, chipset and form factor are unaffected. BIOS: biosMinVersionForCpu is deliberately empty under O6.",
   "provenance": {
     "identity": {
       "sourceId": "source.cat6.asus.tuf-gaming-b650-plus-wifi.techspec",
