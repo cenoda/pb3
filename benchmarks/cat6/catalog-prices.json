@@ -1,0 +1,170 @@
+{
+  "catalogContractVersion": "cat6",
+  "dataVersion": "cat6-prices-20260811",
+  "rows": [
+    {
+      "partId": "case.fractal-design-meshify-2-compact-black-solid",
+      "category": "case",
+      "street": {
+        "amount": 174840,
+        "currency": "KRW",
+        "retailer": "Coupang (via Danawa price comparison)",
+        "region": "KR",
+        "sourceId": "source.cat6.danawa.case-fractal-design-meshify-2-compact.street",
+        "retrievedAt": "2026-08-11"
+      }
+    },
+    {
+      "partId": "case.fractal-design-north-tg-dark",
+      "category": "case",
+      "street": {
+        "amount": 234060,
+        "currency": "KRW",
+        "retailer": "Coupang (via Danawa price comparison)",
+        "region": "KR",
+        "sourceId": "source.cat6.danawa.case-fractal-design-north-tg-dark.street",
+        "retrievedAt": "2026-08-11"
+      }
+    },
+    {
+      "partId": "case.lian-li-a3-matx-black",
+      "category": "case",
+      "street": {
+        "amount": 118980,
+        "currency": "KRW",
+        "retailer": "Danawa lowest listing",
+        "region": "KR",
+        "sourceId": "source.cat6.danawa.case-lian-li-a3-matx-black.street",
+        "retrievedAt": "2026-08-11"
+      }
+    },
+    {
+      "partId": "case.nzxt-h5-flow",
+      "category": "case",
+      "msrp": {
+        "amount": 94.99,
+        "currency": "USD",
+        "sourceId": "source.cat6.nzxt.h5-flow.msrp",
+        "retrievedAt": "2026-08-11"
+      }
+    },
+    {
+      "partId": "cooler.noctua-nh-d15-g2",
+      "category": "cooler",
+      "street": {
+        "amount": 246720,
+        "currency": "KRW",
+        "retailer": "Com Oasis (via Danawa price comparison)",
+        "region": "KR",
+        "sourceId": "source.cat6.danawa.cooler-noctua-nh-d15-g2.street",
+        "retrievedAt": "2026-08-11"
+      }
+    },
+    {
+      "partId": "cpu.amd-ryzen-7-7800x3d",
+      "category": "cpu",
+      "street": {
+        "amount": 702150,
+        "currency": "KRW",
+        "retailer": "Danawa lowest listing (official retail box)",
+        "region": "KR",
+        "sourceId": "source.cat6.danawa.cpu-amd-ryzen-7-7800x3d.street",
+        "retrievedAt": "2026-08-11"
+      }
+    },
+    {
+      "partId": "motherboard.asus-tuf-gaming-b650-plus-wifi",
+      "category": "motherboard",
+      "street": {
+        "amount": 260990,
+        "currency": "KRW",
+        "retailer": "Coupang (via Danawa price comparison)",
+        "region": "KR",
+        "sourceId": "source.cat6.danawa.motherboard-asus-tuf-gaming-b650-plus-wifi.street",
+        "retrievedAt": "2026-08-11"
+      }
+    },
+    {
+      "partId": "motherboard.asus-tuf-gaming-b860m-plus-wifi",
+      "category": "motherboard",
+      "street": {
+        "amount": 278400,
+        "currency": "KRW",
+        "retailer": "11st (via Danawa price comparison)",
+        "region": "KR",
+        "sourceId": "source.cat6.danawa.motherboard-asus-tuf-gaming-b860m-plus-wifi.street",
+        "retrievedAt": "2026-08-11"
+      }
+    },
+    {
+      "partId": "motherboard.gigabyte-b650-aorus-elite-ax-v2",
+      "category": "motherboard",
+      "street": {
+        "amount": 260580,
+        "currency": "KRW",
+        "retailer": "Shinsegae Mall (via Danawa price comparison)",
+        "region": "KR",
+        "sourceId": "source.cat6.danawa.motherboard-gigabyte-b650-aorus-elite-ax-v2.street",
+        "retrievedAt": "2026-08-11"
+      }
+    },
+    {
+      "partId": "motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3",
+      "category": "motherboard",
+      "street": {
+        "amount": 314900,
+        "currency": "KRW",
+        "retailer": "11st (via Danawa price comparison)",
+        "region": "KR",
+        "sourceId": "source.cat6.danawa.motherboard-gigabyte-b650m-aorus-elite-ax-rev-1-3.street",
+        "retrievedAt": "2026-08-11"
+      }
+    },
+    {
+      "partId": "psu.corsair-rm750e",
+      "category": "psu",
+      "msrp": {
+        "amount": 114.99,
+        "currency": "USD",
+        "sourceId": "source.cat6.corsair.rm750e-cp-9020295-na.msrp",
+        "retrievedAt": "2026-08-11"
+      }
+    },
+    {
+      "partId": "psu.corsair-rm850e-cp-9020263-na",
+      "category": "psu",
+      "street": {
+        "amount": 149000,
+        "currency": "KRW",
+        "retailer": "Danawa lowest listing",
+        "region": "KR",
+        "sourceId": "source.cat6.danawa.psu-corsair-rm850e-cp-9020263-na.street",
+        "retrievedAt": "2026-08-11"
+      }
+    },
+    {
+      "partId": "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
+      "category": "ram",
+      "street": {
+        "amount": 794360,
+        "currency": "KRW",
+        "retailer": "11st (via Danawa price comparison)",
+        "region": "KR",
+        "sourceId": "source.cat6.danawa.ram-teamgroup-t-create-expert-ddr5-6000-32gb.street",
+        "retrievedAt": "2026-08-11"
+      }
+    },
+    {
+      "partId": "ram.teamgroup-t-create-expert-ddr5-6000-64gb",
+      "category": "ram",
+      "street": {
+        "amount": 1480000,
+        "currency": "KRW",
+        "retailer": "Com Oasis (via Danawa price comparison)",
+        "region": "KR",
+        "sourceId": "source.cat6.danawa.ram-teamgroup-t-create-expert-ddr5-6000-64gb.street",
+        "retrievedAt": "2026-08-11"
+      }
+    }
+  ]
+}

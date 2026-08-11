@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { loadPartCatalog } from "../catalog/loadPartCatalog";
 import { loadCompat2Examples } from "../catalog/loadCompat2Fixtures";
-import { loadPriceFixtures } from "../price/loadPriceFixtures";
+import { loadCatalogPrices } from "../price/loadCatalogPrices";
 import { catalogManifestFileSchema } from "../contract/cat6.schema";
 import {
   DEFAULT_BUILD_STATE,
@@ -55,12 +55,12 @@ describe("compat2 fixture loaders", () => {
     expect(file.examples.length).toBeGreaterThanOrEqual(3);
   });
 
-  it("loads price fixtures and every price row references a catalog part", async () => {
+  it("loads catalog prices and every price row references a catalog part", async () => {
     const [catalog, prices] = await Promise.all([
       loadPartCatalog(),
-      loadPriceFixtures(),
+      loadCatalogPrices(),
     ]);
-    expect(prices.compatContractVersion).toBe("compat2");
+    expect(prices.catalogContractVersion).toBe("cat6");
     const catalogIds = new Set(catalog.byId.keys());
     for (const row of prices.rows) {
       expect(catalogIds.has(row.partId), `price row ${row.partId}`).toBe(true);

@@ -365,3 +365,237 @@ No `src/contract/cat6.ts`, `cat6.schema.ts`, `src/physical/**`,
 Step 9 is **complete, catalog at 22 parts**. Steps 10–12 are open. Do not
 start price work (Step 10), integrity/E2E re-anchoring (Step 11), the owner
 spot-check (Step 12), or Phase 7 from this record.
+
+---
+
+# Step 10 — Sourced catalog prices (**O5**, 2026-08-11)
+
+## 1. What was built
+
+- `benchmarks/cat6/catalog-prices.json` — new file, `CatalogPriceFile`
+  envelope (`catalogContractVersion: "cat6"`, `dataVersion:
+  "cat6-prices-20260811"`, `rows: CatalogPriceRow[]`). Minimal envelope
+  type/schema added to `src/contract/cat6.ts` / `cat6.schema.ts` per the
+  existing `CatalogMsrp` / `CatalogStreetPrice` / `CatalogPriceRow` shapes —
+  those were not redesigned. Schema enforces unique `partId` and rows sorted
+  ascending by `partId` (deterministic ordering, mechanically checked, not
+  just a convention).
+- `src/price/loadCatalogPrices.ts` — fetches and Zod-validates the file;
+  replaces `src/price/loadPriceFixtures.ts` (deleted).
+- `src/price/buildPriceSummary.ts` — rewritten to map `CatalogPriceRow` into
+  the unchanged `compat2` `PricedPart` / `BuildPriceSummary` shapes:
+  - Street snapshot alone drives `status: "ok"` lines; `basis` is exactly
+    `"<retailer> listing in <region>, retrieved <retrievedAt>; snapshot, not
+    a live quote"`.
+  - A missing row, an MSRP-only row, or a street price in a currency other
+    than KRW all map to `status: "unavailable"` with a specific reason —
+    MSRP is never read into `amount` and never summed.
+  - `dataVersion` on the summary and every line comes from the loaded file's
+    `dataVersion`, not a hardcoded string (`"compat2-fixture-draft"` is
+    gone).
+  - Runtime total currency is `KRW`, enforced in code: a street price whose
+    `currency !== "KRW"` is withheld from the sum rather than added.
+- `src/App.tsx` — `loadPriceFixtures()` / `PriceFixtureFile` replaced with
+  `loadCatalogPrices()` / `CatalogPriceFile`; `boot.priceFixtures` renamed
+  `boot.catalogPrices`. No other `App.tsx` diff.
+- `benchmarks/price2/` **deleted** (the B11 disposition recorded in
+  `ID_MIGRATION.md`: deletion was deferred until sourced catalog prices
+  existed; they now do). `src/price/loadPriceFixtures.ts` deleted.
+  `PriceFixtureFile`, `COMPAT2_FIXTURE_BASIS`, `COMPAT2_PRICE_FIXTURES_PATH`
+  (contract/compat2.ts) and `priceFixtureFileSchema`
+  (contract/compat2.schema.ts) deleted as dead code — `PricedPart` and
+  `BuildPriceSummary`, the actual `compat2` price surface, are unchanged.
+- `src/ui/ResultBar.tsx` and `src/ui/WhyThisResult.tsx` — two hardcoded
+  copy strings corrected under the re-anchoring requirement "no
+  demo/fixture/live-price false claim remains": `"Fixed demo prices, not
+  live shop prices"` → `"Prices are dated domestic street-price snapshots,
+  not live quotes"`; `"fixture prices, not live market quotes"` /
+  `"some parts lack fixture prices"` → `"domestic street-price snapshots,
+  not live market quotes"` / `"some parts lack a street-price snapshot"`.
+  No other `src/ui/**` diff — this is data-honesty text tied directly to
+  the price model this step changes, not a display-layer redesign.
+
+## 2. Source coverage (owner-facing counts)
+
+22 manifest parts; sourcing was attempted for all 22.
+
+| Count | Value |
+|---|---|
+| Rows with MSRP | 2 (`psu.corsair-rm750e`, `case.nzxt-h5-flow`) |
+| Rows with street price | 12 |
+| Rows with both MSRP and street | 0 |
+| Manifest parts with no street price | 10 |
+| Manifest parts with **no price row at all** (neither sourced) | 8 |
+| Total rows in `catalog-prices.json` | 14 |
+
+Street prices are Danawa (다나와) price-comparison snapshots in KRW, region
+`KR`, retrieved 2026-08-11, each tied to the specific SKU already authored in
+the part record (color/revision/CL-rating/ATX-cert checked against the part's
+own `identity`/`notes`, not assumed from the product name alone). MSRP prices
+are the manufacturer's own store-listed price in USD, also retrieved
+2026-08-11.
+
+**8 parts carry no price row at all** — no empty or fabricated row was
+created for them, per contract **C1**:
+
+- `cpu.amd-ryzen-5-7600` — the 정품 (official retail box) listing is
+  discontinued on Danawa; no MSRP source was reachable (AMD.com timed out,
+  consistent with Step 9's finding)
+- `gpu.asus-dual-rtx4070-o12g`, `gpu.asus-proart-rtx4080-o16g`,
+  `gpu.asus-dual-rtx4060-o8g` — all three non-Super/non-Ti original RTX
+  40-series O-series SKUs are discontinued on Danawa (confirmed by repeated,
+  independent fetches); no MSRP source was reachable
+- `cooler.deepcool-ak620`, `cooler.coolermaster-hyper-212-halo-black` — out
+  of stock / discontinued on Danawa; no manufacturer store price published
+- `ram.gskill-trident-z5-rgb-ddr5-8400` — the white `TZ5RW` SKU this catalog
+  records is not carried by Korean retail (only the black `TZ5RK` variant is
+  listed, a different SKU); no MSRP found
+- `psu.cooler-master-v550-sfx-gold` — not listed on Danawa at all; no MSRP
+  found
+
+**2 parts carry MSRP only:**
+
+- `psu.corsair-rm750e` — Corsair.com lists $114.99. Danawa's ATX3.1 listing
+  for this model prints a **Platinum** ETA certification, which does not
+  match this catalog's own **Cybenetics Gold** citation for `CP-9020295-NA`;
+  rather than force an ambiguous SKU match, the street price is left
+  unsourced (contract §7 stop condition: "a source value is ambiguous or
+  cannot be tied to the exact SKU")
+- `case.nzxt-h5-flow` — NZXT.com lists $94.99. The original (non-V2) H5 Flow
+  matte black is discontinued on Danawa
+
+**12 parts carry a street price**, including the default build's case,
+motherboard, cooler, and RAM.
+
+**Consequence for the running app:** the default build's CPU
+(`cpu.amd-ryzen-5-7600`) and GPU (`gpu.asus-dual-rtx4070-o12g`) carry no
+price row, and its PSU (`psu.corsair-rm750e`) is MSRP-only — so the default
+build's total is **always `isPartial: true`** under this sourcing state. This
+is disclosed on the surface (`price-partial-label`, the ResultBar trust
+line), not hidden. It is a direct, honestly-reported consequence of these
+specific SKUs' Danawa listing status on the retrieval date, not a shortfall
+in sourcing effort — see the source-access gaps below.
+
+## 3. Source-access gaps (parity with Step 9's blocker record)
+
+- **AMD.com** — domain-wide timeout, as in Step 9. No CPU MSRP reachable.
+- **ASUS store** (`store.asus.com`, `row.store.asus.com`) — DNS/403 failures.
+  No GPU or motherboard MSRP reachable from ASUS directly.
+- **GIGABYTE.com store**, **Noctua.at store**, **TEAMGROUP store**,
+  **G.SKILL** — not fetchable for price this session (GIGABYTE and Noctua
+  consistent with Step 9's blocker list; TEAMGROUP's product page 404'd on
+  the attempted path; G.SKILL does not appear to publish direct pricing).
+- **DeepCool** and **Cooler Master** manufacturer pages loaded but published
+  no price field (only a "Buy Now" link to third-party retailers).
+- **Fractal Design** manufacturer pages loaded but published no price field.
+- Several exact-SKU Danawa listings (original RTX 4070/4080/4060 O-series,
+  AK620, Hyper 212 Halo Black, Ryzen 5 7600 정품, RM750e ATX3.1 Gold) show
+  **"가격비교 중지" (price comparison discontinued)** or zero active sellers
+  as of 2026-08-11 — verified by repeated independent fetches, not a single
+  flaky read. Given the ~3.5-year age of the RTX 40 non-Super/non-Ti SKUs and
+  the ATX3.0→3.1 PSU refresh cycle, this reads as genuine retail EOL rather
+  than a fetch failure, but it is recorded as a finding, not asserted as
+  certain.
+- Retailer access was **not broadly blocked** — Danawa, Corsair.com, and
+  NZXT.com all returned usable content, so this is reported as partial
+  coverage with specific per-part reasons, not a stop-and-report blocker.
+
+## 4. Verification
+
+| Gate | Command | Result |
+|---|---|---|
+| Unit | `pnpm test` | **39 files / 339 tests PASS** (+1 file, +19 tests vs Step 9's 38/320) |
+| Build | `pnpm build` | clean; `dist/benchmarks/cat6/catalog-prices.json` present; `dist/benchmarks/price2/` absent |
+| E2E | `pnpm test:e2e` | **19/19 PASS** |
+| `git diff --check` | — | clean |
+
+## 5. Status after this record
+
+Step 10 is **complete**. Step 11 follows below.
+
+---
+
+# Step 11 — Integrity gates and E2E re-anchoring (2026-08-11)
+
+## 1. Integrity coverage added
+
+`src/test/cat6.step11.integrity.test.ts` (new, 9 tests), on top of the
+integrity coverage Steps 1–9 already established
+(`cat6.integrity.test.ts` legacy-id guard; `cat6.manifest.test.ts` T1–T6
+manifest/join guards; `phys3.integrity.test.ts` node-reference/mount guards
+for the 10 `physicalSpec`-bearing parts):
+
+- every manifest `part.json` parses strictly as `cat6`
+  (`partDefinitionV3Schema`, not the lenient runtime `partDefinitionV2Schema`)
+- every manifest part's GLB parses as valid glTF 2.0 (all 22, not only the
+  10 `physicalSpec`-bearing parts `phys3.integrity.test.ts` already covers)
+- no authored `cat6` part populates `image` (**C7**)
+- no image file exists under any `parts/**` folder
+- every `dimensionsMm` on an authored part carries `provenance.dimensions`
+- every `cat6` catalog price source (`msrp.sourceId` / `street.sourceId`)
+  resolves in `catalog-source-registry.json`, exactly once
+- `catalog-prices.json` `partId`s are unique and every row carries `msrp`
+  and/or `street`
+- every street price is `KRW` / region `KR` (the runtime total currency)
+- no mixed-currency street snapshot exists in the price file
+
+`cat6.manifest.test.ts` T6 was rewritten (was: price2 rows are a manifest
+subset) to check the same join guard against `catalog-prices.json`, plus a
+category-match assertion the old test did not make.
+
+## 2. Unit tests for price mapping
+
+`src/test/buildPriceSummary.test.ts` rewritten (2 tests → 9 tests):
+
+- full street-price total (7/7 `ok`, `isPartial: false`, `currency: "KRW"`)
+- MSRP-only row → `unavailable`, `amount` absent, reason mentions MSRP
+- missing row → `unavailable` for all 7, subtotal 0
+- partial total sums only the priced subset
+- exact snapshot basis wording, byte-for-byte
+- no `"phase-2"` / `"fixture price"` text anywhere in `basis`/`reason`
+- a non-KRW street price is withheld, not summed; total currency stays KRW
+- `dataVersion` on the summary and every line comes from the loaded file
+- a live-data lock test against the real `catalog-prices.json` + default
+  build, documenting the current honest partial state (cpu/gpu/psu
+  unavailable) — an intentional lock to be updated deliberately, not
+  silently, if sourcing coverage changes
+
+`src/test/cat6.schema.test.ts` gained 3 tests for `catalogPriceFileSchema`
+(accepts sorted+unique, rejects duplicate `partId`, rejects out-of-order
+rows).
+
+## 3. E2E re-anchoring (one assertion at a time, meaning preserved)
+
+- `e2e/phase2-compat-price.spec.ts` — the default-build price assertions
+  (`price-partial-label` count, `price-subtotal` currency text,
+  `result-price` currency symbol) re-anchored from the old all-priced USD
+  fixture total to the real, honestly-partial KRW total. Meaning preserved:
+  *the total is on the surface and its partial/complete state is visibly
+  correct* — the assertion now checks the true partial state instead of a
+  stale complete one.
+- `e2e/phase5-exit-conditions.spec.ts` test 4 — renamed from "the price is
+  readable and marked as demo pricing" to "...truthfully marked as a dated
+  snapshot, not a live quote"; asserts `₩` instead of `$`, `"not live
+  quotes"` instead of `"not live shop prices"`, and explicitly asserts the
+  word `"demo"` is **gone** (the total is real sourced data now, not a
+  demo). Meaning preserved: *price is readable, and its staleness/snapshot
+  disclosure is truthful* — strengthened, not weakened, since "demo" was no
+  longer an accurate description.
+- No assertion was deleted. No other E2E spec referenced price/fixture text
+  requiring a change (`phase3-physical-validation.spec.ts` and
+  `phase6-o7-slot14-witness.spec.ts` only assert `result-price` has count 0
+  for compat-blocked builds, which is price-summary-independent and
+  unchanged).
+
+## 4. Verification
+
+Same run as Step 10 §4 (Steps 10 and 11 were verified together as one
+packet): `pnpm test` **39/339 PASS**, `pnpm test:e2e` **19/19 PASS**,
+`pnpm build` clean, `git diff --check` clean.
+
+## 5. Status after this record
+
+Steps 10 and 11 are **complete**. Step 12 (owner spot-check of three random
+parts) is **open** — it is the owner's action, not an agent step. Blocker
+**B4** (permanent `caution`) remains open and untouched. Phase 7 not
+started.

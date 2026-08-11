@@ -3,10 +3,12 @@
 The phase that replaces the invented data the Phase 0–5 work runs on.
 
 **Status: M0 package drafted and accepted 2026-08-10. Owner decisions O1–O8
-locked. Steps 1–9 complete. Step 6 authority boundary (2026-08-10), Step 7
+locked. Steps 1–11 complete. Step 6 authority boundary (2026-08-10), Step 7
 default-build assembly verification (2026-08-11), Step 8 unavailable-reason
-wording (2026-08-11), and Step 9 catalog growth to 22 parts (2026-08-11) are
-recorded in [`STEPS.md`](./STEPS.md). Steps 10–12 are open.**
+wording (2026-08-11), Step 9 catalog growth to 22 parts (2026-08-11), and
+Step 10 sourced catalog prices + Step 11 integrity/E2E re-anchoring
+(2026-08-11) are recorded in [`STEPS.md`](./STEPS.md). Step 12 (owner
+spot-check) is open.**
 
 Phase 6 is **primarily a catalog/data phase** — the display layer stays as it
 is. It is not purely data-only: Step 6 includes the narrowly scoped
@@ -22,7 +24,7 @@ changed the display layer and no data.
 | [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md) | `cat6` — identity, dimensions, SKU performance spec, provenance, image fields, id convention, manifest, dual-price model, validation split |
 | [`implementation_plan.md`](./implementation_plan.md) | Ordered Steps 1–12, untouchable boundary, verification, honest failure modes |
 | [`TODO.md`](./TODO.md) | Checklist |
-| [`STEPS.md`](./STEPS.md) | Step 6 + Step 7 + Step 8 + Step 9 closeout records — RK1 arithmetic, default-build assembly evidence, unavailable-reason wording, catalog growth to 22 parts |
+| [`STEPS.md`](./STEPS.md) | Step 6–11 closeout records — RK1 arithmetic, default-build assembly evidence, unavailable-reason wording, catalog growth to 22 parts, sourced catalog prices, integrity/E2E re-anchoring |
 | [`../phase-5/CLOSEOUT.md`](../phase-5/CLOSEOUT.md) | The direction this phase answers: real catalog first, catalog browser second |
 
 ## The gate
@@ -63,7 +65,8 @@ this shape: the gate measures the thing itself, not a proxy for it.
 | Step 7 — default build assembly verification | **Done — 2026-08-11** (default build fits; Phase 0 exit scenario + O7 re-run green; no `DEFAULT_BUILD_STATE_V2` change) |
 | Step 8 — unavailable reasons say estimator in preparation | **Done — 2026-08-11** (`src/perf/estimateBaseline.ts`, `estimateWorkload.ts`; unit tests green; `pnpm test` 38 / 320, `pnpm test:e2e` 19) |
 | Step 9 — grow the catalog | **Done — 2026-08-11** (14 → 22 parts, 8 fully sourced additions; ≈30 not reached — several manufacturer sites unfetchable this session; O7 pair untouched and still authoritative) |
-| Steps 10–11 | Not started |
+| Step 10 — sourced catalog prices (**O5**) | **Done — 2026-08-11** (14 price rows for 22 parts: 12 street/KRW, 2 MSRP-only, 8 unsourced this session and correctly absent; default build's total is honestly partial — CPU/GPU have no row, PSU is MSRP-only; `benchmarks/price2/` deleted) |
+| Step 11 — integrity + E2E re-anchoring | **Done — 2026-08-11** (9 new integrity tests, price mapping unit tests, 2 E2E specs re-anchored) |
 | Owner spot-check (Step 12) | Not started |
 
 ## Relationship to other work

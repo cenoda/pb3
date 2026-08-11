@@ -81,9 +81,3 @@ export const compatibilityExampleFileSchema = z.object({
   dataVersion: z.string().min(1),
   examples: z.array(compatibilityReportSchema),
 });
-
-export const priceFixtureFileSchema = z.object({
-  compatContractVersion: compat2ContractVersionSchema,
-  dataVersion: z.string().min(1),
-  rows: z.array(pricedPartSchema),
-});

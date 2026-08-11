@@ -1,12 +1,14 @@
 # Phase 6 — Part id migration
 
-Status: **Steps 1–9 complete.** Steps 1–5 executed 2026-08-10. Step 6
+Status: **Steps 1–11 complete.** Steps 1–5 executed 2026-08-10. Step 6
 implementation complete 2026-08-10 — physical authority boundary
 (clearance-limit checks authoritative, OBB advisory-only), slot 14 admitted,
 **O7 running-app witness proven**, RK1 arithmetic in [`STEPS.md`](./STEPS.md).
 Step 7 (default-build assembly verification) and Step 8 (unavailable-reason
 wording) closed 2026-08-11. Step 9 (catalog growth) closed 2026-08-11 — see
-below. **Steps 10–12 are open.** Products are the owner's Step 3 selection.
+below. Step 10 (sourced catalog prices, **B11** closed) and Step 11
+(integrity/E2E re-anchoring) closed 2026-08-11 — see `STEPS.md` §Step 10–11.
+**Step 12 (owner spot-check) is open.** Products are the owner's Step 3 selection.
 Legacy fixture ids are retired; **22 `cat6` parts are authored** under `parts/`,
 and the **runtime manifest loads all 22** (grown from the 14 parts authored in
 Steps 2–5 by Step 9's catalog growth, [`STEPS.md`](./STEPS.md) §Step 9). Slot 14
@@ -415,7 +417,7 @@ parts, and no part in this build is one.
 | B8 | **CPU package dimensions** — no public AMD product page publishes them; exit condition 4 no longer requires every physical-core collision box from cited dimensions | ✅ **Closed 2026-08-10** — CPU collision geometry removed in Step 6; see below |
 | B9 | **`MotherboardCompatSpec.maxMemorySpeedMtS` is required**, which blocked slot 9 from carrying a `compatSpec` at all | ✅ **Closed** — field made optional; slot 9's `cpu-socket` negative verified restored |
 | B10 | **`DimensionsMm` was all-or-nothing**, so parts with partial published dimensions recorded none | ✅ **Closed** — each axis optional, at least one required; published axes now kept |
-| B11 | **No catalog price is sourced yet**, so the running app's only prices are the 13 phase-2 fixture amounts | Before the **O5** price step. Found during Step 4; see below |
+| B11 | **No catalog price is sourced yet**, so the running app's only prices are the 13 phase-2 fixture amounts | ✅ **Closed 2026-08-11 (Step 10)** — `benchmarks/cat6/catalog-prices.json` authored (14 of 22 parts priced; see `STEPS.md` §Step 10 for coverage counts and sourcing gaps); `benchmarks/price2/` deleted |
 
 ### B11 — the fixture prices are not catalog prices
 
@@ -652,7 +654,7 @@ Verified by grep against the working tree.
 | `benchmarks/phys3/physical-validation-examples.json` | May retain historical/advisory geometry examples; only clearance-limit-backed rows are authoritative witnesses (**RK1**), not re-pointed |
 | **`benchmarks/compat2/compatibility-examples.json`** | **Rewritten, not a mechanical re-point.** Its first example asserts `chipset-bios: "compatible"` and `overallStatus: "compatible"`; under **O6** both become `unavailable`. Tied to **D3** — do not rewrite the expectations by inventing a BIOS minimum |
 | `benchmarks/vs0/*.json` | Re-pointed |
-| `benchmarks/price2/price-fixtures.json` | **Re-pointed, not deleted.** Deletion is deferred to the step that authors **O5**'s sourced prices, because the supersession this row originally assumed has not happened: no catalog price has been sourced yet. The 13 amounts stay phase-2 fixtures and keep their `basis` — `phase-2 fixture price; not a live market quote`. Moving them under `benchmarks/cat6/` in `CatalogPriceRow` shape would have dressed a synthetic number as a dated retailer snapshot of a real SKU, which `CatalogStreetPrice` (`retailer`, `retrievedAt`, `sourceId`) exists to assert. See **B11** |
+| `benchmarks/price2/price-fixtures.json` | **Deleted 2026-08-11 (Step 10).** Re-pointed (not deleted) through Step 9; deletion was deferred until sourced catalog prices existed. `benchmarks/cat6/catalog-prices.json` now supersedes it (14 of 22 parts priced; see **B11**, closed, and `STEPS.md` §Step 10). No price2 amount was carried into a `CatalogPriceRow` — every `CatalogStreetPrice` in the new file is a real dated retailer snapshot with its own `retailer` / `retrievedAt` / `sourceId` |
 | `e2e/**` (7 specs) | Selections re-pointed; each assertion's meaning preserved (**RK4**) |
 | `src/test/**` (~25 files) | Re-pointed with the code they cover |
 

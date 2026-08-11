@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   catalogManifestFileSchema,
+  catalogPriceFileSchema,
   catalogPriceRowSchema,
   catalogSourceRegistryFileSchema,
   partDefinitionV3Schema,
@@ -521,6 +522,55 @@ describe("cat6.schema", () => {
     const parsed = catalogPriceRowSchema.safeParse({
       partId: "gpu.asus-dual-rtx4070-o12g",
       category: "gpu",
+    });
+    expect(parsed.success).toBe(false);
+  });
+
+  const streetRow = (partId: string, category: "gpu" | "case") => ({
+    partId,
+    category,
+    street: {
+      amount: 100,
+      currency: "KRW",
+      retailer: "Test Retailer",
+      region: "KR",
+      sourceId: `source.test.${partId}`,
+      retrievedAt: "2026-08-10",
+    },
+  });
+
+  it("accepts a catalog price file with unique, ascending partIds", () => {
+    const parsed = catalogPriceFileSchema.safeParse({
+      catalogContractVersion: "cat6",
+      dataVersion: "test",
+      rows: [
+        streetRow("case.fractal-design-north-tg-dark", "case"),
+        streetRow("gpu.asus-dual-rtx4070-o12g", "gpu"),
+      ],
+    });
+    expect(parsed.success).toBe(true);
+  });
+
+  it("rejects a catalog price file with a duplicate partId", () => {
+    const parsed = catalogPriceFileSchema.safeParse({
+      catalogContractVersion: "cat6",
+      dataVersion: "test",
+      rows: [
+        streetRow("gpu.asus-dual-rtx4070-o12g", "gpu"),
+        streetRow("gpu.asus-dual-rtx4070-o12g", "gpu"),
+      ],
+    });
+    expect(parsed.success).toBe(false);
+  });
+
+  it("rejects a catalog price file whose rows are not sorted by partId", () => {
+    const parsed = catalogPriceFileSchema.safeParse({
+      catalogContractVersion: "cat6",
+      dataVersion: "test",
+      rows: [
+        streetRow("gpu.asus-dual-rtx4070-o12g", "gpu"),
+        streetRow("case.fractal-design-north-tg-dark", "case"),
+      ],
     });
     expect(parsed.success).toBe(false);
   });

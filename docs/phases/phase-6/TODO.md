@@ -66,9 +66,18 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
       guessed around; per the plan's decision gate, only fully sourced
       candidates were added and the shortfall is reported rather than
       forced. See [`STEPS.md`](./STEPS.md) §Step 9 for the full record.
-- [ ] Step 10 — MSRP + dated street snapshots; unsourced → `unavailable`,
-      total `isPartial`
-- [ ] Step 11 — `cat6.integrity` tests + E2E re-anchoring
+- [x] Step 10 — MSRP + dated street snapshots (2026-08-11): 14 price rows in
+      `benchmarks/cat6/catalog-prices.json` for 22 manifest parts — 12
+      street (KRW), 2 MSRP-only, 0 with both, 8 parts with no row at all
+      (unsourceable this session, not fabricated). `buildPriceSummary`
+      rewritten to map street snapshots only; MSRP never summed; missing/
+      MSRP-only/non-KRW rows → `unavailable`, total `isPartial`.
+      `benchmarks/price2/` deleted (B11 closed). See `STEPS.md` §Step 10
+- [x] Step 11 — `cat6.step11.integrity.test.ts` (9 tests) + rewritten
+      `buildPriceSummary.test.ts` (9 tests) + 3 `catalogPriceFileSchema`
+      tests + E2E re-anchoring in `phase2-compat-price.spec.ts` and
+      `phase5-exit-conditions.spec.ts` (2026-08-11). `pnpm test` 39/339,
+      `pnpm test:e2e` 19/19. See `STEPS.md` §Step 11
 - [ ] Step 12 — owner spot-check of three random parts
 
 ## Closeout

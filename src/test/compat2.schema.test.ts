@@ -4,7 +4,6 @@ import {
   compatibilityCheckResultSchema,
   compatibilityExampleFileSchema,
   compatibilityReportSchema,
-  priceFixtureFileSchema,
 } from "../contract/compat2.schema";
 
 const compatibleCheck = {
@@ -55,23 +54,23 @@ describe("compat2.schema", () => {
           category: "gpu",
           status: "ok",
           amount: 599,
-          currency: "USD",
-          basis: "phase-2 fixture price; not a live market quote",
-          dataVersion: "compat2-fixture-draft",
+          currency: "KRW",
+          basis: "test retailer listing in KR, retrieved 2026-08-11; snapshot, not a live quote",
+          dataVersion: "test",
         },
         {
           partId: "ram.teamgroup-t-create-expert-ddr5-6000-32gb",
           category: "ram",
           status: "unavailable",
-          basis: "phase-2 fixture price; not a live market quote",
-          reason: "no fixture price row",
-          dataVersion: "compat2-fixture-draft",
+          basis: "cat6 catalog price snapshot; not a live market quote",
+          reason: "no catalog price row",
+          dataVersion: "test",
         },
       ],
       subtotalAmount: 599,
-      currency: "USD",
+      currency: "KRW",
       isPartial: false,
-      dataVersion: "compat2-fixture-draft",
+      dataVersion: "test",
     });
     expect(parsed.success).toBe(false);
   });
@@ -91,22 +90,5 @@ describe("compat2.schema", () => {
       ],
     });
     expect(compatFile.success).toBe(true);
-
-    const priceFile = priceFixtureFileSchema.safeParse({
-      compatContractVersion: "compat2",
-      dataVersion: "compat2-fixture-draft",
-      rows: [
-        {
-          partId: "gpu.asus-dual-rtx4070-o12g",
-          category: "gpu",
-          status: "ok",
-          amount: 599,
-          currency: "USD",
-          basis: "phase-2 fixture price; not a live market quote",
-          dataVersion: "compat2-fixture-draft",
-        },
-      ],
-    });
-    expect(priceFile.success).toBe(true);
   });
 });

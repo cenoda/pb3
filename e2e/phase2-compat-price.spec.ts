@@ -54,10 +54,14 @@ test.describe("Phase 2 completion scenario", () => {
       "data-status",
       "unavailable",
     );
-    await expect(page.getByTestId("price-partial-label")).toHaveCount(0);
-    await expect(page.getByTestId("price-subtotal")).toContainText("USD");
+    // Step 10: real cat6 catalog prices. The default build's CPU and GPU have
+    // no sourced price row yet and its PSU has MSRP only (no KR street
+    // snapshot), so the total is honestly partial, not the old all-priced
+    // USD fixture total.
+    await expect(page.getByTestId("price-partial-label")).toHaveCount(1);
+    await expect(page.getByTestId("price-subtotal")).toContainText("KRW");
     // The user-facing total is on the surface, not only in the disclosure.
-    await expect(page.getByTestId("result-price")).toContainText("$");
+    await expect(page.getByTestId("result-price")).toContainText("₩");
 
     await page.getByTestId("motherboard-select").selectOption("motherboard.asus-tuf-gaming-b860m-plus-wifi");
     await openWhy(page);

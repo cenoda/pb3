@@ -248,3 +248,26 @@ export const catalogPriceRowSchema = z
       });
     }
   });
+
+export const catalogPriceFileSchema = z
+  .object({
+    catalogContractVersion: cat6ContractVersionSchema,
+    dataVersion: nonEmptyString,
+    rows: z.array(catalogPriceRowSchema),
+  })
+  .superRefine((file, ctx) => {
+    const ids = file.rows.map((r) => r.partId);
+    if (new Set(ids).size !== ids.length) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "duplicate partId in catalog price file",
+      });
+    }
+    const sorted = [...ids].sort((a, b) => a.localeCompare(b));
+    if (ids.some((id, i) => id !== sorted[i])) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "rows must be sorted by partId ascending for deterministic ordering",
+      });
+    }
+  });

@@ -8,7 +8,10 @@ import { join, relative, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { loadPartCatalog } from "../catalog/loadPartCatalog";
 import type { CatalogManifestFile } from "../contract/cat6";
-import { catalogManifestFileSchema } from "../contract/cat6.schema";
+import {
+  catalogManifestFileSchema,
+  catalogPriceFileSchema,
+} from "../contract/cat6.schema";
 import { partDefinitionV2Schema } from "../contract/vs2.schema";
 import { PROV4_PILOT_PART_IDS } from "../contract/prov4";
 import { baselineFixtureFileSchema } from "../contract/perf1.schema";
@@ -25,7 +28,6 @@ import {
   PHASE2_PSU_IDS,
   PHASE2_RAM_IDS,
 } from "../contract/vs2";
-import { priceFixtureFileSchema } from "../contract/compat2.schema";
 import { estimatorQueryFor } from "../estimate/estimatorQuery";
 import { useBuildStore } from "../state/buildStore";
 import {
@@ -250,21 +252,26 @@ describe("cat6 manifest — Step 5 (O8)", () => {
     }
   });
 
-  it("T6 — price2 referenced part ids are a subset of manifest ids (B11 guard)", () => {
+  it("T6 — cat6 catalog price rows are a subset of manifest ids (Step 10 join guard)", () => {
     const manifest = readManifestFromDisk();
     const manifestIds = new Set(manifest.parts.map((entry) => entry.id));
 
-    const prices = priceFixtureFileSchema.parse(
+    const prices = catalogPriceFileSchema.parse(
       JSON.parse(
-        readFileSync(resolve(ROOT, "benchmarks/price2/price-fixtures.json"), "utf8"),
+        readFileSync(resolve(ROOT, "benchmarks/cat6/catalog-prices.json"), "utf8"),
       ),
     );
 
     for (const row of prices.rows) {
       expect(
         manifestIds.has(row.partId),
-        `price2 part ${row.partId} must be in manifest`,
+        `catalog price part ${row.partId} must be in manifest`,
       ).toBe(true);
+      const manifestEntry = manifest.parts.find((p) => p.id === row.partId);
+      expect(
+        manifestEntry?.category,
+        `catalog price part ${row.partId} category must match manifest`,
+      ).toBe(row.category);
     }
   });
 });

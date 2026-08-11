@@ -98,14 +98,18 @@ test.describe("Phase 5 exit conditions", () => {
     );
   });
 
-  test("4: the price is readable and marked as demo pricing", async ({
+  test("4: the price is readable and truthfully marked as a dated snapshot, not a live quote", async ({
     page,
   }) => {
+    // Step 10: cat6 catalog prices (KRW dated street snapshots), not the old
+    // USD phase-2 fixture. The default build is partial (no sourced CPU/GPU
+    // price yet, PSU has MSRP only), which the surface must also disclose.
     await page.goto("/");
     const price = page.getByTestId("result-price");
     await expect(price).toBeVisible();
-    await expect(price).toContainText("$");
-    await expect(price).toContainText("not live shop prices");
+    await expect(price).toContainText("₩");
+    await expect(price).toContainText("not live quotes");
+    await expect(price).not.toContainText("demo");
   });
 
   test("5: the copied link reopens the identical build", async ({

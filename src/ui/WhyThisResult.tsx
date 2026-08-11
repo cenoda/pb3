@@ -206,12 +206,12 @@ export function WhyThisResult(props: WhyThisResultProps) {
         >
           <h3 className="why-heading">Price line items</h3>
           <p className="why-note" data-testid="price-subtotal">
-            Subtotal: {price.currency} {price.subtotalAmount} · fixture prices,
-            not live market quotes
+            Subtotal: {price.currency} {price.subtotalAmount} · domestic
+            street-price snapshots, not live market quotes
             {price.isPartial ? (
               <span data-testid="price-partial-label">
                 {" "}
-                (partial total — some parts lack fixture prices)
+                (partial total — some parts lack a street-price snapshot)
               </span>
             ) : null}
           </p>

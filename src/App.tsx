@@ -13,7 +13,7 @@ import {
   type Perf1Fixtures,
 } from "./catalog/loadPerf1Fixtures";
 import { buildCompatibilityReport } from "./compat/buildCompatibilityReport";
-import type { PriceFixtureFile } from "./contract/compat2";
+import type { CatalogPriceFile } from "./contract/cat6";
 import type {
   WorkloadEstimateResult,
   WorkloadId,
@@ -35,7 +35,7 @@ import { buildPhysicalValidationReport } from "./physical/buildPhysicalValidatio
 import type { GlbPhysicalIndex } from "./physical/indexGlbPhysicalNodes";
 import { loadGlbPhysicalIndexes } from "./physical/loadGlbPhysicalIndexes";
 import { buildPriceSummary } from "./price/buildPriceSummary";
-import { loadPriceFixtures } from "./price/loadPriceFixtures";
+import { loadCatalogPrices } from "./price/loadCatalogPrices";
 import { loadProv4Fixtures, type Prov4Fixtures } from "./provenance/loadProv4Fixtures";
 import { useAssemblyStore } from "./state/assemblyStore";
 import { useBuildStore } from "./state/buildStore";
@@ -67,7 +67,7 @@ type BootState =
       catalog: PartCatalog;
       glbIndexes: Map<string, GlbPhysicalIndex>;
       perf1Fixtures: Perf1Fixtures;
-      priceFixtures: PriceFixtureFile;
+      catalogPrices: CatalogPriceFile;
       coolingEvidence: CoolingEvidenceFile;
       prov4Fixtures: Prov4Fixtures;
       est1Fixtures: Est1Fixtures;
@@ -127,14 +127,14 @@ export default function App() {
         const [
           catalog,
           perf1Fixtures,
-          priceFixtures,
+          catalogPrices,
           coolingEvidence,
           prov4Fixtures,
           est1Fixtures,
         ] = await Promise.all([
           loadPartCatalog(),
           loadPerf1Fixtures(),
-          loadPriceFixtures(),
+          loadCatalogPrices(),
           loadCoolingEvidence(),
           loadProv4Fixtures(),
           loadEst1Fixtures(),
@@ -157,7 +157,7 @@ export default function App() {
           catalog,
           glbIndexes,
           perf1Fixtures,
-          priceFixtures,
+          catalogPrices,
           coolingEvidence,
           prov4Fixtures,
           est1Fixtures,
@@ -307,7 +307,7 @@ export default function App() {
     if (boot.status !== "ready" || !buildState || !verdict?.showResults) {
       return null;
     }
-    return buildPriceSummary(buildState, boot.priceFixtures);
+    return buildPriceSummary(buildState, boot.catalogPrices);
   }, [boot, buildState, verdict]);
 
   const railContent =

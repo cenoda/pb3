@@ -120,12 +120,17 @@
 10. ~~**Phase 5 (제품 표면)**~~ → **완료 · 소유자 승인 (2026-08-09)** —
     [`docs/phases/phase-5/`](docs/phases/phase-5/)
 11. **Phase 6 (실제 부품 카탈로그, `cat6`)** — M0 수락 + O1–O8 확정 (2026-08-10);
-    **Steps 1–9 완료** (Step 5: manifest/loader **O8**; Step 6: 물리 권위 경계 +
+    **Steps 1–11 완료** (Step 5: manifest/loader **O8**; Step 6: 물리 권위 경계 +
     O7 witness; Step 7: default build 조립 검증 PASS, default 변경 없음,
     Phase 0 exit + O7 재실행 green; Step 8: 미커버리지 사유 문구 사용자 언어화;
     Step 9: 카탈로그 14→22개 성장, ≈30 미달 — AMD 등 일부 제조사 사이트
-    fetch 불가로 소싱 중단, O7 쌍 불변 —
-    [`STEPS.md`](docs/phases/phase-6/STEPS.md) §Step 9), Steps 10–12 진행 예정 —
+    fetch 불가로 소싱 중단, O7 쌍 불변; Step 10: 22개 중 14개 가격 확보(street
+    12·MSRP전용 2, 8개는 소싱 실패로 행 자체 없음) — `benchmarks/price2/` 삭제
+    (**B11** 종료), 기본 빌드는 CPU/GPU 무가격·PSU MSRP전용이라 총액이 항상
+    partial; Step 11: 무결성 테스트 9개 + 가격 매핑 단위테스트 재작성 + E2E
+    2건 재고정 —
+    [`STEPS.md`](docs/phases/phase-6/STEPS.md) §Step 10–11), Step 12(오너
+    무작위 점검)만 남음 —
     [`docs/phases/phase-6/`](docs/phases/phase-6/)
 12. **Phase 7 (카탈로그 브라우저 + 이미지)** — 미계획; Phase 6 종료 및 이미지
     권리 ADR 이후 별도 M0 필요
@@ -419,7 +424,7 @@ Carried out of the phase (judged out of scope, not overlooked): no part photos
 browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
 **real parts catalog**, which is not started in this session.
 
-## Phase 6 — Real parts catalog (M0 accepted; Steps 1–9 done)
+## Phase 6 — Real parts catalog (M0 accepted; Steps 1–11 done)
 
 | 항목 | 상태 |
 |------|------|
@@ -430,15 +435,15 @@ browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
 | Shape | 카탈로그 데이터만 (브라우저는 Phase 7) · ≈30개 소수 정예 · AM5/DDR5 단일 · 이미지는 계약만 |
 | Owner decisions | **O1–O8 locked (2026-08-10)** — spec §7 |
 | Owner acceptance | **Accepted 2026-08-10** by starting implementation; no separate written acceptance recorded |
-| Progress | **Steps 1–9 done (2026-08-11)** — `cat6` contract; legacy ids retired repo-wide; **`parts/catalog-manifest.json` + manifest loader (O8)**. Step 6: physical authority boundary — clearance-limit checks authoritative, OBB advisory-only; slot 14 + O7 witness admitted; `phys3-exp-20260808` retained (no new geometry representation dataset). **Step 7 (2026-08-11):** default catalog build assembles cleanly (North TG Dark + NH-D15 G2 + RM750e); **`DEFAULT_BUILD_STATE_V2` unchanged**. **Step 8 (2026-08-11):** `src/perf/estimateBaseline.ts` + `estimateWorkload.ts` unavailable reasons rewritten to user language. **Step 9 (2026-08-11):** catalog grown **14 → 22 parts** (8 fully sourced additions: 1 GPU, 1 motherboard, 2 case, 1 PSU, 2 cooler, 1 RAM — cooler was the thinnest category at 1, now 3); none carry `physicalSpec` (visual-only placeholder GLBs; the clearance-limit evaluator reads `dimensionsMm`/`clearanceLimits` directly and does not require it, a pattern 4 of the original 14 parts already used). **Did not reach ≈30**: AMD.com (sole AM5 CPU vendor), GIGABYTE.com, Noctua.at, Thermalright, Kingston, Arctic and be quiet! were unfetchable this session; **cpu stays at 2**. RTX 4060 Ti excluded — NVIDIA's own TGP table does not split 8GB/16GB. O7 pair (A3-mATX × NH-D15 G2) untouched, still authoritative. Prices remain re-pointed phase-2 fixtures, not catalog prices (**B11**). `pnpm test` **38 files / 320 tests**; `pnpm test:e2e` **19**; `pnpm build` clean. **Next: Step 10** (prices). Steps 10–12 open; Phase 7 not started. Full record: [`docs/phases/phase-6/STEPS.md`](docs/phases/phase-6/STEPS.md) §Step 9 |
+| Progress | **Steps 1–11 done (2026-08-11)** — `cat6` contract; legacy ids retired repo-wide; **`parts/catalog-manifest.json` + manifest loader (O8)**. Step 6: physical authority boundary — clearance-limit checks authoritative, OBB advisory-only; slot 14 + O7 witness admitted; `phys3-exp-20260808` retained (no new geometry representation dataset). **Step 7 (2026-08-11):** default catalog build assembles cleanly (North TG Dark + NH-D15 G2 + RM750e); **`DEFAULT_BUILD_STATE_V2` unchanged**. **Step 8 (2026-08-11):** `src/perf/estimateBaseline.ts` + `estimateWorkload.ts` unavailable reasons rewritten to user language. **Step 9 (2026-08-11):** catalog grown **14 → 22 parts** (8 fully sourced additions: 1 GPU, 1 motherboard, 2 case, 1 PSU, 2 cooler, 1 RAM — cooler was the thinnest category at 1, now 3); none carry `physicalSpec` (visual-only placeholder GLBs; the clearance-limit evaluator reads `dimensionsMm`/`clearanceLimits` directly and does not require it, a pattern 4 of the original 14 parts already used). **Did not reach ≈30**: AMD.com (sole AM5 CPU vendor), GIGABYTE.com, Noctua.at, Thermalright, Kingston, Arctic and be quiet! were unfetchable this session; **cpu stays at 2**. RTX 4060 Ti excluded — NVIDIA's own TGP table does not split 8GB/16GB. O7 pair (A3-mATX × NH-D15 G2) untouched, still authoritative. **Step 10 (2026-08-11):** `benchmarks/cat6/catalog-prices.json` authored — 14 of 22 parts priced (12 street/KRW via Danawa, 2 MSRP-only via manufacturer store, 0 with both, 8 with no row at all — discontinued/unreachable listings, not fabricated); `buildPriceSummary` rewritten to map street snapshots only, MSRP never summed, non-KRW street withheld; `benchmarks/price2/` deleted, closing **B11**; default build's CPU/GPU carry no price row and its PSU is MSRP-only, so the default total is now honestly `isPartial: true` (disclosed on the surface, not hidden). **Step 11 (2026-08-11):** `cat6.step11.integrity.test.ts` (9 tests: strict cat6 parse, GLB-parses-as-glTF for all 22, no image, price-source registry resolution, KRW-only enforcement); `buildPriceSummary.test.ts` rewritten (2→9 tests); 2 E2E specs re-anchored (`phase2-compat-price.spec.ts`, `phase5-exit-conditions.spec.ts` — "fixed demo prices" copy corrected to "dated domestic street-price snapshots" in `ResultBar.tsx`/`WhyThisResult.tsx`, the only UI diff). `pnpm test` **39 files / 339 tests**; `pnpm test:e2e` **19**; `pnpm build` clean. **Next: Step 12** (owner spot-check, not an agent step). Phase 7 not started. Full record: [`docs/phases/phase-6/STEPS.md`](docs/phases/phase-6/STEPS.md) §Step 9–11 |
 | **O8 — manifest/loader** | **Done (Step 5).** Runtime membership is manifest-only; default build join-guarded, not manifest-derived |
 | **O7 — running-app reachability** | **Done (Step 6, 2026-08-10).** Slot 14 admitted with visual-only plane GLB + collision-less `physicalSpec`; witness build (A3 + slot 14 + NH-D15 G2) reachable in the running app; `e2e/phase6-o7-slot14-witness.spec.ts` green |
-| Open blockers | **B4** (permanent `caution` under O6 — open), **B11** (no sourced catalog prices yet — open). Resolved: **B3** (`conditional` status + branch pruning), **B8** (CPU package dimensions; synthetic CPU collision geometry removed), **B12** (stale cooler `allowedContacts` removed) |
+| Open blockers | **B4** (permanent `caution` under O6 — open). Resolved: **B3** (`conditional` status + branch pruning), **B8** (CPU package dimensions; synthetic CPU collision geometry removed), **B11** (sourced catalog prices, Step 10), **B12** (stale cooler `allowedContacts` removed) |
 | Gate | Owner picks 3 parts at random and traces every engine-consumed field to a citation in one hop |
 | **O1 — accepted consequence** | `perf1` covers 2 CPUs × 2 GPUs and Phase 4.1 (the attempt to close that gap) is frozen, so **most valid builds show no FPS**. The surface states the combination estimator is **in preparation**, via `src/perf/**` reason strings — **Step 8 done (2026-08-11)**; no UI change |
 | **O3/O4 — id migration** | **Done (Step 4, 2026-08-10).** 13 legacy folders retired; 14 `cat6` SKU ids authored at Step 4, grown to **22** by Step 9 (2026-08-11); 22 `cat6` SKU ids live under `parts/**` today. `src/test/cat6.integrity.test.ts` guards `src/**`, `parts/**`, `benchmarks/**`, `e2e/**` (docs deliberately excluded). Slot 14 authored; runtime manifest lists **22** (grown from 14 by Step 9) |
 | **Share links** | **Break once, deliberately.** The URL carries part ids; old links open on the default build (lenient decoder), not an error |
-| **O5 — price** | MSRP **and** dated domestic street snapshot, manually curated. Street drives the total; MSRP is never summed; missing street → `unavailable` + `isPartial` |
+| **O5 — price** | **Done (Step 10, 2026-08-11).** MSRP **and** dated domestic street snapshot, manually curated — 14 of 22 parts priced (12 street/KRW, 2 MSRP-only, 8 unpriced). Street drives the total; MSRP is never summed; missing/MSRP-only/non-KRW street → `unavailable` + `isPartial`. `benchmarks/price2/` deleted |
 | **O6 — BIOS** | Not considered. Socket compatibility only; `checkChipsetBios` already returns `unavailable` without the map, so no engine change |
 | **O2 — platform** | AM5/DDR5 only, **temporary narrowing**. LGA1851 / LGA1700 / AM4 intended later; that will require a deliberate versioned widening of `compat2`'s DDR5 and form-factor literals |
 | Phase 4 / 4.1 | Still frozen. Three mechanical carve-outs permitted: `prov4` pilot ids + geometry version, `perf1` fixture ids, and `src/perf/**` unavailable reason wording. Exercised so far: `prov4` pilot ids + `perf1` fixture ids + **`src/perf/**` unavailable reason wording (Step 8, 2026-08-11)** — the geometry-version carve-out was **not** exercised (no new geometry representation dataset; `phys3-exp-20260808` retained — Phase 6 plan Step 6) |

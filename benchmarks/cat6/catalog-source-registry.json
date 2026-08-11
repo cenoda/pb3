@@ -1,6 +1,6 @@
 {
   "catalogContractVersion": "cat6",
-  "registryVersion": "cat6-registry-20260811",
+  "registryVersion": "cat6-registry-20260811-step10",
   "sources": [
     {
       "sourceId": "source.cat6.asus.dual-rtx4070-o12g.techspec",
@@ -242,6 +242,146 @@
       "origin": "G.SKILL support FAQ",
       "citation": "https://www.gskill.com/faq/1502180912/DRAM-Memory",
       "notes": "Source for the Trident Z5 RGB module height of 44mm and for the DDR5 part-number suffix convention in which W denotes White. It publishes height only, not length or thickness, so it cannot complete a DimensionsMm. Referenced from the part's notes rather than from provenance, because cat6 has no provenance key for the notes field."
+    },
+    {
+      "sourceId": "source.cat6.corsair.rm750e-cp-9020295-na.msrp",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "Corsair RM750e (CP-9020295-NA) - Corsair.com listed price",
+      "origin": "Corsair.com US store product page",
+      "citation": "https://www.corsair.com/us/en/p/psu/cp-9020295-na/rm750e-fully-modular-low-noise-atx-power-supply-cp-9020295-na",
+      "publishedAt": "2026-08-11",
+      "notes": "Page shows an 'original price' of $114.99 USD alongside a $89.99 promotional price; $114.99 is recorded as MSRP, the promotional price is not. Currency as published: USD."
+    },
+    {
+      "sourceId": "source.cat6.nzxt.h5-flow.msrp",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "NZXT H5 Flow - NZXT.com listed price",
+      "origin": "NZXT.com store product page",
+      "citation": "https://www.nzxt.com/products/h5-flow",
+      "publishedAt": "2026-08-11",
+      "notes": "Page shows a 'regular price' of $94.99 USD alongside a $79.99 sale price; $94.99 is recorded as MSRP, the sale price is not. Currency as published: USD. The matte-black original H5 Flow (not V2) is out of active price comparison on Danawa (KR), so this part carries MSRP only, no street snapshot."
+    },
+    {
+      "sourceId": "source.cat6.danawa.case-fractal-design-north-tg-dark.street",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "Fractal Design North TG Dark Tint (Charcoal Black) - Danawa price comparison",
+      "origin": "Danawa price comparison, lowest listing (Coupang)",
+      "citation": "https://prod.danawa.com/info/?pcode=18448748",
+      "publishedAt": "2026-08-11",
+      "notes": "Lowest listed price 234,060 KRW via Coupang, read from the Danawa aggregator page for this exact case SKU."
+    },
+    {
+      "sourceId": "source.cat6.danawa.case-lian-li-a3-matx-black.street",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "LIAN LI A3-mATX (Black) - Danawa price comparison",
+      "origin": "Danawa price comparison, lowest listing",
+      "citation": "https://prod.danawa.com/info/?pcode=60069011",
+      "publishedAt": "2026-08-11",
+      "notes": "Lowest listed price 118,980 KRW across 103 retailers, read from the Danawa aggregator page for this exact case SKU (black variant, distinct from the wood-panel variants also listed there)."
+    },
+    {
+      "sourceId": "source.cat6.danawa.case-fractal-design-meshify-2-compact.street",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "Fractal Design Meshify 2 Compact (Black) - Danawa price comparison",
+      "origin": "Danawa price comparison, lowest listing (Coupang)",
+      "citation": "https://prod.danawa.com/info/?pcode=13489595",
+      "publishedAt": "2026-08-11",
+      "notes": "Lowest listed price 174,840 KRW via Coupang. This Danawa listing is the plain black entry with no Dark/Light/Clear tempered-glass qualifier in its title, distinguishing it from the separately listed Meshify 2 Compact Dark/Light/Clear tempered-glass SKUs -- read as the solid-panel product this part records. The page content itself does not print the word 'Solid'."
+    },
+    {
+      "sourceId": "source.cat6.danawa.motherboard-gigabyte-b650-aorus-elite-ax-v2.street",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "GIGABYTE B650 AORUS ELITE AX V2 (PC Direct) - Danawa price comparison",
+      "origin": "Danawa price comparison, lowest listing (Shinsegae Mall)",
+      "citation": "https://prod.danawa.com/info/?pcode=32070719",
+      "publishedAt": "2026-08-11",
+      "notes": "Lowest listed price 260,580 KRW via Shinsegae Mall."
+    },
+    {
+      "sourceId": "source.cat6.danawa.motherboard-gigabyte-b650m-aorus-elite-ax-rev-1-3.street",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "GIGABYTE B650M AORUS ELITE AX (PC Direct) - Danawa price comparison",
+      "origin": "Danawa price comparison, lowest listing (11st)",
+      "citation": "https://prod.danawa.com/info/?pcode=18113015",
+      "publishedAt": "2026-08-11",
+      "notes": "Lowest listed price 314,900 KRW via 11st. Danawa's retail listing for this model name does not print a PCB revision number; the part's own identity and provenance.identity are what tie the part to Rev. 1.3, not this retail listing. Recorded as the closest available domestic listing for the model name rather than withheld, since GIGABYTE ordinarily sells one revision at retail at a time for a given board generation."
+    },
+    {
+      "sourceId": "source.cat6.danawa.motherboard-asus-tuf-gaming-b860m-plus-wifi.street",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "ASUS TUF Gaming B860M-PLUS WIFI (STCOM) - Danawa price comparison",
+      "origin": "Danawa price comparison, lowest listing (11st)",
+      "citation": "https://prod.danawa.com/info/?pcode=74254814",
+      "publishedAt": "2026-08-11",
+      "notes": "Lowest listed price 278,400 KRW via 11st, 155 retailers listed. Page confirms Intel Socket 1851 / Intel B860, Micro-ATX -- matches this negative-fixture part."
+    },
+    {
+      "sourceId": "source.cat6.danawa.motherboard-asus-tuf-gaming-b650-plus-wifi.street",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "ASUS TUF Gaming B650-PLUS WIFI (STCOM) - Danawa price comparison",
+      "origin": "Danawa price comparison, lowest listing (Coupang)",
+      "citation": "https://prod.danawa.com/info/?pcode=18044558",
+      "publishedAt": "2026-08-11",
+      "notes": "Lowest listed price 260,990 KRW via Coupang. Page confirms AMD socket AM5 / AMD B650, ATX (30.5x24.4cm) -- the non-M ATX board, distinct from the B650M-PLUS WIFI listing also found in search."
+    },
+    {
+      "sourceId": "source.cat6.danawa.cpu-amd-ryzen-7-7800x3d.street",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "AMD Ryzen 7 5th Gen 7800X3D (Raphael, official retail box) - Danawa price comparison",
+      "origin": "Danawa price comparison, lowest listing (official retail / 정품 box)",
+      "citation": "https://prod.danawa.com/info/?pcode=19627808",
+      "publishedAt": "2026-08-11",
+      "notes": "Lowest listed price 702,150 KRW across 3 retailers for the single official retail box (정품), distinct from the cheaper multipack (멀티팩 정품) and bulk-parallel-import (벌크 병행) listings for the same chip."
+    },
+    {
+      "sourceId": "source.cat6.danawa.cooler-noctua-nh-d15-g2.street",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "NOCTUA NH-D15 G2 (standard/brown) - Danawa price comparison",
+      "origin": "Danawa price comparison, lowest listing (컴오아시스)",
+      "citation": "https://prod.danawa.com/info/?pcode=67683362",
+      "publishedAt": "2026-08-11",
+      "notes": "Lowest listed price 246,720 KRW via 컴오아시스 (Com Oasis), shipping included. Confirmed as the plain standard-base/brown model, distinct from the LBC, HBC and chromax.black variants also listed on Danawa."
+    },
+    {
+      "sourceId": "source.cat6.danawa.ram-teamgroup-t-create-expert-ddr5-6000-32gb.street",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "TeamGroup T-CREATE DDR5-6000 CL30 EXPERT (Black, 32GB 16GBx2) - Danawa price comparison",
+      "origin": "Danawa price comparison, lowest listing (11st)",
+      "citation": "https://prod.danawa.com/info/?pcode=20546438",
+      "publishedAt": "2026-08-11",
+      "notes": "Lowest listed price 794,360 KRW (cash lowest 753,800 KRW) across 85 retailers. CL30-36-36-76, black heatspreader -- matches this part's CTCED532G6000HC30DC01 SKU, distinct from the white package listed separately on Danawa."
+    },
+    {
+      "sourceId": "source.cat6.danawa.ram-teamgroup-t-create-expert-ddr5-6000-64gb.street",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "TeamGroup T-CREATE DDR5-6000 CL34 EXPERT (Black, 64GB 32GBx2) - Danawa price comparison",
+      "origin": "Danawa price comparison, lowest listing (컴오아시스)",
+      "citation": "https://prod.danawa.com/info/?pcode=19566788",
+      "publishedAt": "2026-08-11",
+      "notes": "Lowest listed price 1,480,000 KRW via 컴오아시스 (Com Oasis). CL34-44-44-84, black heatspreader -- matches this part's CTCED564G6000HC34BDC01 SKU, distinct from the white package listed separately on Danawa."
+    },
+    {
+      "sourceId": "source.cat6.danawa.psu-corsair-rm850e-cp-9020263-na.street",
+      "sourceClass": "external-review",
+      "rightsClass": "fair-use-citation",
+      "title": "CORSAIR RM850e ATX3.1 (Gold) - Danawa price comparison",
+      "origin": "Danawa price comparison, lowest listing",
+      "citation": "https://prod.danawa.com/info/?pcode=74813786",
+      "publishedAt": "2026-08-11",
+      "notes": "Lowest listed price 149,000 KRW across 112 retailers. Page confirms 850W, GOLD efficiency, fully modular, ATX3.1 -- matches this part's Gold-certified CP-9020263-NA record; the sibling RM750e listing on Danawa was excluded because its ATX3.1 entry printed a Platinum ETA certification, which does not match this catalog's Cybenetics Gold citation for CP-9020295-NA, and that mismatch was not resolved to a confident SKU match."
     }
   ]
 }

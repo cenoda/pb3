@@ -4,12 +4,15 @@ Derived from [`specs/phase-6.md`](./specs/phase-6.md) and
 [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md). Required by
 the "plan before code" rule in [`../README.md`](../README.md).
 
-Status: **Accepted 2026-08-10. Owner decisions O1–O8 locked. Steps 1–9
+Status: **Accepted 2026-08-10. Owner decisions O1–O8 locked. Steps 1–11
 complete. Step 6 implementation complete (2026-08-10); Step 7 default-build
 assembly verification complete (2026-08-11); Step 8 unavailable-reason wording
 complete (2026-08-11); Step 9 catalog growth to 22 parts complete (2026-08-11,
-short of ≈30 — see STEPS.md for the sourcing blockers). Records in
-[`STEPS.md`](./STEPS.md). Steps 10–12 open.**
+short of ≈30 — see STEPS.md for the sourcing blockers); Step 10 sourced
+catalog prices complete (2026-08-11, partial coverage — 14 of 22 parts priced,
+see STEPS.md for the sourcing gaps); Step 11 integrity gates and E2E
+re-anchoring complete (2026-08-11). Records in [`STEPS.md`](./STEPS.md). Step
+12 (owner spot-check) open.**
 
 ---
 
@@ -47,7 +50,7 @@ Exactly inverting Phase 5's boundary.
 | `benchmarks/prov4/pilot-*.json`, `PROV4_PILOT_PART_IDS` | **Ids re-pointed only** (**RK2**). `geometryDataVersion` is **not** re-pointed — no new geometry representation dataset exists (`phys3-exp-20260808` retained; see Step 6). No grade change, no new claim |
 | `src/perf/applyCorrection.ts`, `src/estimate/estimatorQuery.ts` | Hardcoded example ids re-pointed. Mechanical strings; no logic change |
 | `src/perf/**` unavailable **reason strings** | Rewritten to user language stating the estimator is in preparation (**O1**). No logic, no signature, no numeric change |
-| `src/App.tsx`, `src/ui/**`, `src/styles/**` | **Untouchable except the Step 6 carve-out**: `src/ui/buildVerdict.ts` and `src/ui/WhyThisResult.tsx` changed to route verdicts through the new physical authority. A diff anywhere else here fails review. If real data makes a screen wrong, it is recorded for Phase 7 |
+| `src/App.tsx`, `src/ui/**`, `src/styles/**` | **Untouchable except the Step 6 and Step 10 carve-outs**: `src/ui/buildVerdict.ts` and `src/ui/WhyThisResult.tsx` changed (Step 6) to route verdicts through the new physical authority. `src/App.tsx` (loader/state rename only), `src/ui/WhyThisResult.tsx`, and `src/ui/ResultBar.tsx` changed (Step 10) — two hardcoded copy strings ("fixed demo prices" / "fixture prices, not live market quotes") corrected to describe real dated street-price snapshots, required by the re-anchoring rule that no demo/fixture/live-price false claim may remain; no other UI/display-logic change. A diff anywhere else here fails review. If real data makes a screen wrong, it is recorded for Phase 7 |
 | `src/physical/` | **Untouchable except the Step 6 carve-out**: physical-authority boundary (`buildPhysicalValidationReport.ts`, `collision/types.ts`) and the scalar clearance-limit evaluator (`clearanceLimit/evaluateClearanceLimits.ts`). No other `src/physical/` diff |
 | `src/contract/phys3.schema.ts` | **Untouchable except the Step 6 carve-out**: `conditional` added to `PhysicalValidationStatus` (**B3** / D4). No other `phys3` contract diff |
 | `src/compat/`, `src/price/`, `src/provenance/`, `src/state/` | **Untouchable** except where a loader signature must change for the manifest |
@@ -260,6 +263,13 @@ snapshot; MSRP is never summed; parts without a street snapshot map to
 `unavailable` and make the total `isPartial` (**RK9**). `compat2` is not
 modified.
 
+**Step 10 status (2026-08-11): complete, partial coverage.** 14 of 22 parts
+priced (12 street/KRW, 2 MSRP-only, 8 unsourced this session); `RK9`'s
+single-currency rule is enforced at runtime, not only by convention — a
+non-KRW street price is withheld rather than summed. `benchmarks/price2/`
+deleted (closing **B11**). Full coverage counts and the source-access gaps
+that produced the 8 unpriced parts: [`STEPS.md`](./STEPS.md) §Step 10.
+
 ### Step 11 — Integrity and test re-anchoring
 `src/test/cat6.integrity.test.ts` per contract §5, including the join guard, the
 legacy-id guard, and contract-honest geometry checks (model exists, GLB parses,
@@ -267,6 +277,15 @@ declared node references valid, mounts present when declared, no fabricated
 dimensions). E2E specs re-anchored one at a time, preserving each assertion's
 meaning (**RK4**); an assertion that cannot survive real data is raised as a
 scope question, not deleted.
+
+**Step 11 status (2026-08-11): complete.** Contract-honest geometry checks
+(GLB parses as glTF 2.0 for all 22 manifest parts, not only the 10
+`physicalSpec`-bearing ones already covered by `phys3.integrity.test.ts`),
+`image`/`(fixture)` absence, price-source registry resolution, and the
+single-currency rule added in `src/test/cat6.step11.integrity.test.ts`; price
+mapping covered in `buildPriceSummary.test.ts`. Two E2E specs re-anchored
+(`phase2-compat-price.spec.ts`, `phase5-exit-conditions.spec.ts`); no
+assertion deleted. Full record: [`STEPS.md`](./STEPS.md) §Step 11.
 
 ### Step 12 — Owner gate
 The owner picks three parts at random, follows every engine-consumed field to its

@@ -70,8 +70,8 @@ export function ResultBar({ verdict, performance, price, why }: ResultBarProps) 
           </p>
           <p className="result-trust">
             {price.isPartial
-              ? "Some parts have no price, so this total is incomplete. These are fixed demo prices, not live shop prices."
-              : "Fixed demo prices, not live shop prices."}
+              ? "Some parts have no price, so this total is incomplete. Prices are dated domestic street-price snapshots, not live quotes."
+              : "Prices are dated domestic street-price snapshots, not live quotes."}
           </p>
         </div>
       ) : null}

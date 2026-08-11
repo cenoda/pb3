@@ -111,17 +111,6 @@ export interface CompatibilityExampleFile {
   examples: CompatibilityReport[];
 }
 
-export interface PriceFixtureFile {
-  compatContractVersion: Compat2ContractVersion;
-  dataVersion: string;
-  rows: PricedPart[];
-}
-
-export const COMPAT2_FIXTURE_BASIS =
-  "phase-2 fixture price; not a live market quote" as const;
-
-export const COMPAT2_PRICE_FIXTURES_PATH =
-  "/benchmarks/price2/price-fixtures.json" as const;
 
 export const COMPAT2_COMPAT_EXAMPLES_PATH =
   "/benchmarks/compat2/compatibility-examples.json" as const;

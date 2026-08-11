@@ -280,3 +280,17 @@ export interface CatalogPriceRow {
   msrp?: CatalogMsrp;
   street?: CatalogStreetPrice;
 }
+
+/**
+ * `benchmarks/cat6/catalog-prices.json` — Step 10. Rows are ordered by `partId`
+ * ascending (schema-enforced) so the file has one deterministic byte layout.
+ */
+export interface CatalogPriceFile {
+  catalogContractVersion: Cat6ContractVersion;
+  /** e.g. "cat6-prices-20260811". Bumped whenever a row is added or revalued. */
+  dataVersion: string;
+  rows: CatalogPriceRow[];
+}
+
+export const CAT6_CATALOG_PRICES_PATH =
+  "/benchmarks/cat6/catalog-prices.json" as const;
