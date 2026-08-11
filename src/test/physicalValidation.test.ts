@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Matrix4, Quaternion, Vector3 } from "three";
 import { describe, expect, it } from "vitest";
-import { PHYS3_OVERLAP_EPSILON_MM } from "../contract/phys3";
+import { PHYS3_OVERLAP_EPSILON_MM, type PhysicalCheckResult } from "../contract/phys3";
 import { catalogManifestFileSchema } from "../contract/cat6.schema";
 import { DEFAULT_BUILD_STATE_V2 } from "../contract/vs2";
 import { partDefinitionV2Schema } from "../contract/vs2.schema";
@@ -104,7 +104,7 @@ describe("physicalValidation", () => {
     expect(report.checks.every((c) => c.status === "fit")).toBe(true);
   });
 
-  it("cooler rotated-180 produces clearance interference", () => {
+  it("cooler rotated-180 produces advisory clearance interference without authoritative interference", () => {
     const { catalog, indexes } = loadCatalogAndIndexes();
     const assembly = buildAssemblyState(
       DEFAULT_BUILD_STATE_V2,
@@ -117,7 +117,7 @@ describe("physicalValidation", () => {
       partsById: catalog.byId,
       glbIndexes: indexes,
     });
-    expect(report.overallStatus).toBe("interference");
+    expect(report.overallStatus).toBe("fit");
     expect(
       report.checks.some(
         (c) =>
@@ -128,7 +128,7 @@ describe("physicalValidation", () => {
     ).toBe(true);
   });
 
-  it("visual-only selection yields unavailable aggregate", () => {
+  it("visual-only selection: authoritative clearance-limit checks still run; geometry unavailable is advisory", () => {
     const { catalog, indexes } = loadCatalogAndIndexes();
     const assembly = buildAssemblyState(
       {
@@ -143,7 +143,12 @@ describe("physicalValidation", () => {
       partsById: catalog.byId,
       glbIndexes: indexes,
     });
-    expect(report.overallStatus).toBe("unavailable");
+    expect(
+      report.checks.some(
+        (c) => c.kind === "collision" && c.status === "unavailable",
+      ),
+    ).toBe(true);
+    expect(report.overallStatus).toBe("fit");
   });
 
   it("inclusive 0.1 mm overlap boundary: 0.099/0.100 fit, 0.101 interference", () => {
@@ -234,53 +239,56 @@ describe("physicalValidation", () => {
       checks.some((c) => c.kind === "clearance" && c.status === "interference"),
     ).toBe(true);
 
+    const mixedChecks: PhysicalCheckResult[] = [
+      {
+        checkId: "1",
+        kind: "clearance-limit",
+        status: "fit",
+        involvedPartIds: ["a"],
+        involvedNodeNames: ["clearance-limit:a"],
+        evidenceSourceIds: [],
+      },
+      {
+        checkId: "2",
+        kind: "clearance-limit",
+        status: "unavailable",
+        involvedPartIds: ["b"],
+        involvedNodeNames: ["clearance-limit:b"],
+        explanation: "missing",
+        evidenceSourceIds: [],
+      },
+      {
+        checkId: "3",
+        kind: "clearance",
+        status: "interference",
+        involvedPartIds: ["c"],
+        involvedNodeNames: ["clearance:c"],
+        explanation: "hit",
+        evidenceSourceIds: [],
+      },
+    ];
     expect(
-      aggregatePhysicalStatus([
-        {
-          checkId: "1",
-          kind: "collision",
-          status: "fit",
-          involvedPartIds: ["a"],
-          involvedNodeNames: ["collision:a"],
-          evidenceSourceIds: [],
-        },
-        {
-          checkId: "2",
-          kind: "collision",
-          status: "unavailable",
-          involvedPartIds: ["b"],
-          involvedNodeNames: ["collision:b"],
-          explanation: "missing",
-          evidenceSourceIds: [],
-        },
-        {
-          checkId: "3",
-          kind: "clearance",
-          status: "interference",
-          involvedPartIds: ["c"],
-          involvedNodeNames: ["clearance:c"],
-          explanation: "hit",
-          evidenceSourceIds: [],
-        },
-      ]),
-    ).toBe("interference");
+      aggregatePhysicalStatus(
+        mixedChecks.filter((c) => c.kind === "clearance-limit"),
+      ),
+    ).toBe("unavailable");
 
     expect(
       aggregatePhysicalStatus([
         {
           checkId: "1",
-          kind: "collision",
+          kind: "clearance-limit",
           status: "fit",
           involvedPartIds: ["a"],
-          involvedNodeNames: ["collision:a"],
+          involvedNodeNames: ["clearance-limit:a"],
           evidenceSourceIds: [],
         },
         {
           checkId: "2",
-          kind: "collision",
+          kind: "clearance-limit",
           status: "unavailable",
           involvedPartIds: ["b"],
-          involvedNodeNames: ["collision:b"],
+          involvedNodeNames: ["clearance-limit:b"],
           explanation: "missing",
           evidenceSourceIds: [],
         },
@@ -307,5 +315,9 @@ describe("physicalValidation", () => {
         },
       ]),
     ).toBe("conditional");
+  });
+
+  it("aggregatePhysicalStatus returns unavailable for an empty input array", () => {
+    expect(aggregatePhysicalStatus([])).toBe("unavailable");
   });
 });

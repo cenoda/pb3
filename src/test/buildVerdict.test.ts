@@ -106,19 +106,89 @@ describe("buildVerdict", () => {
     expect(verdict.reason).not.toMatch(/mb\.|case\.|cpu\./);
   });
 
-  it("blocks results when parts physically interfere", () => {
+  it("Case A — OBB interference cannot cause authoritative interference", () => {
     const verdict = buildVerdict({
       compatibility: compat(),
       physical: physical({
-        overallStatus: "interference",
+        overallStatus: "unavailable",
         checks: [
           {
             checkId: "collision:cooler-case",
             kind: "collision",
             status: "interference",
             involvedPartIds: ["cooler.noctua-nh-d15-g2"],
-            involvedNodeNames: [],
-            explanation: "Cooler cooler.noctua-nh-d15-g2 overlaps the side panel.",
+            involvedNodeNames: ["collision:cooler-body"],
+            explanation:
+              "Cooler cooler.noctua-nh-d15-g2 overlaps the side panel.",
+            evidenceSourceIds: [],
+          },
+        ],
+      }),
+      nameOf,
+    });
+
+    expect(verdict.level).toBe("blocked");
+    expect(verdict.headline).toBe("This build cannot be assembled.");
+    expect(verdict.showResults).toBe(false);
+    expect(verdict.reason).not.toContain("side panel");
+    expect(verdict.reason).toBe(
+      "We could not work out how these parts fit together. Change a part to try another combination.",
+    );
+  });
+
+  it("Case B — advisory OBB interference alongside authoritative fit", () => {
+    const verdict = buildVerdict({
+      compatibility: compat(),
+      physical: physical({
+        overallStatus: "fit",
+        checks: [
+          {
+            checkId: "clearance-limit:cpu-cooler-height",
+            kind: "clearance-limit",
+            status: "fit",
+            involvedPartIds: [
+              "case.fractal-design-north-tg-dark",
+              "cooler.noctua-nh-d15-g2",
+            ],
+            involvedNodeNames: ["clearance-limit:maxCpuCoolerHeight"],
+            evidenceSourceIds: [],
+          },
+          {
+            checkId: "clearance:cooler-sidekeepout",
+            kind: "clearance",
+            status: "interference",
+            involvedPartIds: ["cooler.noctua-nh-d15-g2"],
+            involvedNodeNames: ["clearance:cooler-sidekeepout"],
+            explanation: "Cooler overlaps side keepout volume.",
+            evidenceSourceIds: [],
+          },
+        ],
+      }),
+      nameOf,
+    });
+
+    expect(verdict.level).toBe("ok");
+    expect(verdict.showResults).toBe(true);
+    expect(verdict.reason).toBeNull();
+  });
+
+  it("Case C — authoritative scalar interference blocks with clearance-limit reason", () => {
+    const verdict = buildVerdict({
+      compatibility: compat(),
+      physical: physical({
+        overallStatus: "interference",
+        checks: [
+          {
+            checkId: "clearance-limit:cpu-cooler-height",
+            kind: "clearance-limit",
+            status: "interference",
+            involvedPartIds: [
+              "case.lian-li-a3-matx-black",
+              "cooler.noctua-nh-d15-g2",
+            ],
+            involvedNodeNames: ["clearance-limit:maxCpuCoolerHeight"],
+            explanation:
+              "Cooler cooler.noctua-nh-d15-g2 is 168 mm height; case case.lian-li-a3-matx-black limit is 165 mm.",
             evidenceSourceIds: [],
           },
         ],
@@ -127,6 +197,7 @@ describe("buildVerdict", () => {
     });
 
     expect(verdict.showResults).toBe(false);
+    expect(verdict.level).toBe("blocked");
     expect(verdict.reason).toContain("Air Twin Tower Cooler 01 (fixture)");
   });
 

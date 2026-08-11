@@ -74,14 +74,14 @@ test.describe("Phase 3 physical validation scenario", () => {
       (await page.getByTestId("fps-1080p").textContent()) ?? "";
     expect(baseline1080p).toContain("fps");
 
-    // Cooler orientation change → interference
+    // Cooler orientation change → advisory clearance interference (authoritative stays fit)
     await page
       .getByTestId("cooler-orientation-select")
       .selectOption("rotated-180");
     await openWhy(page);
     await expect(page.getByTestId("physical-validation-panel")).toHaveAttribute(
       "data-overall-status",
-      "interference",
+      "fit",
     );
     await expect(
       page
@@ -90,8 +90,7 @@ test.describe("Phase 3 physical validation scenario", () => {
         )
         .first(),
     ).toBeVisible();
-    // Phase 5 R1: a build that does not fit presents no performance result.
-    await expect(page.getByTestId("result-performance")).toHaveCount(0);
+    await expect(page.getByTestId("result-performance")).toBeVisible();
 
     // Reset orientation
     await page.getByTestId("mount-reset").click();
@@ -103,21 +102,45 @@ test.describe("Phase 3 physical validation scenario", () => {
       "fit",
     );
 
-    // Visual-only fallback → physical unavailable (not box-as-truth fit)
+    // Visual-only RAM: authoritative clearance-limit checks pass (fit); missing
+    // physicalSpec is advisory geometry only and does not change overallStatus.
     await page.getByTestId("ram-part-select").selectOption("ram.gskill-trident-z5-rgb-ddr5-8400");
     await openWhy(page);
     await expect(page.getByTestId("physical-validation-panel")).toHaveAttribute(
       "data-overall-status",
-      "unavailable",
+      "fit",
+    );
+    await expect(
+      page
+        .locator(
+          '[data-testid^="physical-check-"][data-kind="collision"][data-status="unavailable"]',
+        )
+        .first(),
+    ).toBeVisible();
+
+    // Same RAM is the RAM-speed negative fixture — compatibility blocks the build.
+    await expect(page.getByTestId("compatibility-panel")).toHaveAttribute(
+      "data-overall-status",
+      "incompatible",
+    );
+    await expect(page.getByTestId("compat-check-ram-support")).toHaveAttribute(
+      "data-status",
+      "incompatible",
+    );
+    await expect(page.getByTestId("result-performance")).toHaveCount(0);
+    await expect(page.getByTestId("result-price")).toHaveCount(0);
+    await expect(page.getByTestId("result")).toHaveAttribute(
+      "data-level",
+      "blocked",
     );
 
-    // Runtime cooling unavailable, and the withheld correction is stated
+    // Cooling: empty evidence only (advisory geometry does not gate cooling).
     await expect(page.getByTestId("cooling-evidence-panel")).toHaveAttribute(
       "data-status",
       "unavailable",
     );
-    await expect(page.getByTestId("cooling-reason")).toContainText(
-      /missing_exact_evidence|physical_validation_incomplete/,
+    await expect(page.getByTestId("cooling-reason")).toHaveText(
+      "missing_exact_evidence",
     );
 
     // Restore supported RAM: fit returns, cooling stays unavailable (empty

@@ -55,7 +55,8 @@ export function buildVerdict(input: BuildVerdictInput): BuildVerdict {
   }
 
   const interference = physical.checks.find(
-    (check) => check.status === "interference",
+    (check) =>
+      check.kind === "clearance-limit" && check.status === "interference",
   );
   if (interference) {
     return {
@@ -68,7 +69,8 @@ export function buildVerdict(input: BuildVerdictInput): BuildVerdict {
 
   if (physical.overallStatus === "unavailable") {
     const unresolved = physical.checks.find(
-      (check) => check.status === "unavailable",
+      (check) =>
+        check.kind === "clearance-limit" && check.status === "unavailable",
     );
     return {
       level: "blocked",
@@ -82,7 +84,8 @@ export function buildVerdict(input: BuildVerdictInput): BuildVerdict {
 
   if (physical.overallStatus === "conditional") {
     const conditional = physical.checks.find(
-      (check) => check.status === "conditional",
+      (check) =>
+        check.kind === "clearance-limit" && check.status === "conditional",
     );
     return {
       level: "caution",

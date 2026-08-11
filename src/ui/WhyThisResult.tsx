@@ -112,7 +112,7 @@ export function WhyThisResult(props: WhyThisResultProps) {
           data-overall-status={physical.overallStatus}
           data-geometry-version={physical.geometryDataVersion}
         >
-          <h3 className="why-heading">Physical fit</h3>
+          <h3 className="why-heading">Published physical checks</h3>
           <p className="why-note" data-testid="physical-overall">
             Overall: <strong>{physical.overallStatus}</strong> · geometry{" "}
             {physical.geometryDataVersion} · model grade: Experimental
@@ -126,7 +126,11 @@ export function WhyThisResult(props: WhyThisResultProps) {
                 data-status={check.status}
                 data-kind={check.kind}
               >
-                <strong>{check.kind} check</strong>: {check.status}
+                <strong>{check.kind} check</strong>
+                {check.kind !== "clearance-limit"
+                  ? " (3D preview, not a compatibility result)"
+                  : ""}
+                : {check.status}
                 <div className="why-note">id: {check.checkId}</div>
                 {check.explanation ? (
                   <div

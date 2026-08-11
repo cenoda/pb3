@@ -161,7 +161,9 @@ export function buildPhysicalValidationReport(
     buildStateVersion: "vs2",
     assemblyState: assembly.assemblyState,
     checks,
-    overallStatus: aggregatePhysicalStatus(checks),
+    overallStatus: aggregatePhysicalStatus(
+      checks.filter((c) => c.kind === "clearance-limit"),
+    ),
     geometryDataVersion: assembly.geometryDataVersion,
   };
 }

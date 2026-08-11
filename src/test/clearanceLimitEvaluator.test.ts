@@ -109,17 +109,21 @@ describe("aggregatePhysicalStatus precedence", () => {
 
     expect(
       aggregatePhysicalStatus([
-        { checkId: "1", kind: "collision", status: "conditional", ...base },
-        { checkId: "2", kind: "collision", status: "unavailable", ...base, explanation: "x" },
+        { checkId: "1", kind: "clearance-limit", status: "conditional", ...base },
+        { checkId: "2", kind: "clearance-limit", status: "unavailable", ...base, explanation: "x" },
       ]),
     ).toBe("unavailable");
 
     expect(
       aggregatePhysicalStatus([
-        { checkId: "1", kind: "collision", status: "conditional", ...base },
-        { checkId: "2", kind: "collision", status: "interference", ...base, explanation: "x" },
+        { checkId: "1", kind: "clearance-limit", status: "conditional", ...base },
+        { checkId: "2", kind: "clearance-limit", status: "interference", ...base, explanation: "x" },
       ]),
     ).toBe("interference");
+  });
+
+  it("returns unavailable for an empty input array", () => {
+    expect(aggregatePhysicalStatus([])).toBe("unavailable");
   });
 });
 
@@ -374,12 +378,12 @@ describe("buildVerdict with conditional physical status", () => {
           },
           checks: [
             {
-              checkId: "collision:x",
-              kind: "collision",
+              checkId: "clearance-limit:cpu-cooler-height",
+              kind: "clearance-limit",
               status: "interference",
               involvedPartIds: ["a"],
-              involvedNodeNames: ["collision:x"],
-              explanation: "overlap",
+              involvedNodeNames: ["clearance-limit:maxCpuCoolerHeight"],
+              explanation: "168 mm exceeds 165 mm limit",
               evidenceSourceIds: [],
             },
           ],
