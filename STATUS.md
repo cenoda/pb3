@@ -120,8 +120,10 @@
 10. ~~**Phase 5 (제품 표면)**~~ → **완료 · 소유자 승인 (2026-08-09)** —
     [`docs/phases/phase-5/`](docs/phases/phase-5/)
 11. **Phase 6 (실제 부품 카탈로그, `cat6`)** — M0 수락 + O1–O8 확정 (2026-08-10);
-    **Steps 1–6 완료** (Step 5: manifest/loader **O8**; Step 6: 물리 권위 경계 +
-    O7 witness, RK1 `STEPS.md` 기록 완료), Steps 7–12 진행 예정 —
+    **Steps 1–7 완료** (Step 5: manifest/loader **O8**; Step 6: 물리 권위 경계 +
+    O7 witness; Step 7: default build 조립 검증 PASS, default 변경 없음,
+    Phase 0 exit + O7 재실행 green — [`STEPS.md`](docs/phases/phase-6/STEPS.md)
+    §5), Steps 8–12 진행 예정 —
     [`docs/phases/phase-6/`](docs/phases/phase-6/)
 12. **Phase 7 (카탈로그 브라우저 + 이미지)** — 미계획; Phase 6 종료 및 이미지
     권리 ADR 이후 별도 M0 필요
@@ -415,18 +417,18 @@ Carried out of the phase (judged out of scope, not overlooked): no part photos
 browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
 **real parts catalog**, which is not started in this session.
 
-## Phase 6 — Real parts catalog (M0 accepted; Steps 1–6 done)
+## Phase 6 — Real parts catalog (M0 accepted; Steps 1–7 done)
 
 | 항목 | 상태 |
 |------|------|
 | Home | [`docs/phases/phase-6/`](docs/phases/phase-6/) |
-| Scope | [`specs/phase-6.md`](docs/phases/phase-6/specs/phase-6.md) — data only; display layer read-only, engine logic read-only |
+| Scope | [`specs/phase-6.md`](docs/phases/phase-6/specs/phase-6.md) — primarily catalog/data work; display layer read-only except as already required for data wiring. Engine logic is read-only except the **already-recorded narrow Step 6 physical-authority carve-out** (clearance-limit authoritative, OBB advisory-only; `conditional` status). No further engine expansion in Steps 7–12 without an explicit plan carve-out |
 | Contract | [`catalog-data-contract.md`](docs/phases/phase-6/specs/catalog-data-contract.md) — `cat6`: SKU identity, `dimensionsMm`, `performanceSpec` (boost clock / power limit), per-group provenance, image **fields only**, manifest, MSRP + street snapshot |
 | Plan | [`implementation_plan.md`](docs/phases/phase-6/implementation_plan.md) — Steps 1–12, "source first, data second" |
 | Shape | 카탈로그 데이터만 (브라우저는 Phase 7) · ≈30개 소수 정예 · AM5/DDR5 단일 · 이미지는 계약만 |
 | Owner decisions | **O1–O8 locked (2026-08-10)** — spec §7 |
 | Owner acceptance | **Accepted 2026-08-10** by starting implementation; no separate written acceptance recorded |
-| Progress | **Steps 1–6 done (2026-08-10)** — `cat6` contract; 14 authored SKU parts; legacy ids retired repo-wide; **`parts/catalog-manifest.json` + manifest loader (O8)** loads **14 runtime parts**; `PHASE2_PART_PATHS` removed; selection validation uses catalog membership. Step 6: physical authority boundary — clearance-limit checks authoritative, OBB advisory-only; slot 14 + O7 witness admitted; `phys3-exp-20260808` retained (no new geometry representation dataset). Prices remain re-pointed phase-2 fixtures, not catalog prices (**B11**). `pnpm test` 37 files / 315 tests; `pnpm test:e2e` 18; `pnpm build` clean |
+| Progress | **Steps 1–7 done (2026-08-11)** — `cat6` contract; 14 authored SKU parts; legacy ids retired repo-wide; **`parts/catalog-manifest.json` + manifest loader (O8)** loads **14 runtime parts**; `PHASE2_PART_PATHS` removed; selection validation uses catalog membership. Step 6: physical authority boundary — clearance-limit checks authoritative, OBB advisory-only; slot 14 + O7 witness admitted; `phys3-exp-20260808` retained (no new geometry representation dataset). **Step 7 (2026-08-11):** default 14-part catalog build assembles cleanly (North TG Dark + NH-D15 G2 + RM750e); mounts present; no missing required physical data; no authoritative physical failure; **`DEFAULT_BUILD_STATE_V2` unchanged**; unit `phase6-step7-default-assembly` + E2E `phase6-step7-default-assembly` + Phase 0 exit + O7 green. Prices remain re-pointed phase-2 fixtures, not catalog prices (**B11**). `pnpm test` **38 files / 318 tests**; `pnpm test:e2e` **19**; `pnpm build` clean. **Next: Step 8** (`src/perf/**` unavailable reasons). Steps 8–12 open; Phase 7 not started |
 | **O8 — manifest/loader** | **Done (Step 5).** Runtime membership is manifest-only; default build join-guarded, not manifest-derived |
 | **O7 — running-app reachability** | **Done (Step 6, 2026-08-10).** Slot 14 admitted with visual-only plane GLB + collision-less `physicalSpec`; witness build (A3 + slot 14 + NH-D15 G2) reachable in the running app; `e2e/phase6-o7-slot14-witness.spec.ts` green |
 | Open blockers | **B4** (permanent `caution` under O6 — open), **B11** (no sourced catalog prices yet — open). Resolved: **B3** (`conditional` status + branch pruning), **B8** (CPU package dimensions; synthetic CPU collision geometry removed), **B12** (stale cooler `allowedContacts` removed) |

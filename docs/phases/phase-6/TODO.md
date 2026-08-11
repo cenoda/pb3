@@ -42,8 +42,12 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
       geometry-version re-point not required** — no new geometry representation
       dataset, `phys3-exp-20260808` retained (implementation plan Step 6).
       **RK1** clearance-limit arithmetic recorded in [`STEPS.md`](./STEPS.md)
-- [ ] Step 7 — default build assembles on real dimensions; Phase 0 exit scenario
-      re-run
+- [x] Step 7 — default build assembles on real dimensions; Phase 0 exit scenario
+      re-run (2026-08-11): default `BuildState` unchanged (North TG Dark +
+      NH-D15 G2 + RM750e fits published limits); unit
+      `phase6-step7-default-assembly.test.ts` + E2E
+      `phase6-step7-default-assembly.spec.ts` + exit-scenario + O7 witness green;
+      evidence in [`STEPS.md`](./STEPS.md) §5
 - [ ] Step 8 — `src/perf/**` unavailable reasons say the estimator is in
       preparation; test asserts no presentable value
 - [ ] Step 9 — grow to ≈30 parts, including a genuine interference pair
@@ -54,10 +58,10 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
 
 ## Closeout
 
-- [x] `STEPS.md` — what was built, every changed `phys3` verdict with its
-      arithmetic, deviations (written 2026-08-10 with Step 6 closeout)
+- [x] `STEPS.md` — Step 6 (authority / RK1, 2026-08-10) + Step 7 (default
+      assembly evidence, 2026-08-11)
 - [ ] `CLOSEOUT.md` — owner result, what it rests on, gaps carried forward
-- [ ] `STATUS.md` / [`../README.md`](../README.md) updated
+- [x] `STATUS.md` / [`../README.md`](../README.md) updated (2026-08-11 Step 7 truth-sync)
 
 ## Carried into later phases (do not start here)
 
