@@ -393,6 +393,51 @@
             "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
             "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
+        },
+        {
+          "checkId": "clearance-limit:cpu-cooler-height",
+          "kind": "clearance-limit",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.fractal-design-north-tg-dark",
+            "cooler.noctua-nh-d15-g2"
+          ],
+          "involvedNodeNames": [
+            "clearance-limit:maxCpuCoolerHeight"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark"
+          ]
+        },
+        {
+          "checkId": "clearance-limit:gpu-length",
+          "kind": "clearance-limit",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.fractal-design-north-tg-dark",
+            "gpu.asus-dual-rtx4070-o12g"
+          ],
+          "involvedNodeNames": [
+            "clearance-limit:maxGpuLength"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark"
+          ]
+        },
+        {
+          "checkId": "clearance-limit:psu-length",
+          "kind": "clearance-limit",
+          "status": "fit",
+          "involvedPartIds": [
+            "case.fractal-design-north-tg-dark",
+            "psu.corsair-rm750e"
+          ],
+          "involvedNodeNames": [
+            "clearance-limit:maxPsuLength"
+          ],
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark"
+          ]
         }
       ],
       "overallStatus": "fit",
@@ -789,6 +834,22 @@
           "evidenceSourceIds": [
             "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
             "evidence.phys3.synthetic.psu.corsair-rm750e"
+          ]
+        },
+        {
+          "checkId": "clearance-limit:cpu-cooler-height",
+          "kind": "clearance-limit",
+          "status": "interference",
+          "involvedPartIds": [
+            "case.fractal-design-north-tg-dark",
+            "cooler.noctua-nh-d15-g2"
+          ],
+          "involvedNodeNames": [
+            "clearance-limit:maxCpuCoolerHeight"
+          ],
+          "explanation": "Cooler height exceeds case maxCpuCoolerHeight limit.",
+          "evidenceSourceIds": [
+            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark"
           ]
         }
       ],

@@ -163,11 +163,16 @@ export const mountUnavailableReasonSchema = z.enum([
 ]);
 
 function aggregateOverallStatus(
-  checks: Array<{ status: PhysicalValidationStatus }>,
+  checks: Array<{ kind: string; status: PhysicalValidationStatus }>,
 ): PhysicalValidationStatus {
-  if (checks.some((c) => c.status === "interference")) return "interference";
-  if (checks.some((c) => c.status === "unavailable")) return "unavailable";
-  if (checks.some((c) => c.status === "conditional")) return "conditional";
+  const authoritative = checks.filter((c) => c.kind === "clearance-limit");
+  if (authoritative.length === 0) return "unavailable";
+  if (authoritative.some((c) => c.status === "interference"))
+    return "interference";
+  if (authoritative.some((c) => c.status === "unavailable"))
+    return "unavailable";
+  if (authoritative.some((c) => c.status === "conditional"))
+    return "conditional";
   return "fit";
 }
 

@@ -84,14 +84,33 @@ const unavailableCheck = {
   evidenceSourceIds: [],
 };
 
-const interferenceCheck = {
-  checkId: "clearance:c|collision:d",
-  kind: "clearance" as const,
-  status: "interference" as const,
-  involvedPartIds: ["c", "d"],
-  involvedNodeNames: ["clearance:c", "collision:d"],
-  explanation: "clearance violated",
+const clearanceLimitFitCheck = {
+  checkId: "clearance-limit:gpu-length",
+  kind: "clearance-limit" as const,
+  status: "fit" as const,
+  involvedPartIds: ["case", "gpu"],
+  involvedNodeNames: ["clearance-limit:maxGpuLength"],
   evidenceSourceIds: ["ev"],
+};
+
+const clearanceLimitInterferenceCheck = {
+  checkId: "clearance-limit:cpu-cooler-height",
+  kind: "clearance-limit" as const,
+  status: "interference" as const,
+  involvedPartIds: ["case", "cooler"],
+  involvedNodeNames: ["clearance-limit:maxCpuCoolerHeight"],
+  explanation: "cooler exceeds case limit",
+  evidenceSourceIds: ["ev"],
+};
+
+const clearanceLimitUnavailableCheck = {
+  checkId: "clearance-limit:psu-length",
+  kind: "clearance-limit" as const,
+  status: "unavailable" as const,
+  involvedPartIds: ["case"],
+  involvedNodeNames: ["clearance-limit:maxPsuLength"],
+  explanation: "missing limit data",
+  evidenceSourceIds: [],
 };
 
 const conditionalCheck = {
@@ -221,37 +240,49 @@ describe("phys3.schema", () => {
     expect(parsed.success).toBe(false);
   });
 
-  it("rejects overall fit when a check is unavailable", () => {
+  it("rejects overall fit when an authoritative check is unavailable", () => {
     const parsed = physicalValidationReportSchema.safeParse({
       physicalContractVersion: "phys3",
       buildStateVersion: "vs2",
       assemblyState: assembly,
-      checks: [fitCheck, unavailableCheck],
+      checks: [clearanceLimitFitCheck, clearanceLimitUnavailableCheck],
       overallStatus: "fit",
       geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
     });
     expect(parsed.success).toBe(false);
   });
 
-  it("rejects overall unavailable when a check is interference", () => {
+  it("rejects overall unavailable when an authoritative check is interference", () => {
     const parsed = physicalValidationReportSchema.safeParse({
       physicalContractVersion: "phys3",
       buildStateVersion: "vs2",
       assemblyState: assembly,
-      checks: [unavailableCheck, interferenceCheck],
+      checks: [clearanceLimitUnavailableCheck, clearanceLimitInterferenceCheck],
       overallStatus: "unavailable",
       geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
     });
     expect(parsed.success).toBe(false);
   });
 
-  it("accepts correctly aggregated fit/interference/unavailable reports", () => {
+  it("accepts advisory unavailable without changing overall fit", () => {
+    const parsed = physicalValidationReportSchema.safeParse({
+      physicalContractVersion: "phys3",
+      buildStateVersion: "vs2",
+      assemblyState: assembly,
+      checks: [clearanceLimitFitCheck, unavailableCheck],
+      overallStatus: "fit",
+      geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
+    });
+    expect(parsed.success).toBe(true);
+  });
+
+  it("accepts correctly aggregated authoritative fit/interference/unavailable reports", () => {
     expect(
       physicalValidationReportSchema.safeParse({
         physicalContractVersion: "phys3",
         buildStateVersion: "vs2",
         assemblyState: assembly,
-        checks: [fitCheck],
+        checks: [clearanceLimitFitCheck],
         overallStatus: "fit",
         geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
       }).success,
@@ -262,7 +293,7 @@ describe("phys3.schema", () => {
         physicalContractVersion: "phys3",
         buildStateVersion: "vs2",
         assemblyState: assembly,
-        checks: [fitCheck, unavailableCheck],
+        checks: [clearanceLimitFitCheck, clearanceLimitUnavailableCheck],
         overallStatus: "unavailable",
         geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
       }).success,
@@ -273,7 +304,11 @@ describe("phys3.schema", () => {
         physicalContractVersion: "phys3",
         buildStateVersion: "vs2",
         assemblyState: assembly,
-        checks: [fitCheck, unavailableCheck, interferenceCheck],
+        checks: [
+          clearanceLimitFitCheck,
+          clearanceLimitUnavailableCheck,
+          clearanceLimitInterferenceCheck,
+        ],
         overallStatus: "interference",
         geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
       }).success,
@@ -284,7 +319,7 @@ describe("phys3.schema", () => {
         physicalContractVersion: "phys3",
         buildStateVersion: "vs2",
         assemblyState: assembly,
-        checks: [fitCheck, conditionalCheck],
+        checks: [clearanceLimitFitCheck, conditionalCheck],
         overallStatus: "conditional",
         geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
       }).success,
@@ -295,11 +330,133 @@ describe("phys3.schema", () => {
         physicalContractVersion: "phys3",
         buildStateVersion: "vs2",
         assemblyState: assembly,
-        checks: [conditionalCheck, unavailableCheck],
+        checks: [conditionalCheck, clearanceLimitUnavailableCheck],
         overallStatus: "conditional",
         geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
       }).success,
     ).toBe(false);
+  });
+
+  it("Case A — authoritative fit + advisory unavailable → overall fit", () => {
+    const parsed = physicalValidationReportSchema.safeParse({
+      physicalContractVersion: "phys3",
+      buildStateVersion: "vs2",
+      assemblyState: assembly,
+      checks: [clearanceLimitFitCheck, unavailableCheck],
+      overallStatus: "fit",
+      geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
+    });
+    expect(parsed.success).toBe(true);
+  });
+
+  it("Case B — advisory-only interference cannot set overall interference", () => {
+    const advisoryInterference = {
+      checkId: "collision:a|collision:b",
+      kind: "collision" as const,
+      status: "interference" as const,
+      involvedPartIds: ["a", "b"],
+      involvedNodeNames: ["collision:a", "collision:b"],
+      explanation: "advisory collision overlap",
+      evidenceSourceIds: ["ev"],
+    };
+
+    expect(
+      physicalValidationReportSchema.safeParse({
+        physicalContractVersion: "phys3",
+        buildStateVersion: "vs2",
+        assemblyState: assembly,
+        checks: [advisoryInterference],
+        overallStatus: "unavailable",
+        geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
+      }).success,
+    ).toBe(true);
+
+    expect(
+      physicalValidationReportSchema.safeParse({
+        physicalContractVersion: "phys3",
+        buildStateVersion: "vs2",
+        assemblyState: assembly,
+        checks: [advisoryInterference],
+        overallStatus: "interference",
+        geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
+      }).success,
+    ).toBe(false);
+  });
+
+  it("Case C — authoritative interference remains authoritative", () => {
+    expect(
+      physicalValidationReportSchema.safeParse({
+        physicalContractVersion: "phys3",
+        buildStateVersion: "vs2",
+        assemblyState: assembly,
+        checks: [
+          clearanceLimitInterferenceCheck,
+          {
+            checkId: "clearance:c|collision:d",
+            kind: "clearance" as const,
+            status: "interference" as const,
+            involvedPartIds: ["c", "d"],
+            involvedNodeNames: ["clearance:c", "collision:d"],
+            explanation: "advisory clearance violated",
+            evidenceSourceIds: ["ev"],
+          },
+          unavailableCheck,
+        ],
+        overallStatus: "interference",
+        geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
+      }).success,
+    ).toBe(true);
+  });
+
+  it("Case D — authoritative precedence interference > unavailable > conditional > fit", () => {
+    expect(
+      physicalValidationReportSchema.safeParse({
+        physicalContractVersion: "phys3",
+        buildStateVersion: "vs2",
+        assemblyState: assembly,
+        checks: [
+          clearanceLimitFitCheck,
+          clearanceLimitUnavailableCheck,
+          clearanceLimitInterferenceCheck,
+          conditionalCheck,
+        ],
+        overallStatus: "interference",
+        geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
+      }).success,
+    ).toBe(true);
+
+    expect(
+      physicalValidationReportSchema.safeParse({
+        physicalContractVersion: "phys3",
+        buildStateVersion: "vs2",
+        assemblyState: assembly,
+        checks: [conditionalCheck, clearanceLimitUnavailableCheck],
+        overallStatus: "unavailable",
+        geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
+      }).success,
+    ).toBe(true);
+
+    expect(
+      physicalValidationReportSchema.safeParse({
+        physicalContractVersion: "phys3",
+        buildStateVersion: "vs2",
+        assemblyState: assembly,
+        checks: [clearanceLimitFitCheck, conditionalCheck],
+        overallStatus: "conditional",
+        geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
+      }).success,
+    ).toBe(true);
+
+    expect(
+      physicalValidationReportSchema.safeParse({
+        physicalContractVersion: "phys3",
+        buildStateVersion: "vs2",
+        assemblyState: assembly,
+        checks: [clearanceLimitFitCheck],
+        overallStatus: "fit",
+        geometryDataVersion: PHYS3_GEOMETRY_DATA_VERSION,
+      }).success,
+    ).toBe(true);
   });
 
   it("validates benchmarks/phys3/physical-validation-examples.json", () => {
