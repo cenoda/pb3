@@ -119,16 +119,17 @@
    [`docs/phases/phase-4.1/`](docs/phases/phase-4.1/)
 10. ~~**Phase 5 (제품 표면)**~~ → **완료 · 소유자 승인 (2026-08-09)** —
     [`docs/phases/phase-5/`](docs/phases/phase-5/)
-11. **Phase 6 (실제 부품 카탈로그, `cat6`)** — M0 수락 + O1–O8 확정 (2026-08-10);
+11. ~~**Phase 6 (실제 부품 카탈로그, `cat6`)**~~ — **완료 · 소유자 승인
+    (2026-08-12)**; M0 수락 + O1–O8 확정 (2026-08-10);
     **Steps 1–12 완료 · Step 12 owner-accepted 2026-08-12 · B4 resolved
     2026-08-12** (Step 5: manifest/loader **O8**; Step 6: 물리 권위 경계 +
     O7 witness; Step 7: default build 조립 검증 PASS; Step 8: 미커버리지 사유
     문구; Step 9: 카탈로그 14→22; Step 10–11: 가격 + 무결성/E2E; Step 12 audit
     + owner acceptance; **B4**: raw `chipset-bios: unavailable` 유지(O6, BIOS
     미모델), aggregate/verdict 비차단; 다른 unavailable는 기존 caution 유지;
-    BIOS 데이터 창작 없음). Final Phase 6 owner closeout 미청구 —
-    [`docs/phases/phase-6/`](docs/phases/phase-6/)
-12. **Phase 7 (카탈로그 브라우저 + 이미지)** — 미계획; Phase 6 종료 및 이미지
+    BIOS 데이터 창작 없음). Final closeout:
+    [`CLOSEOUT.md`](docs/phases/phase-6/CLOSEOUT.md)
+12. **Phase 7 (카탈로그 브라우저 + 이미지)** — 미계획; 이미지
     권리 ADR 이후 별도 M0 필요
 
 ## Phase 0 종료 승인 (2026-08-08)
@@ -420,7 +421,7 @@ Carried out of the phase (judged out of scope, not overlooked): no part photos
 browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
 **real parts catalog**, which is not started in this session.
 
-## Phase 6 — Real parts catalog (M0 accepted; Steps 1–12 done; B4 resolved; final closeout pending)
+## Phase 6 — Real parts catalog (complete; owner-approved 2026-08-12)
 
 | 항목 | 상태 |
 |------|------|
@@ -430,12 +431,12 @@ browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
 | Plan | [`implementation_plan.md`](docs/phases/phase-6/implementation_plan.md) — Steps 1–12, "source first, data second"; B4 carve-out recorded |
 | Shape | 카탈로그 데이터만 (브라우저는 Phase 7) · ≈30개 소수 정예 · AM5/DDR5 단일 · 이미지는 계약만 |
 | Owner decisions | **O1–O8 locked (2026-08-10)** — spec §7; **B4 owner decisions locked 2026-08-12** |
-| Owner acceptance | **Accepted 2026-08-10** by starting implementation; **Step 12 owner-accepted 2026-08-12** |
-| Progress | **Steps 1–12 done.** Catalog 22 parts; prices 13 rows (11 street / 2 MSRP-only); Step 12 audit packet + corrective review complete. **B4 (2026-08-12):** shared checkId policy in `src/compat/unavailablePolicy.ts` — only `chipset-bios` unavailable is non-blocking for `overallStatus` and UI verdict; raw check preserved; `dataVersion` `compat2-b4-20260812`; no `biosMinVersionForCpu` invented. Full record: [`STEPS.md`](docs/phases/phase-6/STEPS.md) |
+| Owner acceptance | **Accepted 2026-08-10** by starting implementation; **Step 12 owner-accepted and final phase closeout approved 2026-08-12** |
+| Progress | **Complete; owner-approved closeout 2026-08-12.** Steps 1–12 done. Catalog 22 parts; prices 13 rows (11 street / 2 MSRP-only); Step 12 audit packet + corrective review complete. **B4 (2026-08-12):** shared checkId policy in `src/compat/unavailablePolicy.ts` — only `chipset-bios` unavailable is non-blocking for `overallStatus` and UI verdict; raw check preserved; `dataVersion` `compat2-b4-20260812`; no `biosMinVersionForCpu` invented. Records: [`STEPS.md`](docs/phases/phase-6/STEPS.md), [`CLOSEOUT.md`](docs/phases/phase-6/CLOSEOUT.md) |
 | **O8 — manifest/loader** | **Done (Step 5).** Runtime membership is manifest-only; default build join-guarded, not manifest-derived |
 | **O7 — running-app reachability** | **Done (Step 6, 2026-08-10).** Slot 14 admitted; witness build reachable; E2E green |
-| Open blockers | **None remaining for Steps 1–12 / B4.** Resolved: **B3**, **B4**, **B8**, **B11**, **B12**. Final Phase 6 owner closeout (`CLOSEOUT.md`) still pending — not a code blocker |
-| Gate | Step 12 owner acceptance **closed 2026-08-12**. Final phase closeout separate |
+| Open blockers | **None.** Resolved: **B3**, **B4**, **B8**, **B11**, **B12** |
+| Gate | **Closed 2026-08-12** — Step 12 accepted and final Phase 6 owner closeout recorded |
 | **O1 — accepted consequence** | `perf1` covers 2 CPUs × 2 GPUs and Phase 4.1 is frozen, so **most valid builds show no FPS**. Estimator-in-preparation via `src/perf/**` reason strings — **Step 8 done** |
 | **O3/O4 — id migration** | **Done.** 22 `cat6` SKU ids live under `parts/**`; integrity guard in place |
 | **Share links** | **Break once, deliberately.** Old links open on the default build (lenient decoder) |

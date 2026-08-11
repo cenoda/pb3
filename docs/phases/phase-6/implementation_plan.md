@@ -15,7 +15,8 @@ re-anchoring complete (2026-08-11). Records in [`STEPS.md`](./STEPS.md). Step
 12 exhaustive audit + owner acceptance **complete 2026-08-12**. **B4**
 (permanent-caution under O6) resolved 2026-08-12 by the carve-out below —
 raw `chipset-bios: unavailable` preserved, non-blocking for aggregate and
-verdict. Final Phase 6 owner closeout still pending; Phase 7 not started.**
+verdict. Phase 6 owner-approved and closed 2026-08-12; see
+[`CLOSEOUT.md`](./CLOSEOUT.md). Phase 7 not started.**
 
 ---
 

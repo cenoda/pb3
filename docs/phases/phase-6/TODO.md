@@ -4,6 +4,8 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
 · Contract: [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md)
 · Plan: [`implementation_plan.md`](./implementation_plan.md)
 
+Status: **Complete; owner-approved closeout 2026-08-12.**
+
 ## M0 (planning)
 
 - [x] Phase opened and scope drafted (2026-08-10)
@@ -102,8 +104,8 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
 - [x] `STEPS.md` — Step 6 (authority / RK1, 2026-08-10) + Step 7 (default
       assembly evidence, 2026-08-11) + Step 8 (unavailable-reason wording,
       2026-08-11) + Step 12 / B4 truth-sync (2026-08-12)
-- [ ] `CLOSEOUT.md` — owner result, what it rests on, gaps carried forward
-      (**not** claimed; final Phase 6 owner closeout still pending)
+- [x] [`CLOSEOUT.md`](./CLOSEOUT.md) — owner-approved final result, verification
+      basis, shipped scope, and gaps carried forward (2026-08-12)
 - [x] `STATUS.md` / [`../README.md`](../README.md) updated (2026-08-12 B4
       truth-sync)
 

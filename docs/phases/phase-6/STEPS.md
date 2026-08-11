@@ -596,8 +596,8 @@ packet): `pnpm test` **39/339 PASS**, `pnpm test:e2e` **19/19 PASS**,
 ## 5. Status after this record
 
 Steps 10 and 11 are **complete**. Step 12 owner acceptance and **B4** were
-closed 2026-08-12 (see below and the B4 corrective record). Phase 7 not
-started; final Phase 6 closeout still pending.
+closed 2026-08-12 (see below and the B4 corrective record). Phase 6 received
+final owner closeout on 2026-08-12; Phase 7 has not started.
 
 ---
 
@@ -647,7 +647,7 @@ Agent-delivered audit packet before owner spot-check. Full record:
 - **Owner Step 12 acceptance:** closed 2026-08-12 (after corrective
   `260169e` review).
 - **B4:** resolved 2026-08-12 — see following section.
-- Phase 6 final owner closeout still pending. Phase 7 not started.
+- Phase 6 final owner closeout accepted 2026-08-12. Phase 7 not started.
   Automation pipeline not implemented.
 
 ---
@@ -686,5 +686,24 @@ Owner decisions locked 2026-08-12:
 
 ## Status after B4
 
-Step 12 owner-accepted; B4 resolved; final Phase 6 owner closeout **not**
-claimed; Phase 7 **not** started.
+Step 12 owner-accepted; B4 resolved; final Phase 6 owner closeout accepted
+2026-08-12; Phase 7 **not** started.
+
+---
+
+# Final closeout (owner, 2026-08-12)
+
+The owner accepted the completed Phase 6 package after independent verification
+of the B4 corrective commit `83510fe`. Phase 6 is complete. The close rests on:
+
+- Step 12's exhaustive factual audit and corrective review, accepted by the
+  owner on 2026-08-12;
+- B4's shared, checkId-based unavailable policy, independently verified with
+  raw BIOS coverage still visible and every other unavailable check still
+  cautioning;
+- `pnpm test:all`: 40 unit-test files / 344 tests and 19 Playwright tests,
+  all passing;
+- `pnpm build`: clean; `git diff --check`: clean.
+
+The final owner record, shipped scope, and deliberately carried gaps are in
+[`CLOSEOUT.md`](./CLOSEOUT.md). This close does not start or authorize Phase 7.

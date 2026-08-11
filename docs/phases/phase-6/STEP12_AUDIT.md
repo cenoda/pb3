@@ -240,7 +240,8 @@ Resolved recovery routes (blocked in the plain harness, verified this packet):
 - **Exhaustive audit packet:** recorded (this document), with 2026-08-12 corrective review.
 - **Step 12 owner acceptance:** **accepted 2026-08-12** (after corrective commit `260169e` independent review). Four parts remain **BLOCKED** on primary manufacturer citations and one MSRP row remains **BLOCKED** as honest catalog gaps — acceptance closed the Step 12 gate, not the claim that every citation is green.
 - **B4** (permanent `caution`): **resolved 2026-08-12** in a separate corrective packet — raw `chipset-bios: unavailable` preserved under O6; non-blocking for aggregate/verdict; other unavailable checks still caution. No BIOS data invented.
-- **Phase 6 complete / final owner closeout:** **not** claimed (`CLOSEOUT.md` pending).
+- **Phase 6 final owner closeout:** **accepted 2026-08-12** after the separate
+  B4 corrective passed independent verification; see [`CLOSEOUT.md`](./CLOSEOUT.md).
 - **Phase 7:** not started.
 - **Catalog-authoring automation pipeline:** not implemented.
 - **Push:** not performed.

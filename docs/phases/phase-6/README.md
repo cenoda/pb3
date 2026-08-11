@@ -2,8 +2,9 @@
 
 The phase that replaces the invented data the Phase 0–5 work runs on.
 
-**Status: M0 package drafted and accepted 2026-08-10. Owner decisions O1–O8
-locked. Steps 1–12 complete and Step 12 owner-accepted 2026-08-12. Step 6
+**Status: Complete; owner-approved closeout 2026-08-12. M0 package accepted
+2026-08-10 and owner decisions O1–O8 locked. Steps 1–12 complete and Step 12
+owner-accepted 2026-08-12. Step 6
 authority boundary (2026-08-10), Step 7 default-build assembly verification
 (2026-08-11), Step 8 unavailable-reason wording (2026-08-11), Step 9 catalog
 growth to 22 parts (2026-08-11), Step 10 sourced catalog prices + Step 11
@@ -11,8 +12,8 @@ integrity/E2E re-anchoring (2026-08-11) are recorded in [`STEPS.md`](./STEPS.md)
 Step 12 exhaustive factual audit packet recorded 2026-08-11 and correctively
 reviewed 2026-08-12 ([`STEP12_AUDIT.md`](./STEP12_AUDIT.md)). **B4 resolved
 2026-08-12:** raw `chipset-bios: unavailable` preserved under O6 (BIOS not
-modeled); non-blocking for aggregate compatibility and UI verdict. Final Phase
-6 owner closeout still pending; Phase 7 not started.**
+modeled); non-blocking for aggregate compatibility and UI verdict. Final
+closeout: [`CLOSEOUT.md`](./CLOSEOUT.md). Phase 7 not started.**
 
 Phase 6 is **primarily a catalog/data phase** — the display layer stays as it
 is. It is not purely data-only: Step 6 includes the narrowly scoped
@@ -28,7 +29,8 @@ changed the display layer and no data.
 | [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md) | `cat6` — identity, dimensions, SKU performance spec, provenance, image fields, id convention, manifest, dual-price model, validation split |
 | [`implementation_plan.md`](./implementation_plan.md) | Ordered Steps 1–12, untouchable boundary, verification, honest failure modes |
 | [`TODO.md`](./TODO.md) | Checklist |
-| [`STEPS.md`](./STEPS.md) | Step 6–11 closeout records — RK1 arithmetic, default-build assembly evidence, unavailable-reason wording, catalog growth to 22 parts, sourced catalog prices, integrity/E2E re-anchoring |
+| [`STEPS.md`](./STEPS.md) | Step 6–12 and B4 records — authority/RK1, default assembly, unavailable wording, catalog growth, prices, integrity, factual audit, and verdict correction |
+| [`CLOSEOUT.md`](./CLOSEOUT.md) | Owner-approved final result, verification basis, shipped scope, and carried gaps |
 | [`../phase-5/CLOSEOUT.md`](../phase-5/CLOSEOUT.md) | The direction this phase answers: real catalog first, catalog browser second |
 
 ## The gate
@@ -74,7 +76,7 @@ this shape: the gate measures the thing itself, not a proxy for it.
 | Step 12 — exhaustive factual audit packet | **Recorded — 2026-08-11; corrective review 2026-08-12** ([`STEP12_AUDIT.md`](./STEP12_AUDIT.md); ASUS B650 `maxMemorySpeedMtS` corrected; Lian Li A3 charts visually PASS; GIGABYTE Rev. 1.3 price FIXED-REMOVED; 17 PASS / 1 FIXED / 4 BLOCKED parts; 12 PASS / 1 BLOCKED prices over 13 rows) |
 | Owner spot-check (Step 12 acceptance) | **Owner-accepted 2026-08-12** |
 | B4 — permanent-caution under O6 | **Resolved 2026-08-12** — `chipset-bios: unavailable` informational/non-blocking; other unavailable checks still caution; no BIOS data invented |
-| Final Phase 6 owner closeout | Pending — `CLOSEOUT.md` not written; Phase 7 not started |
+| Final Phase 6 owner closeout | **Complete — owner-approved 2026-08-12**; [`CLOSEOUT.md`](./CLOSEOUT.md). Phase 7 not started |
 
 ## Relationship to other work
 
