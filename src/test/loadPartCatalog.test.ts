@@ -24,7 +24,7 @@ describe("loadPartCatalog", () => {
     for (const entry of manifest.parts) {
       expect(catalog.get(entry.id), entry.id).toBeDefined();
     }
-    expect(catalog.byId.size).toBe(14);
+    expect(catalog.byId.size).toBe(22);
   });
 
   it("resolves default build state ids", async () => {

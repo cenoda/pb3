@@ -1,0 +1,40 @@
+{
+  "contractVersion": "cat6",
+  "id": "motherboard.asus-tuf-gaming-b650-plus-wifi",
+  "category": "motherboard",
+  "displayName": "ASUS TUF GAMING B650-PLUS WIFI",
+  "identity": {
+    "manufacturer": "ASUS",
+    "modelName": "TUF GAMING B650-PLUS WIFI"
+  },
+  "modelGlbPath": "parts/motherboard/motherboard.asus-tuf-gaming-b650-plus-wifi/model.glb",
+  "dimensionsMm": {
+    "raw": "12 inch x 9.6 inch ( 30.5 cm x 24.4 cm )",
+    "lengthMm": 305,
+    "heightMm": 244,
+    "assignmentBasis": "ASUS prints a two-figure board outline in inches and centimetres next to the 'ATX Form Factor' label; the centimetre figures are recorded here in millimetres as the board's two in-plane dimensions, matching the convention already used for motherboard.gigabyte-b650-aorus-elite-ax-v2. thicknessMm is absent because the page publishes no board thickness; it is not filled from the ATX form factor, which standardises mounting geometry rather than this SKU's physical dimensions."
+  },
+  "compatSpec": {
+    "socket": "AM5",
+    "chipset": "AMD B650",
+    "formFactor": "ATX",
+    "supportedMemoryType": "DDR5",
+    "maxMemorySpeedMtS": 7200,
+    "biosMinVersionForCpu": {}
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.asus.tuf-gaming-b650-plus-wifi.techspec. Socket: 'AMD Socket AM5 for AMD Ryzen(TM) 9000 & 8000 & 7000 Series Desktop Processors'. Chipset: 'AMD B650'. Memory: '4 x DIMM, Max. 256GB, DDR5', dual channel, ECC and Non-ECC un-buffered memory, AMD EXPO supported. Memory speed list, verbatim: '7600+(OC)/ 7200(OC)/ 7000(OC)/ 6800(OC)/6600(OC)/ 6400(OC)/ 6200(OC)/ 6000(OC)/ 5800(OC)/ 5600(OC)/ 5400(OC)/ 5200/ 5000/ 4800'. maxMemorySpeedMtS records 7200, not the higher 7600 -- the trailing '+' on '7600+(OC)' states a floor for the overclocking ceiling rather than an exact maximum, the same reading already applied to the B860M's '8800+MT/s' figure, so 7200(OC), the next listed figure printed without a '+', is the highest value the vendor states as an exact ceiling, per C14. BIOS: biosMinVersionForCpu is deliberately empty under O6.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.asus.tuf-gaming-b650-plus-wifi.techspec",
+      "retrievedAt": "2026-08-11"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.asus.tuf-gaming-b650-plus-wifi.techspec",
+      "retrievedAt": "2026-08-11"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.asus.tuf-gaming-b650-plus-wifi.techspec",
+      "retrievedAt": "2026-08-11"
+    }
+  }
+}

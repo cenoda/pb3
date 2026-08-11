@@ -1,0 +1,61 @@
+{
+  "contractVersion": "cat6",
+  "id": "case.nzxt-h5-flow",
+  "category": "case",
+  "displayName": "NZXT H5 Flow",
+  "identity": {
+    "manufacturer": "NZXT",
+    "modelName": "H5 Flow"
+  },
+  "modelGlbPath": "parts/case/case.nzxt-h5-flow/model.glb",
+  "dimensionsMm": {
+    "raw": "Dimensions (H x W x D): 465 x 225 x 430 mm",
+    "lengthMm": 430,
+    "heightMm": 465,
+    "thicknessMm": 225,
+    "assignmentBasis": "NZXT labels the figures (H x W x D), so heightMm is quoted rather than inferred. Depth is recorded as lengthMm and width as thicknessMm, matching the case convention already used for case.lian-li-a3-matx-black and cooler.noctua-nh-d15-g2."
+  },
+  "clearanceLimits": {
+    "raw": "Dimensions (H x W x D): 465 x 225 x 430 mm | GPU Length: Up to 410 mm | CPU Cooler Height: Up to 170 mm | PSU Length: Up to 200 mm | Motherboard Support: E-ATX (Up to 277 mm), ATX, Micro-ATX, Mini-ITX",
+    "maxGpuLength": [
+      {
+        "limitMm": 410
+      }
+    ],
+    "maxCpuCoolerHeight": [
+      {
+        "limitMm": 170
+      }
+    ],
+    "maxPsuLength": [
+      {
+        "limitMm": 200
+      }
+    ]
+  },
+  "compatSpec": {
+    "supportedFormFactors": [
+      "ATX",
+      "Micro-ATX"
+    ]
+  },
+  "notes": "Published clearance facts that the cat6 contract has no field for, kept verbatim rather than dropped, from source.cat6.nzxt.h5-flow.product. Motherboard support: the product also accepts E-ATX (up to 277 mm) and Mini-ITX; compat2's CaseCompatSpec models only ATX and Micro-ATX, so both are dropped from supportedFormFactors and the omission is recorded here rather than silently lost. All three clearance limits ('Up to ...') are printed as plain ceilings with no configuration-dependent branch, so each is recorded as a single unconditional ClearanceLimit.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.nzxt.h5-flow.product",
+      "retrievedAt": "2026-08-11"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.nzxt.h5-flow.product",
+      "retrievedAt": "2026-08-11"
+    },
+    "clearanceLimits": {
+      "sourceId": "source.cat6.nzxt.h5-flow.product",
+      "retrievedAt": "2026-08-11"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.nzxt.h5-flow.product",
+      "retrievedAt": "2026-08-11"
+    }
+  }
+}

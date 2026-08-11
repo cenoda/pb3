@@ -1,6 +1,6 @@
 {
   "catalogContractVersion": "cat6",
-  "registryVersion": "cat6-registry-20260810",
+  "registryVersion": "cat6-registry-20260811",
   "sources": [
     {
       "sourceId": "source.cat6.asus.dual-rtx4070-o12g.techspec",
@@ -152,6 +152,87 @@
       "origin": "G.SKILL specification page",
       "citation": "https://www.gskill.com/specification/165/374/1696494301/F5-8400J4052G24GX2-TZ5RW-Specification",
       "notes": "SKU-specific page for the TZ5RW white variant; TZ5RK is a different SKU. Tested speed 8400 MT/s at 1.40V with SPD speed 5600 MT/s at 1.10V -- the rated figure is recorded, not the SPD fallback. G.SKILL states that reaching the rated speed requires overclocking and BIOS adjustment and depends on the CPU and motherboard. The page publishes no module length or thickness."
+    },
+    {
+      "sourceId": "source.cat6.asus.dual-rtx4060-o8g.techspec",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "ASUS Dual GeForce RTX 4060 OC Edition 8GB GDDR6 - Tech Specs",
+      "origin": "ASUS Global product specification page",
+      "citation": "https://www.asus.com/us/motherboards-components/graphics-cards/dual/dual-rtx4060-o8g/techspec/",
+      "notes": "Dimensions and boost clock are unlabeled/labeled per the page as recorded on the part. ASUS separately sells DUAL-RTX4060-O8G-V2 and DUAL-RTX4060-O8G-WHITE as distinct SKUs with their own pages; their figures are not interchangeable with this one."
+    },
+    {
+      "sourceId": "source.cat6.nvidia.rtx4060-4060ti-family.reference-tgp",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "NVIDIA GeForce RTX 4060 Ti & RTX 4060 - specifications",
+      "origin": "NVIDIA GeForce RTX 40 Series product page",
+      "citation": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4060-4060ti/",
+      "notes": "Total Graphics Power row: RTX 4060 Ti '165 or 160' W (the published table does not split this by 8GB/16GB memory configuration); RTX 4060 '115' W, a single unambiguous figure. Only the RTX 4060 figure is used in this catalog (gpu.asus-dual-rtx4060-o8g); no RTX 4060 Ti SKU is catalogued from this source, because recording either 165 or 160 would assert a precision the source does not give. NVIDIA states specifications vary by add-in-card manufacturer; this is a chip-level figure, not a board-partner figure."
+    },
+    {
+      "sourceId": "source.cat6.asus.tuf-gaming-b650-plus-wifi.techspec",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "ASUS TUF GAMING B650-PLUS WIFI - Tech Specs",
+      "origin": "ASUS motherboard specification page",
+      "citation": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b650-plus-wifi/techspec/",
+      "notes": "Socket AM5, chipset AMD B650, DDR5, ATX. Memory speed list published as '7600+(OC)/ 7200(OC)/ 7000(OC)/ 6800(OC)/6600(OC)/ 6400(OC)/ 6200(OC)/ 6000(OC)/ 5800(OC)/ 5600(OC)/ 5400(OC)/ 5200/ 5000/ 4800'; the leading figure's trailing '+' means the page states a floor for the overclocking ceiling rather than an exact maximum (same reading as the B860M's '8800+MT/s'), so it is not recorded as maxMemorySpeedMtS -- the next listed figure without a '+', 7200(OC), is recorded instead. Board outline is published as two figures (30.5cm x 24.4cm) with no thickness."
+    },
+    {
+      "sourceId": "source.cat6.fractal-design.meshify-2-compact.product",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "Fractal Design Meshify 2 Compact - specifications",
+      "origin": "Fractal Design product page",
+      "citation": "https://www.fractal-design.com/products/cases/meshify/meshify-2-compact/black-solid/",
+      "notes": "Case dimensions are labeled '(LxWxH)' on the page: 424 x 210 x 475 mm. GPU max length 341 mm (360 mm without front fan); CPU cooler max height 169 mm; PSU max length 200 mm (165 mm with HDD cage and front fan); motherboard compatibility ATX / mATX / Mini-ITX, of which compat2 models only ATX and Micro-ATX."
+    },
+    {
+      "sourceId": "source.cat6.nzxt.h5-flow.product",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "NZXT H5 Flow - specifications",
+      "origin": "NZXT product page",
+      "citation": "https://www.nzxt.com/products/h5-flow",
+      "notes": "Case dimensions are labeled '(H x W x D)' on the page: 465 x 225 x 430 mm. GPU length up to 410 mm; CPU cooler height up to 170 mm; PSU length up to 200 mm, each printed as a plain ceiling with no configuration-dependent branch. Motherboard support E-ATX (up to 277 mm), ATX, Micro-ATX, Mini-ITX, of which compat2 models only ATX and Micro-ATX."
+    },
+    {
+      "sourceId": "source.cat6.corsair.rm850e-cp-9020263-na.product",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "CORSAIR RMe Series RM850e Fully Modular Low-Noise ATX Power Supply (CP-9020263-NA)",
+      "origin": "Corsair product page",
+      "citation": "https://www.corsair.com/us/en/p/psu/cp-9020263-na/rme-series-rm850e-fully-modular-low-noise-atx-power-supply-cp-9020263-na",
+      "notes": "SKU-specific page for CP-9020263-NA. Dimensions are printed as an unlabeled triplet '140x150x86' with no separate 'Length' row on this page; the length assignment on the part record is derived by comparison with the RM750e sibling SKU (source.cat6.corsair.rm750e-cp-9020295-na.product), which does separately label Length as 140mm and shares the identical 140x150x86 triplet as a same-series (RMe) chassis. Wattage 850 W; 80 PLUS Gold; ATX 3.1; PCIe 5.1 compliant; fully modular."
+    },
+    {
+      "sourceId": "source.cat6.deepcool.ak620.product",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "DeepCool AK620 - High Performance CPU Cooler",
+      "origin": "DeepCool product page",
+      "citation": "https://www.deepcool.com/products/Cooling/cpuaircoolers/AK620-High-Performance-CPU-Cooler-1700-AM5/2021/13067.shtml",
+      "notes": "Dimensions labeled '(L x W x H)': product/with-fans 129x138x160 mm (used on the part record as the installed envelope), heatsink-only 127x110x157 mm (not used, matching the with-fan convention already applied to the Noctua NH-D15 G2). Socket compatibility AM5/AM4 plus a list of Intel sockets. RAM clearance 43 mm dual-fan / 59 mm single-fan mode. Maximum heat dissipation (TDP rating) 260 W. Weight 1456 g."
+    },
+    {
+      "sourceId": "source.cat6.coolermaster.hyper-212-halo-black.product",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "Cooler Master Hyper 212 Halo Black",
+      "origin": "Cooler Master product page",
+      "citation": "https://www.coolermaster.com/en-global/products/hyper-212-halo-black/",
+      "notes": "Dimensions labeled '(L x W x H)': 124 x 73 x 154 mm. Socket compatibility AM5/AM4 plus a list of Intel sockets. 4 heat pipes; one 120mm ARGB fan. The page publishes no weight and no TDP/heat-dissipation rating; neither is recorded."
+    },
+    {
+      "sourceId": "source.cat6.teamgroup.t-create-expert-ddr5-6000-64gb.product",
+      "sourceClass": "manufacturer-spec",
+      "rightsClass": "public-spec",
+      "title": "TEAMGROUP T-CREATE EXPERT U-DIMM DDR5 Black 64GB (2x32GB) 6000MHz CL34 (CTCED564G6000HC34BDC01)",
+      "origin": "TEAMGROUP product detail page",
+      "citation": "https://www.teamgroupinc.com/en/product-detail/memory/T-CREATE/expert-u-dimm-ddr5-black/expert-u-dimm-ddr5-black-CTCED564G6000HC34BDC01/",
+      "notes": "Publishes the same labelled module dimensions as the 32GB CL30 sibling SKU -- 32(H) x 133(L) x 7(W) mm -- since both are the same physical module/heatspreader design at a different DRAM density. Capacity 64GB (2x32GB); CAS latency CL34; voltage 1.35V; Intel XMP3.0 and AMD EXPO supported."
     },
     {
       "sourceId": "source.cat6.gskill.dram-memory-faq",

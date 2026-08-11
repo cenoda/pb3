@@ -1,0 +1,37 @@
+{
+  "contractVersion": "cat6",
+  "id": "psu.corsair-rm850e-cp-9020263-na",
+  "category": "psu",
+  "displayName": "Corsair RM850e Fully Modular ATX Power Supply",
+  "identity": {
+    "manufacturer": "Corsair",
+    "modelName": "RM850e",
+    "partNumber": "CP-9020263-NA"
+  },
+  "modelGlbPath": "parts/psu/psu.corsair-rm850e-cp-9020263-na/model.glb",
+  "dimensionsMm": {
+    "raw": "140x150x86",
+    "lengthMm": 140,
+    "heightMm": 86,
+    "thicknessMm": 150,
+    "assignmentBasis": "Corsair prints an unlabeled triplet '140x150x86' on this SKU's own page, with no separate 'Length' row. The RM850e shares these exact three figures with psu.corsair-rm750e, a same-series (RMe) sibling whose own page separately and explicitly labels its first figure as Length (140 mm); since the RMe series shares one physical chassis across wattages and the two SKUs' unlabeled triplets are identical, the first figure here is assigned as lengthMm on that basis, and the remaining two are the ATX unit's standard width and height, matching the RM750e assignment (thicknessMm 150, heightMm 86)."
+  },
+  "compatSpec": {
+    "wattage": 850
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.corsair.rm850e-cp-9020263-na.product. Wattage '850 Watts'; '80 PLUS Gold-Certified' with up to 90% efficiency; fully modular; ATX 3.1 certified; PCIe 5.1 compliant (12V-2x6 GPU cable included); Zero RPM fan mode; 7-year warranty; weight 2.738 kg. SKU: this entry is CP-9020263-NA specifically; compat2 models no PSU form factor beyond wattage.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.corsair.rm850e-cp-9020263-na.product",
+      "retrievedAt": "2026-08-11"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.corsair.rm850e-cp-9020263-na.product",
+      "retrievedAt": "2026-08-11"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.corsair.rm850e-cp-9020263-na.product",
+      "retrievedAt": "2026-08-11"
+    }
+  }
+}

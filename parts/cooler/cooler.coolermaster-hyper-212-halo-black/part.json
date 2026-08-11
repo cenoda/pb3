@@ -1,0 +1,29 @@
+{
+  "contractVersion": "cat6",
+  "id": "cooler.coolermaster-hyper-212-halo-black",
+  "category": "cooler",
+  "displayName": "Cooler Master Hyper 212 Halo Black",
+  "identity": {
+    "manufacturer": "Cooler Master",
+    "modelName": "Hyper 212 Halo Black"
+  },
+  "modelGlbPath": "parts/cooler/cooler.coolermaster-hyper-212-halo-black/model.glb",
+  "dimensionsMm": {
+    "raw": "Dimensions (L x W x H) 124 x 73 x 154 mm",
+    "lengthMm": 124,
+    "heightMm": 154,
+    "thicknessMm": 73,
+    "assignmentBasis": "Cooler Master labels the figures (L x W x H), so the assignment is quoted, not inferred, matching the convention already used for psu.cooler-master-v550-sfx-gold."
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.coolermaster.hyper-212-halo-black.product. Socket compatibility: Intel 'LGA 1851 / 1700 / 1200 / 1151 / 1150 / 1155 / 1156 socket', AMD 'AM5 / AM4 Socket'. compat2 defines no CoolerCompatSpec and no cooler-socket check, so this list has no compatSpec field to occupy, matching cooler.noctua-nh-d15-g2's handling. Construction: 4 heat pipes; one 120x120x25mm ARGB fan, 650-2050 RPM, 51.88 CFM max, <=27 dBA max. The page does not publish a weight or a TDP/heat-dissipation rating; neither is recorded, and neither is estimated from the similarly sized DeepCool AK620.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.coolermaster.hyper-212-halo-black.product",
+      "retrievedAt": "2026-08-11"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.coolermaster.hyper-212-halo-black.product",
+      "retrievedAt": "2026-08-11"
+    }
+  }
+}

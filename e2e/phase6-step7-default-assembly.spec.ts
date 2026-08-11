@@ -25,16 +25,18 @@ async function waitForReady(page: Page) {
 }
 
 test.describe("Phase 6 Step 7 — default build assembly (browser)", () => {
-  test("default build loads 14-part catalog, mounts in 3D, clearance-limits fit", async ({
+  test("default build loads the cat6 catalog, mounts in 3D, clearance-limits fit", async ({
     page,
     request,
   }) => {
-    // Manifest-loaded catalog is the live source of truth (O8).
+    // Manifest-loaded catalog is the live source of truth (O8). Size grew
+    // from 14 (Step 7) to 22 (Step 9); this spec locks default-build
+    // behavior, not the catalog size — see cat6.manifest.test.ts for that.
     const manifestRes = await request.get("/parts/catalog-manifest.json");
     expect(manifestRes.ok()).toBeTruthy();
     const manifest = await manifestRes.json();
     expect(manifest.catalogContractVersion).toBe("cat6");
-    expect(manifest.parts).toHaveLength(14);
+    expect(manifest.parts).toHaveLength(22);
 
     await page.goto("/");
     await waitForReady(page);

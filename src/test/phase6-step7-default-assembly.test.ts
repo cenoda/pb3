@@ -1,8 +1,10 @@
 /**
  * Phase 6 Step 7 — default build assembly verification (unit).
- * Locks: 14-part manifest catalog, full mount, authoritative clearance-limit
- * fit for cooler + every published PSU branch, and no OBB interference on the
- * default orientation.
+ * Locks: full mount, authoritative clearance-limit fit for cooler + every
+ * published PSU branch, and no OBB interference on the default orientation.
+ * The manifest catalog size (14 at Step 7, 22 after Step 9's growth) is not
+ * pinned here beyond "the default parts resolve" — see
+ * cat6.manifest.test.ts and loadPartCatalog.test.ts for the size lock.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -55,11 +57,11 @@ function loadCatalogAndIndexes() {
 }
 
 describe("Phase 6 Step 7 — default build assembly", () => {
-  it("resolves the default build against the 14-part cat6 manifest catalog", () => {
+  it("resolves the default build against the cat6 manifest catalog", () => {
     const { catalog, parts, manifest } = loadCatalogAndIndexes();
     expect(manifest.catalogContractVersion).toBe("cat6");
-    expect(manifest.parts).toHaveLength(14);
-    expect(parts).toHaveLength(14);
+    expect(manifest.parts).toHaveLength(22);
+    expect(parts).toHaveLength(22);
 
     const d = DEFAULT_BUILD_STATE_V2;
     const defaultIds = [

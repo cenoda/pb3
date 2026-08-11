@@ -1,0 +1,71 @@
+{
+  "contractVersion": "cat6",
+  "id": "case.fractal-design-meshify-2-compact-black-solid",
+  "category": "case",
+  "displayName": "Fractal Design Meshify 2 Compact Black Solid",
+  "identity": {
+    "manufacturer": "Fractal Design",
+    "modelName": "Meshify 2 Compact Black Solid"
+  },
+  "modelGlbPath": "parts/case/case.fractal-design-meshify-2-compact-black-solid/model.glb",
+  "dimensionsMm": {
+    "raw": "Case dimensions (LxWxH): 424 x 210 x 475 mm",
+    "lengthMm": 424,
+    "heightMm": 475,
+    "thicknessMm": 210,
+    "assignmentBasis": "Fractal Design labels the figures (LxWxH), so the assignment is quoted, not inferred, matching the convention already used for case.fractal-design-north-tg-dark."
+  },
+  "clearanceLimits": {
+    "raw": "Case dimensions (LxWxH): 424 x 210 x 475 mm | GPU max length: 341 mm (360 mm without front fan) | CPU cooler max height: 169 mm | PSU max length: 200 mm (165 mm with HDD cage and front fan) | Motherboard compatibility: ATX / mATX / Mini-ITX",
+    "maxGpuLength": [
+      {
+        "limitMm": 341,
+        "condition": "with front fan mounted"
+      },
+      {
+        "limitMm": 360,
+        "condition": "without front fan mounted"
+      }
+    ],
+    "maxCpuCoolerHeight": [
+      {
+        "limitMm": 169
+      }
+    ],
+    "maxPsuLength": [
+      {
+        "limitMm": 200,
+        "condition": "HDD cage and front fan not both installed"
+      },
+      {
+        "limitMm": 165,
+        "condition": "with HDD cage and front fan"
+      }
+    ]
+  },
+  "compatSpec": {
+    "supportedFormFactors": [
+      "ATX",
+      "Micro-ATX"
+    ]
+  },
+  "notes": "Published clearance facts that the cat6 contract has no field for, kept verbatim rather than dropped, from source.cat6.fractal-design.meshify-2-compact.product. Motherboard compatibility: the product also accepts Mini-ITX; compat2's CaseCompatSpec models only ATX and Micro-ATX, so Mini-ITX is dropped from supportedFormFactors and the omission is recorded here rather than silently lost -- the same handling already used for case.lian-li-a3-matx-black's dropped ATX support.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.fractal-design.meshify-2-compact.product",
+      "retrievedAt": "2026-08-11"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.fractal-design.meshify-2-compact.product",
+      "retrievedAt": "2026-08-11"
+    },
+    "clearanceLimits": {
+      "sourceId": "source.cat6.fractal-design.meshify-2-compact.product",
+      "retrievedAt": "2026-08-11"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.fractal-design.meshify-2-compact.product",
+      "retrievedAt": "2026-08-11"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "contractVersion": "cat6",
+  "id": "ram.teamgroup-t-create-expert-ddr5-6000-64gb",
+  "category": "ram",
+  "displayName": "TEAMGROUP T-CREATE EXPERT U-DIMM DDR5 Black 64GB (2x32GB) 6000MHz CL34",
+  "identity": {
+    "manufacturer": "TEAMGROUP",
+    "modelName": "T-CREATE EXPERT U-DIMM DDR5 Black",
+    "partNumber": "CTCED564G6000HC34BDC01"
+  },
+  "modelGlbPath": "parts/ram/ram.teamgroup-t-create-expert-ddr5-6000-64gb/model.glb",
+  "dimensionsMm": {
+    "raw": "32(H) x 133(L) x 7(W) mm",
+    "lengthMm": 133,
+    "heightMm": 32,
+    "thicknessMm": 7,
+    "assignmentBasis": "TEAMGROUP publishes all three module dimensions with labels on this SKU's page -- 32(H) x 133(L) x 7(W) mm -- the same figures already recorded for ram.teamgroup-t-create-expert-ddr5-6000-32gb, since both are the same T-CREATE EXPERT physical module and heatspreader design at a different DRAM density."
+  },
+  "compatSpec": {
+    "memoryType": "DDR5",
+    "speedMtS": 6000,
+    "capacityGb": 64
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.teamgroup.t-create-expert-ddr5-6000-64gb.product. Capacity '64GB (2x32GB)'; rated speed '6000MHz (PC5-48000)'; CAS latency 'CL34'; voltage '1.35V'; 'Intel XMP3.0' and 'AMD EXPO' both supported, must be manually enabled; lifetime warranty. SKU: this is the black CTCED564G6000HC34BDC01 kit; TEAMGROUP separately sells a white CTCWD564G6000HC34BDC01 and a lower-capacity CL30 32GB CTCED532G6000HC30DC01 (already catalogued as ram.teamgroup-t-create-expert-ddr5-6000-32gb) -- different SKUs, not interchanged here.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.teamgroup.t-create-expert-ddr5-6000-64gb.product",
+      "retrievedAt": "2026-08-11"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.teamgroup.t-create-expert-ddr5-6000-64gb.product",
+      "retrievedAt": "2026-08-11"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.teamgroup.t-create-expert-ddr5-6000-64gb.product",
+      "retrievedAt": "2026-08-11"
+    }
+  }
+}

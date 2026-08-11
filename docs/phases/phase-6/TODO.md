@@ -52,7 +52,20 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
       preparation; test asserts no presentable value (2026-08-11; unit
       `estimateBaseline.test.ts` + `estimateWorkload.test.ts`; `pnpm test` 38
       files / 320 tests)
-- [ ] Step 9 — grow to ≈30 parts, including a genuine interference pair
+- [x] Step 9 — grow the catalog (2026-08-11): 8 fully sourced parts added
+      (14 → 22): `gpu.asus-dual-rtx4060-o8g`,
+      `motherboard.asus-tuf-gaming-b650-plus-wifi`,
+      `case.fractal-design-meshify-2-compact-black-solid`,
+      `case.nzxt-h5-flow`, `psu.corsair-rm850e-cp-9020263-na`,
+      `cooler.deepcool-ak620`, `cooler.coolermaster-hyper-212-halo-black`,
+      `ram.teamgroup-t-create-expert-ddr5-6000-64gb`. The pre-existing O7
+      interference pair (A3-mATX × NH-D15 G2) is untouched and still
+      authoritative. **Did not reach ≈30**: AMD.com (sole AM5 CPU vendor),
+      GIGABYTE.com, Noctua.at, Thermalright, Kingston, Arctic and be quiet!
+      were unfetchable this session (timeouts / 403 / 429) and are not
+      guessed around; per the plan's decision gate, only fully sourced
+      candidates were added and the shortfall is reported rather than
+      forced. See [`STEPS.md`](./STEPS.md) §Step 9 for the full record.
 - [ ] Step 10 — MSRP + dated street snapshots; unsourced → `unavailable`,
       total `isPartial`
 - [ ] Step 11 — `cat6.integrity` tests + E2E re-anchoring

@@ -4,10 +4,12 @@ Derived from [`specs/phase-6.md`](./specs/phase-6.md) and
 [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md). Required by
 the "plan before code" rule in [`../README.md`](../README.md).
 
-Status: **Accepted 2026-08-10. Owner decisions O1–O8 locked. Steps 1–8
+Status: **Accepted 2026-08-10. Owner decisions O1–O8 locked. Steps 1–9
 complete. Step 6 implementation complete (2026-08-10); Step 7 default-build
 assembly verification complete (2026-08-11); Step 8 unavailable-reason wording
-complete (2026-08-11). Records in [`STEPS.md`](./STEPS.md). Steps 9–12 open.**
+complete (2026-08-11); Step 9 catalog growth to 22 parts complete (2026-08-11,
+short of ≈30 — see STEPS.md for the sourcing blockers). Records in
+[`STEPS.md`](./STEPS.md). Steps 10–12 open.**
 
 ---
 
@@ -233,6 +235,23 @@ authority comes from published clearance limits, not engineered mesh collision.
 
 This is where scope §3 becomes fully visible: most CPU × GPU pairs, including
 sibling SKUs of covered chips (**RK8**), present no FPS and say why.
+
+**Step 9 status (2026-08-11): complete, short of ≈30.** 8 fully sourced parts
+added (14 → 22): `gpu.asus-dual-rtx4060-o8g`,
+`motherboard.asus-tuf-gaming-b650-plus-wifi`,
+`case.fractal-design-meshify-2-compact-black-solid`, `case.nzxt-h5-flow`,
+`psu.corsair-rm850e-cp-9020263-na`, `cooler.deepcool-ak620`,
+`cooler.coolermaster-hyper-212-halo-black`,
+`ram.teamgroup-t-create-expert-ddr5-6000-64gb`. None carry `physicalSpec`
+(visual-only placeholder GLBs), matching the precedent already set by 4 of the
+original 14 parts — the clearance-limit evaluator reads `dimensionsMm` /
+`clearanceLimits` from `part.json` directly and does not require
+`physicalSpec`. The pre-existing O7 pair (`case.lian-li-a3-matx-black` ×
+`cooler.noctua-nh-d15-g2`) is unmodified and remains the catalog's only
+authoritative interference. AMD.com (the sole AM5 CPU vendor), GIGABYTE.com,
+Noctua.at, Thermalright, Kingston, Arctic and be quiet! were unfetchable this
+session; per this step's decision gate, no candidate depending on those
+sources was added. Full record: [`STEPS.md`](./STEPS.md).
 
 ### Step 10 — Prices
 `benchmarks/cat6/catalog-prices.json` with MSRP **and** dated street snapshots

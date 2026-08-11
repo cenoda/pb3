@@ -1,0 +1,29 @@
+{
+  "contractVersion": "cat6",
+  "id": "cooler.deepcool-ak620",
+  "category": "cooler",
+  "displayName": "DeepCool AK620",
+  "identity": {
+    "manufacturer": "DeepCool",
+    "modelName": "AK620"
+  },
+  "modelGlbPath": "parts/cooler/cooler.deepcool-ak620/model.glb",
+  "dimensionsMm": {
+    "raw": "129x138x160 mm (L x W x H)",
+    "lengthMm": 129,
+    "heightMm": 160,
+    "thicknessMm": 138,
+    "assignmentBasis": "DeepCool labels the figures (L x W x H) for the assembled product, so the assignment is quoted, not inferred. This is the installed envelope with fans fitted; the page separately lists a heatsink-only figure of 127x110x157 mm without fans, which is not used here because the with-fan figure is the envelope physical validation needs, matching the with-fan convention already used for cooler.noctua-nh-d15-g2."
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped; all from source.cat6.deepcool.ak620.product. Socket compatibility: Intel 'LGA2066/2011-v3/2011/1700/1200/1151/1150/1155', AMD 'AM5/AM4'. compat2 defines no CoolerCompatSpec and no cooler-socket check, so this list has no compatSpec field to occupy, matching cooler.noctua-nh-d15-g2's handling. Construction: 6 heat pipes, Ø6 mm each; two 120 mm fans, 500-1850 RPM, 68.99 CFM, <=28 dB(A), Fluid Dynamic Bearing. Weight 1456 g. Maximum heat dissipation (TDP rating) '260W'. RAM clearance: 43 mm with both fans installed, 59 mm in single-fan mode -- the same category of fact as the Noctua RAM-clearance note, kept here because cat6 has no field for a cooler's RAM clearance.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.deepcool.ak620.product",
+      "retrievedAt": "2026-08-11"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.deepcool.ak620.product",
+      "retrievedAt": "2026-08-11"
+    }
+  }
+}

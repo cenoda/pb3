@@ -1,0 +1,46 @@
+{
+  "contractVersion": "cat6",
+  "id": "gpu.asus-dual-rtx4060-o8g",
+  "category": "gpu",
+  "displayName": "ASUS Dual GeForce RTX 4060 OC Edition 8GB GDDR6",
+  "identity": {
+    "manufacturer": "ASUS",
+    "modelName": "Dual GeForce RTX 4060 OC Edition 8GB GDDR6",
+    "partNumber": "DUAL-RTX4060-O8G",
+    "chipModel": "NVIDIA GeForce RTX 4060"
+  },
+  "modelGlbPath": "parts/gpu/gpu.asus-dual-rtx4060-o8g/model.glb",
+  "dimensionsMm": {
+    "raw": "227.2 x 123.24 x 49.6 mm",
+    "lengthMm": 227.2,
+    "heightMm": 123.24,
+    "thicknessMm": 49.6,
+    "assignmentBasis": "ASUS prints three unlabeled figures. 49.6 mm is identified as the thickness from the same page's published 2.5-slot width (2.5 x 20.32 mm = 50.8 mm); the remaining two are length and height by graphics-card convention, matching the derivation already used for gpu.asus-dual-rtx4070-o12g and gpu.asus-proart-rtx4080-o16g."
+  },
+  "performanceSpec": {
+    "boostClockMhz": 2505,
+    "boostClockBasis": "Default Mode boost as published by ASUS; the page also lists OC Mode 2535 MHz, which requires ASUS software."
+  },
+  "compatSpec": {
+    "tdpWatts": 115
+  },
+  "notes": "Published facts with no cat6 or compat2 field, kept verbatim rather than dropped. From source.cat6.asus.dual-rtx4060-o8g.techspec: slot width '2.5 Slot' (used above as the thickness basis), power connector '1 x 8-pin', recommended PSU '550W' (not modelled; compat2 sizes the PSU from CPU and GPU TDP with a stub headroom multiplier rather than a vendor recommendation). SKU: this is DUAL-RTX4060-O8G. ASUS separately sells a DUAL-RTX4060-O8G-V2 and a DUAL-RTX4060-O8G-WHITE; both are different products with their own pages and are not catalogued here. From source.cat6.nvidia.rtx4060-4060ti-family.reference-tgp: the RTX 4060 row states Total Graphics Power as a single unambiguous figure, 115 W. The adjacent RTX 4060 Ti row states '165 or 160' W without splitting the figure by 8GB/16GB memory configuration in the published table, which is why no RTX 4060 Ti SKU is catalogued from this source under C1 -- recording either number would assert a precision the source does not give.",
+  "provenance": {
+    "identity": {
+      "sourceId": "source.cat6.asus.dual-rtx4060-o8g.techspec",
+      "retrievedAt": "2026-08-11"
+    },
+    "dimensions": {
+      "sourceId": "source.cat6.asus.dual-rtx4060-o8g.techspec",
+      "retrievedAt": "2026-08-11"
+    },
+    "performanceSpec": {
+      "sourceId": "source.cat6.asus.dual-rtx4060-o8g.techspec",
+      "retrievedAt": "2026-08-11"
+    },
+    "compatSpec": {
+      "sourceId": "source.cat6.nvidia.rtx4060-4060ti-family.reference-tgp",
+      "retrievedAt": "2026-08-11"
+    }
+  }
+}

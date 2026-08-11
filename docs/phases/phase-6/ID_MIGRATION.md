@@ -1,12 +1,15 @@
 # Phase 6 — Part id migration
 
-Status: **Steps 1–5 executed 2026-08-10. Step 6 implementation complete
-2026-08-10** — physical authority boundary (clearance-limit checks
-authoritative, OBB advisory-only), slot 14 admitted, **O7 running-app witness
-proven**, RK1 arithmetic in [`STEPS.md`](./STEPS.md). **Steps 7–12 are open.**
-Products are the owner's Step 3 selection.
-Legacy fixture ids are retired; **14 `cat6` parts are authored** under `parts/`, and
-the **runtime manifest loads all 14**. Slot 14
+Status: **Steps 1–9 complete.** Steps 1–5 executed 2026-08-10. Step 6
+implementation complete 2026-08-10 — physical authority boundary
+(clearance-limit checks authoritative, OBB advisory-only), slot 14 admitted,
+**O7 running-app witness proven**, RK1 arithmetic in [`STEPS.md`](./STEPS.md).
+Step 7 (default-build assembly verification) and Step 8 (unavailable-reason
+wording) closed 2026-08-11. Step 9 (catalog growth) closed 2026-08-11 — see
+below. **Steps 10–12 are open.** Products are the owner's Step 3 selection.
+Legacy fixture ids are retired; **22 `cat6` parts are authored** under `parts/`,
+and the **runtime manifest loads all 22** (grown from the 14 parts authored in
+Steps 2–5 by Step 9's catalog growth, [`STEPS.md`](./STEPS.md) §Step 9). Slot 14
 (`motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3`) has a visual-only plane GLB
 and collision-less `physicalSpec`. **O7 running-app reachability** is proven by
 `e2e/phase6-o7-slot14-witness.spec.ts`.
@@ -656,7 +659,8 @@ Verified by grep against the working tree.
 ### Step 5 — manifest and loader (**O8**, done 2026-08-10)
 
 `parts/catalog-manifest.json` is the single runtime membership index: 14 loadable
-parts today. `loadPartCatalog` fetches the manifest, validates with
+parts as of this step (2026-08-10; grown to 22 by Step 9,
+[`STEPS.md`](./STEPS.md) §Step 9). `loadPartCatalog` fetches the manifest, validates with
 `catalogManifestFileSchema`, loads only listed `part.json` paths, and join-guards
 that `DEFAULT_BUILD_STATE_V2` references ids present in the loaded catalog.
 `PHASE2_PART_PATHS` is deleted. Runtime selection validation and `buildStore`

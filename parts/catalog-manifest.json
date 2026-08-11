@@ -1,6 +1,6 @@
 {
   "catalogContractVersion": "cat6",
-  "catalogVersion": "cat6-20260810",
+  "catalogVersion": "cat6-20260811",
   "parts": [
     {
       "id": "case.fractal-design-north-tg-dark",
@@ -71,6 +71,46 @@
       "id": "psu.cooler-master-v550-sfx-gold",
       "category": "psu",
       "path": "parts/psu/psu.cooler-master-v550-sfx-gold/part.json"
+    },
+    {
+      "id": "gpu.asus-dual-rtx4060-o8g",
+      "category": "gpu",
+      "path": "parts/gpu/gpu.asus-dual-rtx4060-o8g/part.json"
+    },
+    {
+      "id": "motherboard.asus-tuf-gaming-b650-plus-wifi",
+      "category": "motherboard",
+      "path": "parts/motherboard/motherboard.asus-tuf-gaming-b650-plus-wifi/part.json"
+    },
+    {
+      "id": "case.fractal-design-meshify-2-compact-black-solid",
+      "category": "case",
+      "path": "parts/case/case.fractal-design-meshify-2-compact-black-solid/part.json"
+    },
+    {
+      "id": "case.nzxt-h5-flow",
+      "category": "case",
+      "path": "parts/case/case.nzxt-h5-flow/part.json"
+    },
+    {
+      "id": "psu.corsair-rm850e-cp-9020263-na",
+      "category": "psu",
+      "path": "parts/psu/psu.corsair-rm850e-cp-9020263-na/part.json"
+    },
+    {
+      "id": "cooler.deepcool-ak620",
+      "category": "cooler",
+      "path": "parts/cooler/cooler.deepcool-ak620/part.json"
+    },
+    {
+      "id": "cooler.coolermaster-hyper-212-halo-black",
+      "category": "cooler",
+      "path": "parts/cooler/cooler.coolermaster-hyper-212-halo-black/part.json"
+    },
+    {
+      "id": "ram.teamgroup-t-create-expert-ddr5-6000-64gb",
+      "category": "ram",
+      "path": "parts/ram/ram.teamgroup-t-create-expert-ddr5-6000-64gb/part.json"
     }
   ]
 }
