@@ -30,10 +30,10 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
 - [x] Step 4 — execute the migration repo-wide; assert no legacy id remains
       (2026-08-10; 14 parts, `cat6.integrity` guard; price fixtures re-pointed, **B11**)
 - [x] Step 5 — `parts/catalog-manifest.json` + manifest loader (**O8**); `PHASE2_PART_PATHS` retired (2026-08-10). Runtime manifest holds 14 parts after Step 6 slot 14 admission
-- [ ] Step 6 — geometry generated from `dimensionsMm`; re-derive `phys3`
-      verdicts; re-point `prov4` geometry version — **slot 14 slice done** (plane GLB,
-      collision-less physicalSpec, manifest admission, O7 E2E); remaining Step 6
-      scope open
+- [ ] Step 6 — visual geometry + physical authority boundary; authoritative
+      clearance-limit checks; re-point `prov4` geometry version — **slot 14 slice
+      done** (plane GLB, collision-less physicalSpec, manifest admission, O7 E2E);
+      remaining Step 6 scope open
 - [ ] Step 7 — default build assembles on real dimensions; Phase 0 exit scenario
       re-run
 - [ ] Step 8 — `src/perf/**` unavailable reasons say the estimator is in
@@ -55,8 +55,8 @@ Home: [`README.md`](./README.md) · Scope: [`specs/phase-6.md`](./specs/phase-6.
 
 - **Phase 7** — catalog browser: browse-and-pick dialog, filters, comparison
 - **Part images** — needs a rights ADR before any file lands
-- **Real-hardware meshes** — `cat6` boxes are dimension-accurate, not
-  shape-accurate
+- **Real-hardware meshes** — visual meshes may approximate published dimensions;
+  authoritative physical checks use published specs + scalar rules (**C4**, **C16**)
 - **Platform breadth** — LGA1851 / LGA1700 / AM4, with the `compat2` widening
   that requires (**O2**)
 - **Performance coverage** — the `est1` formula that makes most of the catalog

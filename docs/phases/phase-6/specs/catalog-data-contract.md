@@ -25,7 +25,7 @@ than a naming convention:
 | Added | Reason |
 |-------|--------|
 | `identity` | A real part has a manufacturer and a model; `displayName` alone is a UI string |
-| `dimensionsMm` | The dimension becomes the sourced datum; the mesh becomes derived from it |
+| `dimensionsMm` | Published bounding dimensions as a sourced catalog fact; may guide visual scale but are not derived from GLB bounds |
 | `performanceSpec` | Boost clock and power limit — **why** an ASUS and an MSI 4070 differ. Without these, SKU-level ids assert a difference the data cannot show |
 | `provenance` | Per field-group source reference — the point of the phase |
 | `image` | Defined so Phase 7 has a place to read from; **populated by no part in this phase** (scope §5) |
@@ -101,10 +101,9 @@ export interface CatalogProvenance {
  * quotation, and the mapping from product dimensions to scene axes differs per
  * category. `cat6` therefore stores what the vendor printed (`raw`), the
  * principal-dimension assignment (`lengthMm` / `heightMm` / `thicknessMm`), and
- * how that assignment was read (`assignmentBasis`). The scene-axis mapping
- * belongs to the geometry generator (implementation plan Step 6), where it is
- * written once per category and can be reviewed. The collision box is generated
- * from these product-relative figures via that mapping — see rule **C4**.
+ * how that assignment was read (`assignmentBasis`). Scene-axis mapping for visual
+ * assembly belongs to the geometry generator (implementation plan Step 6),
+ * written once per category and reviewed there — see rules **C4**, **C16**.
  */
 export interface DimensionsMm {
   /** Longest principal dimension, mm. */
@@ -376,14 +375,16 @@ Rules:
 | **C1** | **Absence over invention.** An unsourceable field is omitted — never estimated, rounded from a review, or inherited from the fixture catalog. Downstream, an omitted field yields `unavailable`, which every consuming engine already supports. |
 | **C2** | **No orphan facts.** Every present field group has a `provenance` entry; every entry resolves to a registry `sourceId`; every registry entry has a `citation` and every reference a `retrievedAt`. Violations fail the schema or the integrity test, not review. |
 | **C3** | **`displayName` is the real product name** and must not contain `"(fixture)"`. Phase 5 **D2** required that suffix precisely until this phase; it is now false. |
-| **C4** | **Dimensions are the geometry SSOT.** `dimensionsMm` is authored from the source; the collision box is generated from it. Hand-tuning a mesh to produce a desired verdict is prohibited — that practice is what this phase exists to remove. |
-| **C5** | **Model grade does not improve.** `physicalSpec.evidence.modelGrade` stays `Experimental`. Cited dimensions do not make a box mesh a verified model, and `Verified` under Charter §6 requires manual physical verification this phase does not perform. `basis` states "box mesh derived from cited dimensions". |
+| **C4** | **Published catalog facts are physical-rule inputs.** `dimensionsMm`, `clearanceLimits`, sockets, form factors, and other provenance-backed manufacturer facts are authoritative inputs to compatibility and **clearance-limit** physical checks. They are not inferred from GLB mesh bounds; measuring a GLB must not create a more precise physical fact than the published source. Hand-tuning geometry to produce a desired **authoritative** verdict is prohibited. |
+| **C5** | **Model grade and geometry version do not claim manufacturer mechanical authority.** `physicalSpec.evidence.modelGrade` stays `Experimental`. Cited dimensions do not upgrade mesh fidelity to `Verified` (Charter §6 requires manual physical verification this phase does not perform). `geometryDataVersion` is this project's geometry/model **representation** dataset version — not a manufacturer-authoritative mechanical geometry revision. `basis` describes what the project's visual and advisory collision nodes represent, not vendor-certified mechanical envelopes. |
+| **C16** | **Visual geometry is not catalog truth.** GLB meshes are realistic visualization models. Published `dimensionsMm` may guide scale and proportion where practical, but render geometry may be approximate; future models may be AI-generated; mesh bounds are not catalog facts. Missing published axes stay absent rather than being invented from geometry. There is no normative render-vs-spec tolerance gate (no 0.1 mm, 1%, 5%, or other mesh-equality contract). |
+| **C17** | **Mount and anchor semantics are project assembly data.** Anchor and socket transforms position parts in the 3D scene. They may be hand-placed and are not manufacturer dimensional evidence. **OBB / collision / clearance geometry** (`kind === "collision"` \| `"clearance"`) may remain for 3D preview, assembly visualization, and debug overlap signals, but is **non-authoritative**: it does not set `overallStatus`, build verdict, blocked/caution/showResults, or factual compatibility reason text. Independently sourced mechanical envelopes, if adopted later, would be a separate design decision — not current architecture. |
 | **C6** | **Ids are SKU-level, assigned once, opaque to code** (§3). |
 | **C7** | **No image file ships.** `image` is defined and populated by no part until a rights ADR exists. The integrity test asserts this. |
 | **C8** | **`cat6` is a hard switch.** After migration the schema accepts `contractVersion: "cat6"` only. No dual-read window: every part file is migrated in one step and no external producer of `part.json` exists. |
 | **C9** | **`biosMinVersionForCpu` is not populated** (**O6**). Socket compatibility only. `checkChipsetBios` already reports `unavailable` when the map is absent, so no engine changes. |
 | **C10** | **A SKU does not inherit its chip's numbers into `performanceSpec`.** That group exists to record how this SKU differs from others built on the same chip; filling it from a reference figure erases exactly that. If the board partner does not publish a value, the `performanceSpec` field is absent. **`compatSpec` is different:** it feeds compatibility checks, its fields are chip-level facts, and a chip-vendor figure is a real published fact. It may be recorded, cited to the chip vendor rather than the board partner, and the registry source must record any scope caveat the chip vendor states. |
-| **C11** | **Dimensions are product-relative, not scene axes.** `dimensionsMm` stores the vendor's printed string (`raw`), principal-dimension numbers (`lengthMm` / `heightMm` / `thicknessMm`), and the assignment rationale (`assignmentBasis`). Mapping product axes to phys3 scene axes (+X/+Y/+Z) is owned by the Step 6 geometry generator, once per category — not buried inside a field that is supposed to be a quotation. |
+| **C11** | **Dimensions are product-relative, not scene axes.** `dimensionsMm` stores the vendor's printed string (`raw`), principal-dimension numbers (`lengthMm` / `heightMm` / `thicknessMm`), and the assignment rationale (`assignmentBasis`). Mapping product axes to phys3 scene axes (+X/+Y/+Z) for **visual assembly** is owned by the Step 6 geometry generator, once per category — not buried inside a field that is supposed to be a quotation. That mapping does not make render mesh bounds authoritative compatibility truth (**C4**, **C16**). |
 | **C12** | **A limit whose published condition scopes it to a different SKU is not recorded.** One real page lists a cooler height of "145 mm with Fan Bracket (Mesh version only) / 170 mm w.o" on the tempered-glass product's own page; for the tempered-glass SKU only the 170 mm figure applies, and the 145 mm figure is omitted rather than stored with a condition that can never hold. This is **O3**'s SKU granularity applied to clearance. |
 | **C13** | **Conditional limits are preserved, not collapsed.** When a vendor publishes several limits that apply to the catalogued SKU under different configurations, every one is recorded with its condition. They are alternatives, and reducing them to a single number silently picks a configuration on the user's behalf. **Evaluation semantics** (normative for any consumer): if the deciding configuration is known, use the limit for that condition. Otherwise evaluate **every** published branch that is not conservatively pruned by `appliesWhen` — not knowing which branch holds does not prevent evaluating all of them — and report `fit` when the part fits in every retained branch, `interference` when it fails in every retained branch, and `conditional` when retained branches disagree. Worked examples against "1 HDD Tray: 255 mm / 2 HDD Tray: 155 mm": a 140 mm PSU satisfies `140 ≤ 155` and `140 ≤ 255`, so it is `fit` outright with no need to model tray state; a 200 mm PSU fits one branch and not the other, so it is `conditional`. **"We do not know which branch holds" and "we cannot judge at all" are different facts and must not collapse into the same `unavailable`.** The most restrictive limit is a fallback only where a single scalar is structurally required and no configuration is known. **`PhysicalValidationStatus` is `"fit" \| "interference" \| "conditional" \| "unavailable"`.** `condition` is verbatim provenance/display text and is never parsed as a runtime DSL; structured applicability currently supports only `psu.lengthMm` with `lte` \| `gt` and performs conservative pruning only. |
 | **C14** | **`maxMemorySpeedMtS` records the highest memory data rate that the motherboard vendor explicitly lists as supported for that SKU, including values marked OC/XMP/EXPO where applicable.** This is a catalog compatibility ceiling, not a guarantee that every memory kit, CPU IMC, DIMM population, or timing configuration will operate at that rate. Vendors publish a list — 8000(OC) / 7800(OC) / … / 5600 / 5200 / 4800 — and the JEDEC floor is the wrong pick: DDR5-6000/6400/7200 kits that people run every day would read `incompatible`, which is the compat engine contradicting reality rather than reporting it. "The EXPO speed" is also the wrong name for it, because the list is not EXPO-only. **Reciprocal for memory:** `RamCompatSpec.speedMtS` records the kit's rated (XMP/EXPO) speed as the vendor prints it, not its SPD/JEDEC fallback. The two sides of `checkRamSupport` must be the same kind of figure or the comparison is meaningless. |
@@ -421,8 +422,12 @@ Integrity test (`src/test/cat6.integrity.test.ts`) — cross-file:
   `est1`, and the default build exists in the manifest (the scope §4 join guard)
 - **no legacy fixture id appears** in `src/**`, `parts/**`, `benchmarks/**`, or
   `e2e/**` (**RK7**)
-- `dimensionsMm` matches the half-extents in the generated GLB, within the
-  `0.1 mm` phys3 epsilon
+- every part's referenced `modelGlbPath` exists and parses as GLB
+- declared `physicalSpec` collision/clearance node references are internally
+  valid when geometry is present (each referenced node exists in the GLB index)
+- required anchor/socket nodes exist when `physicalSpec` declares mounts
+- no `dimensionsMm` axis is present without `provenance.dimensions`; no published
+  dimension axis is fabricated to fill a missing collision volume (**C1**, **C4**)
 - no part populates `image` (**C7**)
 - no `displayName` contains `"(fixture)"` (**C3**)
 - no price row where `street` is absent maps into a non-partial total (**RK9**)

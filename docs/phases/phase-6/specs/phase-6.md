@@ -60,10 +60,17 @@ The phase ends when all six hold.
    a reason. No value is invented, estimated, or carried over from the fixture
    catalog to fill a hole (Charter §2).
 
-4. **Physical validation runs on sourced dimensions.** Every physical-core part's
-   collision box derives from its cited dimensions, and at least one **genuine**
-   interference case exists in the catalog — a real part pair that really does
-   not fit — replacing the hand-tuned synthetic collision.
+4. **Authoritative physical compatibility uses published facts and explicit rules.**
+   Phase 6 acceptance interference is produced from provenance-backed published
+   facts (`clearanceLimits`, cited `dimensionsMm` where used in scalar rules, and
+   other explicit catalog facts) plus explicit evaluation rules — not from GLB mesh
+   bounds or OBB overlap. Visual models may use published dimensions for realistic
+   scale but are not required to reproduce exact manufacturer geometry. No
+   unpublished dimension is invented merely to size a 3D collision volume. At
+   least one genuine published-spec physical interference is demonstrated
+   end-to-end in the running app (**O7**): NH-D15 G2 168 mm vs Lian Li A3
+   CPU-cooler max 165 mm → authoritative interference. This criterion does not
+   require every possible physical relationship to be implemented.
 
 5. **The app runs on the new catalog with no display-layer change.** Every part is
    selectable, the default build assembles in 3D, the canonical URL still
@@ -90,7 +97,7 @@ the gate was a browser walkthrough rather than a test count.
 | `cat6` contract: identity, dimensions, SKU performance spec, provenance, image **fields** | Image **files** (§5) |
 | A one-time part-id migration to real SKU ids (§4) | Real-hardware 3D meshes |
 | Manifest-driven catalog loading | A catalog browser / picker dialog (Phase 7) |
-| Collision geometry regenerated from sourced dimensions | Live or scraped pricing |
+| Visual geometry may use published dimensions for scale; authoritative physical checks use published specs + scalar rules | Live or scraped pricing |
 | MSRP **and** dated street-price snapshots (**O5**) | BIOS-revision compatibility (**O6**) |
 
 ### Target size (owner-selected: few and curated)
@@ -220,9 +227,9 @@ into whatever is technically interesting nearby.
   no numeric change.
 - **No new games, presets, or resolutions.** The Phase 0 constants stand.
 - **No catalog browser, filters, comparison, or picker dialog.** Phase 7.
-- **No real-hardware meshes.** Boxes derived from real dimensions; grade stays
-  `Experimental` because the mesh is still a box, even when the dimensions are
-  cited.
+- **No real-hardware meshes.** Visual meshes may approximate published
+  dimensions; grade stays `Experimental` because mesh fidelity is not
+  manufacturer-verified mechanical geometry (**C5**, **C16**).
 - **No BIOS-revision compatibility** (**O6**). Socket compatibility only.
 - **No live, scraped, or auto-refreshed pricing.** No server (ADR-001). Street
   prices are manually curated dated snapshots.
@@ -252,7 +259,7 @@ into whatever is technically interesting nearby.
 
 | # | Risk | Handling |
 |---|------|----------|
-| **RK1** | Regenerating geometry from real dimensions changes `phys3` verdicts. The current cooler-rotated-180 interference is **engineered**: `clearance:cooler-sidekeepout` in the case GLB exists to be hit. | Every changed verdict is re-derived from the new dimensions and recorded with its arithmetic in `STEPS.md`. `benchmarks/phys3/physical-validation-examples.json` is rewritten from real cases. A verdict that changes without a recorded derivation fails review. |
+| **RK1** | M0 planned that regenerating collision geometry from `dimensionsMm` would change authoritative `phys3` verdicts. The cooler-rotated-180 interference was **engineered**: `clearance:cooler-sidekeepout` in the case GLB exists to be hit. **Superseded:** authoritative verdicts come from **clearance-limit** scalar rules; OBB/collision geometry changes affect advisory checks only. | Authoritative clearance-limit arithmetic recorded in `STEPS.md`. `benchmarks/phys3/physical-validation-examples.json` mixes historical/advisory geometry examples with rule-backed cases — only clearance-limit-backed rows are authoritative witnesses. A verdict that changes without a recorded derivation fails review. |
 | **RK2** | `prov4` rows carry `geometryDataVersion: "phys3-exp-20260808"` and the pilot part ids; new geometry and new ids invalidate them, and the loaders are fail-closed. | Mechanical re-point under the §6 carve-out. No `modelGrade` upgrade, no new claim. Any grade change is out of scope and needs the freeze lifted. |
 | **RK3** | Sourcing ~30 parts × ~10 fields is the bulk of the work and is where invented values creep back in under time pressure. | Exit condition 3 plus the owner's random spot-check. A part with an unsourceable field is dropped rather than completed by guesswork. |
 | **RK4** | E2E specs select parts by id and assert on fixture-derived outcomes. Real data and new ids change both. | Phase 5's re-anchoring discipline: each assertion's *meaning* is preserved; an assertion that cannot survive real data is raised as a scope question, not deleted. |

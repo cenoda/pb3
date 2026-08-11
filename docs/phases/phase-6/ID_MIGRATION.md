@@ -181,15 +181,15 @@ Slots 1 + 3 + 4 + 6 + 8 + 10 + 12 must be compatible and physically fit on real
 data (**RK5**). `checkChipsetBios` will read `unavailable` under **O6** — that is
 **D3**, tracked separately, not a failure of this invariant.
 
-### I2 — O7 physical interference is genuine
+### I2 — O7 physical interference is genuine (authoritative clearance-limit)
 
 ```
 slot 2  LIAN LI A3-mATX   maxCpuCoolerHeight  165 mm
 slot 3  Noctua NH-D15 G2  height              168 mm
-        168 > 165  →  interference, 3 mm excess
+        168 > 165  →  clearance-limit interference, 3 mm excess
 ```
 
-and the same cooler clears the default case:
+OBB overlap is not the authority source. The same cooler clears the default case:
 
 ```
 slot 1  Fractal North TG  maxCpuCoolerHeight  170 mm  ("without Fan Bracket")
@@ -319,7 +319,8 @@ chipset-bios                                                 →  unavailable (D
 ```
 
 then the physical stage reports `168 > 165` — a real interference from published
-figures.
+figures via the **clearance-limit** scalar rule. OBB overlap is not the authority
+source.
 
 `chipset-bios` reads `unavailable` under **O6**, which demotes the verdict to
 `caution` but keeps `showResults: true` (`src/ui/buildVerdict.ts:83–92`), so the
@@ -402,7 +403,7 @@ parts, and no part in this build is one.
 | B5 | Slot 14 selection | ✅ **Closed** — GIGABYTE B650M AORUS ELITE AX Rev. 1.3, approved 2026-08-10 |
 | B6 | **I6** sourcing (cooler RAM clearance + module height) | ✅ **Closed 2026-08-10** — both citations recorded; **I6** derived from authored data. See below |
 | B7 | **I9** — which PSU the **I8** demonstration build uses | ✅ **Closed** — slot 10 (Corsair RM750e, 140 mm ATX); slot 2 supports ATX up to 220 mm |
-| B8 | **CPU package dimensions** — no public AMD product page publishes them, but exit condition 4 wants every physical-core part's box derived from cited dimensions | Before Step 6. Found authoring slot 4; see below |
+| B8 | **CPU package dimensions** — no public AMD product page publishes them; exit condition 4 no longer requires every physical-core collision box from cited dimensions | Before Step 6. Found authoring slot 4; see below |
 | B9 | **`MotherboardCompatSpec.maxMemorySpeedMtS` is required**, which blocked slot 9 from carrying a `compatSpec` at all | ✅ **Closed** — field made optional; slot 9's `cpu-socket` negative verified restored |
 | B10 | **`DimensionsMm` was all-or-nothing**, so parts with partial published dimensions recorded none | ✅ **Closed** — each axis optional, at least one required; published axes now kept |
 | B11 | **No catalog price is sourced yet**, so the running app's only prices are the 13 phase-2 fixture amounts | Before the **O5** price step. Found during Step 4; see below |
@@ -497,10 +498,10 @@ Recorded as a result: the boards keep their published two-figure outlines, and t
 G.SKILL kit keeps its 44 mm module height cited to the FAQ that publishes it. CPUs
 still carry no record, because they publish no axis (**B8** is unchanged).
 
-Nothing consumes `dimensionsMm` outside tests yet — the Step 6 generator does not
-exist — so the all-three-present guard has to be built into that generator when it
-is written. Tests assert which parts currently have complete boxes and which do
-not, so the generator's input set is pinned before it is written.
+Nothing consumes `dimensionsMm` for authoritative physical checks beyond scalar
+rules yet. The Step 6 generator may use published axes for visual scale when
+present. Tests assert which parts currently publish which axes so the generator's
+input set is pinned before it is written.
 
 ### B10 — the original finding
 
@@ -518,10 +519,11 @@ discarded. For slot 13 that figure is the module height — the same class of nu
 that invariant **I6** turns on for slot 12.
 
 This is the same decision as **B8** and should be taken with it: either
-`DimensionsMm` gains optional members and Step 6's generator handles partial boxes,
-or exit condition 4 is narrowed to the parts whose dimensions are fully
-publishable. Not urgent for the demonstration build, which needs none of these
-boxes, but Step 6 cannot generate geometry for these parts as things stand.
+`DimensionsMm` gains optional members and Step 6's generator handles partial axes
+for visual scale, or those parts omit visual dimension guidance. Not urgent for
+the demonstration build, which needs none of these boxes for **O7** authority.
+Step 6 cannot require complete collision geometry for these parts as things stand
+(collision/OBB remains advisory).
 
 ### B8 — CPU package dimensions: decision (pre-Step-6 closure, 2026-08-10)
 
@@ -537,8 +539,9 @@ silicon die areas, not package dimensions.
 3. Step 6 **excludes CPU collision geometry** while preserving socket/mount semantics.
 4. Official package mechanical geometry may be reintroduced later when a suitable
    primary source is obtained.
-5. Exit condition 4 is **not** weakened: physical-core membership does not require
-   every member to expose a collision box (see `PHYS3_PHYSICAL_CORE_IDS` comment).
+5. Exit condition 4 is satisfied by **authoritative clearance-limit** evidence
+   (**O7**); physical-core membership does not require every member to expose
+   collision geometry (see `PHYS3_PHYSICAL_CORE_IDS` comment).
 
 **Renderer note (read-only audit):** each CPU GLB carries a separate `visual:*` mesh
 and `collision:cpu-die`; `MountedPartModel` renders only `visual:*` nodes.
@@ -558,10 +561,12 @@ publish — `CCD Size: 71mm²`, `IOD Size: 122mm²` — is **silicon die area**,
 package dimension, and cannot be converted into one.
 
 `dimensionsMm` is therefore absent on slot 4, which is correct under exit
-condition 3 (unsourceable means absent). But the CPU is a phys3 physical-core part:
-the legacy fixture carries `collision:cpu-die`, and Step 6 derives collision boxes
-from `dimensionsMm`. Exit condition 4 asks that **every** physical-core part's box
-come from cited dimensions, and as it stands the CPU cannot satisfy that.
+condition 3 (unsourceable means absent). The CPU is a phys3 physical-core part
+with legacy `collision:cpu-die` fixture geometry. **Superseded M0 assumption:**
+Step 6 would derive authoritative collision boxes from `dimensionsMm`. **Current
+architecture:** collision/OBB geometry is advisory; authoritative physical checks
+use published clearance limits and scalar rules. Exit condition 4 is met by **O7**
+(clearance-limit `168 > 165`), not by CPU collision boxes.
 
 This is a category-level problem, not a slot-4 one: it will recur for slot 5 and for
 any CPU added later.
@@ -576,10 +581,10 @@ Options, for the step that resolves this:
 
 1. Find an official AM5 package drawing and cite it. Preferred; the dimension is a
    socket-level fact shared by every AM5 CPU, so one citation covers the category.
-2. Narrow exit condition 4 to the physical-core parts whose dimensions are
-   publishable, and record the CPU as a known exception with its reason.
+2. Narrow exit condition 4 — **done:** authoritative interference from published
+   clearance limits; collision boxes are not required for every physical-core part.
 3. Drop the CPU from collision geometry entirely, since it sits under the cooler and
-   its box has never decided a verdict.
+   its advisory box has never decided an authoritative verdict.
 
 **Not an option:** the widely repeated 40 × 40 mm figure. It is not in any source
 this repository has read, and writing it down would be the fixture problem returning
@@ -627,7 +632,7 @@ Verified by grep against the working tree.
 | `src/viewport/GpuModel.tsx` | **Path re-point only**, under the carve-out below |
 | `benchmarks/perf1/*.json` (4 files) | `cpuId` / `gpuId` re-pointed; coverage stays 4 pairs; values stay `stub` |
 | `benchmarks/prov4/pilot-*.json`, `external-performance-observations.json` | Pilot re-pointed; no grade change |
-| `benchmarks/phys3/physical-validation-examples.json` | **Rewritten** from real dimensions (**RK1**), not re-pointed |
+| `benchmarks/phys3/physical-validation-examples.json` | May retain historical/advisory geometry examples; only clearance-limit-backed rows are authoritative witnesses (**RK1**), not re-pointed |
 | **`benchmarks/compat2/compatibility-examples.json`** | **Rewritten, not a mechanical re-point.** Its first example asserts `chipset-bios: "compatible"` and `overallStatus: "compatible"`; under **O6** both become `unavailable`. Tied to **D3** — do not rewrite the expectations by inventing a BIOS minimum |
 | `benchmarks/vs0/*.json` | Re-pointed |
 | `benchmarks/price2/price-fixtures.json` | **Re-pointed, not deleted.** Deletion is deferred to the step that authors **O5**'s sourced prices, because the supersession this row originally assumed has not happened: no catalog price has been sourced yet. The 13 amounts stay phase-2 fixtures and keep their `basis` — `phase-2 fixture price; not a live market quote`. Moving them under `benchmarks/cat6/` in `CatalogPriceRow` shape would have dressed a synthetic number as a dated retailer snapshot of a real SKU, which `CatalogStreetPrice` (`retailer`, `retrievedAt`, `sourceId`) exists to assert. See **B11** |

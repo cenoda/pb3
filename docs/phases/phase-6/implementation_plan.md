@@ -37,8 +37,8 @@ Exactly inverting Phase 5's boundary.
 |------|--------|
 | `parts/**`, `benchmarks/cat6/**` | **The work.** Replaced with sourced SKU-level data |
 | `src/contract/cat6.ts`, `cat6.schema.ts`, `src/catalog/**` | New / modified: contract, manifest loading, price mapping |
-| `scripts/author-phys3-glbs.mjs` | Rewritten to generate boxes from `dimensionsMm` instead of hardcoded half-extents |
-| `benchmarks/phys3/physical-validation-examples.json` | Re-derived from real dimensions (**RK1**) |
+| `scripts/author-phys3-glbs.mjs` | May use published `dimensionsMm` as visual scale guidance; does not establish authoritative compatibility truth |
+| `benchmarks/phys3/physical-validation-examples.json` | May retain historical/advisory geometry examples; only clearance-limit-backed rows are authoritative witnesses (**RK1**) |
 | `benchmarks/perf1/**` | **Ids re-pointed only** (**O3**). No row added, removed, or revalued; every row stays `confidence: "stub"` |
 | `benchmarks/prov4/pilot-*.json`, `PROV4_PILOT_PART_IDS` | **Ids and `geometryDataVersion` re-pointed only** (**RK2**). No grade change, no new claim |
 | `src/perf/applyCorrection.ts`, `src/estimate/estimatorQuery.ts` | Hardcoded example ids re-pointed. Mechanical strings; no logic change |
@@ -99,28 +99,59 @@ assertion is the step's real exit condition.
 `dist/` copy already handle `parts/**` as a tree, so no build config change is
 expected — verified with `pnpm build`, not assumed.
 
-### Step 6 — Geometry from sourced dimensions
-`scripts/author-phys3-glbs.mjs` reads `dimensionsMm` from the catalog and emits
-boxes; the hardcoded half-extents and the engineered
-`clearance:cooler-sidekeepout` tuning are removed. The generator owns the
-per-category mapping from product-relative `dimensionsMm` fields to phys3 scene
-axes (+X/+Y/+Z); that mapping is not stored in `part.json` (see contract **C11**).
+### Step 6 — Visual geometry and physical authority boundary
+
+**Authority model (implemented; supersedes the M0 assumption that collision boxes
+derived from `dimensionsMm` are factual compatibility truth):**
+
+- **Authoritative:** `kind === "clearance-limit"` checks from published
+  `clearanceLimits` and other catalog facts via explicit scalar rules (**C13**,
+  **B3** resolved).
+- **Advisory-only:** `kind === "collision"` and `kind === "clearance"` from GLB
+  geometry, OBB overlap, missing collision geometry, missing `physicalSpec`, and
+  project-authored mount/assembly mechanics. These support 3D preview, assembly
+  visualization, and debug overlap signals; they do **not** set `overallStatus`,
+  build verdict, blocked/caution/showResults, or factual compatibility reason text.
+- **No authoritative checks:** `overallStatus === "unavailable"` — absence of
+  evidence must not silently become fit.
+
+`scripts/author-phys3-glbs.mjs` may use published `dimensionsMm` as scale and
+proportion guidance for visual meshes. There is **no** normative GLB-vs-spec
+tolerance gate (no 0.1 mm / 1% / 5% render-equality contract). The hardcoded
+half-extents and engineered `clearance:cooler-sidekeepout` tuning are removed as
+**authoritative** demo mechanics; OBB overlap from mesh geometry remains
+non-authoritative and the OBB engine is neither deleted nor scheduled for removal.
+
+Per-category mapping from product-relative `dimensionsMm` to scene axes
+(+X/+Y/+Z) stays in the generator for visual assembly; it is not stored in
+`part.json` (**C11**).
+
 For cases, published `clearanceLimits` are evaluated by a **scalar clearance-limit
 evaluator** at runtime (separate from the OBB collision engine), reporting
 `fit` / `interference` / `conditional` per **C13** with conservative branch
-applicability filtering. `conditional` is a phys3 status member (**B3** resolved).
-The generator does **not** derive internal clearance volumes or invented case
-envelope boxes from scalar limits or case exterior `dimensionsMm` — see **B14**.
+applicability filtering. The generator does **not** derive internal clearance
+volumes or invented case envelope boxes from scalar limits or case exterior
+`dimensionsMm` — see **B14**.
+
 New `geometryDataVersion: "cat6-spec-⟨date⟩"`; `modelGrade` stays `Experimental`
-(**C5**).
+(**C5**). `geometryDataVersion` tags the project's geometry representation
+dataset, not manufacturer mechanical authority.
 
-Anchor and socket positions are **not** dimensions and cannot be sourced from a
-spec sheet; they stay hand-placed and their `basis` says so.
+Anchor and socket positions are assembly semantics, not dimensions; they stay
+hand-placed and their `basis` says so (**C17**).
 
-Every `phys3` verdict that changes is re-derived and its arithmetic recorded in
-`STEPS.md` (**RK1**). `benchmarks/phys3/physical-validation-examples.json` is
-rewritten from the new dimensions; `benchmarks/prov4/pilot-geometry-evidence.json`
-is re-pointed to the new geometry version and nothing else (**RK2**).
+**O7 witness (proven in the running app):** slot 2 LIAN LI A3-mATX
+`maxCpuCoolerHeight` 165 mm vs slot 3 Noctua NH-D15 G2 height 168 mm →
+authoritative `clearance-limit` interference (`168 > 165`). OBB is not the
+authority source. Slot 14 opens the compat-clean reachability path (**I8**). Do
+not claim all Phase 6 physical-rule coverage is complete.
+
+Authoritative clearance-limit arithmetic is recorded in `STEPS.md` (**RK1**).
+`benchmarks/phys3/physical-validation-examples.json` may retain
+historical/advisory geometry examples; only published-rule-backed clearance-limit
+results are authoritative — do not edit that benchmark file in doc-only slices.
+`benchmarks/prov4/pilot-geometry-evidence.json` is re-pointed to the new geometry
+version and nothing else (**RK2**).
 
 ### Step 7 — Default build must assemble
 Before the catalog grows: the default build is verified in a browser to assemble
@@ -139,8 +170,8 @@ value** and a reason mentioning preparation rather than an internal table name.
 
 ### Step 9 — Grow the catalog to target size
 New parts up to ≈30 on AM5 / DDR5, each entering only when complete to exit
-condition 2. Includes the deliberate genuine-interference pair (**O7**) that
-replaces the engineered collision removed in Step 6.
+condition 2. Includes the deliberate genuine-interference pair (**O7**) whose
+authority comes from published clearance limits, not engineered mesh collision.
 
 This is where scope §3 becomes fully visible: most CPU × GPU pairs, including
 sibling SKUs of covered chips (**RK8**), present no FPS and say why.
@@ -154,9 +185,11 @@ modified.
 
 ### Step 11 — Integrity and test re-anchoring
 `src/test/cat6.integrity.test.ts` per contract §5, including the join guard, the
-legacy-id guard, and the GLB-versus-`dimensionsMm` check. E2E specs re-anchored
-one at a time, preserving each assertion's meaning (**RK4**); an assertion that
-cannot survive real data is raised as a scope question, not deleted.
+legacy-id guard, and contract-honest geometry checks (model exists, GLB parses,
+declared node references valid, mounts present when declared, no fabricated
+dimensions). E2E specs re-anchored one at a time, preserving each assertion's
+meaning (**RK4**); an assertion that cannot survive real data is raised as a
+scope question, not deleted.
 
 ### Step 12 — Owner gate
 The owner picks three parts at random, follows every engine-consumed field to its
@@ -171,7 +204,7 @@ citation, and reviews the source registry. Pass or fail on that alone.
 | Unit | `pnpm test` | Pass count unchanged or higher at every step |
 | E2E | `pnpm test:e2e` | Green after re-anchoring, every preserved assertion accounted for |
 | Build | `pnpm build` | Clean; `dist/parts/**` and `dist/benchmarks/cat6/**` present |
-| Integrity | `pnpm test` | `cat6.integrity` green: sources resolve, joins hold, no legacy id, geometry matches dimensions, no images, no `(fixture)` |
+| Integrity | `pnpm test` | `cat6.integrity` green: sources resolve, joins hold, no legacy id, contract-honest geometry checks, no images, no `(fixture)` |
 | Product | Browser | Default build assembles; every part selectable; uncovered pairs show no FPS and say the estimator is in preparation |
 | **Phase gate** | Owner spot-check | Exit condition 2 on three randomly chosen parts |
 
@@ -186,9 +219,9 @@ Recorded up front so the outcome is not rationalised later:
 - Sourcing proves too expensive and the catalog ships partly unsourced → the
   phase fails. A half-real catalog is worse than an honestly synthetic one,
   because the labelling that made the fixture catalog honest is gone.
-- Real dimensions produce no interference case anywhere in the catalog and **O7**
-  cannot be satisfied → report to the owner; do **not** reintroduce a tuned mesh
-  to keep the demo alive.
+- Real dimensions produce no **authoritative** interference case anywhere in the
+  catalog and **O7** cannot be satisfied from published clearance limits → report
+  to the owner; do **not** reintroduce a tuned mesh to keep the demo alive.
 - The frozen `perf1` coverage makes the product feel broken enough that the owner
   wants estimates back → that is a Phase 4 / 4.1 unfreeze decision, made
   explicitly by the owner, not smuggled in here.
