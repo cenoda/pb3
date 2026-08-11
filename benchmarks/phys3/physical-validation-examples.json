@@ -835,25 +835,9 @@
             "evidence.phys3.synthetic.case.fractal-design-north-tg-dark",
             "evidence.phys3.synthetic.psu.corsair-rm750e"
           ]
-        },
-        {
-          "checkId": "clearance-limit:cpu-cooler-height",
-          "kind": "clearance-limit",
-          "status": "interference",
-          "involvedPartIds": [
-            "case.fractal-design-north-tg-dark",
-            "cooler.noctua-nh-d15-g2"
-          ],
-          "involvedNodeNames": [
-            "clearance-limit:maxCpuCoolerHeight"
-          ],
-          "explanation": "Cooler height exceeds case maxCpuCoolerHeight limit.",
-          "evidenceSourceIds": [
-            "evidence.phys3.synthetic.case.fractal-design-north-tg-dark"
-          ]
         }
       ],
-      "overallStatus": "interference",
+      "overallStatus": "unavailable",
       "geometryDataVersion": "phys3-exp-20260808"
     },
     {

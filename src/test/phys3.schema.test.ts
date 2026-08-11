@@ -478,8 +478,12 @@ describe("phys3.schema", () => {
     expect(parsed.data.geometryDataVersion).toBe(PHYS3_GEOMETRY_DATA_VERSION);
     const statuses = new Set(parsed.data.examples.map((e) => e.overallStatus));
     expect(statuses.has("fit")).toBe(true);
-    expect(statuses.has("interference")).toBe(true);
     expect(statuses.has("unavailable")).toBe(true);
+    const obbOnlyExample = parsed.data.examples[1];
+    expect(obbOnlyExample.overallStatus).toBe("unavailable");
+    expect(
+      obbOnlyExample.checks.some((c) => c.kind === "clearance-limit"),
+    ).toBe(false);
     for (const example of parsed.data.examples) {
       expect(example.checks.length).toBeGreaterThan(0);
       expect(
