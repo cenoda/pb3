@@ -3,11 +3,16 @@
 The phase that replaces the invented data the Phase 0–5 work runs on.
 
 **Status: M0 package drafted and accepted 2026-08-10. Owner decisions O1–O8
-locked. Implementation started — Step 1 (the `cat6` contract) is complete;
-Steps 2–12 are open.**
+locked. Steps 1–5 complete. Step 6 implementation complete (2026-08-10) with
+its RK1 record in [`STEPS.md`](./STEPS.md). Steps 7–12 are open.**
 
-This phase changes **no display layer and no engine logic** — the data only. It
-is the exact inverse of Phase 5, which changed the display layer and no data.
+Phase 6 is **primarily a catalog/data phase** — the display layer stays as it
+is. It is not purely data-only: Step 6 includes the narrowly scoped
+physical-authority contract and evaluator changes that **B3** / **O7** required
+(`conditional` status; scalar clearance-limit evaluation). No display-layer
+redesign, performance-model expansion, price-engine redesign, or Phase 4/4.1
+unfreeze occurred. It is the exact inverse of Phase 5 in direction — Phase 5
+changed the display layer and no data.
 
 | Artifact | Purpose |
 |----------|---------|
@@ -15,6 +20,7 @@ is the exact inverse of Phase 5, which changed the display layer and no data.
 | [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md) | `cat6` — identity, dimensions, SKU performance spec, provenance, image fields, id convention, manifest, dual-price model, validation split |
 | [`implementation_plan.md`](./implementation_plan.md) | Ordered Steps 1–12, untouchable boundary, verification, honest failure modes |
 | [`TODO.md`](./TODO.md) | Checklist |
+| [`STEPS.md`](./STEPS.md) | Step 6 closeout record — RK1 clearance-limit arithmetic, changed `phys3` verdicts, deviations |
 | [`../phase-5/CLOSEOUT.md`](../phase-5/CLOSEOUT.md) | The direction this phase answers: real catalog first, catalog browser second |
 
 ## The gate
@@ -50,7 +56,9 @@ this shape: the gate measures the thing itself, not a proxy for it.
 | Owner decisions O1–O8 | **Locked — 2026-08-10** |
 | Owner acceptance + implementation start | **Done — 2026-08-10** (accepted by starting Step 1; no separate written acceptance) |
 | Step 1 — `cat6` contract, no data | **Done — 2026-08-10** (`pnpm test` 32 files / 236 tests, `pnpm build` clean) |
-| Steps 2–11 | Not started |
+| Steps 2–5 — source registry, id migration, manifest | **Done — 2026-08-10** (14 authored `cat6` parts; `parts/catalog-manifest.json` lists 14) |
+| Step 6 — physical authority boundary + O7 witness | **Done — 2026-08-10** (clearance-limit checks authoritative, OBB advisory; slot 14 admitted; O7 E2E green; RK1 record in `STEPS.md`) |
+| Steps 7–11 | Not started |
 | Owner spot-check (Step 12) | Not started |
 
 ## Relationship to other work
@@ -58,6 +66,9 @@ this shape: the gate measures the thing itself, not a proxy for it.
 - **Phase 4 / 4.1 stay frozen.** No new evidence claim. Three mechanical
   carve-outs, all id-, version-, or wording-level: `prov4` pilot ids and geometry
   version, `perf1` fixture ids, and the `src/perf/**` unavailable reason strings.
+  The geometry-version carve-out was **not** exercised: no new geometry
+  representation dataset exists, so `phys3-exp-20260808` is retained (see
+  [`implementation_plan.md`](./implementation_plan.md) Step 6).
 - **Phase 5 is closed and its surface is read-only.** If real data makes a screen
   wrong, that is recorded for the next phase.
 - **Phase 7 (catalog browser) depends on this.** The `cat6` image fields exist so

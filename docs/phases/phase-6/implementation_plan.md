@@ -4,8 +4,9 @@ Derived from [`specs/phase-6.md`](./specs/phase-6.md) and
 [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md). Required by
 the "plan before code" rule in [`../README.md`](../README.md).
 
-Status: **Accepted 2026-08-10. Owner decisions O1–O8 locked. Implementation
-started — Step 1 complete; Steps 2–12 open.**
+Status: **Accepted 2026-08-10. Owner decisions O1–O8 locked. Steps 1–5
+complete. Step 6 implementation complete (2026-08-10), RK1 record written in
+[`STEPS.md`](./STEPS.md). Steps 7–12 open.**
 
 ---
 
@@ -40,11 +41,14 @@ Exactly inverting Phase 5's boundary.
 | `scripts/author-phys3-glbs.mjs` | May use published `dimensionsMm` as visual scale guidance; does not establish authoritative compatibility truth |
 | `benchmarks/phys3/physical-validation-examples.json` | May retain historical/advisory geometry examples; only clearance-limit-backed rows are authoritative witnesses (**RK1**) |
 | `benchmarks/perf1/**` | **Ids re-pointed only** (**O3**). No row added, removed, or revalued; every row stays `confidence: "stub"` |
-| `benchmarks/prov4/pilot-*.json`, `PROV4_PILOT_PART_IDS` | **Ids and `geometryDataVersion` re-pointed only** (**RK2**). No grade change, no new claim |
+| `benchmarks/prov4/pilot-*.json`, `PROV4_PILOT_PART_IDS` | **Ids re-pointed only** (**RK2**). `geometryDataVersion` is **not** re-pointed — no new geometry representation dataset exists (`phys3-exp-20260808` retained; see Step 6). No grade change, no new claim |
 | `src/perf/applyCorrection.ts`, `src/estimate/estimatorQuery.ts` | Hardcoded example ids re-pointed. Mechanical strings; no logic change |
 | `src/perf/**` unavailable **reason strings** | Rewritten to user language stating the estimator is in preparation (**O1**). No logic, no signature, no numeric change |
-| `src/App.tsx`, `src/ui/**`, `src/styles/**` | **Untouchable.** A diff here fails review. If real data makes a screen wrong, it is recorded for Phase 7 |
-| `src/compat/`, `src/physical/`, `src/price/`, `src/provenance/`, `src/state/` | **Untouchable** except where a loader signature must change for the manifest |
+| `src/App.tsx`, `src/ui/**`, `src/styles/**` | **Untouchable except the Step 6 carve-out**: `src/ui/buildVerdict.ts` and `src/ui/WhyThisResult.tsx` changed to route verdicts through the new physical authority. A diff anywhere else here fails review. If real data makes a screen wrong, it is recorded for Phase 7 |
+| `src/physical/` | **Untouchable except the Step 6 carve-out**: physical-authority boundary (`buildPhysicalValidationReport.ts`, `collision/types.ts`) and the scalar clearance-limit evaluator (`clearanceLimit/evaluateClearanceLimits.ts`). No other `src/physical/` diff |
+| `src/contract/phys3.schema.ts` | **Untouchable except the Step 6 carve-out**: `conditional` added to `PhysicalValidationStatus` (**B3** / D4). No other `phys3` contract diff |
+| `src/compat/`, `src/price/`, `src/provenance/`, `src/state/` | **Untouchable** except where a loader signature must change for the manifest |
+| `src/test/**`, `e2e/**` | Step 6 re-anchored only the directly related physical/verdict tests (`buildVerdict`, `clearanceLimitEvaluator`, `physicalValidation`, `phys3.schema`, `phys3.integrity`, `phase3-physical-validation.spec.ts`) and added `phase6-o7-slot14-witness.spec.ts`. Other tests untouched |
 | `benchmarks/est1/**` | **Untouchable** beyond id re-pointing. Phase 4.1 stays frozen |
 | `docs/decisions/ADR-00*` | Unchanged. An image-rights ADR is a separate future decision |
 
@@ -131,11 +135,26 @@ evaluator** at runtime (separate from the OBB collision engine), reporting
 `fit` / `interference` / `conditional` per **C13** with conservative branch
 applicability filtering. The generator does **not** derive internal clearance
 volumes or invented case envelope boxes from scalar limits or case exterior
-`dimensionsMm` — see **B14**.
+`dimensionsMm` — **B14**, closed 2026-08-10.
 
-New `geometryDataVersion: "cat6-spec-⟨date⟩"`; `modelGrade` stays `Experimental`
-(**C5**). `geometryDataVersion` tags the project's geometry representation
-dataset, not manufacturer mechanical authority.
+**Geometry data version — no re-point (decided 2026-08-10).** The M0 text
+assumed Step 6 would produce a new geometry representation dataset and tag it
+`cat6-spec-⟨date⟩`. It did not. `geometryDataVersion` tags the project's
+geometry/model **representation** dataset (**C5**): the `phys3` `model.glb`
+meshes and `physicalSpec` evidence. That dataset is unchanged from Phase 3 —
+the generator is still `pb3-phys3-synthetic-20260808`, and the ten of fourteen
+parts that carry `physicalSpec` tag `phys3-exp-20260808` in
+`physicalSpec.evidence`; the other four (the A3 case, the TUF B860M, the V550
+SFX, and the G.SKILL kit) carry no `physicalSpec` — their GLBs are visual-only
+and the A3's authoritative limits are catalog facts in `clearanceLimits`. Step 6
+changed authority semantics (clearance-limit checks authoritative, OBB
+advisory-only) and trimmed synthetic CPU collision geometry, both *within* the
+existing dataset. The new `clearanceLimits` / `dimensionsMm` are published
+catalog facts with their own provenance
+(`benchmarks/cat6/catalog-source-registry.json`), not geometry representation,
+so they are not tagged by `geometryDataVersion`. A new version string would tag
+a dataset that does not exist; `phys3-exp-20260808` is retained and nothing is
+re-pointed. `modelGrade` stays `Experimental` (**C5**).
 
 Anchor and socket positions are assembly semantics, not dimensions; they stay
 hand-placed and their `basis` says so (**C17**).
@@ -146,12 +165,24 @@ authoritative `clearance-limit` interference (`168 > 165`). OBB is not the
 authority source. Slot 14 opens the compat-clean reachability path (**I8**). Do
 not claim all Phase 6 physical-rule coverage is complete.
 
-Authoritative clearance-limit arithmetic is recorded in `STEPS.md` (**RK1**).
-`benchmarks/phys3/physical-validation-examples.json` may retain
-historical/advisory geometry examples; only published-rule-backed clearance-limit
-results are authoritative — do not edit that benchmark file in doc-only slices.
-`benchmarks/prov4/pilot-geometry-evidence.json` is re-pointed to the new geometry
-version and nothing else (**RK2**).
+Authoritative clearance-limit arithmetic is recorded in
+[`STEPS.md`](./STEPS.md) (**RK1**). `benchmarks/phys3/physical-validation-examples.json` may
+retain historical/advisory geometry examples; only published-rule-backed
+clearance-limit results are authoritative — do not edit that benchmark file in
+doc-only slices. `benchmarks/prov4/pilot-geometry-evidence.json` is **not**
+re-pointed for geometry — see the no-re-point decision above (**RK2** applies to
+ids only).
+
+**Step 6 implementation status (2026-08-10):** authority model implemented —
+`clearance-limit` checks authoritative, OBB `collision` / `clearance` advisory
+only; scalar clearance-limit evaluator with `fit` / `interference` /
+`conditional` and conservative `appliesWhen` pruning (**B3**); synthetic CPU
+collision geometry removed with the stale cooler `allowedContacts` reference
+(**B8**, **B12**); no envelope boxes derived from scalar limits (**B14**); slot
+14 admitted (plane GLB, collision-less `physicalSpec`, manifest entry) and the
+O7 witness proven in the running app (`e2e/phase6-o7-slot14-witness.spec.ts`).
+The **RK1** clearance-limit arithmetic is recorded in
+[`STEPS.md`](./STEPS.md). Steps 7–12 are open.
 
 ### Step 7 — Default build must assemble
 Before the catalog grows: the default build is verified in a browser to assemble

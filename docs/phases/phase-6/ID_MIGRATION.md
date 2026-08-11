@@ -1,6 +1,10 @@
 # Phase 6 — Part id migration
 
-Status: **Step 5 executed 2026-08-10; Step 6 slot 14 admitted 2026-08-10.** Products are the owner's Step 3 selection.
+Status: **Steps 1–5 executed 2026-08-10. Step 6 implementation complete
+2026-08-10** — physical authority boundary (clearance-limit checks
+authoritative, OBB advisory-only), slot 14 admitted, **O7 running-app witness
+proven**, RK1 arithmetic in [`STEPS.md`](./STEPS.md). **Steps 7–12 are open.**
+Products are the owner's Step 3 selection.
 Legacy fixture ids are retired; **14 `cat6` parts are authored** under `parts/`, and
 the **runtime manifest loads all 14**. Slot 14
 (`motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3`) has a visual-only plane GLB
@@ -100,11 +104,13 @@ A 140 mm PSU against `1 HDD Tray: 255 mm / 2 HDD Tray: 155 mm` is `fit` outright
 `conditional`. "We do not know which branch holds" and "we cannot judge at all" are
 different facts and must not collapse into the same `unavailable`.
 
-`PhysicalValidationStatus` has no `conditional` member and `unavailable` is
-promoted to `blocked` by the display layer, so this needs a phys3 change. It is
-therefore a **candidate blocker before Step 6**, not a later-phase follow-up
-(§6). Until it lands, the default build is chosen to clear every published branch
-unconditionally — which is why slot 10 is a 140 mm PSU.
+`PhysicalValidationStatus` had no `conditional` member and `unavailable` is
+promoted to `blocked` by the display layer, so this needed a phys3 change. It
+was therefore a **candidate blocker before Step 6**, not a later-phase follow-up
+(§6). **Resolved 2026-08-10:** `conditional` is now a `PhysicalValidationStatus`
+member and the clearance-limit evaluator applies conservative `appliesWhen`
+pruning (**C13**). The default build is nonetheless chosen to clear every
+published branch unconditionally — which is why slot 10 is a 140 mm PSU.
 
 ---
 
@@ -242,7 +248,7 @@ slot 10 length 140 mm  vs slot 1 published PSU branches
 ```
 
 This is the deliberate mitigation for **D4**: the default build never depends on
-the unimplemented `conditional` status.
+the `conditional` status.
 
 ### I6 — Default build RAM does not raise the cooler above slot 1's limit
 
@@ -396,14 +402,14 @@ parts, and no part in this build is one.
 
 | # | Item | Gate |
 |---|------|------|
-| B1 | **D2** `maxMemorySpeedMtS` rule written into `cat6` | Before Step 4 authors **any** motherboard |
-| B2 | **D1** negative-fixture exception written into `cat6` / `specs/phase-6.md` | Before slot 9 is authored |
+| B1 | **D2** `maxMemorySpeedMtS` rule written into `cat6` | ✅ **Closed** — contract rule **C14** in `specs/catalog-data-contract.md`, written before Step 4 authored any motherboard |
+| B2 | **D1** negative-fixture exception written into `cat6` | ✅ **Closed** — contract rule **C15** + `identity.roleNote`, written before slot 9 was authored |
 | B3 | **D4** three-outcome C13 + `conditional` in `PhysicalValidationStatus`, **and branch filtering** (below) | ✅ **Resolved 2026-08-10** — `conditional` status, conservative `appliesWhen` pruning, and selected-build part resolution in `evaluateClearanceLimits` |
 | B4 | **D3** F4 permanent-caution resolution | Bounded step of its own. Does **not** gate Steps 3–4 |
 | B5 | Slot 14 selection | ✅ **Closed** — GIGABYTE B650M AORUS ELITE AX Rev. 1.3, approved 2026-08-10 |
 | B6 | **I6** sourcing (cooler RAM clearance + module height) | ✅ **Closed 2026-08-10** — both citations recorded; **I6** derived from authored data. See below |
 | B7 | **I9** — which PSU the **I8** demonstration build uses | ✅ **Closed** — slot 10 (Corsair RM750e, 140 mm ATX); slot 2 supports ATX up to 220 mm |
-| B8 | **CPU package dimensions** — no public AMD product page publishes them; exit condition 4 no longer requires every physical-core collision box from cited dimensions | Before Step 6. Found authoring slot 4; see below |
+| B8 | **CPU package dimensions** — no public AMD product page publishes them; exit condition 4 no longer requires every physical-core collision box from cited dimensions | ✅ **Closed 2026-08-10** — CPU collision geometry removed in Step 6; see below |
 | B9 | **`MotherboardCompatSpec.maxMemorySpeedMtS` is required**, which blocked slot 9 from carrying a `compatSpec` at all | ✅ **Closed** — field made optional; slot 9's `cpu-socket` negative verified restored |
 | B10 | **`DimensionsMm` was all-or-nothing**, so parts with partial published dimensions recorded none | ✅ **Closed** — each axis optional, at least one required; published axes now kept |
 | B11 | **No catalog price is sourced yet**, so the running app's only prices are the 13 phase-2 fixture amounts | Before the **O5** price step. Found during Step 4; see below |
@@ -543,12 +549,16 @@ silicon die areas, not package dimensions.
    (**O7**); physical-core membership does not require every member to expose
    collision geometry (see `PHYS3_PHYSICAL_CORE_IDS` comment).
 
-**Renderer note (read-only audit):** each CPU GLB carries a separate `visual:*` mesh
-and `collision:cpu-die`; `MountedPartModel` renders only `visual:*` nodes.
-Removing collision geometry in Step 6 does not remove CPU visibility.
+**Renderer note:** after Step 6 each CPU GLB carries a `visual:*` mesh and no
+collision node — `collisionNodes` is empty in both CPU `physicalSpec` blocks
+(**B12** closed). `MountedPartModel` renders `visual:*` nodes only (it hides
+`collision:*` / `clearance:*` / `anchor:*` / `socket:*`), so removing CPU
+collision geometry does not affect CPU visibility.
 
-**B12 follow-up:** when the CPU collision node is removed in Step 6, stale cooler
-`allowedContacts` references to `collision:cpu-die` must be removed in the same step.
+**B12 — closed 2026-08-10 (Step 6):** the CPU collision node was removed and the
+cooler's stale `allowedContacts` reference to `collision:cpu-die` went with it —
+`cooler.noctua-nh-d15-g2` carries no `allowedContacts` and both CPU parts list
+empty `collisionNodes`.
 
 Options 1–3 from the pre-decision list above are superseded by this ruling except
 that option 1 (official package drawing) remains the preferred path if a primary
@@ -561,12 +571,16 @@ publish — `CCD Size: 71mm²`, `IOD Size: 122mm²` — is **silicon die area**,
 package dimension, and cannot be converted into one.
 
 `dimensionsMm` is therefore absent on slot 4, which is correct under exit
-condition 3 (unsourceable means absent). The CPU is a phys3 physical-core part
-with legacy `collision:cpu-die` fixture geometry. **Superseded M0 assumption:**
-Step 6 would derive authoritative collision boxes from `dimensionsMm`. **Current
-architecture:** collision/OBB geometry is advisory; authoritative physical checks
-use published clearance limits and scalar rules. Exit condition 4 is met by **O7**
-(clearance-limit `168 > 165`), not by CPU collision boxes.
+condition 3 (unsourceable means absent) — package dimensions were not sourced,
+so no axis is recorded. The CPU is still a phys3 physical-core part, but it no
+longer carries legacy collision geometry: Step 6 removed the synthetic
+`collision:cpu-die` box, both CPU `physicalSpec` blocks list empty
+`collisionNodes` (**B12** closed), and the `visual:*` meshes remain available.
+**Superseded M0 assumption:** Step 6 would derive authoritative collision boxes
+from `dimensionsMm`. **Current architecture:** collision/OBB geometry is
+advisory; authoritative physical checks use published clearance limits and
+scalar rules. Exit condition 4 is met by **O7** (clearance-limit `168 > 165`),
+not by CPU collision boxes.
 
 This is a category-level problem, not a slot-4 one: it will recur for slot 5 and for
 any CPU added later.
@@ -641,7 +655,7 @@ Verified by grep against the working tree.
 
 ### Step 5 — manifest and loader (**O8**, done 2026-08-10)
 
-`parts/catalog-manifest.json` is the single runtime membership index: 13 loadable
+`parts/catalog-manifest.json` is the single runtime membership index: 14 loadable
 parts today. `loadPartCatalog` fetches the manifest, validates with
 `catalogManifestFileSchema`, loads only listed `part.json` paths, and join-guards
 that `DEFAULT_BUILD_STATE_V2` references ids present in the loaded catalog.
@@ -653,7 +667,8 @@ contract/fixture meaning only.
 **Slot 14 (`motherboard.gigabyte-b650m-aorus-elite-ax-rev-1-3`) — admitted Step 6
 (2026-08-10):** visual-only 244 × 244 mm plane GLB, collision-less
 `physicalSpec`, runtime manifest entry. O7 witness build is reachable in the
-running app. **B3**, **B8**, and **B11** unchanged.
+running app and covered by `e2e/phase6-o7-slot14-witness.spec.ts`. **B3** and
+**B8** were resolved in the same step; **B4** and **B11** remain open.
 
 ### `src/viewport/GpuModel.tsx` — carve-out (owner ruling, 2026-08-10)
 
