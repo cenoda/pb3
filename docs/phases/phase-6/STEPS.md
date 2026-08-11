@@ -1,8 +1,12 @@
 # Phase 6 — STEPS.md
 
-Step 6 closeout record — "Visual geometry and physical authority boundary".
-Home: [`README.md`](./README.md) · Plan: [`implementation_plan.md`](./implementation_plan.md)
-· Migration: [`ID_MIGRATION.md`](./ID_MIGRATION.md)
+Step closeout records. Home: [`README.md`](./README.md) ·
+Plan: [`implementation_plan.md`](./implementation_plan.md) ·
+Migration: [`ID_MIGRATION.md`](./ID_MIGRATION.md)
+
+---
+
+# Step 6 — Visual geometry and physical authority boundary
 
 ## 1. What was built (Step 6, 2026-08-10)
 
@@ -106,4 +110,81 @@ special case of the rule.
 
 ## 4. Status after this record
 
-Step 6 is **complete**. Steps 7–12 are open. Phase 7 has not started.
+Step 6 is **complete**. Step 7 follows below. Steps 8–12 remain open. Phase 7
+has not started.
+
+---
+
+# Step 7 — Default build assembly verification
+
+## 5. What was verified (Step 7, 2026-08-11)
+
+Default build (`DEFAULT_BUILD_STATE_V2`) was audited against the live
+manifest-loaded 14-part `cat6` catalog. **It assembles.** No change to the
+default part set was required (**RK5**).
+
+### Default build (unchanged)
+
+| Slot | Part id |
+|------|---------|
+| Case | `case.fractal-design-north-tg-dark` |
+| Motherboard | `motherboard.gigabyte-b650-aorus-elite-ax-v2` |
+| CPU | `cpu.amd-ryzen-5-7600` |
+| GPU | `gpu.asus-dual-rtx4070-o12g` |
+| Cooler | `cooler.noctua-nh-d15-g2` |
+| RAM | `ram.teamgroup-t-create-expert-ddr5-6000-32gb` |
+| PSU | `psu.corsair-rm750e` |
+
+### Catalog + assembly
+
+| Check | Evidence |
+|-------|----------|
+| Manifest size | `parts/catalog-manifest.json` → 14 parts, `catalogContractVersion: "cat6"` |
+| Default ids resolve | all 7 default part ids present in manifest / `loadPartCatalog` |
+| Mounts | `buildAssemblyState` → `allMounted === true`, 6 selections, empty `unavailableReasons` |
+| 3D viewport | `data-assembly-status="fit"`; `data-assembly-poses` includes mb / cooler / psu / gpu |
+
+### Authoritative clearance-limit arithmetic (default)
+
+| Family | Measurement | Published limits | Result |
+|--------|-------------|------------------|--------|
+| CPU cooler height | NH-D15 G2 **168 mm** | North **170 mm** ("without Fan Bracket") | **fit** (2 mm clearance) |
+| PSU length | RM750e **140 mm** | **255 mm** (1 HDD Tray) and **155 mm** (2 HDD Tray) | **fit** on **both** branches (**I5**) |
+| GPU length | Dual RTX 4070 OC **267.01 mm** | North **355 mm** | **fit** |
+
+OBB `collision` / `clearance` checks on the default orientation: all **fit** —
+no false advisory interference, and none of them set authoritative status
+(Step 6 authority boundary).
+
+### Browser / E2E evidence (2026-08-11)
+
+Commands:
+
+```bash
+pnpm exec vitest run src/test/phase6-step7-default-assembly.test.ts
+pnpm exec playwright test \
+  e2e/phase6-step7-default-assembly.spec.ts \
+  e2e/exit-scenario.spec.ts \
+  e2e/phase6-o7-slot14-witness.spec.ts
+```
+
+Results:
+
+| Suite | Result |
+|-------|--------|
+| Unit `phase6-step7-default-assembly.test.ts` | **3/3 PASS** |
+| E2E `phase6-step7-default-assembly.spec.ts` | **1/1 PASS** — clean `/` load, 14-part manifest via HTTP, default selectors, viewport poses, cooler/PSU/GPU clearance-limit `fit`, zero OBB interference |
+| E2E `exit-scenario.spec.ts` (Phase 0 path) | **4/4 PASS** — clean load, CPU change, GPU swap, reload/share-link restore, invalid-part fallback, fixture HTTP |
+| E2E `phase6-o7-slot14-witness.spec.ts` | **1/1 PASS** — O7 still reachable; `clearance-limit:cpu-cooler-height` interference; verdict blocked |
+
+### Truth-sync artifacts added
+
+- `src/test/phase6-step7-default-assembly.test.ts` — locks catalog size, mounts,
+  cooler/PSU branch arithmetic, no OBB interference
+- `e2e/phase6-step7-default-assembly.spec.ts` — locks the same criteria in the
+  running SPA against `vite preview` + dist fixtures
+
+### Status after this record
+
+Step 7 is **complete**. Default build unchanged. Steps 8–12 are open. Do not
+start catalog growth, price work, or Phase 7 from this record.

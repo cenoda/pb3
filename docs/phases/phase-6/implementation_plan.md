@@ -4,9 +4,10 @@ Derived from [`specs/phase-6.md`](./specs/phase-6.md) and
 [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md). Required by
 the "plan before code" rule in [`../README.md`](../README.md).
 
-Status: **Accepted 2026-08-10. Owner decisions O1–O8 locked. Steps 1–5
-complete. Step 6 implementation complete (2026-08-10), RK1 record written in
-[`STEPS.md`](./STEPS.md). Steps 7–12 open.**
+Status: **Accepted 2026-08-10. Owner decisions O1–O8 locked. Steps 1–7
+complete. Step 6 implementation complete (2026-08-10); Step 7 default-build
+assembly verification complete (2026-08-11). Records in
+[`STEPS.md`](./STEPS.md). Steps 8–12 open.**
 
 ---
 
@@ -48,7 +49,7 @@ Exactly inverting Phase 5's boundary.
 | `src/physical/` | **Untouchable except the Step 6 carve-out**: physical-authority boundary (`buildPhysicalValidationReport.ts`, `collision/types.ts`) and the scalar clearance-limit evaluator (`clearanceLimit/evaluateClearanceLimits.ts`). No other `src/physical/` diff |
 | `src/contract/phys3.schema.ts` | **Untouchable except the Step 6 carve-out**: `conditional` added to `PhysicalValidationStatus` (**B3** / D4). No other `phys3` contract diff |
 | `src/compat/`, `src/price/`, `src/provenance/`, `src/state/` | **Untouchable** except where a loader signature must change for the manifest |
-| `src/test/**`, `e2e/**` | Step 6 re-anchored only the directly related physical/verdict tests (`buildVerdict`, `clearanceLimitEvaluator`, `physicalValidation`, `phys3.schema`, `phys3.integrity`, `phase3-physical-validation.spec.ts`) and added `phase6-o7-slot14-witness.spec.ts`. Other tests untouched |
+| `src/test/**`, `e2e/**` | Step 6 re-anchored only the directly related physical/verdict tests (`buildVerdict`, `clearanceLimitEvaluator`, `physicalValidation`, `phys3.schema`, `phys3.integrity`, `phase3-physical-validation.spec.ts`) and added `phase6-o7-slot14-witness.spec.ts`. Step 7 added `phase6-step7-default-assembly.test.ts` + `phase6-step7-default-assembly.spec.ts` only (default-build assembly lock). Other tests untouched |
 | `benchmarks/est1/**` | **Untouchable** beyond id re-pointing. Phase 4.1 stays frozen |
 | `docs/decisions/ADR-00*` | Unchanged. An image-rights ADR is a separate future decision |
 
@@ -182,13 +183,33 @@ collision geometry removed with the stale cooler `allowedContacts` reference
 14 admitted (plane GLB, collision-less `physicalSpec`, manifest entry) and the
 O7 witness proven in the running app (`e2e/phase6-o7-slot14-witness.spec.ts`).
 The **RK1** clearance-limit arithmetic is recorded in
-[`STEPS.md`](./STEPS.md). Steps 7–12 are open.
+[`STEPS.md`](./STEPS.md). Step 7 is complete (2026-08-11); Steps 8–12 are open.
 
 ### Step 7 — Default build must assemble
 Before the catalog grows: the default build is verified in a browser to assemble
 in 3D on real dimensions, and the Phase 0 exit scenario is re-run (**RK5**). If
 the real default build does not fit, the default is changed to one that does and
 the change is recorded.
+
+**Step 7 status (2026-08-11): complete — default build passes; no default
+change.** Verified against the live 14-part `cat6` manifest catalog:
+
+| Check | Result |
+|-------|--------|
+| Default parts in manifest | 7/7 ids resolve; catalog has 14 parts |
+| 3D assembly | `allMounted`; 6 mount selections; viewport poses present |
+| Cooler clearance-limit | 168 mm ≤ 170 mm ("without Fan Bracket") → **fit** |
+| PSU clearance-limit | 140 mm ≤ 155 mm and ≤ 255 mm (both published branches) → **fit** |
+| GPU clearance-limit | 267.01 mm ≤ 355 mm → **fit** |
+| OBB advisory | no collision/clearance interference on default orientation |
+| Authoritative overall | `fit` (no interference / unavailable clearance-limit) |
+| Phase 0 exit scenario | clean load / CPU / GPU / reload / invalid-part fallback green |
+| O7 witness | still reachable; cooler height interference still reported |
+
+Default `BuildState` unchanged (`DEFAULT_BUILD_STATE_V2` in `src/contract/vs2.ts`).
+Evidence and commands: [`STEPS.md`](./STEPS.md) §5. Truth-sync tests:
+`src/test/phase6-step7-default-assembly.test.ts`,
+`e2e/phase6-step7-default-assembly.spec.ts`.
 
 ### Step 8 — Unavailable reasons say "in preparation" (**O1**)
 The `src/perf/**` reason strings — currently

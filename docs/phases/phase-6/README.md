@@ -3,8 +3,9 @@
 The phase that replaces the invented data the Phase 0–5 work runs on.
 
 **Status: M0 package drafted and accepted 2026-08-10. Owner decisions O1–O8
-locked. Steps 1–5 complete. Step 6 implementation complete (2026-08-10) with
-its RK1 record in [`STEPS.md`](./STEPS.md). Steps 7–12 are open.**
+locked. Steps 1–7 complete. Step 6 authority boundary (2026-08-10) and Step 7
+default-build assembly verification (2026-08-11) are recorded in
+[`STEPS.md`](./STEPS.md). Steps 8–12 are open.**
 
 Phase 6 is **primarily a catalog/data phase** — the display layer stays as it
 is. It is not purely data-only: Step 6 includes the narrowly scoped
@@ -20,7 +21,7 @@ changed the display layer and no data.
 | [`specs/catalog-data-contract.md`](./specs/catalog-data-contract.md) | `cat6` — identity, dimensions, SKU performance spec, provenance, image fields, id convention, manifest, dual-price model, validation split |
 | [`implementation_plan.md`](./implementation_plan.md) | Ordered Steps 1–12, untouchable boundary, verification, honest failure modes |
 | [`TODO.md`](./TODO.md) | Checklist |
-| [`STEPS.md`](./STEPS.md) | Step 6 closeout record — RK1 clearance-limit arithmetic, changed `phys3` verdicts, deviations |
+| [`STEPS.md`](./STEPS.md) | Step 6 + Step 7 closeout records — RK1 arithmetic, default-build assembly evidence |
 | [`../phase-5/CLOSEOUT.md`](../phase-5/CLOSEOUT.md) | The direction this phase answers: real catalog first, catalog browser second |
 
 ## The gate
@@ -58,7 +59,8 @@ this shape: the gate measures the thing itself, not a proxy for it.
 | Step 1 — `cat6` contract, no data | **Done — 2026-08-10** (`pnpm test` 32 files / 236 tests, `pnpm build` clean) |
 | Steps 2–5 — source registry, id migration, manifest | **Done — 2026-08-10** (14 authored `cat6` parts; `parts/catalog-manifest.json` lists 14) |
 | Step 6 — physical authority boundary + O7 witness | **Done — 2026-08-10** (clearance-limit checks authoritative, OBB advisory; slot 14 admitted; O7 E2E green; RK1 record in `STEPS.md`) |
-| Steps 7–11 | Not started |
+| Step 7 — default build assembly verification | **Done — 2026-08-11** (default build fits; Phase 0 exit scenario + O7 re-run green; no `DEFAULT_BUILD_STATE_V2` change) |
+| Steps 8–11 | Not started |
 | Owner spot-check (Step 12) | Not started |
 
 ## Relationship to other work
