@@ -130,8 +130,11 @@
     미모델), aggregate/verdict 비차단; 다른 unavailable는 기존 caution 유지;
     BIOS 데이터 창작 없음). Final closeout:
     [`CLOSEOUT.md`](docs/phases/phase-6/CLOSEOUT.md)
-12. **Phase 7 (카탈로그 브라우저 + 이미지)** — 미계획; 이미지
-    권리 ADR 이후 별도 M0 필요
+12. **Phase 7 (카탈로그 브라우저 + 이미지)** — **M0 수락 · 구현 승인
+    (2026-08-13)**; 결정 O1–O7 제안대로 확정 (`"cc-attribution"` rights class
+    추가, 카테고리당 최소 1장, 제조사 프레스킷 + CC-BY/CC0 혼용, 실물 3D 메시는
+    범위 밖); `implementation_plan.md` Steps 1–6 작성 완료 —
+    [`docs/phases/phase-7/`](docs/phases/phase-7/)
 
 ## Phase 0 종료 승인 (2026-08-08)
 
