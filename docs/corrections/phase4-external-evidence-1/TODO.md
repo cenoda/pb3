@@ -28,7 +28,7 @@
   (Aria 2026-08-09: Nox FAIL remediations verified — source-rights fail-closed,
   exactSettings material checks, no invented aggregate rawArtifact, ADR-005
   overclaim softened; 190 unit + 14 e2e + build PASS)
-- [ ] Owner Phase 4 Step 9 closeout PASS
+- [x] Owner Phase 4 Step 9 closeout PASS — **2026-08-13**
 
 ## Explicitly out
 

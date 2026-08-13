@@ -32,7 +32,7 @@ Owner authorized implementation start (2026-08-09). Follow
 - [x] Step 6 — Physical / cooling disclosure extensions
 - [x] Step 7 — Evidence disclosure panel
 - [x] Step 8 — Unit / E2E / build regression gate
-- [ ] Step 9 — Evidence-quality closeout (owner review on 2026-08-09: **FAIL / blocked**)
+- [x] Step 9 — Evidence-quality closeout (owner review on 2026-08-09: **FAIL / blocked**; corrective package `phase4-external-evidence-1` implemented and independently re-audited by Aria 2026-08-09; **owner PASS 2026-08-13**)
 
 ## Software gate notes (2026-08-09)
 

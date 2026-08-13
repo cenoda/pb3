@@ -105,9 +105,10 @@
 5. ~~**Phase 2 (기본 견적 서비스)** — M0 수락 → 구현·검증·closeout~~ → **구현 완료 (2026-08-08)** — [`docs/phases/phase-2/`](docs/phases/phase-2/)
 6. ~~**Phase 3 (3D 물리 검증)** — M0 수락 → 구현·검증·closeout~~ → **완료
    (2026-08-08)** — [`docs/phases/phase-3/`](docs/phases/phase-3/)
-7. **Phase 4 M0** — original Steps 1–8 software path implemented; false
+7. ~~**Phase 4 M0**~~ — original Steps 1–8 software path implemented; false
    first-party claim removed; **external-evidence corrective Steps 1–5
-   implemented (2026-08-09)** — Step 9 blocked pending re-audit —
+   implemented (2026-08-09)**, independently re-audited (Aria, 2026-08-09);
+   **Step 9 evidence-quality closeout — owner PASS (2026-08-13)** —
    [`docs/phases/phase-4/`](docs/phases/phase-4/) ·
    [`docs/corrections/phase4-external-evidence-1/`](docs/corrections/phase4-external-evidence-1/)
 8. ~~**Product UX corrective gate (`product-ux-1`)**~~ — implementation and
@@ -315,13 +316,16 @@
 | Human verification | empty (no `"high"` claims shipped) |
 | `perf1` / `phys3` / `vs2` public shapes | **unchanged** |
 
-### Phase 4 evidence-quality gate (not closed)
+### Phase 4 evidence-quality gate (closed 2026-08-13)
 
-- Owner has **not** yet accepted evidence-quality closeout.
-- No first-party performance package is currently shipped. All three pilot
-  performance rows are explicit synthetic stubs pending an accepted external
-  evidence correction.
-- Do **not** treat green tests alone as Phase 4 PASS.
+- Owner accepted evidence-quality closeout (Step 9) — **PASS (2026-08-13)**.
+- No first-party performance package ships. All three pilot performance rows
+  remain explicit synthetic stubs; external aggregate is `unavailable` and
+  falls back to `perf1` synthetic values (not a measured claim).
+- Basis: corrective package `phase4-external-evidence-1` Steps 1–5 implemented
+  (2026-08-09) and independently re-audited (Aria, 2026-08-09) — source-rights
+  fail-closed, exactSettings material checks, no invented aggregate
+  `rawArtifact`, ADR-005 overclaim softened; 190 unit + 14 e2e + build PASS.
 
 ### Phase 4 external evidence correction (`phase4-external-evidence-1`, 2026-08-09)
 
@@ -333,7 +337,7 @@
 | Curated observations | `benchmarks/prov4/external-performance-observations.json` — audit-only near-miss rows; **no exact-match FPS ingested** |
 | Product pilot FPS | External aggregate **unavailable** → **perf1 synthetic fallback** (not sidecar synthetic-stub as product range) |
 | Verification | `pnpm test` **28 files / 184 tests PASS** · `pnpm test:e2e` **14/14 PASS** · `pnpm build` PASS · `dist/benchmarks/prov4/**` present |
-| Step 9 closeout | **BLOCKED** — independent re-audit + owner PASS required; no verified external aggregate ships yet |
+| Step 9 closeout | **PASS (owner, 2026-08-13)** — independent re-audit (Aria, 2026-08-09) + owner PASS complete; no verified external aggregate ships (unavailable → `perf1` synthetic fallback) |
 
 ### Phase 4 external evidence correction candidate (2026-08-09)
 
@@ -341,7 +345,8 @@
 - False `first-party-measured` claim and derived PresentMon-labeled summary:
   **removed** (prior safety correction).
 - Corrective implementation Steps 1–5: **complete (2026-08-09)**.
-- Next gate: independent re-audit and explicit owner Phase 4 Step 9 closeout.
+- Independent re-audit (Aria, 2026-08-09) and explicit owner Phase 4 Step 9
+  closeout PASS (2026-08-13): **both complete**. Phase 4 M0 fully closed.
 
 ## Product UX corrective gate (`product-ux-1`, 2026-08-09)
 
