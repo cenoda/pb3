@@ -4,6 +4,7 @@ import {
   caseClearanceLimitsSchema,
   dimensionsMmSchema,
 } from "./cat6.fields.schema";
+import { evidenceRightsClassSchema } from "./prov4.schema";
 import { vs0ContractVersionSchema } from "./vs0.schema";
 
 /** Runtime loader accepts vs0 legacy fixtures and cat6-authored parts. */
@@ -83,6 +84,16 @@ export const partDefinitionV2Schema = z.object({
     .object({
       clearanceLimits: z.object({ sourceId: z.string().min(1) }).optional(),
       dimensions: z.object({ sourceId: z.string().min(1) }).optional(),
+    })
+    .optional(),
+  image: z
+    .object({
+      path: z.string().min(1),
+      sourceId: z.string().min(1),
+      rightsClass: evidenceRightsClassSchema,
+      retrievedAt: z
+        .string()
+        .regex(/^\d{4}-\d{2}-\d{2}$/, "must be ISO-8601 date (YYYY-MM-DD)"),
     })
     .optional(),
 });

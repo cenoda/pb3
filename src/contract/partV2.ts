@@ -6,7 +6,7 @@ import type {
   PsuCompatSpec,
   RamCompatSpec,
 } from "./compat2";
-import type { CaseClearanceLimits, DimensionsMm } from "./cat6";
+import type { CaseClearanceLimits, CatalogImageRef, DimensionsMm } from "./cat6";
 import type { PhysicalSpec } from "./phys3";
 import type { PartCategoryV2 } from "./vs2";
 
@@ -38,6 +38,8 @@ export interface PartDefinitionV2 {
     clearanceLimits?: { sourceId: string };
     dimensions?: { sourceId: string };
   };
+  /** Phase-7 catalog photo; absent when no approved source exists. */
+  image?: CatalogImageRef;
 }
 
 const CATEGORIES_REQUIRING_COMPAT: ReadonlySet<PartCategoryV2> = new Set([

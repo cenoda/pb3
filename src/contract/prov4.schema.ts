@@ -590,6 +590,7 @@ export const evidenceRightsClassSchema = z.enum([
   "public-spec",
   "fair-use-citation",
   "licensed",
+  "cc-attribution",
   "unavailable",
 ]);
 

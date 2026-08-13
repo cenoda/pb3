@@ -69,6 +69,23 @@ test.describe("Phase 0 exit scenario (plan Step 8)", () => {
     await expect(page.getByTestId("ram-part-select")).toHaveValue(DEFAULT_RAM);
     await expect(page.getByTestId("psu-select")).toHaveValue(DEFAULT_PSU);
 
+    await expect(page.getByTestId("cpu-select-grid")).toBeVisible();
+    await expect(page.getByTestId("gpu-select-grid")).toBeVisible();
+    await expect(
+      page.locator('[data-testid="cpu-select-grid"] [data-part-id="cpu.amd-ryzen-5-7600"] img'),
+    ).toBeVisible();
+    await expect(
+      page.locator('[data-testid="gpu-select-grid"] .part-card-placeholder').first(),
+    ).toBeVisible();
+    await expect(page.getByTestId("image-attribution")).toContainText("FAL");
+
+    await page
+      .locator(
+        '[data-testid="cpu-select-grid"] [data-part-id="cpu.amd-ryzen-7-7800x3d"]',
+      )
+      .click();
+    await expect(page.getByTestId("cpu-select")).toHaveValue(OTHER_CPU);
+
     await page.getByTestId("cpu-select").selectOption(OTHER_CPU);
     await expect(page.getByTestId("cpu-select")).toHaveValue(OTHER_CPU);
     await expect(page).toHaveURL(fullQuery(OTHER_CPU, DEFAULT_GPU));
@@ -145,6 +162,12 @@ test.describe("Fixture HTTP (build output)", () => {
     const partJson = await part.json();
     expect(partJson.id).toBe("gpu.asus-dual-rtx4070-o12g");
     expect(partJson.contractVersion).toBe("cat6");
+
+    const cpuImage = await request.get(
+      "/parts/cpu/cpu.amd-ryzen-7-7800x3d/image.jpg",
+    );
+    expect(cpuImage.ok()).toBeTruthy();
+    expect(cpuImage.headers()["content-type"] ?? "").toMatch(/image\/jpeg/);
 
     const perf = await request.get(
       "/benchmarks/vs0/performance-fixtures.json",

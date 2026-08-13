@@ -271,3 +271,38 @@ export const catalogPriceFileSchema = z
       });
     }
   });
+
+export const imageSourceDecisionSchema = z.enum([
+  "approved",
+  "approved-metadata-only",
+  "rejected",
+]);
+
+export const imageSourceRegistryEntrySchema = z.object({
+  sourceId: nonEmptyString,
+  publisher: nonEmptyString,
+  canonicalUrl: nonEmptyString,
+  citation: nonEmptyString,
+  rightsClass: evidenceRightsClassSchema,
+  retrievedAt: iso8601DateSchema,
+  decision: imageSourceDecisionSchema,
+  verbatimTerms: nonEmptyString,
+  notes: z.string().optional(),
+});
+
+export const imageSourceRegistryFileSchema = z
+  .object({
+    catalogContractVersion: cat6ContractVersionSchema,
+    registryVersion: nonEmptyString,
+    reviewedAt: iso8601DateSchema,
+    sources: z.array(imageSourceRegistryEntrySchema),
+  })
+  .superRefine((file, ctx) => {
+    const ids = file.sources.map((s) => s.sourceId);
+    if (new Set(ids).size !== ids.length) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "duplicate sourceId in image source registry",
+      });
+    }
+  });

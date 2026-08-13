@@ -120,6 +120,14 @@ files.
 - If O2's floor (1 image/category) cannot be met for a category because no
   rightful source exists, that category ships with 0 images and the gap is
   recorded here, in `README.md`'s sequence table — not silently dropped.
+- **Recorded 2026-08-13:** O2 floor missed for six categories. Shipped
+  images: CPU 2 (`cpu.amd-ryzen-5-7600` FAL, `cpu.amd-ryzen-7-7800x3d`
+  CC0). GPU, motherboard, case, cooler, RAM, PSU: 0. Manufacturer press
+  terms (ASUS and peers) prohibit storing cropped product photos in this
+  repo without a dealer/licensee agreement; no Wikimedia CC-BY/CC0 still
+  of those exact catalog SKUs was found. Related-SKU Commons photos
+  (NH-D15 vs G2, Focus G vs North, Gigabyte 4070 Aero vs ASUS Dual) were
+  not used (O6).
 - If a press kit's terms turn out to prohibit cropping/resizing on closer
   reading (RK1), that source's registry decision is corrected to
   `rejected`/`approved-metadata-only` and its image removed, mirroring how

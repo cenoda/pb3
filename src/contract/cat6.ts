@@ -294,3 +294,37 @@ export interface CatalogPriceFile {
 
 export const CAT6_CATALOG_PRICES_PATH =
   "/benchmarks/cat6/catalog-prices.json" as const;
+
+export const CAT6_IMAGE_SOURCE_REGISTRY_PATH =
+  "/benchmarks/cat6/image-source-registry.json" as const;
+
+export type ImageSourceDecision =
+  | "approved"
+  | "approved-metadata-only"
+  | "rejected";
+
+/**
+ * One image source rights decision. Mirrors Phase 4 source-rights-record
+ * fields (publisher, canonical URL, rights class, retrieval date, decision)
+ * plus verbatim reuse terms (RK1).
+ */
+export interface ImageSourceRegistryEntry {
+  sourceId: string;
+  publisher: string;
+  canonicalUrl: string;
+  /** Required citation: the owner can follow any image here in one hop. */
+  citation: string;
+  rightsClass: EvidenceRightsClass;
+  retrievedAt: string;
+  decision: ImageSourceDecision;
+  /** Verbatim reuse terms as published, not paraphrased. */
+  verbatimTerms: string;
+  notes?: string;
+}
+
+export interface ImageSourceRegistryFile {
+  catalogContractVersion: Cat6ContractVersion;
+  registryVersion: string;
+  reviewedAt: string;
+  sources: ImageSourceRegistryEntry[];
+}

@@ -8,12 +8,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { loadPartCatalog } from "./catalog/loadPartCatalog";
+import { loadImageSourceRegistry } from "./catalog/loadImageSourceRegistry";
 import {
   loadPerf1Fixtures,
   type Perf1Fixtures,
 } from "./catalog/loadPerf1Fixtures";
 import { buildCompatibilityReport } from "./compat/buildCompatibilityReport";
-import type { CatalogPriceFile } from "./contract/cat6";
+import type { CatalogPriceFile, ImageSourceRegistryFile } from "./contract/cat6";
 import type {
   WorkloadEstimateResult,
   WorkloadId,
@@ -71,6 +72,7 @@ type BootState =
       coolingEvidence: CoolingEvidenceFile;
       prov4Fixtures: Prov4Fixtures;
       est1Fixtures: Est1Fixtures;
+      imageRegistry: ImageSourceRegistryFile;
     };
 
 const PART_SLOTS: {
@@ -131,6 +133,7 @@ export default function App() {
           coolingEvidence,
           prov4Fixtures,
           est1Fixtures,
+          imageRegistry,
         ] = await Promise.all([
           loadPartCatalog(),
           loadPerf1Fixtures(),
@@ -138,6 +141,7 @@ export default function App() {
           loadCoolingEvidence(),
           loadProv4Fixtures(),
           loadEst1Fixtures(),
+          loadImageSourceRegistry(),
         ]);
         const glbIndexes = await loadGlbPhysicalIndexes(catalog);
         if (cancelled) return;
@@ -161,6 +165,7 @@ export default function App() {
           coolingEvidence,
           prov4Fixtures,
           est1Fixtures,
+          imageRegistry,
         });
       } catch (error) {
         if (cancelled) return;
@@ -310,6 +315,13 @@ export default function App() {
     return buildPriceSummary(buildState, boot.catalogPrices);
   }, [boot, buildState, verdict]);
 
+  const imageSourceMap = useMemo(() => {
+    if (boot.status !== "ready") return undefined;
+    return new Map(
+      boot.imageRegistry.sources.map((source) => [source.sourceId, source]),
+    );
+  }, [boot]);
+
   const railContent =
     boot.status === "loading" ? (
       <p className="rail-message" data-testid="rail-loading">
@@ -330,6 +342,7 @@ export default function App() {
           value={selectedPartId(buildState, slot.category)}
           options={boot.catalog.getByCategory(slot.category)}
           onChange={setters[slot.category]}
+          imageSources={imageSourceMap}
         />
       ))
     );

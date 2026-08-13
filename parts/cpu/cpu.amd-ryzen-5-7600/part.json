@@ -34,6 +34,12 @@
       "retrievedAt": "2026-08-10"
     }
   },
+  "image": {
+    "path": "parts/cpu/cpu.amd-ryzen-5-7600/image.jpg",
+    "sourceId": "source.cat6.image.wikimedia.ryzen-5-7600-top-fal",
+    "rightsClass": "cc-attribution",
+    "retrievedAt": "2026-08-13"
+  },
   "physicalSpec": {
     "physicalContractVersion": "phys3",
     "evidence": {

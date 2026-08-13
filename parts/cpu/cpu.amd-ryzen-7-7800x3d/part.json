@@ -34,6 +34,12 @@
       "retrievedAt": "2026-08-10"
     }
   },
+  "image": {
+    "path": "parts/cpu/cpu.amd-ryzen-7-7800x3d/image.jpg",
+    "sourceId": "source.cat6.image.wikimedia.ryzen-7-7800x3d-package-cc0",
+    "rightsClass": "licensed",
+    "retrievedAt": "2026-08-13"
+  },
   "physicalSpec": {
     "physicalContractVersion": "phys3",
     "evidence": {

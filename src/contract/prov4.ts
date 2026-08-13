@@ -26,6 +26,7 @@ export type EvidenceRightsClass =
   | "public-spec"
   | "fair-use-citation"
   | "licensed"
+  | "cc-attribution"
   | "unavailable";
 
 export interface EvidenceSource {

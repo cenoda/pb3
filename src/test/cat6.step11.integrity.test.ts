@@ -6,6 +6,7 @@ import {
   catalogManifestFileSchema,
   catalogPriceFileSchema,
   catalogSourceRegistryFileSchema,
+  imageSourceRegistryFileSchema,
   partDefinitionV3Schema,
 } from "../contract/cat6.schema";
 import { indexGlbPhysicalNodesFromPath } from "../physical/indexGlbPhysicalNodes.node";
@@ -71,19 +72,60 @@ describe("cat6 integrity — Step 11 catalog + price gates", () => {
     expect(errors).toEqual([]);
   });
 
-  it("no authored cat6 part populates image (C7 — no image file ships)", () => {
+  it("every populated cat6 image binds to an approved image-source-registry decision and an on-disk file", () => {
+    const registry = imageSourceRegistryFileSchema.parse(
+      readJson("benchmarks/cat6/image-source-registry.json"),
+    );
+    const byId = new Map(registry.sources.map((s) => [s.sourceId, s]));
     const paths = collectPartJsonPaths();
+    const violations: string[] = [];
     for (const p of paths) {
-      const raw = readJson<{ contractVersion?: string; image?: unknown }>(p);
-      if (raw.contractVersion !== "cat6") continue;
-      expect(raw.image, p).toBeUndefined();
+      const raw = readJson<{
+        contractVersion?: string;
+        id?: string;
+        image?: {
+          path: string;
+          sourceId: string;
+          rightsClass: string;
+        };
+      }>(p);
+      if (raw.contractVersion !== "cat6" || raw.image === undefined) continue;
+      const entry = byId.get(raw.image.sourceId);
+      if (!entry) {
+        violations.push(`${raw.id}: sourceId ${raw.image.sourceId} not in registry`);
+        continue;
+      }
+      if (entry.decision !== "approved") {
+        violations.push(
+          `${raw.id}: registry decision is ${entry.decision}, not approved`,
+        );
+      }
+      if (entry.rightsClass !== raw.image.rightsClass) {
+        violations.push(
+          `${raw.id}: part rightsClass ${raw.image.rightsClass} !== registry ${entry.rightsClass}`,
+        );
+      }
+      const filePath = resolve(ROOT, raw.image.path);
+      try {
+        if (!statSync(filePath).isFile()) {
+          violations.push(`${raw.id}: image.path is not a file: ${raw.image.path}`);
+        }
+      } catch {
+        violations.push(`${raw.id}: missing file ${raw.image.path}`);
+      }
     }
+    expect(violations).toEqual([]);
   });
 
-  it("no part folder under parts/** contains an image file", () => {
+  it("no image file under parts/** is unreferenced by a cat6 image.path", () => {
     const partsRoot = join(ROOT, "parts");
     const imageExtensions = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".avif"]);
-    const hits: string[] = [];
+    const referenced = new Set<string>();
+    for (const p of collectPartJsonPaths()) {
+      const raw = readJson<{ image?: { path?: string } }>(p);
+      if (raw.image?.path) referenced.add(resolve(ROOT, raw.image.path));
+    }
+    const unreferenced: string[] = [];
     for (const category of readdirSync(partsRoot)) {
       const categoryDir = join(partsRoot, category);
       if (!statSync(categoryDir).isDirectory()) continue;
@@ -93,12 +135,13 @@ describe("cat6 integrity — Step 11 catalog + price gates", () => {
         for (const file of readdirSync(dir)) {
           const ext = file.slice(file.lastIndexOf("."));
           if (imageExtensions.has(ext.toLowerCase())) {
-            hits.push(join(dir, file));
+            const full = join(dir, file);
+            if (!referenced.has(full)) unreferenced.push(full);
           }
         }
       }
     }
-    expect(hits).toEqual([]);
+    expect(unreferenced).toEqual([]);
   });
 
   it("every dimensionsMm on an authored cat6 part carries provenance.dimensions", () => {

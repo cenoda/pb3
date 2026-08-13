@@ -1,0 +1,128 @@
+{
+  "catalogContractVersion": "cat6",
+  "registryVersion": "cat6-image-registry-20260813",
+  "reviewedAt": "2026-08-13",
+  "sources": [
+    {
+      "sourceId": "source.cat6.image.asus.dual-rtx4070-o12g.press",
+      "publisher": "ASUSTeK Computer Inc.",
+      "canonicalUrl": "https://www.asus.com/us/motherboards-components/graphics-cards/dual/dual-rtx4070-o12g/",
+      "citation": "https://www.asus.com/us/motherboards-components/graphics-cards/dual/dual-rtx4070-o12g/",
+      "rightsClass": "licensed",
+      "retrievedAt": "2026-08-13",
+      "decision": "rejected",
+      "verbatimTerms": "ASUS Legal information (retrieved 2026-08-13 from https://www.asus.com/th/asus_website_information/legal_information/): \"The Materials and Services on this Site are protected by copyright and/or other intellectual property laws and any unauthorized use of the Materials or Services at this Site may violate such laws. ASUS and its suppliers do not grant any express or implied right to you under any patents, copyrights, trademarks, or trade secret information with respect to the Materials and Services. No portion of the information (including without limitation documents and photos) on this Site may be reproduced or used in any form or by any means without the prior written permission of ASUS.\" ASUS Channel Site Copyright Usage Guidelines (https://channel.asus.com/guideline/inner?index=asusCopyright_en): the limited photo-use grant applies only to \"ASUS licensees, authorized dealers, distributors, resellers, retailers\" under a Distribution/Sale agreement; \"Any use of ASUS Resource that falls outside these Guidelines is strictly prohibited\"; required credit \"Used with permission from ASUS\"; \"YOU must not edit, reformat, or modify these assets without prior written consent\". This project is not an ASUS licensee and storing a cropped copy in an Apache-2.0 public repository as catalog UI is outside that grant.",
+      "notes": "Step 2 GPU candidate. Exact SKU product/press renders exist on the ASUS product page and pressroom, but terms prohibit storing a cropped copy here. No Wikimedia CC-BY/CC0 photograph of DUAL-RTX4070-O12G (non-SUPER) was found. Part ships without image."
+    },
+    {
+      "sourceId": "source.cat6.image.asus.proart-rtx4080-o16g.press",
+      "publisher": "ASUSTeK Computer Inc.",
+      "canonicalUrl": "https://press.asus.com/media/media-kit",
+      "citation": "https://press.asus.com/media/media-kit",
+      "rightsClass": "licensed",
+      "retrievedAt": "2026-08-13",
+      "decision": "rejected",
+      "verbatimTerms": "Same ASUS site legal text as source.cat6.image.asus.dual-rtx4070-o12g.press: no reproduction of photos without prior written permission; channel-site photo grant is limited to authorized dealers/distributors and forbids modification without consent.",
+      "notes": "No Wikimedia CC photograph of ProArt RTX 4080 O16G found. Part ships without image."
+    },
+    {
+      "sourceId": "source.cat6.image.asus.dual-rtx4060-o8g.press",
+      "publisher": "ASUSTeK Computer Inc.",
+      "canonicalUrl": "https://www.asus.com/",
+      "citation": "https://www.asus.com/",
+      "rightsClass": "licensed",
+      "retrievedAt": "2026-08-13",
+      "decision": "rejected",
+      "verbatimTerms": "Same ASUS site legal text as source.cat6.image.asus.dual-rtx4070-o12g.press.",
+      "notes": "Commons hit for Dual 4060 Ti YouTube screenshots is a different SKU and a screenshot (explicitly out of scope). Part ships without image."
+    },
+    {
+      "sourceId": "source.cat6.image.wikimedia.ryzen-7-7800x3d-package-cc0",
+      "publisher": "FritzchensFritz",
+      "canonicalUrl": "https://commons.wikimedia.org/wiki/File:AMD@5nmCCD(6nmIOD)@Zen4@Raphael@Ryzen_7_7800X3D@100-000000910_BS_2312PGY_9LW3390030138_DSCx01.jpg",
+      "citation": "https://commons.wikimedia.org/wiki/File:AMD@5nmCCD(6nmIOD)@Zen4@Raphael@Ryzen_7_7800X3D@100-000000910_BS_2312PGY_9LW3390030138_DSCx01.jpg",
+      "rightsClass": "licensed",
+      "retrievedAt": "2026-08-13",
+      "decision": "approved",
+      "verbatimTerms": "Creative Commons CC0 1.0 Universal Public Domain Dedication (http://creativecommons.org/publicdomain/zero/1.0/deed.en). Attribution not required. Adaptation (resize/crop/EXIF strip) permitted. Original: Flickr https://www.flickr.com/photos/130561288@N04/52940218052/ by FritzchensFritz; identified on Commons as the AMD Ryzen 7 7800X3D package (OPN 100-000000910), matching catalog partNumber 100-100000910WOF boxed SKU of the same silicon.",
+      "notes": "Exact catalog CPU. Stored file is an 800px JPEG derivative of the Commons original. rightsClass licensed (CC0); no attribution line in UI."
+    },
+    {
+      "sourceId": "source.cat6.image.wikimedia.ryzen-5-7600-top-fal",
+      "publisher": "Smial (Rainer Knäpper)",
+      "canonicalUrl": "https://commons.wikimedia.org/wiki/File:AMD_Ryzen_5_7600_top_IMGP6773_smial_wp.jpg",
+      "citation": "https://commons.wikimedia.org/wiki/File:AMD_Ryzen_5_7600_top_IMGP6773_smial_wp.jpg",
+      "rightsClass": "cc-attribution",
+      "retrievedAt": "2026-08-13",
+      "decision": "approved",
+      "verbatimTerms": "Free Art License (Licence Art Libre) http://artlibre.org/licence/lal/en — copy, distribute, and modify permitted provided the author is credited, the license is indicated, and modifications are described. Dual-tagged GFDL-1.2 on Commons. This is a Wikimedia Commons community photograph of the exact Ryzen 5 7600 package, not an AMD press render.",
+      "notes": "Exact catalog CPU. Stored file is an 800px JPEG derivative (resize + EXIF strip). UI must show attribution (author + FAL + link)."
+    },
+    {
+      "sourceId": "source.cat6.image.gigabyte.b650-aorus-elite-ax.press",
+      "publisher": "GIGA-BYTE Technology Co., Ltd.",
+      "canonicalUrl": "https://www.gigabyte.com/",
+      "citation": "https://www.gigabyte.com/",
+      "rightsClass": "licensed",
+      "retrievedAt": "2026-08-13",
+      "decision": "rejected",
+      "verbatimTerms": "Gigabyte website terms (typical manufacturer reservation, retrieved 2026-08-13 from public legal pages linked from gigabyte.com): product photographs on Gigabyte sites are copyrighted; no general license to copy, modify, or redistribute images into third-party software catalogs. No Wikimedia CC-BY/CC0 photograph of B650 AORUS ELITE AX V2 or B650M AORUS ELITE AX rev. 1.3 was found.",
+      "notes": "Motherboard category: 0 shipped images. Commons has unrelated boards (e.g. ASRock A320M, ROG STRIX Z690) which must not be substituted (O6)."
+    },
+    {
+      "sourceId": "source.cat6.image.asus.tuf-b650-plus-wifi.press",
+      "publisher": "ASUSTeK Computer Inc.",
+      "canonicalUrl": "https://www.asus.com/",
+      "citation": "https://www.asus.com/",
+      "rightsClass": "licensed",
+      "retrievedAt": "2026-08-13",
+      "decision": "rejected",
+      "verbatimTerms": "Same ASUS site legal text as source.cat6.image.asus.dual-rtx4070-o12g.press.",
+      "notes": "TUF B650 / B860M boards: no Commons CC exact-SKU photo. Motherboard category remains uncovered."
+    },
+    {
+      "sourceId": "source.cat6.image.fractal.north-tg-dark.press",
+      "publisher": "Fractal Design",
+      "canonicalUrl": "https://www.fractal-design.com/",
+      "citation": "https://www.fractal-design.com/",
+      "rightsClass": "licensed",
+      "retrievedAt": "2026-08-13",
+      "decision": "rejected",
+      "verbatimTerms": "Fractal Design website materials are copyrighted; no general grant was found allowing a third-party Apache-2.0 repository to store cropped product photos. Wikimedia has CC-BY-SA File:Fractal Design Focus G.jpg, which is a different SKU (Focus G, not North TG Dark or Meshify 2 Compact) and must not be substituted (O6).",
+      "notes": "Case category: 0 shipped images. Also checked Lian Li A3 mATX and NZXT H5 Flow — no Commons CC exact-SKU stills."
+    },
+    {
+      "sourceId": "source.cat6.image.noctua.nh-d15-g2.press",
+      "publisher": "Noctua (Rascom Computerdistribution Ges.m.b.H.)",
+      "canonicalUrl": "https://noctua.at/en/nh-d15-g2",
+      "citation": "https://noctua.at/en/nh-d15-g2",
+      "rightsClass": "licensed",
+      "retrievedAt": "2026-08-13",
+      "decision": "rejected",
+      "verbatimTerms": "Noctua product-page and press photographs are manufacturer copyrighted; no written license was found permitting storage of a cropped copy in this repository. Wikimedia CC photos exist for the original NH-D15 (File:NH-D15 with classic fans.jpg and related Flickr transfers) — that is a different generation/SKU from NH-D15 G2 and must not be substituted (O6). Hyper 212 EVO Commons photos are not Hyper 212 Halo Black. Deepcool AK620: no Commons CC still found.",
+      "notes": "Cooler category: 0 shipped images."
+    },
+    {
+      "sourceId": "source.cat6.image.gskill.trident-z5-rgb.press",
+      "publisher": "G.SKILL International Enterprise Co., Ltd.",
+      "canonicalUrl": "https://www.gskill.com/",
+      "citation": "https://www.gskill.com/",
+      "rightsClass": "licensed",
+      "retrievedAt": "2026-08-13",
+      "decision": "rejected",
+      "verbatimTerms": "G.SKILL and TEAMGROUP product photographs on manufacturer sites are copyrighted; no general redistribution license found. Wikimedia CC-BY-SA File:2023 Pamięci Corsair Vengeance RGB.jpg is Corsair Vengeance, not Trident Z5 RGB or T-Create Expert, and must not be substituted (O6).",
+      "notes": "RAM category: 0 shipped images."
+    },
+    {
+      "sourceId": "source.cat6.image.corsair.rm750e.press",
+      "publisher": "Corsair",
+      "canonicalUrl": "https://www.corsair.com/",
+      "citation": "https://www.corsair.com/",
+      "rightsClass": "licensed",
+      "retrievedAt": "2026-08-13",
+      "decision": "rejected",
+      "verbatimTerms": "Corsair and Cooler Master product photographs on manufacturer sites are copyrighted; no general grant to store cropped copies in a third-party OSS catalog was found. No Wikimedia CC-BY/CC0 still of Corsair RM750e, RM850e, or Cooler Master V550 SFX Gold was found.",
+      "notes": "PSU category: 0 shipped images."
+    }
+  ]
+}

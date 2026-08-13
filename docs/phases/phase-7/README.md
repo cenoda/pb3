@@ -1,7 +1,8 @@
 # Phase 7 — Catalog browser + part images
 
-**Status: M0 accepted 2026-08-13. Owner decisions O1–O7 locked as proposed.
-Implementation authorized 2026-08-13.**
+**Status: Steps 1–6 implemented and owner-approved 2026-08-13.**
+O1–O7 remain locked as proposed. O2 floor missed for six categories
+(see `implementation_plan.md` honest failure modes).
 
 Closes the two remaining known gaps from Phase 5's owner walkthrough: a
 dropdown instead of a browse-and-pick picker, and no part photos. Real
@@ -22,7 +23,8 @@ follow-up.
 | Owner decisions O1–O7 | **Locked — 2026-08-13** (accepted as proposed) |
 | Implementation plan | **Done — 2026-08-13** |
 | Owner acceptance + implementation start | **Done — 2026-08-13** |
-| Implementation | Not started |
+| Implementation | **Steps 1–6 done — 2026-08-13** (O2 miss: CPU 2 images; 6 categories 0) |
+| Owner closeout | **Approved — 2026-08-13** |
 
 ## Relationship to other work
 
@@ -31,4 +33,9 @@ follow-up.
 - **Reuses Phase 4's rights pattern.** `EvidenceRightsClass` and the
   `source-rights-record.json` shape, applied to image sources instead of
   performance evidence sources.
-- **Does not touch** `compat2`, `perf1`, `prov4`, or `phys3`.
+- **Does not touch** `compat2`, `perf1`, `prov4` engine/pilot data, or `phys3`.
+  One additive `EvidenceRightsClass` literal (`cc-attribution`) only.
+
+The next UI slice is intentionally separate: one catalog selection page per
+part category. Additional images remain an incremental curation track and ship
+only when exact-SKU identity and storage rights are evidenced.

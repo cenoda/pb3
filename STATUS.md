@@ -130,10 +130,14 @@
     미모델), aggregate/verdict 비차단; 다른 unavailable는 기존 caution 유지;
     BIOS 데이터 창작 없음). Final closeout:
     [`CLOSEOUT.md`](docs/phases/phase-6/CLOSEOUT.md)
-12. **Phase 7 (카탈로그 브라우저 + 이미지)** — **M0 수락 · 구현 승인
-    (2026-08-13)**; 결정 O1–O7 제안대로 확정 (`"cc-attribution"` rights class
-    추가, 카테고리당 최소 1장, 제조사 프레스킷 + CC-BY/CC0 혼용, 실물 3D 메시는
-    범위 밖); `implementation_plan.md` Steps 1–6 작성 완료 —
+12. **Phase 7 (카탈로그 브라우저 + 이미지)** — **Steps 1–6 구현 완료 · owner 승인
+    (2026-08-13)**
+    M0 수락 + O1–O7 확정 (2026-08-13). 그리드 피커 교체,
+    `cc-attribution` rights class, 이미지↔레지스트리 무결성. **O2 바닥
+    (카테고리당 1장) 미달**: CPU 2장만 출고 (Wikimedia CC0 + FAL, 정확 SKU).
+    GPU/motherboard/case/cooler/RAM/PSU는 제조사 프레스 조건이 저장을 금지하고
+    정확 SKU CC 사진이 없어 0장 (O6 대체 금지). 후속 작업은 카테고리별
+    선택 페이지와 추가 권리확보 이미지 큐레이션으로 분리한다 —
     [`docs/phases/phase-7/`](docs/phases/phase-7/)
 
 ## Phase 0 종료 승인 (2026-08-08)
