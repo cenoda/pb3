@@ -139,12 +139,12 @@
     정확 SKU CC 사진이 없어 0장 (O6 대체 금지). 카테고리별 선택 페이지는
     별도 UI 슬라이스. 이미지/스펙/시세 수집은 Phase 7.1 —
     [`docs/phases/phase-7/`](docs/phases/phase-7/)
-13. **Phase 7.1 (카탈로그 소스 수집 파이프라인, `ing7`)** — **M0 수락
-    (2026-08-13)**
-    O1–O10 제안대로 잠금. 후보/원문은 `.ingest/` (gitignore), 출고는
-    오너 apply만. 1차 슬라이스는 dry-run (Wikimedia CPU 이미지, 제조사
-    GPU 이미지, AMD 스펙). 구현 미시작. Phase 8 / ADR-004 3D / UI 변경
-    없음 — [`docs/phases/phase-7.1/`](docs/phases/phase-7.1/)
+13. **Phase 7.1 (카탈로그 소스 수집 파이프라인, `ing7`)** — **M0 수락 +
+    1차 슬라이스 소프트웨어 closeout (2026-08-13).**
+    O1–O10 제안대로 잠금. dry-run 파이프라인 구현. 출고/apply 없음.
+    수집 increment(후보 데이터 + 라이브 Commons/AMD 파서)는 후속,
+    여전히 dry-run. Step 9–10 / Phase 8 / ADR-004 3D / UI 변경 없음 —
+    [`docs/phases/phase-7.1/`](docs/phases/phase-7.1/)
 
 ## Phase 0 종료 승인 (2026-08-08)
 
@@ -462,4 +462,4 @@ browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
 | **O6 — BIOS** | Not modeled. Socket only; `checkChipsetBios` still returns raw `unavailable` without the map. **B4:** that raw result is informational/non-blocking for aggregate and surface verdict; other unavailable checks still caution |
 | **O2 — platform** | AM5/DDR5 only, **temporary narrowing**. Later platforms need versioned `compat2` widening |
 | Phase 4 / 4.1 | Still frozen |
-| Phase 7 | Closed 2026-08-13; Phase 7.1 M0 accepted, implementation not started |
+| Phase 7 | Closed 2026-08-13; Phase 7.1 first slice software-closed 2026-08-13 |

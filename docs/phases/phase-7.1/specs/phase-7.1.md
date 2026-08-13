@@ -1,8 +1,8 @@
 # Phase 7.1 — Catalog source-ingestion pipeline (M0 scope)
 
 Status: **M0 accepted 2026-08-13. Decisions O1–O10 locked as proposed
-(no amendments).** Implementation is not started; a separate start
-instruction is still required.
+(no amendments).** First slice Steps 1–8 software closeout accepted
+2026-08-13. Collection increment is a dry-run follow-up, not Step 9/10.
 
 Charter authority: [`../../../../PROJECT_CHARTER.md`](../../../../PROJECT_CHARTER.md)
 §2 (깊이 우선), §6 (부품 데이터 모델 원칙).

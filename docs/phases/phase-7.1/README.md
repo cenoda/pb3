@@ -1,8 +1,10 @@
 # Phase 7.1 — Catalog source-ingestion pipeline
 
 **Status: M0 accepted 2026-08-13. O1–O10 locked as proposed (no
-amendments). Implementation is not started — a separate start
-instruction is still required.**
+amendments). First slice Steps 1–8 software closeout accepted
+2026-08-13.** Collection increment (candidate data file + live Commons
+API / AMD HTML parsers) is a follow-up, still dry-run only. Steps 9–10
+and full phase closeout are **not** started.
 
 A bounded follow-up to Phase 7. It does **not** start Phase 8, does **not**
 redesign the catalog UI, and does **not** ship images, prices, or specs by
@@ -33,9 +35,11 @@ license lock.
 | Owner decisions O1–O10 | **Locked — 2026-08-13** (accepted as proposed) |
 | Implementation plan | **Done — 2026-08-13** |
 | Owner acceptance of this package | **Done — 2026-08-13** |
-| Explicit implementation-start instruction | **Required and not given** |
-| Implementation | **Not started** |
-| Owner closeout | **Not started** |
+| Explicit implementation-start instruction | **Given — first slice Steps 1–8** |
+| Implementation | **First slice Steps 1–8 done — 2026-08-13** |
+| First-slice software closeout | **Accepted — 2026-08-13** |
+| Collection increment | **Follow-up** (still dry-run; no apply) |
+| Full phase closeout | **Not started** (Steps 9–10 remain) |
 
 ## Current baseline (accepted, do not reopen)
 
@@ -77,16 +81,19 @@ Candidate and fetched bytes live under a gitignored workspace
   remains a separate product-surface slice.
 - **Not** Phase 8. **Not** ADR-004 3D work.
 
+## First-slice software closeout (2026-08-13)
+
+Owner accepted the Steps 1–8 software gate. `pnpm test` 379, `pnpm test:e2e`
+19, `pnpm build` green (`dist/.ingest` absent), `pnpm ingest:dry-run`
+`shippedTreeDirty: false`, `--apply` refused. Shipped catalog trees
+untouched. This is **not** a full Phase 7.1 closeout.
+
 ## Implementation start gate
 
-O1–O10 are locked and this M0 package is accepted. Still do not create
-`src/contract/ing7.ts`, `scripts/ingest/**`, `.ingest/`, or tests until
-the owner (or a later session) pastes the hand-off below as an explicit
-implementation-start instruction.
+The first slice is implemented and software-closed. Do not start Step 9,
+Step 10, catalog mutation, or Phase 8 without a new explicit instruction.
 
-Accepting the plan is not that instruction.
-
-## Implementation hand-off
+## Implementation hand-off (historical — first slice, already executed)
 
 Paste the following as a new-session start instruction. It authorizes
 **Steps 1–8 only** (dry-run first slice). It does **not** authorize

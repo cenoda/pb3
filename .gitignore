@@ -12,3 +12,6 @@ dist/
 /blob-report/
 /playwright/.cache/
 .playwright-cli/
+
+# Phase 7.1 ingest workspace — never Vite-served (O1)
+.ingest/

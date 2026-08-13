@@ -4,8 +4,8 @@ Derived from [`specs/phase-7.1.md`](./specs/phase-7.1.md). Required by the
 "plan before code" rule in [`../README.md`](../README.md).
 
 Status: **Accepted 2026-08-13. Owner decisions O1–O10 locked as proposed
-(no amendments).** Implementation is not started — a separate start
-instruction is still required. See `README.md` §"Implementation hand-off".
+(no amendments).** First slice Steps 1–8 software closeout accepted
+2026-08-13. Collection increment is a dry-run follow-up, not Step 9/10.
 
 ---
 

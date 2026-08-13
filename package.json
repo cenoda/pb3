@@ -12,7 +12,8 @@
     "test:e2e:headed": "node scripts/run-clean-env.mjs playwright test --headed",
     "test:all": "pnpm test && pnpm test:e2e",
     "explore:cli": "node scripts/run-clean-env.mjs playwright-cli",
-    "explore:phase0": "node scripts/explore-phase0-cli.mjs"
+    "explore:phase0": "node scripts/explore-phase0-cli.mjs",
+    "ingest:dry-run": "node scripts/run-clean-env.mjs node --no-warnings --import ./scripts/ingest/register-ts.mjs scripts/ingest/cli.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.6",

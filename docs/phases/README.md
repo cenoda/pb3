@@ -13,7 +13,7 @@ Per-phase working areas (specs, TODO, fix log). Cross-cutting project docs stay 
 | Phase 5 — Product surface | [`phase-5/`](./phase-5/) | **Complete** (2026-08-09); owner-approved closeout. Presentation only; no engine, contract or data change |
 | Phase 6 — Real parts catalog | [`phase-6/`](./phase-6/) | **Complete; owner-approved closeout 2026-08-12.** Steps 1–12 done; Step 12 accepted; B4 resolved. Primarily catalog/data; Step 6 physical-authority carve-out + B4 compatibility aggregation/verdict carve-out only |
 | Phase 7 — Catalog browser + part images | [`phase-7/`](./phase-7/) | **Complete; owner-approved 2026-08-13.** Steps 1–6 done; O2 floor missed (CPU 2 images; six categories 0) |
-| Phase 7.1 — Catalog source-ingestion pipeline | [`phase-7.1/`](./phase-7.1/) | **M0 accepted 2026-08-13.** O1–O10 locked as proposed. Implementation not started; first slice is dry-run only |
+| Phase 7.1 — Catalog source-ingestion pipeline | [`phase-7.1/`](./phase-7.1/) | **M0 accepted; first slice software-closed 2026-08-13.** O1–O10 locked. Dry-run only; Steps 9–10 not started |
 
 Fixture data remains at repo root: `parts/`, `benchmarks/` (not moved into phase folders).
 
