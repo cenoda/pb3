@@ -142,8 +142,9 @@
 13. **Phase 7.1 (카탈로그 소스 수집 파이프라인, `ing7`)** — **M0 수락 +
     1차 슬라이스 소프트웨어 closeout (2026-08-13).**
     O1–O10 제안대로 잠금. dry-run 파이프라인 구현. 출고/apply 없음.
-    수집 increment(후보 데이터 + 라이브 Commons/AMD 파서)는 후속,
-    여전히 dry-run. Step 9–10 / Phase 8 / ADR-004 3D / UI 변경 없음 —
+    수집 increment(후보 JSON + Commons API / AMD dt-dd 파서) 구현.
+    `--live`는 `.ingest/` 패킷만. apply/ship 없음. Step 9–10 / Phase 8 /
+    ADR-004 3D / UI 변경 없음 —
     [`docs/phases/phase-7.1/`](docs/phases/phase-7.1/)
 
 ## Phase 0 종료 승인 (2026-08-08)

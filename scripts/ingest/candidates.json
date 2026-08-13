@@ -1,0 +1,42 @@
+{
+  "contractVersion": "ing7",
+  "listVersion": "ing7-candidates-20260813",
+  "candidates": [
+    {
+      "contractVersion": "ing7",
+      "candidateId": "cand.wikimedia.cpu.amd-ryzen-5-7600",
+      "stage": "candidate",
+      "sourceKind": "licensed-still",
+      "intendedPartId": "cpu.amd-ryzen-5-7600",
+      "canonicalUrl": "https://commons.wikimedia.org/wiki/File:AMD_Ryzen_5_7600_top_IMGP6773_smial_wp.jpg",
+      "createdAt": "2026-08-13"
+    },
+    {
+      "contractVersion": "ing7",
+      "candidateId": "cand.wikimedia.cpu.amd-ryzen-7-7800x3d",
+      "stage": "candidate",
+      "sourceKind": "licensed-still",
+      "intendedPartId": "cpu.amd-ryzen-7-7800x3d",
+      "canonicalUrl": "https://commons.wikimedia.org/wiki/File:AMD@5nmCCD(6nmIOD)@Zen4@Raphael@Ryzen_7_7800X3D@100-000000910_BS_2312PGY_9LW3390030138_DSCx01.jpg",
+      "createdAt": "2026-08-13"
+    },
+    {
+      "contractVersion": "ing7",
+      "candidateId": "cand.manufacturer.gpu.asus-dual-rtx4070-o12g",
+      "stage": "candidate",
+      "sourceKind": "manufacturer-image-page",
+      "intendedPartId": "gpu.asus-dual-rtx4070-o12g",
+      "canonicalUrl": "https://www.asus.com/us/motherboards-components/graphics-cards/dual/dual-rtx4070-o12g/",
+      "createdAt": "2026-08-13"
+    },
+    {
+      "contractVersion": "ing7",
+      "candidateId": "cand.amd-spec.cpu.amd-ryzen-5-7600",
+      "stage": "candidate",
+      "sourceKind": "manufacturer-spec-page",
+      "intendedPartId": "cpu.amd-ryzen-5-7600",
+      "canonicalUrl": "https://www.amd.com/en/products/processors/desktops/ryzen/7000-series/amd-ryzen-5-7600.html",
+      "createdAt": "2026-08-13"
+    }
+  ]
+}

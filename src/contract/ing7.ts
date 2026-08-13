@@ -59,7 +59,19 @@ export interface IngestCandidate {
   /** Hint only; matcher is authoritative. */
   intendedPartId?: string;
   canonicalUrl: string;
+  /**
+   * Optional GET target when it differs from the citation URL
+   * (e.g. Commons API vs File: page). Citation stays `canonicalUrl`.
+   */
+  fetchUrl?: string;
   createdAt: string;
+}
+
+export interface IngestCandidateFile {
+  contractVersion: Ing7ContractVersion;
+  /** e.g. "ing7-candidates-20260813". */
+  listVersion: string;
+  candidates: IngestCandidate[];
 }
 
 export interface IngestFetched {

@@ -59,11 +59,19 @@ async function liveGet(
   }
 }
 
+export interface FetchCandidateInput {
+  candidateId: string;
+  canonicalUrl: string;
+  /** GET target; defaults to canonicalUrl. Fixtures always key on canonicalUrl. */
+  requestUrl?: string;
+}
+
 export async function fetchCandidateBytes(
   workspace: IngestWorkspace,
   candidateId: string,
   canonicalUrl: string,
   options: FetchOptions,
+  requestUrl = canonicalUrl,
 ): Promise<IngestFetched> {
   const sidecarPath = join(workspace.root, "fetched", `${candidateId}.json`);
   const bytesPathRel = `${candidateId}.bin`;
@@ -90,7 +98,7 @@ export async function fetchCandidateBytes(
 
     if (!options.network) {
       const index = loadFixtureIndex(options.fixturesDir);
-      const rel = index[canonicalUrl];
+      const rel = index[canonicalUrl] ?? index[requestUrl];
       if (!rel) {
         return fail(`no fixture mapping for ${canonicalUrl}`, 404);
       }
@@ -99,7 +107,7 @@ export async function fetchCandidateBytes(
       contentType = contentTypeFor(fixturePath);
     } else {
       const got = await liveGet(
-        canonicalUrl,
+        requestUrl,
         options.timeoutMs ?? FETCH_TIMEOUT_MS,
       );
       status = got.status;

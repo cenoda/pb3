@@ -1,0 +1,32 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "pages": {
+      "123": {
+        "pageid": 123,
+        "title": "File:AMD Ryzen 5 7600 top IMGP6773 smial wp.jpg",
+        "imageinfo": [
+          {
+            "size": 800,
+            "mime": "image/jpeg",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/example-7600.jpg",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:AMD_Ryzen_5_7600_top_IMGP6773_smial_wp.jpg",
+            "extmetadata": {
+              "LicenseShortName": { "value": "FAL" },
+              "LicenseUrl": { "value": "http://artlibre.org/licence/lal/en" },
+              "Artist": {
+                "value": "<a href=\"//commons.wikimedia.org/wiki/User:Smial\">Smial</a>"
+              },
+              "UsageTerms": { "value": "Free Art License" },
+              "ObjectName": { "value": "AMD Ryzen 5 7600 top IMGP6773 smial wp" },
+              "ImageDescription": {
+                "value": "AMD Ryzen 5 7600 Oberseite. 6 Kerne / 12 threads. Sockel AM5"
+              },
+              "AttributionRequired": { "value": "true" }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

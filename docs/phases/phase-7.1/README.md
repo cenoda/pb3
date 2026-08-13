@@ -38,7 +38,7 @@ license lock.
 | Explicit implementation-start instruction | **Given — first slice Steps 1–8** |
 | Implementation | **First slice Steps 1–8 done — 2026-08-13** |
 | First-slice software closeout | **Accepted — 2026-08-13** |
-| Collection increment | **Follow-up** (still dry-run; no apply) |
+| Collection increment | **Done — 2026-08-13** (candidate file + live parsers; dry-run only) |
 | Full phase closeout | **Not started** (Steps 9–10 remain) |
 
 ## Current baseline (accepted, do not reopen)
@@ -90,7 +90,15 @@ untouched. This is **not** a full Phase 7.1 closeout.
 
 ## Implementation start gate
 
-The first slice is implemented and software-closed. Do not start Step 9,
+The first slice is implemented and software-closed. The collection
+increment adds `scripts/ingest/candidates.json`, Commons File: → API
+resolution, and AMD `dt`/`dd` parsing. Default `pnpm ingest:dry-run`
+stays fixture-only. `pnpm ingest:dry-run --live` fetches the four
+seeded URLs into `.ingest/` and still cannot apply.
+
+Live Commons metadata for the 7600 still has **no boxed OPN** — that
+packet is correctly **not** `sku-exact`. The 7800X3D File: title carries
+tray OPN `100-000000910` and stays ambiguous. Do not start Step 9,
 Step 10, catalog mutation, or Phase 8 without a new explicit instruction.
 
 ## Implementation hand-off (historical — first slice, already executed)

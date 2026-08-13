@@ -1,0 +1,29 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "pages": {
+      "456": {
+        "pageid": 456,
+        "title": "File:AMD@5nmCCD(6nmIOD)@Zen4@Raphael@Ryzen 7 7800X3D@100-000000910 BS 2312PGY 9LW3390030138 DSCx01.jpg",
+        "imageinfo": [
+          {
+            "mime": "image/jpeg",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/example-7800x3d.jpg",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:AMD@5nmCCD(6nmIOD)@Zen4@Raphael@Ryzen_7_7800X3D@100-000000910_BS_2312PGY_9LW3390030138_DSCx01.jpg",
+            "extmetadata": {
+              "LicenseShortName": { "value": "CC0" },
+              "LicenseUrl": { "value": "http://creativecommons.org/publicdomain/zero/1.0/deed.en" },
+              "Artist": { "value": "FritzchensFritz" },
+              "UsageTerms": { "value": "Creative Commons Zero, Public Domain Dedication" },
+              "ObjectName": {
+                "value": "AMD@5nmCCD(6nmIOD)@Zen4@Raphael@Ryzen 7 7800X3D@100-000000910 BS 2312PGY"
+              },
+              "ImageDescription": { "value": "AMD Ryzen 7 7800X3D (Zen 4 | Raphael)" },
+              "AttributionRequired": { "value": "false" }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

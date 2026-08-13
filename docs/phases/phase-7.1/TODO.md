@@ -30,10 +30,10 @@ Collection increment follow-up authorized (still dry-run).**
 
 ## Collection increment (still dry-run; not Step 9/10)
 
-- [ ] Candidate list as checked-in data (`scripts/ingest/candidates.json`)
-- [ ] Commons File: URL → API fetch + live `extmetadata` parse
-- [ ] AMD product page `dt`/`dd` parse (real HTML, not fixture-only `#product-spec`)
-- [ ] `--live` stacks packets under `.ingest/` only; `--apply` still refused
+- [x] Candidate list as checked-in data (`scripts/ingest/candidates.json`)
+- [x] Commons File: URL → API fetch + live `extmetadata` parse
+- [x] AMD product page `dt`/`dd` parse (real HTML, not fixture-only `#product-spec`)
+- [x] `--live` stacks packets under `.ingest/` only; `--apply` still refused
 
 ## Later slices (not first-slice exit)
 

@@ -1,4 +1,5 @@
-import { ING7_CONTRACT_VERSION, type IngestCandidate } from "../contract/ing7";
+import type { IngestCandidate } from "../contract/ing7";
+import { DEFAULT_CANDIDATES_REL, loadCandidateFile, withCreatedAt } from "./loadCandidates";
 
 export const COMMONS_RYZEN_5_7600 =
   "https://commons.wikimedia.org/wiki/File:AMD_Ryzen_5_7600_top_IMGP6773_smial_wp.jpg";
@@ -12,43 +13,10 @@ export const ASUS_DUAL_RTX4070 =
 export const AMD_RYZEN_5_7600_SPEC =
   "https://www.amd.com/en/products/processors/desktops/ryzen/7000-series/amd-ryzen-5-7600.html";
 
-export function firstSliceCandidates(createdAt: string): IngestCandidate[] {
-  return [
-    {
-      contractVersion: ING7_CONTRACT_VERSION,
-      candidateId: "cand.wikimedia.cpu.amd-ryzen-5-7600",
-      stage: "candidate",
-      sourceKind: "licensed-still",
-      intendedPartId: "cpu.amd-ryzen-5-7600",
-      canonicalUrl: COMMONS_RYZEN_5_7600,
-      createdAt,
-    },
-    {
-      contractVersion: ING7_CONTRACT_VERSION,
-      candidateId: "cand.wikimedia.cpu.amd-ryzen-7-7800x3d",
-      stage: "candidate",
-      sourceKind: "licensed-still",
-      intendedPartId: "cpu.amd-ryzen-7-7800x3d",
-      canonicalUrl: COMMONS_RYZEN_7_7800X3D,
-      createdAt,
-    },
-    {
-      contractVersion: ING7_CONTRACT_VERSION,
-      candidateId: "cand.manufacturer.gpu.asus-dual-rtx4070-o12g",
-      stage: "candidate",
-      sourceKind: "manufacturer-image-page",
-      intendedPartId: "gpu.asus-dual-rtx4070-o12g",
-      canonicalUrl: ASUS_DUAL_RTX4070,
-      createdAt,
-    },
-    {
-      contractVersion: ING7_CONTRACT_VERSION,
-      candidateId: "cand.amd-spec.cpu.amd-ryzen-5-7600",
-      stage: "candidate",
-      sourceKind: "manufacturer-spec-page",
-      intendedPartId: "cpu.amd-ryzen-5-7600",
-      canonicalUrl: AMD_RYZEN_5_7600_SPEC,
-      createdAt,
-    },
-  ];
+/** @deprecated Use loadCandidateFile. Kept so existing imports resolve. */
+export function firstSliceCandidates(
+  createdAt: string,
+  repoRoot = process.cwd(),
+): IngestCandidate[] {
+  return withCreatedAt(loadCandidateFile(repoRoot, DEFAULT_CANDIDATES_REL), createdAt);
 }

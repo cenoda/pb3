@@ -84,6 +84,7 @@ export const ingestCandidateSchema = z.object({
   sourceKind: ingestSourceKindSchema,
   intendedPartId: nonEmptyString.optional(),
   canonicalUrl: nonEmptyString,
+  fetchUrl: nonEmptyString.optional(),
   createdAt: iso8601DateSchema,
 });
 
@@ -325,3 +326,9 @@ export const ingestCandidateListSchema = z
       });
     }
   });
+
+export const ingestCandidateFileSchema = z.object({
+  contractVersion: ing7ContractVersionSchema,
+  listVersion: nonEmptyString,
+  candidates: ingestCandidateListSchema,
+});

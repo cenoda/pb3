@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { ING7_CONTRACT_VERSION } from "../contract/ing7";
 import {
   dryRunReportSchema,
+  ingestCandidateFileSchema,
   ingestCandidateListSchema,
   ingestCandidateSchema,
   ingestFetchedSchema,
@@ -63,6 +64,15 @@ describe("ing7 schema", () => {
   it("rejects duplicate candidateId in a list", () => {
     const parsed = ingestCandidateListSchema.safeParse([candidate, candidate]);
     expect(parsed.success).toBe(false);
+  });
+
+  it("accepts a candidate file with unique ids", () => {
+    const parsed = ingestCandidateFileSchema.safeParse({
+      contractVersion: ING7_CONTRACT_VERSION,
+      listVersion: "ing7-candidates-test",
+      candidates: [candidate, { ...candidate, candidateId: "cand.other" }],
+    });
+    expect(parsed.success).toBe(true);
   });
 
   it("accepts unique candidateIds", () => {

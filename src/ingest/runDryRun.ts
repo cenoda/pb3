@@ -15,7 +15,12 @@ import { hashShippedCatalogTrees, sha256Buffer } from "./hashTree";
 import { matchExactSku } from "./matchExactSku";
 import { normalizeFetched } from "./normalize";
 import { reviewRights } from "./reviewRights";
-import { firstSliceCandidates } from "./seedCandidates";
+import {
+  DEFAULT_CANDIDATES_REL,
+  loadCandidateFile,
+  withCreatedAt,
+} from "./loadCandidates";
+import { requestUrlForCandidate } from "./resolveFetchUrl";
 import { assertNotShipped } from "./stages";
 import {
   ensureIngestWorkspace,
@@ -30,6 +35,7 @@ export interface RunDryRunOptions {
   network?: boolean;
   fixturesDir?: string;
   clock?: string;
+  candidatesRel?: string;
 }
 
 function asString(value: unknown): string | undefined {
@@ -52,7 +58,10 @@ export async function runIngestDryRun(options: RunDryRunOptions) {
   const partPathById = new Map(manifest.parts.map((p) => [p.id, p.path]));
 
   const packets: OwnerReviewPacket[] = [];
-  const candidates = firstSliceCandidates(clock);
+  const candidates = withCreatedAt(
+    loadCandidateFile(options.repoRoot, options.candidatesRel ?? DEFAULT_CANDIDATES_REL),
+    clock,
+  );
 
   for (const candidate of candidates) {
     writeCandidate(workspace, candidate);
@@ -65,6 +74,9 @@ export async function runIngestDryRun(options: RunDryRunOptions) {
         network: options.network === true,
         fixturesDir,
       },
+      options.network === true
+        ? requestUrlForCandidate(candidate)
+        : candidate.canonicalUrl,
     );
     if (fetched.stage !== "fetched") {
       continue;

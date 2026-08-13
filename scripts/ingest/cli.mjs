@@ -13,6 +13,7 @@ const { values } = parseArgs({
     live: { type: "boolean", default: false },
     network: { type: "boolean", default: false },
     fixtures: { type: "string" },
+    candidates: { type: "string" },
     clock: { type: "string", default: "2026-08-13" },
     "repo-root": { type: "string" },
     "no-apply": { type: "boolean", default: true },
@@ -36,6 +37,7 @@ const result = await runIngestDryRun({
   fixturesDir: values.fixtures
     ? resolve(repoRoot, values.fixtures)
     : resolve(repoRoot, "src/test/fixtures/ing7"),
+  candidatesRel: values.candidates,
   clock: values.clock,
 });
 
