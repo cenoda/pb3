@@ -136,9 +136,15 @@
     `cc-attribution` rights class, 이미지↔레지스트리 무결성. **O2 바닥
     (카테고리당 1장) 미달**: CPU 2장만 출고 (Wikimedia CC0 + FAL, 정확 SKU).
     GPU/motherboard/case/cooler/RAM/PSU는 제조사 프레스 조건이 저장을 금지하고
-    정확 SKU CC 사진이 없어 0장 (O6 대체 금지). 후속 작업은 카테고리별
-    선택 페이지와 추가 권리확보 이미지 큐레이션으로 분리한다 —
+    정확 SKU CC 사진이 없어 0장 (O6 대체 금지). 카테고리별 선택 페이지는
+    별도 UI 슬라이스. 이미지/스펙/시세 수집은 Phase 7.1 —
     [`docs/phases/phase-7/`](docs/phases/phase-7/)
+13. **Phase 7.1 (카탈로그 소스 수집 파이프라인, `ing7`)** — **M0 수락
+    (2026-08-13)**
+    O1–O10 제안대로 잠금. 후보/원문은 `.ingest/` (gitignore), 출고는
+    오너 apply만. 1차 슬라이스는 dry-run (Wikimedia CPU 이미지, 제조사
+    GPU 이미지, AMD 스펙). 구현 미시작. Phase 8 / ADR-004 3D / UI 변경
+    없음 — [`docs/phases/phase-7.1/`](docs/phases/phase-7.1/)
 
 ## Phase 0 종료 승인 (2026-08-08)
 
@@ -456,4 +462,4 @@ browse-and-pick dialog, 3D models are plain boxes. All three are blocked on a
 | **O6 — BIOS** | Not modeled. Socket only; `checkChipsetBios` still returns raw `unavailable` without the map. **B4:** that raw result is informational/non-blocking for aggregate and surface verdict; other unavailable checks still caution |
 | **O2 — platform** | AM5/DDR5 only, **temporary narrowing**. Later platforms need versioned `compat2` widening |
 | Phase 4 / 4.1 | Still frozen |
-| Phase 7 | **Not started** |
+| Phase 7 | Closed 2026-08-13; Phase 7.1 M0 accepted, implementation not started |

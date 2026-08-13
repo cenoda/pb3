@@ -11,7 +11,9 @@ Per-phase working areas (specs, TODO, fix log). Cross-cutting project docs stay 
 | Phase 4 — Evidence-grade data and validation | [`phase-4/`](./phase-4/) | **Frozen** 2026-08-09 ([`FREEZE.md`](./phase-4/FREEZE.md)); prov4 + external evidence shipped; Step 9 not claimed |
 | Phase 4.1 — Combination performance estimator (sub-path) | [`phase-4.1/`](./phase-4.1/) | **Frozen** with Phase 4; `est1` M0 + AMD specs catalog spine shipped; full sim paused; not Phase 5 |
 | Phase 5 — Product surface | [`phase-5/`](./phase-5/) | **Complete** (2026-08-09); owner-approved closeout. Presentation only; no engine, contract or data change |
-| Phase 6 — Real parts catalog | [`phase-6/`](./phase-6/) | **Complete; owner-approved closeout 2026-08-12.** Steps 1–12 done; Step 12 accepted; B4 resolved. Phase 7 not started. Primarily catalog/data; Step 6 physical-authority carve-out + B4 compatibility aggregation/verdict carve-out only |
+| Phase 6 — Real parts catalog | [`phase-6/`](./phase-6/) | **Complete; owner-approved closeout 2026-08-12.** Steps 1–12 done; Step 12 accepted; B4 resolved. Primarily catalog/data; Step 6 physical-authority carve-out + B4 compatibility aggregation/verdict carve-out only |
+| Phase 7 — Catalog browser + part images | [`phase-7/`](./phase-7/) | **Complete; owner-approved 2026-08-13.** Steps 1–6 done; O2 floor missed (CPU 2 images; six categories 0) |
+| Phase 7.1 — Catalog source-ingestion pipeline | [`phase-7.1/`](./phase-7.1/) | **M0 accepted 2026-08-13.** O1–O10 locked as proposed. Implementation not started; first slice is dry-run only |
 
 Fixture data remains at repo root: `parts/`, `benchmarks/` (not moved into phase folders).
 
