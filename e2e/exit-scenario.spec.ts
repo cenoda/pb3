@@ -69,16 +69,18 @@ test.describe("Phase 0 exit scenario (plan Step 8)", () => {
     await expect(page.getByTestId("ram-part-select")).toHaveValue(DEFAULT_RAM);
     await expect(page.getByTestId("psu-select")).toHaveValue(DEFAULT_PSU);
 
+    await page.getByTestId("catalog-tab-cpu").click();
     await expect(page.getByTestId("cpu-select-grid")).toBeVisible();
-    await expect(page.getByTestId("gpu-select-grid")).toBeVisible();
     await expect(
       page.locator('[data-testid="cpu-select-grid"] [data-part-id="cpu.amd-ryzen-5-7600"] img'),
     ).toBeVisible();
+    await expect(page.getByTestId("image-attribution")).toContainText("FAL");
+    await page.getByTestId("catalog-tab-gpu").click();
+    await expect(page.getByTestId("gpu-select-grid")).toBeVisible();
     await expect(
       page.locator('[data-testid="gpu-select-grid"] .part-card-placeholder').first(),
     ).toBeVisible();
-    await expect(page.getByTestId("image-attribution")).toContainText("FAL");
-
+    await page.getByTestId("catalog-tab-cpu").click();
     await page
       .locator(
         '[data-testid="cpu-select-grid"] [data-part-id="cpu.amd-ryzen-7-7800x3d"]',

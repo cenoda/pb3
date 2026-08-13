@@ -9,6 +9,8 @@ export interface PartPickerProps {
   options: PartDefinitionV2[];
   onChange: (partId: string) => void;
   imageSources?: ReadonlyMap<string, ImageSourceRegistryEntry>;
+  showGrid?: boolean;
+  showSelect?: boolean;
 }
 
 export function keySpecLines(part: PartDefinitionV2): string[] {
@@ -67,6 +69,8 @@ export function PartPicker({
   options,
   onChange,
   imageSources,
+  showGrid = true,
+  showSelect = true,
 }: PartPickerProps) {
   const selectId = `part-${testId}`;
   const gridId = `${testId}-grid`;
@@ -76,9 +80,9 @@ export function PartPicker({
       <label className="part-picker-label" htmlFor={selectId}>
         {label}
       </label>
-      <select
+      {showSelect ? <select
         id={selectId}
-        className="part-picker-select visually-hidden"
+        className={showGrid ? "part-picker-select visually-hidden" : "part-picker-select"}
         data-testid={testId}
         value={value}
         onChange={(event) => onChange(event.target.value)}
@@ -88,8 +92,8 @@ export function PartPicker({
             {part.displayName}
           </option>
         ))}
-      </select>
-      <div
+      </select> : null}
+      {showGrid ? <div
         className="part-picker-grid"
         data-testid={gridId}
         role="listbox"
@@ -140,7 +144,7 @@ export function PartPicker({
             </div>
           );
         })}
-      </div>
+      </div> : null}
     </div>
   );
 }

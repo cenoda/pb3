@@ -39,3 +39,7 @@ follow-up.
 The next UI slice is intentionally separate: one catalog selection page per
 part category. Additional images remain an incremental curation track and ship
 only when exact-SKU identity and storage rights are evidenced.
+
+Follow-up implementation status: category tabs and previous/next navigation are
+now implemented in the main product surface. The legacy native selects remain
+available in the compact build summary for URL/E2E compatibility.

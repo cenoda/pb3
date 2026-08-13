@@ -89,8 +89,18 @@ const PART_SLOTS: {
   { category: "psu", label: "Power supply", testId: "psu-select" },
 ];
 
+function categoryFromPathname(pathname: string): PartCategoryV2 {
+  const slug = pathname.match(/^\/catalog\/([^/]+)/)?.[1];
+  return PART_SLOTS.some((slot) => slot.category === slug)
+    ? (slug as PartCategoryV2)
+    : "case";
+}
+
 export default function App() {
   const [boot, setBoot] = useState<BootState>({ status: "loading" });
+  const [activeCategory, setActiveCategory] = useState<PartCategoryV2>(() =>
+    categoryFromPathname(window.location.pathname),
+  );
   const buildState = useBuildStore((store) => store.buildState);
   const initialized = useBuildStore((store) => store.initialized);
   const init = useBuildStore((store) => store.init);
@@ -322,6 +332,11 @@ export default function App() {
     );
   }, [boot]);
 
+  const activeSlot = PART_SLOTS.find((slot) => slot.category === activeCategory)!;
+  const chooseCategory = (category: PartCategoryV2) => {
+    setActiveCategory(category);
+  };
+
   const railContent =
     boot.status === "loading" ? (
       <p className="rail-message" data-testid="rail-loading">
@@ -343,9 +358,50 @@ export default function App() {
           options={boot.catalog.getByCategory(slot.category)}
           onChange={setters[slot.category]}
           imageSources={imageSourceMap}
+          showGrid={false}
         />
       ))
     );
+
+  const catalogPage = boot.status === "ready" && buildState ? (
+    <section className="catalog-page" data-testid="catalog-page">
+      <div className="catalog-page-header">
+        <div>
+          <p className="eyebrow">Catalog</p>
+          <h2>{activeSlot.label}</h2>
+        </div>
+        <div className="catalog-page-nav" role="tablist" aria-label="Part categories">
+          {PART_SLOTS.map((slot) => (
+            <button
+              key={slot.category}
+              type="button"
+              role="tab"
+              aria-selected={slot.category === activeCategory}
+              className={slot.category === activeCategory ? "catalog-tab catalog-tab-active" : "catalog-tab"}
+              data-testid={`catalog-tab-${slot.category}`}
+              onClick={() => chooseCategory(slot.category)}
+            >
+              {slot.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <PartPicker
+        label={activeSlot.label}
+        testId={activeSlot.testId}
+        value={selectedPartId(buildState, activeSlot.category)}
+        options={boot.catalog.getByCategory(activeSlot.category)}
+        onChange={setters[activeSlot.category]}
+        imageSources={imageSourceMap}
+        showSelect={false}
+      />
+      <div className="catalog-page-footer">
+        <button type="button" className="catalog-step-button" onClick={() => chooseCategory(PART_SLOTS[Math.max(0, PART_SLOTS.findIndex((slot) => slot.category === activeCategory) - 1)].category)} disabled={activeCategory === PART_SLOTS[0].category}>Previous</button>
+        <span>{PART_SLOTS.findIndex((slot) => slot.category === activeCategory) + 1} / {PART_SLOTS.length}</span>
+        <button type="button" className="catalog-step-button" onClick={() => chooseCategory(PART_SLOTS[Math.min(PART_SLOTS.length - 1, PART_SLOTS.findIndex((slot) => slot.category === activeCategory) + 1)].category)} disabled={activeCategory === PART_SLOTS[PART_SLOTS.length - 1].category}>Next</button>
+      </div>
+    </section>
+  ) : null;
 
   return (
     <div className="app" data-testid="app">
@@ -366,6 +422,10 @@ export default function App() {
           <h2 className="rail-heading">Parts</h2>
           {railContent}
         </aside>
+
+        <main className="catalog-column" data-testid="catalog-column">
+          {catalogPage}
+        </main>
 
         <div className="stage">
           <section className="viewport-area" data-testid="viewport-area">
